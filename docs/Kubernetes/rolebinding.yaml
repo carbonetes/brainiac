@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: RoleBinding
+metadata:
+  name: restricted-access
+subjects:
+- kind: ServiceAccount
+  name: my-service-account
+- kind: Node
+  name: my-node
+roleRef:
+  kind: ClusterRole
+  name: restricted-access
+  apiGroup: rbac.authorization.k8s.io

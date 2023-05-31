@@ -1,0 +1,156 @@
+project_name: brainiac
+release:
+  github:
+    owner: carbonetes
+    name: brainiac
+  name_template: '{{.Tag}}'
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - id: linux-builds
+    binary: brainiac
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - ppc64le
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+
+  - id: darwin-builds
+    binary: brainiac
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+
+  - id: windows-build
+    binary: brainiac
+    goos:
+      - windows
+    goarch:
+      - amd64
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+
+archives:
+  - id: tar-archives
+    builds:
+      - linux-builds
+      - darwin-builds
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format: tar.gz
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+
+  - id: zip-archives
+    builds:
+      - windows-build
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format: zip
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+
+nfpms:
+  - file_name_template: '{{ .PackageName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+    package_name: brainiac
+    id: default
+    formats:
+      - rpm
+      - deb
+    homepage: https://github.com/carbonetes/brainiac
+    maintainer: Carbonetes
+    description: Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment.
+    license: Apache 2.0
+    bindir: /usr/bin
+
+# brews:
+#   - 
+#     skip_upload: false   # set to true to avoid uploading while under testing
+#     tap:
+#       owner: carbonetes
+#       name: homebrew-brainiac
+#       branch: main
+#     folder: Formula
+#     ids:
+#       - tar-archives
+#     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+#     homepage: https://www.carbonetes.com/
+#     description: Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment.
+#     license: "Apache License 2.0"
+
+# scoop:
+#   skip_upload: false
+#   bucket:
+#     owner: carbonetes
+#     name: bainiac-bucket
+#     branch: main
+#     token: "{{ .Env.GITHUB_TOKEN }}"
+#   commit_author:
+#     name: carbonetes
+#     email: eng@carbonetes.com
+#   commit_msg_template: "Update for {{ .ProjectName }} version {{ .Tag }}"
+#   homepage: https://www.carbonetes.com/
+#   description: Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment.
+#   license: "Apache License 2.0"
+
+checksum:
+  name_template: '{{.ProjectName}}_{{.Version}}_checksums.txt'
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  abbrev: -1
+  groups:
+  - title: Features
+    regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+    order: 0
+  - title: 'Bug Fixes'
+    regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+    order: 1
+  - title: Others
+    regexp: '^.*?(refactor|chore|docs|test|style)(\([[:word:]]+\))??!?:.+$'
+    order: 999
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

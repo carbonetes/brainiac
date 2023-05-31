@@ -1,0 +1,49 @@
+# METADATA
+# title: "Verify that the --insecure-bind-address argument is not set."
+# description: "To ensure the security of your Kubernetes cluster, it is important to verify that the --insecure-bind-address argument is not set."
+# scope: package
+# related_resources:
+# - https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+# custom:
+#   id: CB_K8S_075
+#   severity: HIGH
+package lib.kubernetes.CB_K8S_075
+import data.lib.kubernetes
+
+resource = kubernetes.resource
+
+validResource := ["CronJob", "Pod"]
+isValid{
+	kubernetes.is_controller
+
+}
+isValid{
+	kubernetes.kind == validResource[_]
+}
+
+check[container]{
+	container := kubernetes.containers[_]
+	kubernetes.is_apiserver(container)
+	commands := container.command[_]
+	startswith(commands, "--bind-address")
+}
+
+noBindAddress[container]{
+	container := kubernetes.containers[_]
+	kubernetes.is_apiserver(container)
+	not check[container]
+}
+
+passed[result] {
+	isValid
+	res := noBindAddress[_]
+	result := {"message" : sprintf("Container %s for %s '%s' 'command(s)' '--bind-address' is not set.", [kubernetes.name, kubernetes.kind, kubernetes.name]),
+			   "snippet" : res}
+}
+
+failed[result] {
+	isValid
+    res := check[_]
+	result := {"message" : sprintf("Container %s for %s '%s' 'command(s) '--bind-address' should not be set.", [kubernetes.name, kubernetes.kind, kubernetes.name]),
+				"snippet" : res}
+}

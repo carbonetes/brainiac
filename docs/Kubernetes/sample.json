@@ -1,0 +1,95 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "nginx-deployment",
+      "namespace": "default",
+      "labels": {
+        "app": "nginx"
+      }
+    },
+    "spec": {
+      "replicas": 3,
+      "selector": {
+        "matchLabels": {
+          "app": "nginx"
+        }
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app": "nginx"
+          }
+        },
+        "spec": {
+          "hostPID": true,
+          "hostIPC": true,
+          "hostNetwork": true,
+          "securityContext": {
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "containers": [
+            {
+              "name": "nginx",
+              "imagePullPolicy": "Always",
+              "image": "nginx:latest",
+              "ports": [
+                {
+                  "containerPort": 80
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1"
+                },
+                "requests": {
+                  "cpu": "300m",
+                  "memory": "250Mi"
+                }
+              }
+            },
+            {
+              "name": "nginx2",
+              "imagePullPolicy": "Always",
+              "image": "nginx2:latest",
+              "securityContext": {
+                "capabilities": {
+                  "drop": [
+                    "NET_RAW",
+                    "ALL"
+                  ]
+                },
+                "privileged": true,
+                "allowPrivilegeEscalation": true
+              },
+              "ports": [
+                {
+                  "containerPort": 80
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1"
+                },
+                "requests": {
+                  "cpu": "300m",
+                  "memory": "250Mi"
+                }
+              }
+            }
+          ],
+          "volumes": [
+            {
+              "hostPath": {
+                "path": "/var/run/docker.sock",
+                "type": "File"
+              },
+              "name": "dockersock"
+            }
+          ]
+        }
+      }
+    }
+  }

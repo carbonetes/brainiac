@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+  labels:
+    app-k8s: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+      containers:
+      - name: kubelete
+        command:
+         - kubelet
+         - --anonymous-auth=true
+        imagePullPolicy: Always
+        image: gcr.io/kubernetes-helm/tiller:v2.16.9
+        livenessProbe:
+          failureThreshold: 25
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+            scheme: HTTP
+        args:
+        - --listen=localhost:44134
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: 300m
+            memory: 250Mi
+        # envFrom:
+        #   - secretRef:
+        #       name: cloud-server-secret
+      # - env:
+      #     - name: DB_URL
+      #       valueFrom:
+      #         secretKeyRef:
+      #           key: db-url
+      #           name: secret
+      - name: nginx2
+        imagePullPolicy: Always
+        image: nginx:latest
+        securityContext:
+          runAsUser: 10000
+          capabilities:
+            drop:
+             - NET_RAW
+             - ALL
+            add:
+             - SYS_ADMIN
+          privileged: true
+          allowPrivilegeEscalation: true
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: 300m
+            memory: 250Mi
+      volumes:
+      - hostPath:
+          path: /var/run/docker.sock
+          type: File
+        name: dockersock

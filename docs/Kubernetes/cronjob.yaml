@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 80
+                hostIP: 10.0.0.1
+                hostPort: 8080
+            command:
+              - kube-apiserver
+              - --authorization-mode=AlwaysAllow,RBAC,Node
+              - --enable-admission-plugins=SecurityContextDeny,ServiceAccount,NamespaceLifecycle,NodeRestriction
+              - --bind-address=0
+              - --profiling=false
+              - --service-account-key-file=/keys/key.pem
+          - name: nginx2
+            imagePullPolicy: Always
+            image: nginx:latest
+            command:
+              - kube-apiserver
+              - --authorization-mode=Always
+            securityContext:
+              runAsUser: 10000
+              capabilities:
+                drop:
+                - NET_RAW
+                - ALL
+                add:
+                - SYS_ADMIN
+              privileged: true
+              allowPrivilegeEscalation: true
+            ports:
+            - containerPort: 80
+            resources:
+              limits:
+                cpu: "1"
+              requests:
+                cpu: 300m
+                memory: 250Mi
