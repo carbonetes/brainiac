@@ -1,14 +1,15 @@
 package brainiac
 
 import (
-	"brainiac/internal/engine"
-	"brainiac/internal/logger"
-	"brainiac/internal/model"
-	versionPackage "brainiac/internal/version"
 	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/carbonetes/brainiac/internal/engine"
+	"github.com/carbonetes/brainiac/internal/logger"
+	"github.com/carbonetes/brainiac/internal/model"
+	versionPackage "github.com/carbonetes/brainiac/internal/version"
 
 	"github.com/spf13/cobra"
 )

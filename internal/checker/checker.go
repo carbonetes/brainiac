@@ -1,12 +1,13 @@
 package checker
 
 import (
-	"brainiac/internal/file"
-	"brainiac/internal/logger"
 	"context"
 	"embed"
 	"path/filepath"
 	"strings"
+
+	"github.com/carbonetes/brainiac/internal/file"
+	"github.com/carbonetes/brainiac/internal/logger"
 
 	"github.com/open-policy-agent/opa/ast"
 	"github.com/open-policy-agent/opa/bundle"

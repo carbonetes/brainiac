@@ -1,7 +1,7 @@
 package checker
 
 import (
-	"brainiac/internal/model"
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 var (

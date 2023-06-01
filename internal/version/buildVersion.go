@@ -1,11 +1,12 @@
 package version
 
 import (
-	"brainiac/internal/model"
 	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 const placeholder = "not available"

@@ -1,10 +1,11 @@
 package output
 
 import (
-	"brainiac/internal/checker"
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/carbonetes/brainiac/internal/checker"
 
 	"github.com/gdamore/tcell/v2"
 )

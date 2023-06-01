@@ -1,11 +1,12 @@
 package engine
 
 import (
-	"brainiac/internal/checker"
-	"brainiac/internal/model"
 	"fmt"
 	"path/filepath"
 	"testing"
+
+	"github.com/carbonetes/brainiac/internal/checker"
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 func TestStart(t *testing.T) {

@@ -1,6 +1,6 @@
 package main
 
-import "brainiac/cmd/brainiac"
+import "github.com/carbonetes/brainiac/cmd/brainiac"
 
 func main() {
 	brainiac.Execute()

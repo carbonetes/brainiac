@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"brainiac/internal/file"
+	"github.com/carbonetes/brainiac/internal/file"
 )
 
 func TestCheckIACFileKubernetes(t *testing.T) {
