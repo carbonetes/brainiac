@@ -1,12 +1,13 @@
 package output
 
 import (
-	"brainiac/internal/checker"
-	"brainiac/internal/logger"
-	"brainiac/internal/model"
 	"encoding/json"
 	"fmt"
 	"strings"
+
+	"github.com/carbonetes/brainiac/internal/checker"
+	"github.com/carbonetes/brainiac/internal/logger"
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 var (

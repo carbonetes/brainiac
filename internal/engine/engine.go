@@ -1,12 +1,13 @@
 package engine
 
 import (
-	"brainiac/internal/checker"
-	"brainiac/internal/file"
-	"brainiac/internal/logger"
-	"brainiac/internal/model"
-	"brainiac/internal/output"
 	"os"
+
+	"github.com/carbonetes/brainiac/internal/checker"
+	"github.com/carbonetes/brainiac/internal/file"
+	"github.com/carbonetes/brainiac/internal/logger"
+	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/internal/output"
 )
 
 // Set up logger module instance

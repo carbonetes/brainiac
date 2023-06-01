@@ -1,11 +1,12 @@
 package output
 
 import (
-	"brainiac/internal/checker"
-	"brainiac/internal/file"
-	"brainiac/internal/model"
 	"path/filepath"
 	"testing"
+
+	"github.com/carbonetes/brainiac/internal/checker"
+	"github.com/carbonetes/brainiac/internal/file"
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 func TestPrintFileResults(t *testing.T) {

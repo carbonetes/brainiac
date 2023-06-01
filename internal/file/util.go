@@ -1,13 +1,14 @@
 package file
 
 import (
-	"brainiac/internal/model"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/carbonetes/brainiac/internal/model"
 
 	"gopkg.in/yaml.v3"
 )
