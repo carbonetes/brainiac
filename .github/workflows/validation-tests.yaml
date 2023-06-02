@@ -7,7 +7,7 @@ on:
     branches: [ "main" , "feature/terraform-development"]
 
 env:
-  GO_CURRENT_VERSION: "1.19.x"
+  GO_CURRENT_VERSION: "1.20.x"
   GO_STABLE_VERSION: true
 
 jobs:
