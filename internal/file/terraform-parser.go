@@ -2,7 +2,7 @@ package file
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
@@ -162,7 +162,7 @@ func checkDiag(diags hcl.Diagnostics) string {
 
 func ParseTerraformFile(filename string) (interface{}, string) {
 	// Read Terraform file content
-	content, err := ioutil.ReadFile(filename)
+	content, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println("Failed to read Terraform file:", err)
 	}

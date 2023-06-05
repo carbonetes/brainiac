@@ -2,8 +2,8 @@ package file
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -57,7 +57,7 @@ func getFileList(dirPath string) ([]string, error) {
 	var fileList []string
 
 	// Read the directory contents
-	files, err := ioutil.ReadDir(dirPath)
+	files, err := os.ReadDir(dirPath)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func getFileList(dirPath string) ([]string, error) {
 
 func getFileContents(filePath string) string {
 	// Read file contents
-	fileBytes, err := ioutil.ReadFile(filePath)
+	fileBytes, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
