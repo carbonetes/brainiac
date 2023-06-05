@@ -26,6 +26,14 @@ resource [resource]{
 	resource := concat(".", block.Labels)
 } 
 
+allowAllPrincipal(statement){
+   statement.Principal[_] == "*"
+}
+
+allowAllPrincipal(statement){
+    statement.Principal == "*"
+}
+
 fail[block] {
     block := input[_]
     isvalid(block)
@@ -33,7 +41,7 @@ fail[block] {
     policyParsed := json.unmarshal(policyStr)
     statement := policyParsed.Statement[0]
     statement.Effect != "Deny"
-    contains(statement.Principal, "*")
+    allowAllPrincipal(statement)
 }
 
 pass[block] {
