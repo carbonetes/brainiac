@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/neptune_cluster_instance
 # custom:
 #   id: CB_TFAWS_082
-#   severity: LOW
+#   severity: HIGH
 package lib.terraform.CB_TFAWS_082
 
 import future.keywords.in 
@@ -14,6 +14,10 @@ import future.keywords.in
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_sagemaker_endpoint_configuration"
+}
+
+has_attribute(key, value) {
+  _ = key[value]
 }
 
 resource [resource]{
@@ -29,8 +33,7 @@ resource [resource]{
 pass[resource] {
     resource := input[_]
     isvalid(resource)
-    resource.Attributes.kms_key_arn == "any"
-   
+    resource.Attributes.kms_key_arn 
 }
 
 fail[block] {
