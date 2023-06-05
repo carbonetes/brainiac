@@ -1,6 +1,6 @@
 module github.com/carbonetes/brainiac
 
-go 1.18
+go 1.19
 
 require (
 	github.com/gdamore/tcell/v2 v2.6.0
