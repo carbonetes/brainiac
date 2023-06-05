@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify API Gateway has X-Ray Tracing enabled"
-# description: "t allows you to gain insights into the performance and behavior of your API Gateway endpoints, identify and troubleshoot latency issues, understand the flow of requests through your API, and diagnose errors and exceptions. X-Ray tracing provides valuable visibility into the execution of your API Gateway, helping you optimize performance, identify bottlenecks, and ensure a smooth and efficient API experience for your users."
+# description: "It allows you to gain insights into the performance and behavior of your API Gateway endpoints, identify and troubleshoot latency issues, understand the flow of requests through your API, and diagnose errors and exceptions. X-Ray tracing provides valuable visibility into the execution of your API Gateway, helping you optimize performance, identify bottlenecks, and ensure a smooth and efficient API experience for your users."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage
