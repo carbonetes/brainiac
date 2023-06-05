@@ -33,7 +33,7 @@ resource [resource]{
 pass[resource] {
     resource := input[_]
     isvalid(resource)
-    resource.Attributes.kms_key_arn 
+    has_attribute(resource.Attributes, "kms_key_arn")
 }
 
 fail[block] {

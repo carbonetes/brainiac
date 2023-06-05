@@ -30,7 +30,7 @@ result := failed with input as [
                                 "example"
                                 ],
                                 "Attributes": {
-                                "kms_key_arn": "violation"
+                                
                                 },
                                 "Blocks": [],
                                 "line_range": {

@@ -33,8 +33,8 @@ resource [resource]{
 pass[resource] {
     resource := input[_]
     isvalid(resource)
+    has_attribute(resource.Attributes, "publicly_accessible")
     resource.Attributes.publicly_accessible == false
-   
 }
 
 fail[block] {
