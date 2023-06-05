@@ -2,34 +2,34 @@ package model
 
 // checks result
 type Result struct {
-	CheckType    string  `json:"CheckType"`
-	FailedChecks []Check `json:"failedChecks"`
-	PassedChecks []Check `json:"passedChecks"`
-	Summary      Summary `json:"summary"`
+	CheckType    string  `json:"CheckType,omitempty"`
+	FailedChecks []Check `json:"failedChecks,omitempty"`
+	PassedChecks []Check `json:"passedChecks,omitempty"`
+	Summary      Summary `json:"summary,omitempty"`
 }
 
 type Check struct {
-	ID          string      `json:"id"`
-	Title       string      `json:"title"`
-	Description string      `json:"description"`
-	Message     string      `json:"message"`
-	Path        string      `json:"path"`
-	Resource    string      `json:"resource"`
-	Class       string      `json:"class"`
-	CheckResult string      `json:"checkResult"`
-	Severity    string      `json:"severity"`
-	Reference   string      `json:"reference"`
-	LineRange   []string    `json:"lineRange"`
-	CodeBlock   []CodeBlock `json:"codeBlock"`
+	ID          string      `json:"id,omitempty"`
+	Title       string      `json:"title,omitempty"`
+	Description string      `json:"description,omitempty"`
+	Message     string      `json:"message,omitempty"`
+	Path        string      `json:"path,omitempty"`
+	Resource    string      `json:"resource,omitempty"`
+	Class       string      `json:"class,omitempty"`
+	CheckResult string      `json:"checkResult,omitempty"`
+	Severity    string      `json:"severity,omitempty"`
+	Reference   string      `json:"reference,omitempty"`
+	LineRange   []string    `json:"lineRange,omitempty"`
+	CodeBlock   []CodeBlock `json:"codeBlock,omitempty"`
 }
 
 type Summary struct {
-	Failed   int `json:"failed"`
-	Passed   int `json:"passed"`
-	Low      int `json:"low"`
-	Medium   int `json:"medium"`
-	High     int `json:"high"`
-	Critical int `json:"critical"`
+	Failed   int `json:"failed,omitempty"`
+	Passed   int `json:"passed,omitempty"`
+	Low      int `json:"low,omitempty"`
+	Medium   int `json:"medium,omitempty"`
+	High     int `json:"high,omitempty"`
+	Critical int `json:"critical,omitempty"`
 }
 
 type CodeBlock []string

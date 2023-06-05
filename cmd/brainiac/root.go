@@ -31,7 +31,7 @@ var (
 		Use:   "brainiac",
 		Args:  cobra.MaximumNArgs(1),
 		Short: "IAC Configuration Analyzer",
-		Long:  `Analyze your Infrastructure as code.`,
+		Long:  `Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment. This tool can scan for issues like security policy misconfigurations, insecure cloud-based services, and compliance issues. The Brainiac tool performs a comprehensive code scan and generates reports containing detailed insights into the identified issues.`,
 		PreRun: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 && !flagHasArg() {
 				_ = cmd.Help()

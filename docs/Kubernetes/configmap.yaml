@@ -1,13 +1,30 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: volumes-configmap-configmap
+  name: my-config
 data:
-  game.properties: |
-    enemies=aliens
-    lives=3
-    enemies.cheat=true
-    enemies.cheat.level=noGoodRotten
-  ui.properties: |
-    color.good=purple
-    color.bad=yellow
+  # Configuration data from a file
+  app-config.yaml: |
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: app-config
+    data:
+      foo: bar
+      baz: qux
+  # Configuration data from a ConfigMap
+  env-config.yaml: |
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: env-config
+    data:
+      api_url: http://api.example.com
+      log_level: debug
+  # Raw configuration data
+  raw-config.ini: |
+    [database]
+    host = db.example.com
+    port = 5432
+    username = dbuser
+    password = dbpass
