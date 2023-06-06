@@ -27,20 +27,20 @@ resource [resource]{
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
+fail[resource]{
     resource := input[_]
 	isvalid(resource)
     volume := resource.Blocks[_]
     volume.Type == "volume"
     efs := volume.Blocks[_]
     efs.Type == "efs_volume_configuration"
-    efs.Attributes.transit_encryption == "ENABLED"
+    efs.Attributes.transit_encryption != "ENABLED"
 }
 
-fail[block] {
+pass[block] {
     block := input[_]
 	isvalid(block)
-   	not pass[block]
+   	not fail[block]
 }
 
 passed[result] {
