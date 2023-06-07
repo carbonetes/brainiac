@@ -46,11 +46,11 @@ fail[block] {
 passed[result] {
 	block := pass[_]
 	result := { "message": "'aws_redshift_cluster' for 'publicly_accessible' is set properly.",
-                "snippet": {} }
+                "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
 	result := { "message": "'aws_redshift_cluster' for 'publicly_accessible' should be set.",
-                "snippet": {} }
+                "snippet": block }
 } 
