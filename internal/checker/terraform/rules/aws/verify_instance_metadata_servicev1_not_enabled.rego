@@ -31,7 +31,7 @@ pass[resource]{
 	isvalid(resource)
     block := resource.Blocks[_]
     block.Type == "metadata_options"
-    block.Attributes.http_tokens = "required"
+    block.Attributes.http_tokens == "required"
 }
 
 pass[resource]{
