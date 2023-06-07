@@ -34,6 +34,7 @@ resource[resource] {
 
 pass[resource] {
 	resource := input[_]
+    isvalid(resource)
     has_attribute(resource.Attributes, "enabled_cloudwatch_logs_exports")
     resource.Attributes.enabled_cloudwatch_logs_exports[_] == log_types[_]
 }
