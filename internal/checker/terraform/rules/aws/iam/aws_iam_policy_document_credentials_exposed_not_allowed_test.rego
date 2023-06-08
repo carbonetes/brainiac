@@ -19,7 +19,7 @@ test_aws_iam_policy_document_credentials_exposed_not_allowed_passed {
                                         "lambda:CreateEventSourceMapping",
                                         "dynamodb:CreateTable"
                                         ],
-                                        "effect": "Allow",
+                                        "effect": "Deny",
                                         "resources": [
                                         "*"
                                         ],
@@ -59,7 +59,10 @@ result := failed with input as [
                                         "lambda:CreateFunction",
                                         "lambda:CreateEventSourceMapping",
                                         "dynamodb:CreateTable",
-                                        "iam:CreateAccessKey"
+                                        "iam:CreateAccessKey",
+                                        "iam:UpdateAccessKey",
+                                        "sts:AssumeRole",
+                                        "*"
                                         ],
                                         "effect": "Allow",
                                         "resources": [

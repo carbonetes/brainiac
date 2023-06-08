@@ -28,11 +28,13 @@ resource [resource]{
 } 
 
 fail[blockStatements]{
+    credentialExposure := ["iam:CreateAccessKey", "iam:UpdateAccessKey", "sts:AssumeRole", "*"]
     block := input[_]
 	isvalid(block)
     blockStatements := block.Blocks[_]
     blockStatements.Type == "statement"
-    blockStatements.Attributes.actions[_]  == "iam:CreateAccessKey"
+    blockStatements.Attributes.effect  == "Allow"
+    blockStatements.Attributes.actions[_]  == credentialExposure[_]
 }
 
 
@@ -45,12 +47,12 @@ pass[block] {
 
 passed[result] {
 	block := pass[_]
-	result := { "message": "IAM policy credential exposure disabled.",
+	result := { "message": "'aws_iam_policy_document' credentials are not exposed.",
                 "snippet": block}
 }
 
 failed[result] {
     block := fail[_]
-	result := { "message": "IAM policy credential exposure should be disabled.",
-                "snippet": block }
+	result := { "message": "'aws_iam_policy_document' credentials should not be exposed.",
+                "snippet": block}
 }
