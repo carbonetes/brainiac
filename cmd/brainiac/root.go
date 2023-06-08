@@ -59,8 +59,8 @@ var (
 
 	version = &cobra.Command{
 		Use:   "version",
-		Short: "Display Build Version Info brainiac",
-		Long:  "Display Build Version Info brainiac",
+		Short: "Display Build Version Info BrainIAC",
+		Long:  "Display Build Version Info BrainIAC",
 		Args:  cobra.MaximumNArgs(0),
 		RunE: func(_ *cobra.Command, _ []string) error {
 
@@ -100,9 +100,9 @@ var (
 )
 
 func init() {
-	brainiac.Flags().BoolVarP(&help, "help", "h", false, "Help for brainiac")
+	brainiac.Flags().BoolVarP(&help, "help", "h", false, "Help for BrainIAC")
 	brainiac.Flags().StringVarP(Arguments.File, "file", "f", "", "File to scan")
-	brainiac.Flags().BoolVarP(&versionArg, "version", "v", false, "Display brainiac version")
+	brainiac.Flags().BoolVarP(&versionArg, "version", "v", false, "Display BrainIAC version")
 	brainiac.Flags().StringVarP(Arguments.Dir, "dir", "d", "", "Read directly from a path on disk (any directory) (e.g. 'brainiac -d path/to/dir)' (can not be used together with --file).")
 	brainiac.Flags().StringArrayVarP(outputArray, "output", "o", tableOutput, "Format to display results (table, json)")
 

@@ -4,7 +4,7 @@
 </p>
 
 
-# Brainiac
+# BrainIAC
 [![Github All Releases](https://img.shields.io/github/downloads/carbonetes/brainiac/total.svg)]()
 [![Go Report Card](https://goreportcard.com/badge/github.com/carbonetes/brainiac)](https://goreportcard.com/report/github.com/carbonetes/brainiac)
 [![GitHub release](https://img.shields.io/github/release/carbonetes/brainiac.svg)](https://github.com/carbonetes/brainiac/releases/latest)
@@ -12,14 +12,14 @@
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/carbonetes/brainiac/blob/main/LICENSE)
 [![Docker Pulls](https://img.shields.io/docker/pulls/carbonetes/brainiac)](https://hub.docker.com/r/carbonetes/brainiac)
 
-Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment. This tool can scan for issues like security policy misconfigurations, insecure cloud-based services, and compliance issues. The Brainiac tool performs a comprehensive code scan and generates reports containing detailed insights into the identified issues.
+BrainIAC uses static code analysis to analyze IAC code to detect security issues before deployment. This tool can scan for issues like security policy misconfigurations, insecure cloud-based services, and compliance issues. The BrainIAC tool performs a comprehensive code scan and generates reports containing detailed insights into the identified issues.
 
 ## Features
 - 🔍 | Scans IAC Code for misconfiguration.
 - 📁 | Has hundreds of pre-defined rules.
 - 📁 | Scans a target directory to fill in multiple results.
 - ⛑ | Works with major platforms.
-- 🗄 | Converts between formats such as JSON and Table brainiac own format.
+- 🗄 | Converts between formats such as JSON and Table BrainIAC own format.
 
 ### Supported Platform
 - [Kubernetes](docs/Policy/KUBERNETES_POLICYRULES.md)
@@ -91,23 +91,23 @@ Scan a single file
 docker run -t -v {path_to_host_folder}:/tmpPath carbonetes/brainiac:latest -f /path/{filename}.{extension}
 ```
 
-The output format for Brainiac is configurable as well using the
+The output format for BrainIAC is configurable as well using the
 `-o` (or `--output`) option:
 
 The available `formats` are:
 - `table`: A Tabular summary (default).
-- `json`: Use this to get as much information out of Brainiac.
+- `json`: Use this to get as much information out of BrainIAC.
 
 ### Available Commands and their flags with description:
 ```
-Brainiac [flag]
+brainiac [flag]
 ```
 |                Root Flags                |                                                      Description                                                           |
 | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
 | `-f`, `--file`                    | File to scan                                                            |
-| `-d`, `--dir`                     | Read directly from a path on disk (any directory) (e.g. 'brainiac -d path/to/dir)' (can not be used together with --file).                                              |
+| `-d`, `--dir`                     | Read directly from a path on disk (any directory) (e.g. 'BrainIAC -d path/to/dir)' (can not be used together with --file).                                              |
 | `-o`, `--output`                  | Format to display results (table, json) (default "table")  
-| `-v`, `--version`                 | Print Brainiac version 
+| `-v`, `--version`                 | Print BrainIAC version 
 
 
 ## License
