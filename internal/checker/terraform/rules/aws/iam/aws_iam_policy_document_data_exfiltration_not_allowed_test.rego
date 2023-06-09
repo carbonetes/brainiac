@@ -59,8 +59,11 @@ result := failed with input as [
                                         "lambda:CreateFunction",
                                         "lambda:CreateEventSourceMapping",
                                         "dynamodb:CreateTable",
-                                        "s3:GetObject",
-                                        "ssm:GetParameter*",
+                                        "s3:GetObject", 
+                                        "ssm:GetParameter",  
+                                        "ssm:GetParameters", 
+                                        "ssm:GetParametersByPath",
+                                        "ssm:GetParameter*", 
                                         "secretsmanager:GetSecretValue"
                                         ],
                                         "effect": "Allow",

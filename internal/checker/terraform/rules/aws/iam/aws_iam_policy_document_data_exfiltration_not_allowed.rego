@@ -28,7 +28,7 @@ resource [resource]{
 } 
 
 fail[blockStatements]{
-    dataExfiltration := ["s3:GetObject", "ssm:GetParameter*", "secretsmanager:GetSecretValue", "*"]
+    dataExfiltration := ["s3:GetObject", "ssm:GetParameter",  "ssm:GetParameters", "ssm:GetParametersByPath", "ssm:GetParameter*", "secretsmanager:GetSecretValue", "*"]
     block := input[_]
 	isvalid(block)
     blockStatements := block.Blocks[_]
