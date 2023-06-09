@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
 # custom:
 #   id: CB_TFAWS_088
-#   severity: INFO
+#   severity: LOW
 package lib.terraform.CB_TFAWS_088
 
 import future.keywords.in 
