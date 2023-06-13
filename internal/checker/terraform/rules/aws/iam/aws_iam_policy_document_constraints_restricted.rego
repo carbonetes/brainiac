@@ -1,5 +1,5 @@
 # METADATA
-# title: "Make certain IAM policies prohibit unrestricted write access."
+# title: "Make certain IAM policies prohibit unrestricted write access"
 # description: "This policy permits activities that enable the alteration of resource-based policies or that, in other ways, may expose AWS resources to the public through comparable actions that may similarly expose resources."
 # scope: package
 # related_resources:
