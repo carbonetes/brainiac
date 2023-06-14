@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that all data stored in Aurora is securely encrypted at rest"
+# title: "Verify that Amazon ElastiCache Redis clusters have automatic backup turned on"
 # description: "By enabling automatic backups for Amazon ElastiCache Redis clusters is important to ensure data protection, facilitate disaster recovery, and minimize downtime in case of accidental data loss or system failures."
 # scope: package
 # related_resources:
