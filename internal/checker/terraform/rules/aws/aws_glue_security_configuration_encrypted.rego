@@ -16,10 +16,6 @@ isvalid(block){
     block.Labels[_] == "aws_glue_security_configuration"
 }
 
-has_attribute (key, value) {
-    _ = key[value]
-}
-
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
