@@ -17,6 +17,10 @@ isvalid(block){
     block.Labels[_] == "aws_ssm_document"
 }
 
+has_attribute(key, value){
+    _ = key[value]
+}
+
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
@@ -26,18 +30,28 @@ resource [resource]{
 	resource := concat(".", block.Labels)
 } 
 
-fail[block] {
+pass[block] {
     block := input[_]
     isvalid(block)
     contentStr := block.Attributes.content
     contentParsed := json.unmarshal(contentStr)
-    contentParsed.inputs.s3EncryptionEnabled == false
+    has_attribute(contentParsed.inputs, "s3BucketName")
+    contentParsed.inputs.s3EncryptionEnabled == true
 }
 
 pass[block] {
     block := input[_]
+    isvalid(block)
+    contentStr := block.Attributes.content
+    contentParsed := json.unmarshal(contentStr)
+    has_attribute(contentParsed.inputs, "cloudWatchLogGroupName")
+    contentParsed.inputs.cloudWatchEncryptionEnabled == true
+}
+
+fail[block] {
+    block := input[_]
 	isvalid(block)
-    not fail[block]
+    not pass[block]
 }
 
 passed[result] {

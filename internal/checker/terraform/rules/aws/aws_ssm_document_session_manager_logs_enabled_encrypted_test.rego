@@ -32,7 +32,7 @@ result := failed with input as [
                                     "s3_enabled_encrypted"
                                     ],
                                     "Attributes": {
-                                    "content": "  {\n    \"schemaVersion\": \"1.0\",\n    \"description\": \"Document to hold regional settings for Session Manager\",\n    \"sessionType\": \"Standard_Stream\",\n    \"inputs\": {\n      \"s3BucketName\": \"example\",\n      \"s3KeyPrefix\": \"\",\n      \"s3EncryptionEnabled\": false,\n      \"cloudWatchLogGroupName\": \"\",\n      \"cloudWatchEncryptionEnabled\": true,\n      \"idleSessionTimeout\": \"20\",\n      \"cloudWatchStreamingEnabled\": true,\n      \"kmsKeyId\": \"\",\n      \"runAsEnabled\": false,\n      \"runAsDefaultUser\": \"\",\n      \"shellProfile\": {\n        \"windows\": \"\",\n        \"linux\": \"\"\n      }\n    }\n  }\n",
+                                    "content": "  {\n    \"schemaVersion\": \"1.0\",\n    \"description\": \"Document to hold regional settings for Session Manager\",\n    \"sessionType\": \"Standard_Stream\",\n    \"inputs\": {\n       \"s3KeyPrefix\": \"\",\n      \"s3EncryptionEnabled\": false,\n     \"cloudWatchEncryptionEnabled\": false,\n      \"idleSessionTimeout\": \"20\",\n      \"cloudWatchStreamingEnabled\": true,\n      \"kmsKeyId\": \"\",\n      \"runAsEnabled\": false,\n      \"runAsDefaultUser\": \"\",\n      \"shellProfile\": {\n        \"windows\": \"\",\n        \"linux\": \"\"\n      }\n    }\n  }\n",
                                     "document_type": "Session",
                                     "name": "SSM-SessionManagerRunShell"
                                     },
