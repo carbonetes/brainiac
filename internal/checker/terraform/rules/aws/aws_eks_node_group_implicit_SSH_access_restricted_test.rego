@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAWS_112
 
-test_aws_ecs_task_definition_transit_encryption_enabled_passed {
+test_eks_node_group_implicit_SSH_access_restricted_passed {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -35,7 +35,7 @@ test_aws_ecs_task_definition_transit_encryption_enabled_passed {
     count(result) == 1
 }
 
-test_aws_ecs_task_definition_transit_encryption_enabled_failed {
+test_eks_node_group_implicit_SSH_access_restricted_failed {
 result := failed with input as [
                                     {
                                     "Type": "resource",
