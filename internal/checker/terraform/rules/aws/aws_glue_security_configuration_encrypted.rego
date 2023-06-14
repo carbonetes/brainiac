@@ -31,26 +31,13 @@ resource [resource]{
 
 pass[block]{
     block := input[_]
-	isvalid(block)
+    isvalid(block)
     encryptionConfig := block.Blocks[_]
     encryptionConfig.Type == "encryption_configuration"
-    cloudWatch := encryptionConfig.Blocks[_]
-    cloudWatch.Type == "cloudwatch_encryption"
-    has_attribute(cloudWatch.Attributes, "cloudwatch_encryption_mode")
-    has_attribute(cloudWatch.Attributes, "kms_key_arn")
-    cloudWatch.Attributes.cloudwatch_encryption_mode == "SSE-KMS"
-    cloudWatch.Attributes.kms_key_arn == "aws_kms_key.example.arn"
-    job := encryptionConfig.Blocks[_]
-    job.Type == "job_bookmarks_encryption"
-    has_attribute(job.Attributes, "job_bookmarks_encryption_mode")
-    has_attribute(job.Attributes, "kms_key_arn")
-    job.Attributes.job_bookmarks_encryption_mode == "CSE-KMS"
-    job.Attributes.kms_key_arn == "aws_kms_key.example.arn"
-    s3_buckets := encryptionConfig.Blocks[_]
-    s3_buckets.Type == "s3_encryption"
-    has_attribute(s3_buckets.Attributes, "s3_encryption_mode")
+    encryptionConfig.Blocks[_].Type == "cloudwatch_encryption"
+    encryptionConfig.Blocks[_].Type == "job_bookmarks_encryption"
+    encryptionConfig.Blocks[_].Type == "s3_encryption"
 }
-
 
 fail[block] {
     block := input[_]
