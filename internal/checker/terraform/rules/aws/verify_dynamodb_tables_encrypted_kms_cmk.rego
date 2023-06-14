@@ -52,6 +52,6 @@ passed[result] {
 
 failed[result] {
     block := fail[_]
-	result := { "message": "'aws_dynamodb_table'is not encrypted using KMS Customer Managed CMKit",
+	result := { "message": "'aws_dynamodb_table'is not encrypted using KMS Customer Managed CMK",
                 "snippet": block }
 }
