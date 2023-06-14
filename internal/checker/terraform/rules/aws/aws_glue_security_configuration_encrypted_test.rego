@@ -74,69 +74,32 @@ test_aws_glue_security_configuration_encrypted_passed {
 
 test_aws_glue_security_configuration_encrypted_failed {
 result := failed with input as [
-                                    {
-                                    "Type": "resource",
-                                    "Labels": [
-                                    "aws_glue_security_configuration",
-                                    "example"
-                                    ],
-                                    "Attributes": {
-                                    "name": "example"
-                                    },
-                                    "Blocks": [
-                                    {
-                                        "Type": "encryption_configuration",
-                                        "Labels": [],
-                                        "Attributes": {},
-                                        "Blocks": [
-                                        {
-                                        "Type": "cloudwatch_encryption",
-                                        "Labels": [],
-                                        "Attributes": {
-                                       
-                                        },
-                                        "Blocks": [],
-                                        "line_range": {
-                                        "endLine": 8,
-                                        "startLine": 5
-                                        }
-                                        },
-                                        {
-                                        "Type": "job_bookmarks_encryption",
-                                        "Labels": [],
-                                        "Attributes": {
-                                        
-                                        },
-                                        "Blocks": [],
-                                        "line_range": {
-                                        "endLine": 13,
-                                        "startLine": 10
-                                        }
-                                        },
-                                        {
-                                        "Type": "s3_encryption",
-                                        "Labels": [],
-                                        "Attributes": {
-                                       
-                                        },
-                                        "Blocks": [],
-                                        "line_range": {
-                                        "endLine": 18,
-                                        "startLine": 15
-                                        }
-                                        }
-                                        ],
-                                        "line_range": {
-                                        "endLine": 19,
-                                        "startLine": 4
-                                        }
-                                    }
-                                    ],
+                                {
+                                "Type": "resource",
+                                "Labels": [
+                                "aws_glue_security_configuration",
+                                "example"
+                                ],
+                                "Attributes": {
+                                "name": "example"
+                                },
+                                "Blocks": [
+                                {
+                                    "Type": "encryption_configuration",
+                                    "Labels": [],
+                                    "Attributes": {},
+                                    "Blocks": [],
                                     "line_range": {
-                                    "endLine": 20,
-                                    "startLine": 1
+                                    "endLine": 10,
+                                    "startLine": 4
                                     }
-                                    }
+                                }
+                                ],
+                                "line_range": {
+                                "endLine": 11,
+                                "startLine": 1
+                                }
+                                }
                             ]
     count(result) == 1
 }
