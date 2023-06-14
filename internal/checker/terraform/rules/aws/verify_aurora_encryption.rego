@@ -14,10 +14,6 @@ isvalid(block){
     block.Labels[_] == "aws_rds_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
@@ -54,12 +50,12 @@ fail[block] {
 
 passed[result] {
 	block := pass[_]
-	result := { "message": "'aws_glue_data_catalog_encryption_settings' for 'encryption_at_rest' and 'connection_password_encryption' is set properly.",
+	result := { "message": "'aws_rds_cluster' for 'storage_encrypted' is set properly.",
                 "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
-	result := { "message": "'aws_glue_data_catalog_encryption_settings' for 'encryption_at_rest' and 'connection_password_encryption' should be set.",
+	result := { "message": "'aws_rds_cluster' for 'storage_encrypted' should be set.",
                 "snippet": block }
 } 
