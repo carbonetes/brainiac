@@ -1,5 +1,5 @@
 # METADATA
-# title: The Secrets Manager secret must be encrypted with KMS CMK"
+# title: "The Secrets Manager secret must be encrypted with KMS CMK"
 # description: "Using the AWS-managed key aws/secretsmanager, secrets manager secrets are by default encrypted. Specifically supplying a customer managed key to use as an alternative is recommended."
 # scope: package
 # related_resources:
