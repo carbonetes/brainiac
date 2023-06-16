@@ -30,7 +30,7 @@ test_aws_codebuild_project_failed {
                         "test_success"
                         ],
                         "Attributes": {
-                        "enable_deletion_protection": true
+                        "enable_deletion_protection": false
                         },
                         "Blocks": [],
                         "line_range": {
