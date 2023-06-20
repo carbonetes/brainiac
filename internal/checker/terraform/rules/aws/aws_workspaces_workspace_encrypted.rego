@@ -1,5 +1,5 @@
 # METADATA
-# title: "Make that the root volumes of the workspace are encrypted"
+# title: "Verify that the root volumes of the workspace are encrypted"
 # description: "Your data is more secure when your Workspace root volumes are encrypted against unauthorized entry or manipulation. You can make sure that only authorized people may access and change the data on your volumes in this manner."
 # scope: package
 # related_resources:
@@ -35,12 +35,6 @@ pass[resource]{
     resource.Attributes.root_volume_encryption_enabled == true
 }
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    has_attribute(resource.Blocks[_].Attributes, "public_access_cidrs")
-    resource.Blocks[_].Attributes.public_access_cidrs[_] != "0.0.0.0/0"
-}
 
 fail[block] {
     block := input[_]
