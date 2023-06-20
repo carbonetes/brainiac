@@ -44,12 +44,12 @@ fail[block] {
 
 passed[result] {
 	block := pass[_]
-	result := { "message": "'aws_workspaces_workspace' is encrypted properly.",
+	result := { "message": "'aws_workspaces_workspace' root volumes is encrypted properly.",
                 "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
-	result := { "message": "'aws_workspaces_workspace' must be encrypted properly.",
+	result := { "message": "'aws_workspaces_workspace' root volumes must be encrypted properly.",
                 "snippet": block }
 } 
