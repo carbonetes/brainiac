@@ -30,11 +30,6 @@ pass[resource] {
     resource.Attributes.ebs_optimized == true
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)

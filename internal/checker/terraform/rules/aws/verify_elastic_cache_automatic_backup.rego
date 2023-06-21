@@ -31,11 +31,6 @@ pass[resource] {
     to_number(resource.Attributes.snapshot_retention_limit) > 0
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)
