@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that Elasticsearch is configured inside a VPC"
+# title: "Verify that ELB is cross-zone-load-balancing enabled"
 # description: "By enabling cross-zone load balancing for an Elastic Load Balancer (ELB), traffic is evenly distributed across instances in different availability zones, ensuring high availability and optimal resource utilization."
 # scope: package
 # related_resources:
