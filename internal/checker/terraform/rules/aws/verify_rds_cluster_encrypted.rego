@@ -14,10 +14,6 @@ isvalid(block){
     block.Labels[_] == "aws_rds_global_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
