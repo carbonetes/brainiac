@@ -9,9 +9,11 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_149
 
+supportedResource := ["aws_s3_bucket", "aws_s3_bucket_replication_configuration"]
+
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "aws_s3_bucket"
+    block.Labels[_] == supportedResource[_]
 }
 
 has_attribute(key, value) {
