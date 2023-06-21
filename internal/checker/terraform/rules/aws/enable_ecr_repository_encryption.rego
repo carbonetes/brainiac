@@ -31,11 +31,6 @@ pass[resource] {
     resource.Blocks[_].Attributes.encryption_type == "KMS"
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)

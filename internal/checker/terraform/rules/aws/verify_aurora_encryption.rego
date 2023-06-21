@@ -37,11 +37,6 @@ pass[resource] {
     resource.Attributes.storage_encrypted == true
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)
