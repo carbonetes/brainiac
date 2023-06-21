@@ -31,6 +31,12 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
+    has_attribute(resource.Attributes, "tag")
+}
+
+pass[resource]{
+    resource := input[_]
+	isvalid(resource)
     has_attribute(resource.Attributes, "tags")
 }
 
