@@ -40,11 +40,6 @@ pass[resource] {
     resource.Attributes.cross_zone_load_balancing == true
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)
