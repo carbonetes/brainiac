@@ -32,11 +32,6 @@ pass[resource] {
     resource.Blocks[_].Type == "vpc_options"
 }
 
-block_check(block, key) := result {
-    block.Type == key
-    result := block
-}
-
 fail[block] {
     block := input[_]
 	isvalid(block)
