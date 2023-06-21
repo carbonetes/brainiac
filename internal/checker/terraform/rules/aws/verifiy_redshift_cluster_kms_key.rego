@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that Redshift cluster allowing version upgrade by default"
+# title: "Verify that Redshift cluster is encrypted by KMS"
 # description: "By encrypting an Amazon Redshift cluster with AWS KMS, sensitive data stored within the cluster is protected, ensuring the confidentiality and integrity of the information."
 # scope: package
 # related_resources:
