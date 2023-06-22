@@ -50,6 +50,6 @@ passed[result] {
 
 failed[result] {
     block := fail[_]
-	result := { "message": "'aws_rds_cluster' IAM authentication should be enabled.",
+	result := { "message": "'aws_rds_cluster' IAM authentication must be enabled.",
                 "snippet": block }
 } 
