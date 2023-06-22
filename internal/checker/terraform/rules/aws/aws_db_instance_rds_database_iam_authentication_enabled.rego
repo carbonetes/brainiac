@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance
 # custom:
 #   id: CB_TFAWS_152
-#   severity: LOW
+#   severity: MEDIUM
 package lib.terraform.CB_TFAWS_152
 
 
