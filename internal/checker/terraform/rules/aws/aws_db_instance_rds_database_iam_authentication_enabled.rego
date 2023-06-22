@@ -35,7 +35,6 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    has_attribute(resource.Attributes, "engine")
     has_attribute(resource.Attributes, "iam_database_authentication_enabled")
     resource.Attributes.iam_database_authentication_enabled == true
 }
