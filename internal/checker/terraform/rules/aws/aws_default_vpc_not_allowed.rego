@@ -28,7 +28,6 @@ fail[resource] {
 
 passed := []
 
-
 failed[result] {
     block := fail[_]
 	result := { "message": "'aws_default_vpc' should not be provisioned.",

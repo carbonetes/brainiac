@@ -22,7 +22,7 @@ test_aws_dynamodb_global_table_point_in_time_recovery_for_global_tables_enabled_
 }
 
 test_aws_dynamodb_global_table_point_in_time_recovery_for_global_tables_enabled_failed {
-    result := passed with input as [
+    result := failed with input as [
                                 {
                                 "Type": "resource",
                                 "Labels": [

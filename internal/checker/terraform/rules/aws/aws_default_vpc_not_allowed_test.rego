@@ -26,7 +26,7 @@ result := failed with input as [
 }
 
 test_aws_default_vpc_not_allowed_passed {
-result := failed with input as [
+result := passed with input as [
                                     {
                                     "Type": "resource",
                                     "Labels": [

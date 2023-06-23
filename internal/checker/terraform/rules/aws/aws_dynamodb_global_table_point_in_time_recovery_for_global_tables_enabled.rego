@@ -15,23 +15,15 @@ isvalid(block){
     block.Labels[_] == "aws_dynamodb_global_table"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
 } 
 
-
-
 pass[resource]{
     resource := input[_]
 	isvalid(resource)   
 }
-
-
 
 passed[result] {
 	block := pass[_]
