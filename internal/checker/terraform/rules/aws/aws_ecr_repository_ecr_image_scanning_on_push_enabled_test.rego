@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAWS_154
+package lib.terraform.CB_TFAWS_155
 
 test_aws_ecr_repository_ecr_image_scanning_on_push_enabled_passed {
     result := passed with input as [

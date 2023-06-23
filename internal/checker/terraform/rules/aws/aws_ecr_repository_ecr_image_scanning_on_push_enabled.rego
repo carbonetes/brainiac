@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository
 # custom:
-#   id: CB_TFAWS_154
+#   id: CB_TFAWS_155
 #   severity: HIGH
-package lib.terraform.CB_TFAWS_154
+package lib.terraform.CB_TFAWS_155
 
 
 isvalid(block){
