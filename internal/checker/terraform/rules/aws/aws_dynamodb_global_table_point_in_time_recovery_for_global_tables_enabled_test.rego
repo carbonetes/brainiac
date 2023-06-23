@@ -26,7 +26,7 @@ test_aws_dynamodb_global_table_point_in_time_recovery_for_global_tables_enabled_
                                 {
                                 "Type": "resource",
                                 "Labels": [
-                                "aws_dynamodb_global_table",
+                                "aws_any",
                                 "example"
                                 ],
                                 "Attributes": {
