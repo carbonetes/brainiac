@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFOCI_006
 
-test_no_hardcoded_private_key {
+test_oci_core_instance_legacy_endpoint_disabled {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +26,7 @@ test_no_hardcoded_private_key {
 	count(result) == 1
 }
 
-test_hardcoded_private_key {
+test_oci_core_instance_legacy_endpoint_not_disabled {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
