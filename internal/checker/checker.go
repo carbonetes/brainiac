@@ -3,15 +3,14 @@ package checker
 import (
 	"context"
 	"embed"
-	"path/filepath"
 	"strings"
 
 	"github.com/carbonetes/brainiac/internal/file"
 	"github.com/carbonetes/brainiac/internal/logger"
-
+	"github.com/carbonetes/brainiac/internal/module"
 	"github.com/open-policy-agent/opa/ast"
-	"github.com/open-policy-agent/opa/bundle"
 	"github.com/open-policy-agent/opa/rego"
+	"golang.org/x/exp/slices"
 )
 
 //go:embed */rules
@@ -30,7 +29,13 @@ const (
 )
 
 var (
-	log = logger.GetLogger()
+	log        = logger.GetLogger()
+	Severities = []string{
+		severityLow,
+		severityMedium,
+		severityHigh,
+		severityCritical,
+	}
 )
 
 // subject for modification once the research for rego is finish
@@ -38,7 +43,7 @@ func CheckIACFile(config, configFile string) {
 
 	switch config {
 	case file.FileTypeKubernetes:
-		modules, err := ModuleParser(config, EmbededRules)
+		modules, err := module.ModuleParser(config, EmbededRules)
 		if err != nil && modules == nil {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
@@ -48,7 +53,7 @@ func CheckIACFile(config, configFile string) {
 		proccessInput(input, rawContent, modules, kubernetesBaseModule, configFile)
 	case file.FileTypeTerraform:
 
-		modules, err := ModuleParser(config, EmbededRules)
+		modules, err := module.ModuleParser(config, EmbededRules)
 		if err != nil && modules == nil {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
@@ -65,49 +70,15 @@ func CheckIACFile(config, configFile string) {
 
 }
 
-func ModuleParser(platform string, fs embed.FS) (map[string]*ast.Module, error) {
-
-	modules := make(map[string]*ast.Module)
-	fileDirectory, err := fs.ReadDir(filepath.ToSlash(platform))
-
-	if err != nil {
-		return nil, err
-	}
-	for _, file := range fileDirectory {
-		if file.IsDir() {
-			subDirModule, err := ModuleParser(platform+"/"+file.Name(), fs)
-			if err != nil {
-				return nil, err
-			}
-			for key, val := range subDirModule {
-				modules[key] = val
-			}
-			continue
-		}
-		//skip file if not rego
-		if !strings.HasSuffix(file.Name(), bundle.RegoExt) || strings.HasSuffix(file.Name(), "_test"+bundle.RegoExt) {
-			continue
-		}
-		fullPath := platform + "/" + file.Name()
-		content, err := fs.ReadFile(fullPath)
-		if err != nil {
-			return nil, err
-		}
-		module, err := ast.ParseModuleWithOpts(fullPath, string(content), ast.ParserOptions{ProcessAnnotation: true})
-		if err != nil {
-			return nil, err
-		}
-		modules[fullPath] = module
-	}
-	return modules, err
-}
-
 // Process input to query on list of modules
 func proccessInput(input interface{}, rawContent string, modules map[string]*ast.Module, baseModule string, configFile string) {
 	ctx := context.Background()
 	//compile rego modules
 	compiler := compileModules(modules)
 	for _, module := range modules {
+		if moduleSkipByID(module) || moduleSkipBySeverity(module) {
+			continue
+		}
 		packageName := module.Package.Path.String()
 		if packageName == baseModule {
 			continue
@@ -128,4 +99,64 @@ func proccessInput(input interface{}, rawContent string, modules map[string]*ast
 		}
 
 	}
+}
+
+func moduleSkipByID(module *ast.Module) bool {
+
+	// return if no annotations
+	if len(module.Annotations) == 0 {
+		return false
+	}
+
+	//check args check or skipp check if equal to moodule id
+	checkId := module.Annotations[0].Custom["id"].(string)
+	check := *Arguments.Check
+	skipCheck := *Arguments.SkipCheck
+	if len(check) > 0 {
+		return !slices.Contains(check, checkId)
+	} else if len(skipCheck) > 0 {
+		return slices.Contains(skipCheck, checkId)
+	}
+	return false
+
+}
+
+func moduleSkipBySeverity(module *ast.Module) bool {
+	severities := getFilteredSeverities()
+
+	// return if no annotations
+	if len(module.Annotations) == 0 {
+		return false
+	}
+	//check args check do not skip check if equal to moodule severity
+	severity := module.Annotations[0].Custom["severity"].(string)
+	if len(severities) > 0 {
+		return !slices.Contains(severities, severity)
+	}
+	return false
+
+}
+
+func getFilteredSeverities() []string {
+	blockSeverities := new([]string)
+	severities := Severities
+	criteria := Arguments.SeverityCriteria
+	if *criteria == "" || len(*criteria) == 0 || !slices.Contains(severities, strings.ToUpper(*criteria)) {
+		return *blockSeverities
+	}
+
+	index := -1
+	for i, s := range severities {
+		if s == *criteria {
+			index = i
+			break
+		}
+	}
+
+	if index != -1 {
+		// Block severities below the given severity
+		return severities[index:]
+	}
+
+	return *blockSeverities
 }

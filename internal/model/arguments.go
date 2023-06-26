@@ -2,9 +2,12 @@ package model
 
 // Arguments - CLI Arguments
 type Arguments struct {
-	File   *string
-	Output *Output
-	Dir    *string
+	File             *string
+	Output           *Output
+	Dir              *string
+	Check            *[]string
+	SkipCheck        *[]string
+	SeverityCriteria *string
 }
 
 // Output type

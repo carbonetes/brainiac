@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/carbonetes/brainiac/internal/engine"
-	"github.com/carbonetes/brainiac/internal/logger"
+	"github.com/carbonetes/brainiac/internal/file"
 	"github.com/carbonetes/brainiac/internal/model"
 	versionPackage "github.com/carbonetes/brainiac/internal/version"
 
@@ -15,105 +15,47 @@ import (
 )
 
 var (
-	log         = logger.GetLogger()
-	help        bool            // help flag
-	tableOutput                 = []string{"table"}
-	outputArray                 = new([]string)
-	Arguments   model.Arguments = model.Arguments{
-		File: new(string),
-		Dir:  new(string),
-	}
-	versionOutputFormat string
-	versionArg          bool
-	// Arguments is an instance of the actual arguments passed
-
 	brainiac = &cobra.Command{
-		Use:   "brainiac",
-		Args:  cobra.MaximumNArgs(1),
-		Short: "IAC Configuration Analyzer",
-		Long:  `Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment. This tool can scan for issues like security policy misconfigurations, insecure cloud-based services, and compliance issues. The Brainiac tool performs a comprehensive code scan and generates reports containing detailed insights into the identified issues.`,
-		PreRun: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 && !flagHasArg() {
-				_ = cmd.Help()
-				os.Exit(0)
-			}
-			ValidateOutputArg(string(*Arguments.Output))
-		},
-		Run: func(cmd *cobra.Command, args []string) {
-
-			if len(args) > 0 {
-				if flagHasArg() {
-					log.Println(`"brainiac [-d, --dir]" does not support with argument file`)
-					os.Exit(127)
-				}
-				Arguments.File = &args[0]
-			} else if len(args) == 0 && flagHasArg() {
-				//continue to start
-			} else if len(args) == 0 && !flagHasArg() {
-				log.Printf(`"brainiac [-f, --file]" is required or at least 1 argument "brainiac [file]"`)
-				os.Exit(127)
-			}
-			engine.Start(&Arguments)
-		},
+		Use:    "brainiac",
+		Args:   cobra.MaximumNArgs(1),
+		Short:  "IAC Configuration Analyzer",
+		Long:   `Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment. This tool can scan for issues like security policy misconfigurations, insecure cloud-based services, and compliance issues. The Brainiac tool performs a comprehensive code scan and generates reports containing detailed insights into the identified issues.`,
+		PreRun: preRun,
+		Run:    run,
 	}
 
 	version = &cobra.Command{
 		Use:   "version",
-		Short: "Display Build Version Info BrainIAC",
-		Long:  "Display Build Version Info BrainIAC",
+		Short: "Display Build Version Info brainiac",
+		Long:  "Display Build Version Info brainiac",
 		Args:  cobra.MaximumNArgs(0),
-		RunE: func(_ *cobra.Command, _ []string) error {
-
-			versionInfo := versionPackage.FromBuild()
-			switch versionOutputFormat {
-			case "text":
-				// Version
-				fmt.Println("Application:         ", versionInfo.AppName)
-				fmt.Println("Version:             ", versionInfo.Version)
-				fmt.Println("Build Date:          ", versionInfo.BuildDate)
-				// Git
-				fmt.Println("Git Commit:          ", versionInfo.GitCommit)
-				fmt.Println("Git Description:     ", versionInfo.GitDesc)
-				// Golang
-				fmt.Println("Go Version:          ", versionInfo.GoVersion)
-				fmt.Println("Compiler:            ", versionInfo.Compiler)
-				fmt.Println("Platform:            ", versionInfo.Platform)
-			case "json":
-
-				jsonFormat := json.NewEncoder(os.Stdout)
-				jsonFormat.SetEscapeHTML(false)
-				jsonFormat.SetIndent("", " ")
-				err := jsonFormat.Encode(&struct {
-					model.Version
-				}{
-					Version: versionInfo,
-				})
-				if err != nil {
-					return fmt.Errorf("show version information error: %+v", err)
-				}
-			default:
-				return fmt.Errorf("unrecognize output format: %s", versionOutputFormat)
-			}
-			return nil
-		},
+		RunE:  runVersion,
 	}
 )
 
-func init() {
-	brainiac.Flags().BoolVarP(&help, "help", "h", false, "Help for BrainIAC")
-	brainiac.Flags().StringVarP(Arguments.File, "file", "f", "", "File to scan")
-	brainiac.Flags().BoolVarP(&versionArg, "version", "v", false, "Display BrainIAC version")
-	brainiac.Flags().StringVarP(Arguments.Dir, "dir", "d", "", "Read directly from a path on disk (any directory) (e.g. 'brainiac -d path/to/dir)' (can not be used together with --file).")
-	brainiac.Flags().StringArrayVarP(outputArray, "output", "o", tableOutput, "Format to display results (table, json)")
+func run(cmd *cobra.Command, args []string) {
 
-	// version flags
-	version.Flags().StringVarP(&versionOutputFormat, "output", "o", "text", "Format to display results ([text, json])")
-	version.Flags().BoolVarP(&help, "help", "h", false, "Help for version")
+	if len(args) > 0 {
+		if flagHasArg() {
+			log.Println(`"brainiac [-d, --dir]" does not support with argument file`)
+			os.Exit(127)
+		}
+		Arguments.File = &args[0]
+	} else if len(args) == 0 && flagHasArg() {
+		//continue to start
+	} else if len(args) == 0 && !flagHasArg() {
+		log.Printf(`"brainiac [-f, --file]" is required or at least 1 argument "brainiac [file]"`)
+		os.Exit(127)
+	}
+	engine.Start(&Arguments)
+}
 
-	brainiac.AddCommand(version)
-	brainiac.CompletionOptions.DisableDefaultCmd = true
-
-	cobra.OnInitialize(setPrioritizedArg)
+func preRun(cmd *cobra.Command, args []string) {
+	if len(args) == 0 && !flagHasArg() {
+		_ = cmd.Help()
+		os.Exit(0)
+	}
+	ValidateOutputArg(string(*Arguments.Output))
 }
 
 // Check if flag has dir or tar arguments
@@ -136,6 +78,9 @@ func setArrayArgs() {
 	output := strings.Join(*outputArray, ",")
 	Arguments.Output = (*model.Output)(&output)
 	// set for future array flags
+	Arguments.Check = file.ConvertStringListToArray(*check)
+	Arguments.SkipCheck = file.ConvertStringListToArray(*skipCheck)
+
 }
 
 // ValidateOutputArg checks if output types specified are valid
@@ -146,4 +91,39 @@ func ValidateOutputArg(outputType string) {
 			os.Exit(0)
 		}
 	}
+}
+
+func runVersion(_ *cobra.Command, _ []string) error {
+
+	versionInfo := versionPackage.FromBuild()
+	switch versionOutputFormat {
+	case "text":
+		// Version
+		fmt.Println("Application:         ", versionInfo.AppName)
+		fmt.Println("Version:             ", versionInfo.Version)
+		fmt.Println("Build Date:          ", versionInfo.BuildDate)
+		// Git
+		fmt.Println("Git Commit:          ", versionInfo.GitCommit)
+		fmt.Println("Git Description:     ", versionInfo.GitDesc)
+		// Golang
+		fmt.Println("Go Version:          ", versionInfo.GoVersion)
+		fmt.Println("Compiler:            ", versionInfo.Compiler)
+		fmt.Println("Platform:            ", versionInfo.Platform)
+	case "json":
+
+		jsonFormat := json.NewEncoder(os.Stdout)
+		jsonFormat.SetEscapeHTML(false)
+		jsonFormat.SetIndent("", " ")
+		err := jsonFormat.Encode(&struct {
+			model.Version
+		}{
+			Version: versionInfo,
+		})
+		if err != nil {
+			return fmt.Errorf("show version information error: %+v", err)
+		}
+	default:
+		return fmt.Errorf("unrecognize output format: %s", versionOutputFormat)
+	}
+	return nil
 }

@@ -184,7 +184,5 @@ func ParseTerraformFile(filename string) (interface{}, string) {
 	}
 
 	var interfaceResult interface{} = terraformFile
-	// res, _ := json.MarshalIndent(interfaceResult, "", " ")
-	// fmt.Print(string(res))
 	return interfaceResult, rawContent
 }

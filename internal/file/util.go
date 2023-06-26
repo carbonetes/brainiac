@@ -211,3 +211,18 @@ func isIACFile(filePath string) bool {
 		return false
 	}
 }
+
+func ConvertStringListToArray(input string) *[]string {
+	var newList []string
+	// return if input is blank
+	if input == "" {
+		return &newList
+	}
+
+	if strings.Contains(input, ",") {
+		newList = append(newList, strings.Split(input, ",")...)
+	} else {
+		newList = append(newList, input)
+	}
+	return &newList
+}
