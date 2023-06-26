@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFOCI_002
 
-test_no_hardcoded_private_key {
+test_oci_core_volume_has_backup_policy {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -30,7 +30,7 @@ test_no_hardcoded_private_key {
 	count(result) == 1
 }
 
-test_hardcoded_private_key {
+test_oci_core_volume_no_backup_policy {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
