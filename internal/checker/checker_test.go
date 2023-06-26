@@ -5,11 +5,23 @@ import (
 	"testing"
 
 	"github.com/carbonetes/brainiac/internal/file"
+	"github.com/carbonetes/brainiac/internal/model"
 )
 
 func TestCheckIACFileKubernetes(t *testing.T) {
 	// Define input Kubernetes configuration file
 	configFile := ".." + string(filepath.Separator) + ".." + string(filepath.Separator) + "docs" + string(filepath.Separator) + "Kubernetes" + string(filepath.Separator) + "cronjob.yaml"
+
+	args := &model.Arguments{
+		File:             &configFile,
+		Output:           func() *model.Output { o := model.Output("json"); return &o }(),
+		Dir:              new(string),
+		Check:            new([]string),
+		SkipCheck:        new([]string),
+		SeverityCriteria: new(string),
+	}
+
+	Arguments = args
 	// Call CheckIACFile with Kubernetes config type and input file
 	CheckIACFile(file.FileTypeKubernetes, configFile)
 
