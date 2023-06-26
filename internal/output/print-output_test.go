@@ -13,9 +13,12 @@ func TestPrintFileResults(t *testing.T) {
 	configFile := ".." + string(filepath.Separator) + ".." + string(filepath.Separator) + "docs" + string(filepath.Separator) + "Kubernetes" + string(filepath.Separator) + "pod.yaml"
 
 	args := &model.Arguments{
-		File:   &configFile,
-		Output: func() *model.Output { o := model.Output("json"); return &o }(),
-		Dir:    func() *string { s := ""; return &s }(),
+		File:             &configFile,
+		Output:           func() *model.Output { o := model.Output("json"); return &o }(),
+		Dir:              new(string),
+		Check:            new([]string),
+		SkipCheck:        new([]string),
+		SeverityCriteria: new(string),
 	}
 
 	checker.Arguments = args
@@ -34,9 +37,12 @@ func TestPrintDirResults(t *testing.T) {
 	parent := ".." + string(filepath.Separator) + ".." + string(filepath.Separator) + "docs" + string(filepath.Separator) + "Kubernetes" + string(filepath.Separator)
 
 	args := &model.Arguments{
-		File:   func() *string { s := ""; return &s }(),
-		Output: func() *model.Output { o := model.Output("json"); return &o }(),
-		Dir:    &parent,
+		File:             func() *string { s := ""; return &s }(),
+		Output:           func() *model.Output { o := model.Output("json"); return &o }(),
+		Dir:              &parent,
+		Check:            new([]string),
+		SkipCheck:        new([]string),
+		SeverityCriteria: new(string),
 	}
 
 	checker.Arguments = args

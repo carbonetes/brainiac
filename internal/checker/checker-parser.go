@@ -61,6 +61,7 @@ func parseRegoResult(result rego.ResultSet, module *ast.Module, configFile strin
 
 }
 
+// update check linerange and codeblock
 func updateLineRangeAndCodeBlock(_check *model.Check, configSnippet map[string]interface{}, rawContents string) {
 	if configSnippet == nil {
 		return

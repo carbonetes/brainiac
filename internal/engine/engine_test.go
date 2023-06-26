@@ -16,14 +16,20 @@ func TestStart(t *testing.T) {
 	// Define test cases
 	args := []*model.Arguments{
 		{
-			File:   func() *string { s := parent + "pod.yaml"; return &s }(),
-			Output: func() *model.Output { o := model.Output("-f"); return &o }(),
-			Dir:    func() *string { s := ""; return &s }(),
+			File:             func() *string { s := parent + "pod.yaml"; return &s }(),
+			Output:           func() *model.Output { o := model.Output("-f"); return &o }(),
+			Dir:              func() *string { s := ""; return &s }(),
+			Check:            new([]string),
+			SkipCheck:        new([]string),
+			SeverityCriteria: new(string),
 		},
 		{
-			File:   func() *string { s := ""; return &s }(),
-			Output: func() *model.Output { o := model.Output("-d"); return &o }(),
-			Dir:    &parent,
+			File:             func() *string { s := ""; return &s }(),
+			Output:           func() *model.Output { o := model.Output("-d"); return &o }(),
+			Dir:              &parent,
+			Check:            new([]string),
+			SkipCheck:        new([]string),
+			SeverityCriteria: new(string),
 		},
 	}
 
