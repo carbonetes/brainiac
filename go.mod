@@ -10,6 +10,7 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/t-tomalak/logrus-easy-formatter v0.0.0-20190827215021-c074f06c5816
 	github.com/zclconf/go-cty v1.13.2
+	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 	gopkg.in/yaml.v3 v3.0.1
 )
 

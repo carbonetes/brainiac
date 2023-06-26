@@ -108,6 +108,10 @@ brainiac [flag]
 | `-d`, `--dir`                     | Read directly from a path on disk (any directory) (e.g. 'BrainIAC -d path/to/dir)' (can not be used together with --file).                                              |
 | `-o`, `--output`                  | Format to display results (table, json) (default "table")  
 | `-v`, `--version`                 | Print BrainIAC version 
+| `c`, `--check`                    | Each item should be a BrainIAC check ID(CB_K8S_023), and you can enter multiple items separated by commas. Only the specified checks will be executed, and any other checks will be skipped.|
+|  `--skip-check`                   | The same behavior applies to the --check flag, where you can enter multiple items separated by commas. However, only the specified checks will be skipped, and all other checks will be executed. |
+| `--severity-criteria`             | This is used to specify the severity level for filtering results. Only checks with a severity equal to or higher than the specified criteria will be included.([low medium high critical])
+
 
 
 ## License
