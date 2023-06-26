@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFOCI_005
 
-test_no_hardcoded_private_key {
+test_noci_core_instance_transit_encryption_enabled {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +29,7 @@ test_no_hardcoded_private_key {
 	count(result) == 1
 }
 
-test_hardcoded_private_key {
+test_noci_core_instance_transit_encryption_not_enabled {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
