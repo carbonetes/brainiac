@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFOCI_004
 
-test_no_hardcoded_private_key {
+test_oci_core_volume_kms_encrypted {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +17,7 @@ test_no_hardcoded_private_key {
 	count(result) == 1
 }
 
-test_hardcoded_private_key {
+test_oci_core_volume_kms_not_encrypted {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
