@@ -23,10 +23,6 @@ resource [resource]{
 	resource := concat(".", block.Labels)
 } 
 
-has_attribute(key, value) {
-  _ = key[value]
-}
-
 pass[blocks]{
     blocks := input[_]
 	isvalid(blocks)
