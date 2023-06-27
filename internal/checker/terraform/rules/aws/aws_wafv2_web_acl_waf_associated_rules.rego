@@ -12,6 +12,7 @@ package lib.terraform.CB_TFAWS_163
 
 
 supportedResources := ["aws_waf_web_acl", "aws_wafregional_web_acl", "aws_wafv2_web_acl"]
+validTypes := ["rule", "rules"]
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == supportedResources[_]
@@ -30,13 +31,7 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    contains(resource.Blocks[_].Type, "rule")
-}
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    contains(resource.Blocks[_].Type, "rules")
+    resource.Blocks[_].Type == validTypes[_]
 }
 
 fail[block] {
