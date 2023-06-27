@@ -33,6 +33,7 @@ pass[resource] {
     isvalid(resource)
 
     has_attribute(resource.Attributes, "kms_key_id")
+    resource.Attributes.kms_key_id != ""
 }
 
 fail[block] {

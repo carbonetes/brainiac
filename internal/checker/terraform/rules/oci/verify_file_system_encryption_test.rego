@@ -30,7 +30,7 @@ test_verify_file_system_encryption_failed {
 									"example"
 									],
 									"Attributes": {
-									"tc": "\u003cCUSTOMER_MANAGED_KEY_OCID\u003e"
+									"kms_key_id": ""
 									},
 									"Blocks": [],
 									"line_range": {
