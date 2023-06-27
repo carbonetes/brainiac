@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/emr_security_configuration
 # custom:
 #   id: CB_TFAWS_164
-#   severity: INFO
+#   severity: MEDIUM
 package lib.terraform.CB_TFAWS_164
 
 import future.keywords.in 
