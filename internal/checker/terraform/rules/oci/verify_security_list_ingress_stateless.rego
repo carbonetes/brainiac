@@ -15,10 +15,6 @@ isvalid(block){
     block.Blocks[_].Type == "ingress_security_rules"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
