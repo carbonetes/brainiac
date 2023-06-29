@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFOCI_019
 
-test_verify_file_system_encryption_passed {
+test_verify_security_list_unrestricted_ingress_22_passed {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -14,15 +14,15 @@ test_verify_file_system_encryption_passed {
 										"Type": "ingress_security_rules",
 										"Labels": [],
 										"Attributes": {
-										"source": "0.0.0.0/3"
+										"source": "0.0.0.0/0"
 										},
 										"Blocks": [
 										{
 										"Type": "tcp_options",
 										"Labels": [],
 										"Attributes": {
-										"max": "23",
-										"min": "21"
+										"max": "43",
+										"min": "41"
 										},
 										"Blocks": [],
 										"line_range": {
@@ -59,7 +59,7 @@ test_verify_file_system_encryption_passed {
 	count(result) == 1
 }
 
-test_verify_file_system_encryption_failed {
+test_verify_security_list_unrestricted_ingress_22_failed {
 	result := failed with input as [
 									{
 									"Type": "resource",
