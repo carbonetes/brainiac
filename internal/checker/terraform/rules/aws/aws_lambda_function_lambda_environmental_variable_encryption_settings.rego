@@ -33,6 +33,7 @@ pass[resource]{
 	isvalid(resource)
     has_attribute(resource.Attributes, "kms_key_arn")
     resource.Attributes.kms_key_arn != ""
+    contains(resource.Blocks[_].Type, "environment")
 }
 
 
