@@ -38,7 +38,6 @@ pass[resource]{
     resource.Blocks[_].Attributes.log_destination != ""
 }
 
-
 fail[block] {
     block := input[_]
 	isvalid(block)
