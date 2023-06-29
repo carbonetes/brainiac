@@ -37,7 +37,6 @@ pass[resource] {
     isvalid(resource)
 
     resource.Blocks[_].Type == "ingress_security_rules"
-    resource.Blocks[_].Attributes.source != "0.0.0.0/0"
 
     tcp_options := resource.Blocks[_].Blocks[_]
     tcp_options.Type == "tcp_options"
