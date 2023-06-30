@@ -42,7 +42,7 @@ group_membership[resource] {
 api_key[resource] {
 	resource := input[_]
     resource.Labels[_] == "oci_identity_api_key"
-    split(resource.Attributes.user_id, ".")[_] == users[_].Labels[_]
+    resource.Attributes.user_id == concat(".",[concat(".", users[_].Labels),"id"])
 }
 
 admin_check(resource) := true if {
