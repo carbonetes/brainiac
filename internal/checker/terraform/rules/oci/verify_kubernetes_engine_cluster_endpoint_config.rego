@@ -27,6 +27,7 @@ resource[resource] {
 pass[resource] {
 	resource := input[_]
     isvalid(resource)
+    resource.Blocks[_].Type == "endpoint_config"
     is_array(resource.Blocks[_].Attributes.nsg_ids)
     count(resource.Blocks[_].Attributes.nsg_ids) > 0
 }
@@ -45,6 +46,6 @@ passed[result] {
 
 failed[result] {
     block := fail[_]
-	result := { "message": "'oci_containerengine_cluster' for 'destination_port_range' should be set.",
+	result := { "message": "'oci_containerengine_cluster' for 'endpoint_config' should be set.",
                 "snippet": block }
 } 
