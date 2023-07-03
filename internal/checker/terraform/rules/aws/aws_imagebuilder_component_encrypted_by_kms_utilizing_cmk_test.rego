@@ -1,0 +1,49 @@
+package lib.terraform.CB_TFAWS_171
+
+test_aws_imagebuilder_component_encrypted_by_kms_utilizing_cmk_passed {
+    result := passed with input as [
+                                    {
+                                    "Type": "resource",
+                                    "Labels": [
+                                    "aws_imagebuilder_component",
+                                    "example"
+                                    ],
+                                    "Attributes": {
+                                    "kms_key_id": "ckv_kms",
+                                    "name": "example",
+                                    "platform": "Linux",
+                                    "version": "1.0.0"
+                                    },
+                                    "Blocks": [],
+                                    "line_range": {
+                                    "endLine": 20,
+                                    "startLine": 1
+                                    }
+                                    }
+                                ]
+    count(result) == 1
+}
+
+test_aws_imagebuilder_component_encrypted_by_kms_utilizing_cmk_failed {
+result := failed with input as [
+                                    {
+                                    "Type": "resource",
+                                    "Labels": [
+                                    "aws_imagebuilder_component",
+                                    "example"
+                                    ],
+                                    "Attributes": {
+                                    "kms_key_id": "",
+                                    "name": "example",
+                                    "platform": "Linux",
+                                    "version": "1.0.0"
+                                    },
+                                    "Blocks": [],
+                                    "line_range": {
+                                    "endLine": 20,
+                                    "startLine": 1
+                                    }
+                                    }
+                            ]
+    count(result) == 1
+}
