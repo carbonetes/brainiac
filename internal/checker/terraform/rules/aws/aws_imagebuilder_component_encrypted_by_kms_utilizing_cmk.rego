@@ -3,7 +3,7 @@
 # description: "This quick test verifies that the Image Builder component encrypts its contents with AWS key management - KMS."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fsx_ontap_file_system
+# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/imagebuilder_component
 # custom:
 #   id: CB_TFAWS_171
 #   severity: LOW
