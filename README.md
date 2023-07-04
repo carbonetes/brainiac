@@ -23,9 +23,9 @@ BrainIAC uses static code analysis to analyze IAC code to detect security issues
 
 ### Supported Platform
 - [Kubernetes](docs/Policy/KUBERNETES_POLICYRULES.md)
+- Terraform([OCI](docs/Policy/TERRAFORM_OCI_POLICYRULES.md))
 
 ### Coming Soon
-- Terraform(AWS, Azure, and etc.)
 - Docker
 - CloudFormation
 - Serverles Framework

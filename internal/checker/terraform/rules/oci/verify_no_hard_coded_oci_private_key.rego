@@ -9,9 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFOCI_001
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "provider"
     block.Labels[_] == "oci"
