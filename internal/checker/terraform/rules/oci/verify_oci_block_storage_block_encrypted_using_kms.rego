@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFOCI_004
 
-import future.keywords.in 
-
 
 isvalid(block){
 	block.Type == "resource"
@@ -34,6 +32,7 @@ pass[blocks]{
     blocks := input[_]
 	isvalid(blocks)
     has_attribute(blocks.Attributes, "kms_key_id")
+    blocks.Attributes.kms_key_id != ""
 }
 
 fail[block] {

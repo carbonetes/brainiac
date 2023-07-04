@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify OCI Compute Instance has Legacy MetaData service endpoint disabled"
-# description: "By disabling the Legacy Metadata service endpoint, you can prevent unauthorized access and potential data breaches. "
+# description: "By disabling the Legacy Metadata service endpoint, you can prevent unauthorized access and potential data breaches."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/core_instance#are_legacy_imds_endpoints_disabled
@@ -8,9 +8,6 @@
 #   id: CB_TFOCI_006
 #   severity: HIGH
 package lib.terraform.CB_TFOCI_006
-
-import future.keywords.in 
-
 
 isvalid(block){
 	block.Type == "resource"
