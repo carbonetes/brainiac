@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFOCI_002
 
-import future.keywords.in 
-
 
 isvalid(block){
 	block.Type == "resource"

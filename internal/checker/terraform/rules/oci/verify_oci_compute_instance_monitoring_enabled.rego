@@ -9,9 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFOCI_007
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "oci_core_instance"
