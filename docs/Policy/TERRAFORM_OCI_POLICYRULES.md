@@ -1,7 +1,7 @@
 # Terraform OCI Policy Index
 
 
-This document provides a comprehensive index of Kubernetes policies available in BrainIAC(Terraform OCI).
+This document provides a comprehensive index of Terraform policies available in BrainIAC(Terraform OCI).
 
 
 | ID | Type | Entity | Policy | Resource |
