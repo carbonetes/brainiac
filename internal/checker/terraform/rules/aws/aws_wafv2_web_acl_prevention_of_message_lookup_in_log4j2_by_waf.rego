@@ -27,6 +27,7 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
+    resource.Blocks[_].Type == "rule"
     resource.Blocks[_].Blocks[_].Type == "override_action"
     resource.Blocks[_].Blocks[_].Blocks[_].Type == "none"
     resource.Blocks[_].Blocks[_].Type == "statement"
