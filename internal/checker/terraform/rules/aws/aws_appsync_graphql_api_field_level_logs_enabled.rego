@@ -29,11 +29,12 @@ resource[resource] {
 } 
 
 pass[resource]{
+    fieldLogLevelValues := ["ALL", "ERROR"]
     resource := input[_]
 	isvalid(resource)
     resource.Blocks[_].Type == "log_config"
     has_attribute(resource.Blocks[_].Attributes, "field_log_level")
-    resource.Blocks[_].Attributes.field_log_level == "ALL"
+    resource.Blocks[_].Attributes.field_log_level == fieldLogLevelValues[_]
 }
 
 fail[block] {
