@@ -1,5 +1,5 @@
 # METADATA
-# title: "Confirm that the Image Recipe EBS Disks are CMK encrypted."
+# title: "Confirm that the Image Recipe EBS Disks are CMK encrypted"
 # description: "In accordance with this policy, Image Recipe EBS Disks that use default KMS keys rather than customer-managed keys for encryption are identified. To encrypt your EFS data, it is recommended that you utilize customer-managed KMS Keys. You are granted total control on the encrypted data."
 # scope: package
 # related_resources:
