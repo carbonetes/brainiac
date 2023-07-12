@@ -3,7 +3,7 @@
 # description: "By enabling the KMS key with the `is_enabled` property, sensitive data can be securely encrypted and decrypted, providing an essential layer of protection against unauthorized access and ensuring the confidentiality and integrity of critical information."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#auto_minor_version_upgrade
+# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key#is_enabled
 # custom:
 #   id: CB_TFAWS_199
 #   severity: LOW
