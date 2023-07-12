@@ -7,7 +7,7 @@ import (
 
 	"github.com/carbonetes/brainiac/internal/checker"
 	"github.com/carbonetes/brainiac/internal/logger"
-	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/pkg/model"
 )
 
 var (

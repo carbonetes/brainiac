@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/carbonetes/brainiac/internal/file"
-	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/pkg/model"
 
 	"github.com/open-policy-agent/opa/ast"
 	"github.com/open-policy-agent/opa/rego"
