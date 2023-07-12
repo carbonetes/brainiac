@@ -28,19 +28,20 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Blocks[_].Type == "block_device_mapping"
-    resource.Blocks[_].Blocks[_].Type == "ebs"
-    has_attribute(resource.Blocks[_].Blocks[_].Attributes, "encrypted")
-    has_attribute(resource.Blocks[_].Blocks[_].Attributes, "kms_key_id")
-}
-
-fail[block] {
+pass[block] {
     block := input[_]
 	isvalid(block)
-   	not pass[block]
+   	not fail[block]
+}
+
+fail[resource] {
+    expectedValues := ["encrypted", "kms_key_id"]
+    expectedValue = expectedValues[_]
+    resource := input[_]
+    isvalid(resource)  
+    blocks := resource.Blocks[_]
+    nestedBlocks := blocks.Blocks[_]
+    not has_attribute(nestedBlocks.Attributes, expectedValue)    
 }
 
 passed[result] {
