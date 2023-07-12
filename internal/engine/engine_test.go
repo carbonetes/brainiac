@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/carbonetes/brainiac/internal/checker"
-	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/pkg/model"
 )
 
 func TestStart(t *testing.T) {

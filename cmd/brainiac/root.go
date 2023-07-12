@@ -8,8 +8,8 @@ import (
 
 	"github.com/carbonetes/brainiac/internal/engine"
 	"github.com/carbonetes/brainiac/internal/file"
-	"github.com/carbonetes/brainiac/internal/model"
 	versionPackage "github.com/carbonetes/brainiac/internal/version"
+	"github.com/carbonetes/brainiac/pkg/model"
 
 	"github.com/spf13/cobra"
 )
@@ -115,7 +115,7 @@ func runVersion(_ *cobra.Command, _ []string) error {
 		jsonFormat.SetEscapeHTML(false)
 		jsonFormat.SetIndent("", " ")
 		err := jsonFormat.Encode(&struct {
-			model.Version
+			versionPackage.Version
 		}{
 			Version: versionInfo,
 		})

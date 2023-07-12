@@ -1,4 +1,4 @@
-package model
+package version
 
 // Version - Build Information
 type Version struct {
