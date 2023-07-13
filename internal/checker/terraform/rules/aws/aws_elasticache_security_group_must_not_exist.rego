@@ -18,10 +18,6 @@ isvalid(block){
     block.Labels[_] == "aws_elasticache_security_group"
 }
 
-has_attribute(key, value){
-    _ = key[value]
-}
-
 resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
