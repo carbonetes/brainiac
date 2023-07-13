@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Create before destroy for API deployments"
-# description: "By verifying "Create before destroy," you can avoid service interruptions, prevent data loss, and maintain a consistent user experience."
+# description: "By verifying Create before destroy, you can avoid service interruptions, prevent data loss, and maintain a consistent user experience."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment
