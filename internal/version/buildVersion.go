@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-
-	"github.com/carbonetes/brainiac/internal/model"
 )
 
 const placeholder = "not available"
@@ -23,8 +21,8 @@ var (
 )
 
 // FromBuild provides all version details
-func FromBuild() model.Version {
-	return model.Version{
+func FromBuild() Version {
+	return Version{
 		// Version
 		AppName:   baseAppName,
 		Version:   version,

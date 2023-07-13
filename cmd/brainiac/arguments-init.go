@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/carbonetes/brainiac/internal/logger"
-	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/pkg/model"
 	"github.com/spf13/cobra"
 )
 

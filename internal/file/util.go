@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/carbonetes/brainiac/internal/model"
+	"github.com/carbonetes/brainiac/pkg/model"
 
 	"gopkg.in/yaml.v3"
 )
@@ -47,14 +47,6 @@ type yamlRes struct {
 	Content *yamlNode
 }
 
-// Exists checks if filename exists
-func Exists(filename string) bool {
-	if _, err := os.Stat(filename); err == nil {
-		return true
-	}
-	return false
-}
-
 func ConfigType(file string) string {
 	if isKubernetes(file) {
 		return FileTypeKubernetes
@@ -68,6 +60,14 @@ func ConfigType(file string) string {
 		return FileTypeTerraform
 	}
 	return ""
+}
+
+// Exists checks if filename exists
+func Exists(filename string) bool {
+	if _, err := os.Stat(filename); err == nil {
+		return true
+	}
+	return false
 }
 
 // check if file extension is yaml
