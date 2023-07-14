@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAWS_216
 
-test_verify_network_acl_unrestricted_ingress_passed {
+test_verify_network_acl_unrestricted_ingress_21_passed {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -27,7 +27,7 @@ test_verify_network_acl_unrestricted_ingress_passed {
 	count(result) == 1
 }
 
-test_verify_network_acl_unrestricted_ingress_failed {
+test_verify_network_acl_unrestricted_ingress_21_failed {
 	result := failed with input as [
 									{
 									"Type": "resource",
