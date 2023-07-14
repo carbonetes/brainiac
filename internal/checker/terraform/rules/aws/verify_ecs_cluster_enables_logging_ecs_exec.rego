@@ -29,7 +29,7 @@ pass[blocks]{
 	isvalid(blocks)
     blocks.Blocks[_].Type == "configuration"
     blocks.Blocks[_].Blocks[_].Type == "execute_command_configuration"
-     blocks.Blocks[_].Blocks[_].Attributes.logging != "NONE"
+    blocks.Blocks[_].Blocks[_].Attributes.logging != "NONE"
 }
 
 fail[block] {
