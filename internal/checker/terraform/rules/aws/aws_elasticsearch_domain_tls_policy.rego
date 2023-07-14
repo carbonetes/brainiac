@@ -30,7 +30,7 @@ resource [resource]{
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    resource.Blocks[_].Attributes.tls_security_policy != ""
+    resource.Blocks[_].Attributes.tls_security_policy == "Policy-Min-TLS-1-2-2019-07"
 }
 
 fail[block] {
