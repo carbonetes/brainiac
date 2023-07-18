@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that the App Flow connector profile utilizes CMK."
+# title: "Verify that the App Flow connector profile utilizes CMK"
 # description: "Database snapshots that hadn't been KMS-encrypted are identified by this policy. For all storage volumes and snapshots, managing your own encryption keys is recommended."
 # scope: package
 # related_resources:
