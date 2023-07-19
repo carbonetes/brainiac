@@ -18,6 +18,10 @@ isvalid(block){
     block.Labels[_] == supportedResource[_]
 }
 
+has_attribute(key, value) {
+    _ = key[value]
+}
+
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
@@ -28,10 +32,13 @@ resource [resource]{
 } 
 
 pass[resource]{
+    expectedValues := ["Active", "PassThrough"]
     resource := input[_]
 	isvalid(resource)
     block := resource.Blocks[_]
-    block.Attributes.mode == "Active"
+    block.Type == "tracing_config"
+    has_attribute(block.Attributes, "mode")
+    block.Attributes.mode == expectedValues[_]
 }
 
 
