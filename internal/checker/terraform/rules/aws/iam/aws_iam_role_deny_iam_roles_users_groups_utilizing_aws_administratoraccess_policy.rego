@@ -31,7 +31,6 @@ fail[resource] {
     isvalid(resource)
     managed_policy_arns := resource.Attributes.managed_policy_arns
     policy_arn := resource.Attributes.policy_arn
-
     ends_with_admin_access(managed_policy_arns)
 }
 
