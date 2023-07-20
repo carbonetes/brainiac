@@ -9,7 +9,7 @@ test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_
 		],
 		"Attributes": {
 			"managed_policy_arns": ["arn:aws:iam::aws:policy/SomeOtherPolicy"],
-			"policy_arn": "arn:aws:iam::aws:policy/SomeOtherPolicy",
+			"policy_arn": "arn:aws:iam::aws:policy/AdministratorAccess",
 		},
 		"Blocks": [],
 		"line_range": {

@@ -1,6 +1,6 @@
 # METADATA
-# title: "Prohibit the usage of the AWS "AdministratorAccess" policy for IAM roles, users, and groups"
-# description: "This policy aims to prevent IAM roles, users, and groups from employing the "AdministratorAccess" policy in AWS, which grants extensive permissions and should be carefully controlled."
+# title: "Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups"
+# description: "This policy aims to prevent IAM roles, users, and groups from employing the AdministratorAccess policy in AWS, which grants extensive permissions and should be carefully controlled."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
