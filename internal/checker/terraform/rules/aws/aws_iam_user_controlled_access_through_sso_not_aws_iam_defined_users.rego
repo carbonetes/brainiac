@@ -24,8 +24,6 @@ fail[resource] {
 	isvalid(resource)
 }
 
-passed := []
-
 failed[result] {
     block := fail[_]
 	result := { "message": "Access is granted to AWS IAM defined users.",
