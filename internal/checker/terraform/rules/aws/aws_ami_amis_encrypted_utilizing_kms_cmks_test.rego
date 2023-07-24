@@ -16,19 +16,19 @@ test_aws_ami_amis_encrypted_utilizing_kms_cmks_passed {
 			"Labels": [],
 			"Attributes": {
 				"device_name": "/dev/sda1",
-				"snapshot_id": "snapshot-id",
 				"encrypted": true,
+				"snapshot_id": "snapshot-id",
 				"volume_size": "20",
 				"volume_type": "gp2",
 			},
 			"Blocks": [],
 			"line_range": {
-				"endLine": 10,
+				"endLine": 11,
 				"startLine": 5,
 			},
 		}],
 		"line_range": {
-			"endLine": 12,
+			"endLine": 13,
 			"startLine": 1,
 		},
 	}]
@@ -43,7 +43,7 @@ test_aws_ami_amis_encrypted_utilizing_kms_cmks_failed {
 			"example",
 		],
 		"Attributes": {
-			"nmea": "example-ami",
+			"name": "example-ami",
 			"virtualization_type": "hvm",
 		},
 		"Blocks": [{
@@ -57,12 +57,12 @@ test_aws_ami_amis_encrypted_utilizing_kms_cmks_failed {
 			},
 			"Blocks": [],
 			"line_range": {
-				"endLine": 10,
+				"endLine": 11,
 				"startLine": 5,
 			},
 		}],
 		"line_range": {
-			"endLine": 12,
+			"endLine": 13,
 			"startLine": 1,
 		},
 	}]
