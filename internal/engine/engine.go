@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"errors"
 	"os"
 
 	"github.com/carbonetes/brainiac/internal/checker"
@@ -36,9 +37,9 @@ func Start(arguments *model.Arguments) {
 			os.Exit(1)
 		}
 		// process file
-		ProcessSingleFile(arguments)
+		result, _ := ProcessSingleFile(arguments)
 		// Print the final result summary for single file
-		output.PrintFileResults()
+		output.PrintFileResults(result)
 	case inputDir:
 		// check if input directory exists
 		if !file.Exists(*arguments.Dir) {
@@ -46,36 +47,33 @@ func Start(arguments *model.Arguments) {
 			os.Exit(1)
 		}
 		//process all the files found in the input directory
-		ProcessFileList(arguments)
+		arrayResults, _ := ProcessFileList(arguments)
 		// Print the final result summary for input directory
-		output.PrintDirResults()
+		output.PrintDirResults(arrayResults)
 	}
 }
 
 // processSingleFile is a function that processes individual IAC configuration files
-func ProcessSingleFile(arguments *model.Arguments) (model.Result, []*error) {
+func ProcessSingleFile(arguments *model.Arguments) (model.Result, error) {
 
 	// determine configuration file format
 	config := file.ConfigType(*arguments.File)
 
 	// if format is not detected, print error message and exit out of program
 	if config == "" {
-		log.Println("Platform not detected")
-		os.Exit(1)
+		log.Fatal(errors.New("Platform not detected"))
 	}
 	// Call CheckIACFile() from checker module to perform IAC analysis
-	checker.CheckIACFile(config, *arguments.File)
-
-	// finalize the results of the checker
-	finalizeResults()
-
-	//return results
-	return *checker.IACResults, checker.Errors
+	return checker.CheckIACFile(config, *arguments.File)
 }
 
 // processFileList is a function that processes all IAC configuration files found in the input directory
-func ProcessFileList(arguments *model.Arguments) ([]*model.Result, []*error) {
+func ProcessFileList(arguments *model.Arguments) ([]*model.Result, *[]error) {
 
+	// innit array results
+	var IACArrayResults = make([]*model.Result, 0)
+	//errors
+	var Errors []*error
 	// check if there IAC files in the input directory
 	fileList := file.CheckDirectoryForIAC(*arguments.Dir)
 	if len(fileList) == 0 {
@@ -83,7 +81,7 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, []*error) {
 		os.Exit(1)
 	}
 
-	// for every IAC file in our list of IAC files,
+	// for every IAC file in your list of IAC files,
 	// determine the configuration file format
 	// and check the file contents using CheckIACFile()
 	for _, iacFile := range fileList {
@@ -91,23 +89,13 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, []*error) {
 		if config == "" {
 			continue
 		}
-		checker.CheckIACFile(config, iacFile)
-
-		// finalize the results of the checker
-		finalizeResults()
-
+		results, err := checker.CheckIACFile(config, iacFile)
 		// append results to IACArrayResults slice within the checker module
-		checker.IACArrayResults = append(checker.IACArrayResults, checker.IACResults)
-
-		// clear the IACResults model for the next iteration of processSingleFile()
-		checker.IACResults = new(model.Result)
+		IACArrayResults = append(IACArrayResults, &results)
+		if err != nil {
+			Errors = append(Errors, &err)
+		}
 	}
 
-	return checker.IACArrayResults, checker.Errors
-}
-
-// finalizeResults() is a function that finalizes count of failed and passed checks for each IAC configuration file
-func finalizeResults() {
-	checker.IACResults.Summary.Failed = len(checker.IACResults.FailedChecks)
-	checker.IACResults.Summary.Passed = len(checker.IACResults.PassedChecks)
+	return IACArrayResults, nil
 }

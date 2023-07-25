@@ -8,6 +8,7 @@ import (
 	"github.com/carbonetes/brainiac/internal/file"
 	"github.com/carbonetes/brainiac/internal/logger"
 	"github.com/carbonetes/brainiac/internal/module"
+	"github.com/carbonetes/brainiac/pkg/model"
 	"github.com/open-policy-agent/opa/ast"
 	"github.com/open-policy-agent/opa/rego"
 	"golang.org/x/exp/slices"
@@ -24,8 +25,7 @@ const (
 	failedCheck      = "FAILED"
 	passedCheck      = "PASSED"
 
-	kubernetesBaseModule = "data.lib.kubernetes"
-	terraformBaseModule  = "data.lib.terraform"
+	baseModulePrefix = "data.lib."
 )
 
 var (
@@ -39,7 +39,7 @@ var (
 )
 
 // subject for modification once the research for rego is finish
-func CheckIACFile(config, configFile string) {
+func CheckIACFile(config, configFile string) (model.Result, error) {
 
 	switch config {
 	case file.FileTypeKubernetes:
@@ -48,9 +48,8 @@ func CheckIACFile(config, configFile string) {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
 		}
-		IACResults.CheckType = file.FileTypeKubernetes
 		input, rawContent := file.ParseKubernetesFile(configFile)
-		proccessInput(input, rawContent, modules, kubernetesBaseModule, configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeKubernetes, configFile)
 	case file.FileTypeTerraform:
 
 		modules, err := module.ModuleParser(config, EmbededRules)
@@ -58,20 +57,24 @@ func CheckIACFile(config, configFile string) {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
 		}
-		IACResults.CheckType = file.FileTypeTerraform
 		input, rawContent := file.ParseTerraformFile(configFile)
-		proccessInput(input, rawContent, modules, terraformBaseModule, configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeTerraform, configFile)
 
 	case file.FileTypeDockerfile:
 
-		IACResults.CheckType = file.FileTypeDockerfile
 		//implement other config type here
 	}
+	return *new(model.Result), nil
 
 }
 
 // Process input to query on list of modules
-func proccessInput(input interface{}, rawContent string, modules map[string]*ast.Module, baseModule string, configFile string) {
+func proccessInput(input interface{}, rawContent string, modules map[string]*ast.Module, configType string, configFile string) (model.Result, error) {
+	// init variable
+	var IACResults = new(model.Result)
+	IACResults.CheckType = configType
+	baseModule := baseModulePrefix + configType
+
 	ctx := context.Background()
 	//compile rego modules
 	compiler := compileModules(modules)
@@ -95,10 +98,27 @@ func proccessInput(input interface{}, rawContent string, modules map[string]*ast
 			continue
 		}
 		if len(result) > 0 {
-			parseRegoResult(result, module, configFile, rawContent)
+			checks, _ := parseRegoResult(result, module, configFile, rawContent)
+			if checks.Title != "" {
+				updateResults(checks, IACResults)
+			}
 		}
 
 	}
+	return *IACResults, nil
+}
+
+func updateResults(check model.Check, IACResults *model.Result) {
+	if check.CheckResult == failedCheck {
+		//append to failed
+		countSeverity(check.Severity, IACResults)
+		IACResults.FailedChecks = append(IACResults.FailedChecks, check)
+	} else {
+		IACResults.PassedChecks = append(IACResults.PassedChecks, check)
+	}
+
+	finalizeResults(IACResults)
+
 }
 
 func moduleSkipByID(module *ast.Module) bool {
@@ -159,4 +179,24 @@ func getFilteredSeverities() []string {
 	}
 
 	return *blockSeverities
+}
+
+// add severity to summary
+func countSeverity(severity string, IACResults *model.Result) {
+	switch severity {
+	case severityLow:
+		IACResults.Summary.Low += 1
+	case severityMedium:
+		IACResults.Summary.Medium += 1
+	case severityHigh:
+		IACResults.Summary.High += 1
+	case severityCritical:
+		IACResults.Summary.Critical += 1
+	}
+}
+
+// finalizeResults() is a function that finalizes count of failed and passed checks for each IAC configuration file
+func finalizeResults(IACResults *model.Result) {
+	IACResults.Summary.Failed = len(IACResults.FailedChecks)
+	IACResults.Summary.Passed = len(IACResults.PassedChecks)
 }

@@ -7,14 +7,14 @@ import (
 )
 
 // scan single file
-func ScanIAC(arguments *model.Arguments) (model.Result, []*error) {
+func ScanIAC(arguments *model.Arguments) (model.Result, error) {
 	//init Checker arguments
 	checker.InitChecker(*arguments)
 	return engine.ProcessSingleFile(arguments)
 }
 
 // scan directory
-func ScanDIR(arguments *model.Arguments) ([]*model.Result, []*error) {
+func ScanDIR(arguments *model.Arguments) ([]*model.Result, *[]error) {
 	checker.InitChecker(*arguments)
 	return engine.ProcessFileList(arguments)
 }
