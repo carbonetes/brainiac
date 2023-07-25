@@ -72,8 +72,6 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, *[]error) {
 
 	// innit array results
 	var IACArrayResults = make([]*model.Result, 0)
-	//errors
-	var Errors []*error
 	// check if there IAC files in the input directory
 	fileList := file.CheckDirectoryForIAC(*arguments.Dir)
 	if len(fileList) == 0 {
@@ -93,7 +91,7 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, *[]error) {
 		// append results to IACArrayResults slice within the checker module
 		IACArrayResults = append(IACArrayResults, &results)
 		if err != nil {
-			Errors = append(Errors, &err)
+			checker.Errors = append(checker.Errors, &err)
 		}
 	}
 
