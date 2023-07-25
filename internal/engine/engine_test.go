@@ -43,7 +43,7 @@ func TestStart(t *testing.T) {
 				result, err := ProcessFileList(tt)
 				// Perform assertions to validate the result
 				if err != nil {
-					t.Errorf("Error occurred: %s", err)
+					t.Errorf("Error occurred")
 				}
 				if len(result) == 0 {
 					t.Errorf("Expected IACResults to be populated, but it was empty")
