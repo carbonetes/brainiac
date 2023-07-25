@@ -1,6 +1,6 @@
 # METADATA
 # title: "Make certain that Data Trace is disabled in API Gateway Method Settings"
-# description: "AWS security group enables unrestricted internet access by enabling all ingress traffic on all ports. Check to see if ports are defined appropriately."
+# description: "Verify that Data Trace is disabled in API Gateway Method Settings to prevent sensitive data leakage and ensure better security."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_settings
