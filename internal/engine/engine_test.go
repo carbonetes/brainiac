@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/carbonetes/brainiac/internal/checker"
 	"github.com/carbonetes/brainiac/pkg/model"
 )
 
@@ -40,16 +39,28 @@ func TestStart(t *testing.T) {
 			Start(tt)
 
 			// Check for output flag
-			if *tt.Output == "-d" && len(checker.IACArrayResults) == 0 {
-				t.Errorf("Expected IACResults to be populated, but it was empty")
+			if *tt.Output == "-d" {
+				result, err := ProcessFileList(tt)
+				// Perform assertions to validate the result
+				if err != nil {
+					t.Errorf("Error occurred")
+				}
+				if len(result) == 0 {
+					t.Errorf("Expected IACResults to be populated, but it was empty")
+				}
 			} else if *tt.Output == "-f" {
+				result, err := ProcessSingleFile(tt)
+
+				if err != nil {
+					t.Errorf("Error occurred: %s", err)
+				}
 				// Check that the results model has been populated
-				if checker.IACResults.PassedChecks == nil && checker.IACResults.FailedChecks == nil {
+				if result.PassedChecks == nil && result.FailedChecks == nil {
 					t.Errorf("Expected IACResults to be populated, but it was empty")
 				}
 
 				// Check if CheckType field in IACResults has been set
-				if checker.IACResults.CheckType == "" {
+				if result.CheckType == "" {
 					t.Errorf("Expected to have CheckType, but it was empty")
 				}
 			}

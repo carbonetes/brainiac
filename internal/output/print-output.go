@@ -30,15 +30,15 @@ const (
 )
 
 // PrintFileResults prints the result based on the arguments
-func PrintFileResults() {
+func PrintFileResults(res model.Result) {
 	outputTypes := strings.ToLower(checker.Arguments.Output.ToOutput())
 
 	for _, output := range strings.Split(outputTypes, ",") {
 		switch output {
 		case model.Table:
-			printFileTable()
+			printFileTable(res)
 		case model.JSON.ToOutput():
-			printFileResults()
+			printFileResults(res)
 		}
 	}
 	if len(checker.Errors) > 0 {
@@ -49,15 +49,15 @@ func PrintFileResults() {
 }
 
 // PrintResults prints the result based on the arguments in json format
-func PrintDirResults() {
+func PrintDirResults(arrResult []*model.Result) {
 	outputTypes := strings.ToLower(checker.Arguments.Output.ToOutput())
 
 	for _, output := range strings.Split(outputTypes, ",") {
 		switch output {
 		case model.Table:
-			printDirTable()
+			printDirTable(arrResult)
 		case model.JSON.ToOutput():
-			printListResults()
+			printListResults(arrResult)
 		}
 	}
 
@@ -68,11 +68,11 @@ func PrintDirResults() {
 	}
 }
 
-func printFileResults() {
-	res, _ := json.MarshalIndent(checker.IACResults, "", " ")
-	fmt.Println(string(res))
+func printFileResults(res model.Result) {
+	result, _ := json.MarshalIndent(res, "", " ")
+	fmt.Println(string(result))
 }
-func printListResults() {
-	res, _ := json.MarshalIndent(checker.IACArrayResults, "", " ")
+func printListResults(arrResult []*model.Result) {
+	res, _ := json.MarshalIndent(arrResult, "", " ")
 	fmt.Println(string(res))
 }
