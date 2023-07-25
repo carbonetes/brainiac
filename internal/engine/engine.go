@@ -68,7 +68,7 @@ func ProcessSingleFile(arguments *model.Arguments) (model.Result, error) {
 }
 
 // processFileList is a function that processes all IAC configuration files found in the input directory
-func ProcessFileList(arguments *model.Arguments) ([]*model.Result, *[]error) {
+func ProcessFileList(arguments *model.Arguments) ([]*model.Result, []*error) {
 
 	// innit array results
 	var IACArrayResults = make([]*model.Result, 0)
@@ -95,5 +95,5 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, *[]error) {
 		}
 	}
 
-	return IACArrayResults, nil
+	return IACArrayResults, checker.Errors
 }

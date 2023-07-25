@@ -14,7 +14,7 @@ func ScanIAC(arguments *model.Arguments) (model.Result, error) {
 }
 
 // scan directory
-func ScanDIR(arguments *model.Arguments) ([]*model.Result, *[]error) {
+func ScanDIR(arguments *model.Arguments) ([]*model.Result, []*error) {
 	checker.InitChecker(*arguments)
 	return engine.ProcessFileList(arguments)
 }
