@@ -3,7 +3,7 @@
 # description: "This quick test verifies that the Redshift Serverless namespace encrypts its contents with AWS key management - KMS."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fsx_ontap_file_system
+# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/redshiftserverless_namespace
 # custom:
 #   id: CB_TFAWS_266
 #   severity: HIGH
