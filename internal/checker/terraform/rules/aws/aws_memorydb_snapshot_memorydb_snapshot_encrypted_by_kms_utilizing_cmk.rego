@@ -3,7 +3,7 @@
 # description: "This quick test verifies that the MemoryDB snapshot encrypts its contents with AWS key management - KMS."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fsx_lustre_file_system
+# - https://registry.terraform.io/providers/figma/aws-4-49-0/latest/docs/resources/memorydb_snapshot
 # custom:
 #   id: CB_TFAWS_259
 #   severity: HIGH
