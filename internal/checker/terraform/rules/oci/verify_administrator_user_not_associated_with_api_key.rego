@@ -79,6 +79,7 @@ fail[resource] {
 
 
 passed[result] {
+    pass[_]
 	result := { "message": "No Administrator user associated with API keys was found.",
                 "snippet": {} }
 }

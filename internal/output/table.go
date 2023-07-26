@@ -5,17 +5,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/carbonetes/brainiac/internal/checker"
+	"github.com/carbonetes/brainiac/pkg/model"
 
 	"github.com/gdamore/tcell/v2"
 )
 
-func printDirTable() {
+func printDirTable(arrResult []*model.Result) {
 	// Extract the terminal width from the size array
 	width := getTerminalWidth()
 
 	// Define ANSI escape codes for colors
-	for _, results := range checker.IACArrayResults {
+	for _, results := range arrResult {
 		// Sort Checks by empty code block
 		sort.Slice(results.FailedChecks, func(i, j int) bool {
 			if results.FailedChecks[i].CodeBlock == nil && results.FailedChecks[j].CodeBlock != nil {
@@ -61,26 +61,26 @@ func printDirTable() {
 	}
 }
 
-func printFileTable() {
+func printFileTable(res model.Result) {
 	// Extract the terminal width from the size array
 	width := getTerminalWidth()
 
 	// Sort Checks by empty code block
-	sort.Slice(checker.IACResults.FailedChecks, func(i, j int) bool {
-		if checker.IACResults.FailedChecks[i].CodeBlock == nil && checker.IACResults.FailedChecks[j].CodeBlock != nil {
+	sort.Slice(res.FailedChecks, func(i, j int) bool {
+		if res.FailedChecks[i].CodeBlock == nil && res.FailedChecks[j].CodeBlock != nil {
 			return true
 		}
 		return false
 	})
 
 	stringTableFormat("Check type: ", reset, 0)
-	stringTableFormat(checker.IACResults.CheckType, blue, 2)
-	stringTableFormat(fmt.Sprintf("Test runs: %v", len(checker.IACResults.FailedChecks)+len(checker.IACResults.PassedChecks)), reset, 0)
-	fmt.Printf("%s  PASSED:%s %v", green, reset, checker.IACResults.Summary.Passed)
-	fmt.Printf("%s  FAILED:%s %v\n", red, reset, checker.IACResults.Summary.Failed)
-	fmt.Printf("Failed checks: %v (LOW: %v,   MEDIUM: %v,  HIGH: %v, CRITICAL: %v)\n\n", checker.IACResults.Summary.Failed, checker.IACResults.Summary.Low, checker.IACResults.Summary.Medium, checker.IACResults.Summary.High, checker.IACResults.Summary.Critical)
+	stringTableFormat(res.CheckType, blue, 2)
+	stringTableFormat(fmt.Sprintf("Test runs: %v", len(res.FailedChecks)+len(res.PassedChecks)), reset, 0)
+	fmt.Printf("%s  PASSED:%s %v", green, reset, res.Summary.Passed)
+	fmt.Printf("%s  FAILED:%s %v\n", red, reset, res.Summary.Failed)
+	fmt.Printf("Failed checks: %v (LOW: %v,   MEDIUM: %v,  HIGH: %v, CRITICAL: %v)\n\n", res.Summary.Failed, res.Summary.Low, res.Summary.Medium, res.Summary.High, res.Summary.Critical)
 
-	for _, check := range checker.IACResults.FailedChecks {
+	for _, check := range res.FailedChecks {
 		fmt.Printf("%s: %s\n", formatSeverity(check.Severity), check.Title)
 		tableSpacer("═", 1, width)
 		stringTableFormat(check.Description, dimWhite, 2)

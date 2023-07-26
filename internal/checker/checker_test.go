@@ -23,15 +23,15 @@ func TestCheckIACFileKubernetes(t *testing.T) {
 
 	Arguments = args
 	// Call CheckIACFile with Kubernetes config type and input file
-	CheckIACFile(file.FileTypeKubernetes, configFile)
+	results, _ := CheckIACFile(file.FileTypeKubernetes, configFile)
 
 	// Check that the IACResults model has been populated
-	if len(IACResults.FailedChecks) == 0 && len(IACResults.PassedChecks) == 0 {
+	if len(results.FailedChecks) == 0 && len(results.PassedChecks) == 0 {
 		t.Errorf("Expected IACResults to be populated, but it was empty")
 	}
 
 	// Check that CheckType field in IACResults has been set to Kubernetes
-	if IACResults.CheckType != file.FileTypeKubernetes {
-		t.Errorf("Expected CheckType to be Kubernetes, but got %v", IACResults.CheckType)
+	if results.CheckType != file.FileTypeKubernetes {
+		t.Errorf("Expected CheckType to be Kubernetes, but got %v", results.CheckType)
 	}
 }

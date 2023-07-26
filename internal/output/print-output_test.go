@@ -23,10 +23,10 @@ func TestPrintFileResults(t *testing.T) {
 
 	checker.Arguments = args
 	config := file.ConfigType(configFile)
-	checker.CheckIACFile(config, configFile)
+	result, _ := checker.CheckIACFile(config, configFile)
 
 	// Call the PrintFileResults() function to test if checker.Errors is empty
-	PrintFileResults()
+	PrintFileResults(result)
 
 	if len(checker.Errors) != 0 {
 		t.Errorf("Expected checker.Errors to be empty, but it was not")
@@ -34,6 +34,9 @@ func TestPrintFileResults(t *testing.T) {
 }
 
 func TestPrintDirResults(t *testing.T) {
+
+	// innit array results
+	var IACArrayResults = make([]*model.Result, 0)
 	parent := ".." + string(filepath.Separator) + ".." + string(filepath.Separator) + "docs" + string(filepath.Separator) + "Kubernetes" + string(filepath.Separator)
 
 	args := &model.Arguments{
@@ -56,17 +59,14 @@ func TestPrintDirResults(t *testing.T) {
 			continue
 		}
 
-		checker.CheckIACFile(config, iacFile)
+		result, _ := checker.CheckIACFile(config, iacFile)
 
 		// append results to IACArrayResults slice within the checker module
-		checker.IACArrayResults = append(checker.IACArrayResults, checker.IACResults)
-
-		// clear the IACResults model for the next iteration of processSingleFile()
-		checker.IACResults = new(model.Result)
+		IACArrayResults = append(IACArrayResults, &result)
 	}
 
 	// Call the PrintDirResults() function to test if checker.Errors is empty
-	PrintDirResults()
+	PrintDirResults(IACArrayResults)
 
 	if len(checker.Errors) != 0 {
 		t.Errorf("Expected checker.Errors to be empty, but it was not")
