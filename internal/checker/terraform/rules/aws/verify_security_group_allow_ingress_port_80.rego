@@ -9,9 +9,11 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_252
 
+supportedResources := ["aws_security_group", "aws_security_group_rule", "aws_vpc_security_group_ingress_rule"]
+
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "aws_security_group"
+    block.Labels[_] == supportedResources[_]
 }
 
 has_attribute(key, value) {
