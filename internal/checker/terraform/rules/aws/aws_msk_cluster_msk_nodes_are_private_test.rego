@@ -1,113 +1,177 @@
 package lib.terraform.CB_TFAWS_270
 
 test_aws_msk_cluster_msk_nodes_are_private_passed {
-	result := passed with input as [{
-		"Type": "resource",
-		"Labels": [
-			"aws_msk_cluster",
-			"example",
-		],
-		"Attributes": {
-			"cluster_name": "example-cluster",
-			"kafka_version": "2.8.0",
-			"number_of_broker_nodes": "3",
-		},
-		"Blocks": [{
-			"Type": "broker_node_group_info",
-			"Labels": [],
+	result := passed with input as [
+		{
+			"Type": "resource",
+			"Labels": [
+				"aws_msk_cluster",
+				"example",
+			],
 			"Attributes": {
-				"client_subnets": [
-					"subnet-12345678",
-					"subnet-87654321",
-				],
-				"instance_type": "kafka.m5.large",
-				"security_groups": ["sg-12345678"],
+				"cluster_name": "my-msk-cluster",
+				"kafka_version": "2.8.0",
 			},
-			"Blocks": [
-				{
-					"Type": "storage_info",
-					"Labels": [],
-					"Attributes": {},
-					"Blocks": [{
-						"Type": "ebs_storage_info",
-						"Labels": [],
-						"Attributes": {"volume_size": "1000"},
-						"Blocks": [],
-						"line_range": {
-							"endLine": 14,
-							"startLine": 12,
-						},
-					}],
-					"line_range": {
-						"endLine": 15,
-						"startLine": 11,
-					},
+			"Blocks": [{
+				"Type": "broker_node_group_info",
+				"Labels": [],
+				"Attributes": {
+					"client_subnets": [
+						"subnet-12345678",
+						"subnet-87654321",
+					],
+					"instance_type": "kafka.m5.large",
+					"security_groups": "aws_security_group.example.id",
 				},
-				{
+				"Blocks": [{
 					"Type": "connectivity_info",
 					"Labels": [],
-					"Attributes": {},
+					"Attributes": {
+						"client_broker": true,
+						"host": "b-1.example.amazonaws.com",
+						"port": "9094",
+					},
 					"Blocks": [
 						{
-							"Type": "client_broker",
+							"Type": "encryption_in_transit",
 							"Labels": [],
-							"Attributes": {"security_groups": ["sg-87654321"]},
+							"Attributes": {
+								"client_broker": "TLS_PLAINTEXT",
+								"in_cluster": "TLS_PLAINTEXT",
+							},
 							"Blocks": [],
 							"line_range": {
-								"endLine": 20,
-								"startLine": 18,
+								"endLine": 17,
+								"startLine": 14,
 							},
 						},
 						{
 							"Type": "public_access",
 							"Labels": [],
-							"Attributes": {"type": "ENI_ACL"},
+							"Attributes": {"type": "ENABLED"},
 							"Blocks": [],
 							"line_range": {
-								"endLine": 25,
-								"startLine": 23,
+								"endLine": 21,
+								"startLine": 19,
 							},
 						},
 					],
 					"line_range": {
-						"endLine": 26,
-						"startLine": 17,
+						"endLine": 22,
+						"startLine": 10,
 					},
+				}],
+				"line_range": {
+					"endLine": 23,
+					"startLine": 5,
 				},
-			],
+			}],
 			"line_range": {
-				"endLine": 27,
-				"startLine": 6,
+				"endLine": 24,
+				"startLine": 1,
 			},
-		}],
-		"line_range": {
-			"endLine": 28,
-			"startLine": 1,
 		},
-	}]
+		{
+			"Type": "resource",
+			"Labels": [
+				"aws_security_group",
+				"example",
+			],
+			"Attributes": {"name_prefix": "allow-"},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 28,
+				"startLine": 26,
+			},
+		},
+	]
 	count(result) == 1
 }
 
 test_aws_msk_cluster_msk_nodes_are_private_failed {
-	result := failed with input as [{
-		"Type": "resource",
-		"Labels": [
-			"other_resource_type",
-			"test",
-		],
-		"Attributes": {
-			"deployment_type": "MULTI_AZ_1",
-			"kms_key_id": "",
-			"preferred_subnet_id": "aws_subnet.test1.id",
-			"storage_capacity": "1024",
-			"subnet_ids": "aws_subnet.test1.id",
-			"throughput_capacity": "512",
+	result := failed with input as [
+		{
+			"Type": "resource",
+			"Labels": [
+				"aws_msk_cluster",
+				"example",
+			],
+			"Attributes": {
+				"cluster_name": "my-msk-cluster",
+				"kafka_version": "2.8.0",
+			},
+			"Blocks": [{
+				"Type": "broker_node_group_info",
+				"Labels": [],
+				"Attributes": {
+					"client_subnets": [
+						"subnet-12345678",
+						"subnet-87654321",
+					],
+					"instance_type": "kafka.m5.large",
+					"security_groups": "aws_security_group.example.id",
+				},
+				"Blocks": [{
+					"Type": "connectivity_info",
+					"Labels": [],
+					"Attributes": {
+						"client_broker": true,
+						"host": "b-1.example.amazonaws.com",
+						"port": "9094",
+					},
+					"Blocks": [
+						{
+							"Type": "encryption_in_transit",
+							"Labels": [],
+							"Attributes": {
+								"client_broker": "TLS_PLAINTEXT",
+								"in_cluster": "TLS_PLAINTEXT",
+							},
+							"Blocks": [],
+							"line_range": {
+								"endLine": 17,
+								"startLine": 14,
+							},
+						},
+						{
+							"Type": "public_access",
+							"Labels": [],
+							"Attributes": {"type": "SERVICE_PROVIDED_EIPS"},
+							"Blocks": [],
+							"line_range": {
+								"endLine": 21,
+								"startLine": 19,
+							},
+						},
+					],
+					"line_range": {
+						"endLine": 22,
+						"startLine": 10,
+					},
+				}],
+				"line_range": {
+					"endLine": 23,
+					"startLine": 5,
+				},
+			}],
+			"line_range": {
+				"endLine": 24,
+				"startLine": 1,
+			},
 		},
-		"Blocks": [],
-		"line_range": {
-			"endLine": 8,
-			"startLine": 1,
+		{
+			"Type": "resource",
+			"Labels": [
+				"aws_security_group",
+				"example",
+			],
+			"Attributes": {"name_prefix": "allow-"},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 28,
+				"startLine": 26,
+			},
 		},
-	}]
-	count(result) == 0
+	]
+	count(result) == 1
 }
