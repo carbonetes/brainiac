@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_280
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_db_snapshot"
