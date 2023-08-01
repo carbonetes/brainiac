@@ -46,7 +46,7 @@ version_check(engine_version, engine) := result if {
     major_version := to_number(split(engine_version, ".")[0])
     minor_version := to_number(split(engine_version, ".")[1])
     engine == engines[0]
-    result := postgresql_version(major_version, minor_version)
+    result := postgres_version(major_version, minor_version)
 } else := result if {
     major_version := to_number(split(engine_version, ".")[0])
     minor_version := to_number(split(engine_version, ".")[1])
