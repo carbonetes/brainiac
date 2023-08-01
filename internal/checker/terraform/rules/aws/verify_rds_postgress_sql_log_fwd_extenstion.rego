@@ -22,10 +22,6 @@ isvalid(block){
     version_parts <= 3
 }
 
-has_attribute(key, value) {
-  _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
