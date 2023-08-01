@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#storage_encrypted
 # custom:
 #   id: CB_TFAWS_274
-#   severity: HIGH
+#   severity: LOW
 package lib.terraform.CB_TFAWS_274
 
 isvalid(block){
