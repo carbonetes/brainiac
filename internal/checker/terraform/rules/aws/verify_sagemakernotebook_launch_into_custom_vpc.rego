@@ -3,7 +3,7 @@
 # description: "Verifying that SageMaker notebook instances are launched into a custom VPC enhances security, control, and network isolation, allowing granular access control, compliance adherence, data privacy, and resource optimization for machine learning workflows in Amazon SageMaker."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution.html
+# - https://registry.terraform.io/providers/rgeraskin/aws2/latest/docs/resources/sagemaker_notebook_instance
 # custom:
 #   id: CB_TFAWS_288
 #   severity: MEDIUM
