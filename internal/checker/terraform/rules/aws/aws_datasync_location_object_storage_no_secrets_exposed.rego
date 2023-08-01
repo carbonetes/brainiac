@@ -39,7 +39,7 @@ fail[resource]{
     resource := input[_]
 	isvalid(resource)
     has_attribute(resource.Attributes, "secret_key")
-   
+    resource.Attributes.secret_key != ""
 }
 
 passed[result] {
