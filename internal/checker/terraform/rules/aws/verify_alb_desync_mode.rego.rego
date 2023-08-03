@@ -29,9 +29,7 @@ resource[resource] {
 pass[block] {
 	block := input[_]
 	isvalid(block)
-	desyncMitigationMode := ["monitor", "defensive", "strictest"]
-	block.Attributes.routing_http_desync_mitigation_mode == desyncMitigationMode[_]
-	block.Attributes.routing_http_desync_mitigation_mode != desyncMitigationMode[0]
+	block.Attributes.routing_http_desync_mitigation_mode != "monitor"
 }
 
 fail[block] {
