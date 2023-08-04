@@ -27,6 +27,7 @@ resource[resource] {
 pass[block] {
 	block := input[_]
 	isvalid(block)
+	block.Blocks[_].Type == "root_directory"
 	block.Blocks[_].Attributes.path != "/"
 }
 
