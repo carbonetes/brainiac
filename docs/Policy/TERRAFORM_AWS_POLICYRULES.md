@@ -6,7 +6,7 @@ This document provides a comprehensive index of Terraform policies available in 
 
 | ID | Type | Entity | Policy | Resource |
 | --- | --- | --- | --- | --- |
-| CB_TFAWS_001 | Resource | aws_iam_policy_document | Prevent the creation of IAM policies that grant full administrative privileges using wildcard characters for both the actions and resources. | checker/terraform/rules/aws/iam/prevent_policy_that_allow_wildcard.rego |
+| CB_TFAWS_001 | Data | aws_iam_policy_document | Prevent the creation of IAM policies that grant full administrative privileges using wildcard characters for both the actions and resources. | checker/terraform/rules/aws/iam/prevent_policy_that_allow_wildcard.rego |
 | CB_TFAWS_002 | Resource | aws_alb_listener | Verify ALB protocol is HTTPS | checker/terraform/rules/aws/verify_alb_protocol_is_https.rego |
 | CB_TFAWS_002 | Resource | aws_lb_listener | Verify ALB protocol is HTTPS | checker/terraform/rules/aws/verify_alb_protocol_is_https.rego |
 | CB_TFAWS_003 | Resource | aws_ebs_volume | Ensure all data stored in the EBS is securely encrypted | checker/terraform/rules/aws/enable_ebs_encryption.rego |
@@ -54,7 +54,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_039 | Resource | aws_sagemaker_notebook_instance | Verify SageMaker Notebook is encrypted at rest using KMS CMK | checker/terraform/rules/aws/verify_sagemakernotebook_encrypted_at_rest.rego |
 | CB_TFAWS_040 | Resource | aws_lambda_function | Verify the lambda environment for any hard-coded secrets | checker/terraform/rules/aws/aws_lambda_function_secret.rego |
 | CB_TFAWS_041 | Resource | aws_dax_cluster | Check to see if DAX is encrypted at rest (the default is unencrypted). | checker/terraform/rules/aws/aws_dax_cluster_encrypted.rego |
-| CB_TFAWS_042 | Resource | aws_iam_policy_document | Make sure that none of the IAM policies allow a statement's actions to use a wildcard. | checker/terraform/rules/aws/iam/aws_iam_policy_document_wildcard_not_allowed.rego |
+| CB_TFAWS_042 | Data | aws_iam_policy_document | Make sure that none of the IAM policies allow a statement's actions to use a wildcard. | checker/terraform/rules/aws/iam/aws_iam_policy_document_wildcard_not_allowed.rego |
 | CB_TFAWS_043 | Resource | aws_db_security_group | Verify every security groups rule has a description | cchecker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_elasticache_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_redshift_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
@@ -127,7 +127,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_085 | Resource | aws_apigatewayv2_stage | Verify API Gateway has Access Logging enabled | checker/terraform/rules/aws/verify_apigateway_access_logging_enabled.rego |
 | CB_TFAWS_086 | Resource | aws_codebuild_project | Verify that CodeBuild Project encryption is not disabled | checker/terraform/rules/aws/verify_codebuild_project_encryption_disabled.rego |
 | CB_TFAWS_087 | Resource | aws_ssm_document | Verify that all Session Manager data is transmitted securely | checker/terraform/rules/aws/aws_ssm_document_encrypted.rego |
-| CB_TFAWS_088 | Resource | aws_iam_policy_document | Make certain that IAM policies prohibit data exfiltration | checker/terraform/rules/aws/iam/aws_iam_policy_document_data_exfiltration_not_allowed.rego |
+| CB_TFAWS_088 | Data | aws_iam_policy_document | Make certain that IAM policies prohibit data exfiltration | checker/terraform/rules/aws/iam/aws_iam_policy_document_data_exfiltration_not_allowed.rego |
 | CB_TFAWS_089 | Resource | aws_instance | Verify Instance Metadata Service Version 1 is not enabled | checker/terraform/rules/aws/verify_instance_metadata_servicev1_not_enabled.rego |
 | CB_TFAWS_089 | Resource | aws_launch_configuration | Verify Instance Metadata Service Version 1 is not enabled | checker/terraform/rules/aws/verify_instance_metadata_servicev1_not_enabled.rego |
 | CB_TFAWS_089 | Resource | aws_launch_template | Verify Instance Metadata Service Version 1 is not enabled | checker/terraform/rules/aws/verify_instance_metadata_servicev1_not_enabled.rego |
@@ -143,10 +143,9 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_098 | Resource | aws_alb | Verify that ELBv2 (Application/Network) has access logging enabled | checker/terraform/rules/aws/enable_elbv2_access_logs.rego |
 | CB_TFAWS_098 | Resource | aws_lb | Verify that ELBv2 (Application/Network) has access logging enabled | checker/terraform/rules/aws/enable_elbv2_access_logs.rego |
 | CB_TFAWS_099 | Resource | aws_elb | Verify that ELB has access logging enabled | checker/terraform/rules/aws/enable_elb_access_logs.rego |
-| CB_TFAWS_100 | Resource | aws_iam_policy_document | Make certain that IAM policies prohibit the disclosure of credentials | checker/terraform/rules/aws/iam/aws_iam_policy_document_credentials_exposed_not_allowed.rego |
-| CB_TFAWS_100 | Resource | aws_iam_policy_document | Make certain that IAM policies prohibit the disclosure of credentials | checker/terraform/rules/aws/iam/aws_iam_policy_document_credentials_exposed_not_allowed.rego |
+| CB_TFAWS_100 | Data | aws_iam_policy_document | Make certain that IAM policies prohibit the disclosure of credentials | checker/terraform/rules/aws/iam/aws_iam_policy_document_credentials_exposed_not_allowed.rego |
 | CB_TFAWS_101 | Resource | aws_redshift_parameter_group | Verify Redshift is using SSL | checker/terraform/rules/aws/aws_redshift_parameter_group_ssl.rego |
-| CB_TFAWS_102 | Resource | aws_iam_policy_document | Make certain IAM policies prohibit unrestricted write access | checker/terraform/rules/aws/iam/aws_iam_policy_document_constraints_restricted.rego |
+| CB_TFAWS_102 | Data | aws_iam_policy_document | Make certain IAM policies prohibit unrestricted write access | checker/terraform/rules/aws/iam/aws_iam_policy_document_constraints_restricted.rego |
 | CB_TFAWS_103 | Resource | aws_emr_cluster | Verify that EMR clusters with Kerberos have Kerberos Realm set | checker/terraform/rules/aws/verify_emr_clusters_kerberos_realm_set.rego |
 | CB_TFAWS_104 | Resource | aws_lambda_function | Verify that AWS Lambda function is configured for function-level concurrent execution limit | checker/terraform/rules/aws/verify_aws_lambda_functionlevel_concurrent_limit.rego |
 | CB_TFAWS_105 | Resource | aws_glue_data_catalog_encryption_settings | Verify that Glue Data Catalog Encryption is enabled | checker/terraform/rules/aws/verify_glue_data_catalog_encryption.rego |
@@ -160,7 +159,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_112 | Resource | aws_eks_node_group | Make certain that 0.0.0.0/0 does not automatically have SSH access to the AWS EKS node group | checker/terraform/rules/aws/aws_eks_node_group_implicit_SSH_access_restricted.rego |
 | CB_TFAWS_113 | Resource | aws_elasticache_cluster | Verify that Amazon ElastiCache Redis clusters have automatic backup turned on | checker/terraform/rules/aws/verify_elastic_cache_automatic_backup.rego |
 | CB_TFAWS_114 | Resource | aws_api_gateway_stage | Verify API Gateway caching is enabled | checker/terraform/rules/aws/verify_api_gateway_caching_enabled.rego |
-| CB_TFAWS_115 | Resource | aws_iam_policy_document | Make certain that IAM policies prohibit managing permissions and exposing resources without restrictions | checker/terraform/rules/aws/iam/aws_iam_policy_document_resource_exposure_without_constraints.rego |
+| CB_TFAWS_115 | Data | aws_iam_policy_document | Make certain that IAM policies prohibit managing permissions and exposing resources without restrictions | checker/terraform/rules/aws/iam/aws_iam_policy_document_resource_exposure_without_constraints.rego |
 | CB_TFAWS_116 | Resource | aws_config_configuration_aggregator | Verify AWS Config is enabled in all regions | checker/terraform/rules/aws/verify_aws_config_enabled_all_regions.rego |
 | CB_TFAWS_117 | Resource | aws_sagemaker_notebook_instance | Verify that direct internet access is disabled for an Amazon SageMaker Notebook Instance | checker/terraform/rules/aws/verify_internet_access_disabled_amazon_sagemaker_notebook.rego |
 | CB_TFAWS_118 | Resource | aws_ssm_document | Enable and encrypt Session Manager logs | checker/terraform/rules/aws/aws_ssm_document_session_manager_logs_enabled_encrypted.rego |
