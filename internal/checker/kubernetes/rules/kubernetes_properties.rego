@@ -104,6 +104,11 @@ containers_commands[commands] {
 	commands := containers[_].command[_]
 }
 
+containers_commands[commands] {
+	has_attribute(containers[_], "args")
+	commands := containers[_].args[_]
+}
+
 podTemplates[pod] {
 	is_controller
 	pod = input.spec.template
