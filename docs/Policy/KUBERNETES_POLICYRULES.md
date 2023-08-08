@@ -155,7 +155,6 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_024 | Resource | RoleBinding | ServiceAccount/Node should not have 'impersonate' permissions for user-accounts/users/groups | checker/kubernetes/rules/rbac/impersonate_permissions.rego |
 | CB_K8S_025 | Resource | ClusterRole | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_025 | Resource | ClusterRoleBinding | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
-| CB_K8S_025 | Resource | Role | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_025| Resource | RoleBinding | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_026 | Resource | ClusterRole | ServiceAccount/Node should not able to all read secrets | checker/kubernetes/rules/rbac/read_all_secrets.rego |
 | CB_K8S_026 | Resource | ClusterRoleBinding | ServiceAccount/Node should not able to all read secrets | checker/kubernetes/rules/rbac/read_all_secrets.rego |
