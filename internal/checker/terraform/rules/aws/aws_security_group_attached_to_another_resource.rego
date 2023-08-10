@@ -1,6 +1,6 @@
 # METADATA
 # title: "Check to see if Security Groups are linked to another resource"
-# description: "You can decide which traffic is allowed to pass through your EC2 instances and which traffic is restricted by adding security groups to your ENIs or EC2 instances. This can shield your instances from illegal access and shield against potential security flaws."
+# description: "You can decide which traffic is allowed to pass through your EC2 instances and which traffic is restricted by adding security groups to your ENIs or EC2 instances."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_group.html
