@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"errors"
 	"os"
 
 	"github.com/carbonetes/brainiac/internal/checker"
@@ -55,13 +54,13 @@ func Start(arguments *model.Arguments) {
 
 // processSingleFile is a function that processes individual IAC configuration files
 func ProcessSingleFile(arguments *model.Arguments) (model.Result, error) {
-
 	// determine configuration file format
 	config := file.ConfigType(*arguments.File)
 
 	// if format is not detected, print error message and exit out of program
 	if config == "" {
-		log.Fatal(errors.New("Platform not detected"))
+		log.Println("Platform not detected")
+		return *new(model.Result), nil
 	}
 	// Call CheckIACFile() from checker module to perform IAC analysis
 	return checker.CheckIACFile(config, *arguments.File)
@@ -76,7 +75,6 @@ func ProcessFileList(arguments *model.Arguments) ([]*model.Result, []*error) {
 	fileList := file.CheckDirectoryForIAC(*arguments.Dir)
 	if len(fileList) == 0 {
 		log.Println("No IAC files found in the directory")
-		os.Exit(1)
 	}
 
 	// for every IAC file in your list of IAC files,
