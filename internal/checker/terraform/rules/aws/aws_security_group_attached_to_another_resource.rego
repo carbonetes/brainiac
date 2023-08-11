@@ -31,39 +31,20 @@ getAwsSecurityGroupLabel[label] {
     label := concat(".", resource.Labels)
 }
 
-isAwsSecurityGroupEniAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_network_interface"
-    label := getAwsSecurityGroupLabel[_]
-    startswith(resource.Attributes.security_groups, label)
-}
+validConnectedResource := ["aws_network_interface", "aws_instance"]
 
-isAwsSecurityGroupEc2InstanceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_instance"
-    label := getAwsSecurityGroupLabel[_]
-    startswith(resource.Attributes.security_groups, label)
+isValidResourceAttached{
+resource := input[_]
+resource.Type == "resource"
+resource.Labels[_] == validConnectedResource[_]
+label := getAwsSecurityGroupLabel[_]
+startswith(resource.Attributes.security_groups, label)
 }
 
 pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isAwsSecurityGroupEniAttached
-    isAwsSecurityGroupEc2InstanceAttached
-}
-
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isAwsSecurityGroupEniAttached
-}
-
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isAwsSecurityGroupEc2InstanceAttached
+resource := input[_]
+isvalid(resource)
+isValidResourceAttached
 }
 
 fail[block] {
