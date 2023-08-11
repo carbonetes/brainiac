@@ -13,9 +13,8 @@ import data.lib.kubernetes
 
 resource = kubernetes.resource
 
-
 is_valid {
-    kubernetes.kind == "ClusterRole"
+     kubernetes.is_rbac
 }
 
 is_failed {
