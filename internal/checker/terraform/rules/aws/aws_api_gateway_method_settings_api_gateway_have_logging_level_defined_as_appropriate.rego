@@ -32,21 +32,21 @@ getApiGatewayStageLabel[label] {
 }
 
 isValidResourceAttached{
-resource := input[_]
-resource.Type == "resource"
-resource.Labels[_] == "aws_api_gateway_method_settings"
-gatewayStageLabel := getApiGatewayStageLabel[_]
-startswith(resource.Attributes.stage_name, gatewayStageLabel)
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "aws_api_gateway_method_settings"
+    gatewayStageLabel := getApiGatewayStageLabel[_]
+    startswith(resource.Attributes.stage_name, gatewayStageLabel)
 }
 
 pass[resource]{
-resource := input[_]
-isvalid(resource)
-expectedValues := ["ERROR", "INFO"]
-isValidResourceAttached
-resource.Blocks[_].Type == "settings"
-resource.Blocks[_].Attributes.logging_level == expectedValues[_]
-resource.Blocks[_].Attributes.metrics_enabled == true
+    resource := input[_]
+    isvalid(resource)
+    expectedValues := ["ERROR", "INFO"]
+    isValidResourceAttached
+    resource.Blocks[_].Type == "settings"
+    resource.Blocks[_].Attributes.logging_level == expectedValues[_]
+    resource.Blocks[_].Attributes.metrics_enabled == true
 }
 
 fail[block] {
