@@ -26,24 +26,22 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
-isAWSRDSExist{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_rds_cluster"
-}
 isAWSRDSParamExist{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_rds_cluster_parameter_group"
 }
 
+pass[resource]{
+    resource := input[_]
+	isvalid(resource)
+    isAWSRDSParamExist
+    validEngine
+}
 
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    isAWSRDSExist
-    isAWSRDSParamExist
-    validEngine
     hasLogStatement
     hasLogDurationStatement
 
