@@ -24,30 +24,21 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-isIAMCertificateExists {
-	block := input[_]
-	block.Type == "resource"
-	block.Blocks[_].Type == "viewer_certificate"
-	block.Blocks[_].Attributes.iam_certificate_id
-}
 
-isACMCertificateExists {
+pass[block] {
 	block := input[_]
-	block.Type == "resource"
-	block.Blocks[_].Type == "viewer_certificate"
-	block.Blocks[_].Attributes.acm_certificate_arn
+	isvalid(block)
+	innerBlock := block.Blocks[_]
+	innerBlock.Type == "viewer_certificate"
+	innerBlock.Attributes.iam_certificate_id != ""
 }
 
 pass[block] {
 	block := input[_]
 	isvalid(block)
-	isIAMCertificateExists
-}
-
-pass[block] {
-	block := input[_]
-	isvalid(block)
-	isACMCertificateExists
+	innerBlock := block.Blocks[_]
+	innerBlock.Type == "viewer_certificate"
+	innerBlock.Attributes.acm_certificate_arn != ""
 }
 
 fail[block] {
