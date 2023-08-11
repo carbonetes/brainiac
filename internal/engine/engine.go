@@ -57,10 +57,10 @@ func ProcessSingleFile(arguments *model.Arguments) (model.Result, error) {
 	// determine configuration file format
 	config := file.ConfigType(*arguments.File)
 
-	// if format is not detected, print error message and exit out of program
+	// if format is not detected, print error message and return
 	if config == "" {
 		log.Println("Platform not detected")
-		return *new(model.Result), nil
+		return model.Result{}, nil
 	}
 	// Call CheckIACFile() from checker module to perform IAC analysis
 	return checker.CheckIACFile(config, *arguments.File)

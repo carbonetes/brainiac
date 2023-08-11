@@ -64,7 +64,7 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 
 		//implement other config type here
 	}
-	return *new(model.Result), nil
+	return model.Result{}, nil
 
 }
 
