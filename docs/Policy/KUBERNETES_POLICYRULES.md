@@ -320,14 +320,8 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_049 | Resource | ReplicaSet | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego |
 | CB_K8S_049 | Resource | ReplicationController | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego |
 | CB_K8S_049 | Resource | StatefulSet | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego | 
-| CB_K8S_050 | Resource | CronJob | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | DaemonSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
 | CB_K8S_050 | Resource | Deployment | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | Job | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
 | CB_K8S_050 | Resource | Pod | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | ReplicaSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | ReplicationController | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | StatefulSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego | 
 | CB_K8S_051 | Resource | Ingress | Prevent NGINX Ingress annotation snippets which contain alias statements See CVE-2021-25742 | checker/kubernetes/rules/ingress_annotation_alias.rego | 
 | CB_K8S_052 | Resource | CronJob | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | DaemonSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |

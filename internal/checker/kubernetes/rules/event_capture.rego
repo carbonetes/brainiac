@@ -25,12 +25,6 @@ isValid{
 	kubernetes.kind == validResource[_]
 }
 
-hasContainersCommand[commands] {
-    commands := kubernetes.containers_commands
-    commands[_] == "kubelet"
-    startswith(commands[_], flag)
-}
-
 has_container_command(key, flag, argument) {
 	split({ r | r := key[_]; startswith(r, flag) }[_], "=")[1] > argument
 }
@@ -44,9 +38,15 @@ getContainerCommand[container] {
     container := kubernetes.containers[index]
 }
 
+getContainerCommand[container] {
+    startswith(kubernetes.containers[index].args[command_index], flag)
+    container := kubernetes.containers[index]
+}
+
+
 passed[result] {
     isValid
-	commands := hasContainersCommand[_]
+	commands := kubernetes.containers_commands
     hasCommand(commands)
 	result := { "message": sprintf("The commands for %s - %s with the flag of '%s' is properly set to '%s'", [kubernetes.kind, kubernetes.name, flag, argument]),
                 "snippet": getContainerCommand[_] }
@@ -54,8 +54,8 @@ passed[result] {
 
 failed[result] {
     isValid
-	commands := hasContainersCommand[_]
+	commands := kubernetes.containers_commands
     not hasCommand(commands)
 	result := { "message": sprintf("The commands for %s - %s with the flag of '%s' is must be set to '%s'", [kubernetes.kind, kubernetes.name, flag, argument]),
-                "snippet": getContainerCommand[_] }
+                "snippet": {} }
 }
