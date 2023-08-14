@@ -34,6 +34,7 @@ getTheLabelforAwsRDS_cluster[label]{
 isValidResourceAttached{
     resource := input[_]
     resource.Type == "resource"
+    resource.Labels[_] == "aws_backup_selection"
     resources := resource.Attributes.resources[_]
     contains(resources, getTheLabelforAwsRDS_cluster[_])
 }

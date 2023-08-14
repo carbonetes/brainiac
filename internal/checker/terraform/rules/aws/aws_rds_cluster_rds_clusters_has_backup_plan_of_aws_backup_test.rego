@@ -63,7 +63,7 @@ test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_passed {
 				"iam_role_arn": "arn:partition:service:region:account-id:resource-id",
 				"name": "tf_example_backup_selection",
 				"plan_id": "aws_backup_plan.example.id",
-				"resources": "aws_rds_cluster.rds_cluster_good.arn",
+				"resources": ["aws_rds_cluster.rds_cluster_good.arn"],
 			},
 			"Blocks": [],
 			"line_range": {
@@ -126,6 +126,24 @@ test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_failed {
 			"line_range": {
 				"endLine": 20,
 				"startLine": 12,
+			},
+		},
+		{
+			"Type": "resource",
+			"Labels": [
+				"aws_backup_selection",
+				"backup_good",
+			],
+			"Attributes": {
+				"iam_role_arn": "arn:partition:service:region:account-id:resource-id",
+				"name": "tf_example_backup_selection",
+				"plan_id": "aws_backup_plan.example.id",
+				"resources": [""],
+			},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 30,
+				"startLine": 22,
 			},
 		},
 	]
