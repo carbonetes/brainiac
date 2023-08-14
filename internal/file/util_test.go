@@ -20,6 +20,11 @@ func TestConfigType(t *testing.T) {
 			want: "terraform",
 		},
 		{
+			name: "Test ConfigType - JSON File terraform",
+			file: filepath.Join("Terraform", "main.tf.json"),
+			want: "terraform",
+		},
+		{
 			name: "Test ConfigType - File Dockerfile",
 			file: filepath.Join("Docker", "Dockerfile"),
 			want: "dockerfile",
