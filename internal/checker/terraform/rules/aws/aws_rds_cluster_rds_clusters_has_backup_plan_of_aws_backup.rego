@@ -24,10 +24,18 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
+getTheLabelforAwsRDS_cluster[label]{
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "aws_rds_cluster"
+    label := concat(".", resource.Labels)
+}
+
 isValidResourceAttached{
     resource := input[_]
     resource.Type == "resource"
-    resource.Labels[_] == "aws_backup_selection"
+    resources := resource.Attributes.resources[_]
+    contains(resources, getTheLabelforAwsRDS_cluster[_])
 }
 
 pass[resource]{
