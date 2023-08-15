@@ -9,9 +9,11 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_333
 
+import future.keywords.if
+
 supportedResource := ["aws_route", "aws_route_table"]
 
-isvalid(block) {
+isvalid(block) if {
 	block.Type == "resource"
 	block.Labels[_] == supportedResource[_]
 }
@@ -26,18 +28,62 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
+fail[block] {
 	block := input[_]
 	isvalid(block)
-	block.Attributes.vpc_peering_connection_id != ""
-	block.Attributes.destination_cidr_block != "0.0.0.0/0"
-	block.Attributes.destination_cidr_block != "0.0.0.0"
+	innerBlock := block.Blocks[_]
+	innerBlock.Type == "route"
+	innerBlock.Attributes.vpc_peering_connection_id != ""
+	checkCidrIfFail(innerBlock.Attributes.cidr_block)
 }
 
 fail[block] {
 	block := input[_]
 	isvalid(block)
-	not pass[block]
+	innerBlock := block.Blocks[_]
+	innerBlock.Type == "route"
+	innerBlock.Attributes.vpc_peering_connection_id != ""
+	checkV6CidrIfFail(innerBlock.Attributes.ipv6_cidr_block)
+}
+
+fail[block] {
+	block := input[_]
+	isvalid(block)
+	block.Attributes.vpc_peering_connection_id != ""
+	checkCidrIfFail(block.Attributes.destination_cidr_block)
+}
+
+fail[block] {
+	block := input[_]
+	isvalid(block)
+	block.Attributes.vpc_peering_connection_id != ""
+	checkV6CidrIfFail(block.Attributes.destination_ipv6_cidr_block)
+}
+
+checkCidrIfFail(attribute) := result if {
+	attribute == "0.0.0.0/0"
+	result := true
+} else := result if {
+	attribute == "0.0.0.0"
+	result := true
+} else := result if {
+	result := false
+}
+
+checkV6CidrIfFail(attribute) := result if {
+	attribute == "::0"
+	result := true
+} else := result if {
+	attribute == "::/0"
+	result := true
+} else := result if {
+	result := false
+}
+
+pass[block] {
+	block := input[_]
+	isvalid(block)
+	not fail[block]
 }
 
 passed[result] {
