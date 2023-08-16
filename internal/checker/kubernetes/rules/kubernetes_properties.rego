@@ -152,3 +152,8 @@ is_apiserver(container){
 	has_attribute(container, "command")
 	contains(container.command[_], "kube-apiserver")
 }
+
+is_apiserver(container){
+	has_attribute(container, "args")
+	contains(container.args[_], "kube-apiserver")
+}

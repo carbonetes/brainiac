@@ -36,6 +36,15 @@ hasContainersCommand[container] {
 	to_number(args) >= argument
 }
 
+hasContainersCommand[container] {
+    container := kubernetes.containers[_]
+	kubernetes.is_apiserver(container)
+	commands := container.args[_]
+	startswith(commands, flag)
+    args := split(commands, "=")[1]
+	to_number(args) >= argument
+}
+
 
 passed[result] {
 	isValid

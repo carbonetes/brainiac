@@ -26,29 +26,41 @@ is_kubelet(container){
 	contains(container.command[_], "kubelet")
 }
 
+is_kubelet(container){
+	kubernetes.has_attribute(container, "args")
+	contains(container.args[_], "kubelet")
+}
+
 check[container]{
 	container := kubernetes.containers[_]
 	is_kubelet(container)
 	commands := container.command[_]
 	startswith(commands, "--anonymous-auth")
-	contains(commands, "=false")
+	contains(commands, "=true")
 }
-anonymousAuthTrue[container]{
+
+check[container]{
 	container := kubernetes.containers[_]
 	is_kubelet(container)
+	commands := container.args[_]
+	startswith(commands, "--anonymous-auth")
+	contains(commands, "=true")
+}
+anonymousAuthFalse[container]{
+	container := kubernetes.containers[_]
 	not check[container]
 }
 
 passed[result] {
 	isValid
-	res := check[_]
+	res := anonymousAuthFalse[_]
 	result := {"message" : sprintf("Container(s) for %s '%s' 'command' for '--anonymous-auth' is properly set to false", [kubernetes.kind, kubernetes.name]),
 			   "snippet" : res}
 }
 
 failed[result] {
 	isValid
-    res := anonymousAuthTrue[_]
+    res := check[_]
 	result := {"message" : sprintf("Container(s) for %s '%s' 'command(s) for '--anonymous-auth' should set to false", [kubernetes.kind, kubernetes.name]),
 				"snippet" : res}
 }
