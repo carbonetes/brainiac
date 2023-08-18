@@ -330,15 +330,8 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_052 | Resource | Pod | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | ReplicaSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | ReplicationController | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
-| CB_K8S_052 | Resource | StatefulSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego | 
-| CB_K8S_053 | Resource | CronJob | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | DaemonSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
 | CB_K8S_053 | Resource | Deployment | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | Job | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
 | CB_K8S_053 | Resource | Pod | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | ReplicaSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | ReplicationController | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | StatefulSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego | 
 | CB_K8S_054 | Resource | CronJob | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
 | CB_K8S_054 | Resource | DaemonSet | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
 | CB_K8S_054 | Resource | Deployment | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
