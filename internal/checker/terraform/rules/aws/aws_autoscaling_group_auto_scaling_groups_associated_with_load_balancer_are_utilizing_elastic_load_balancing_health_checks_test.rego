@@ -186,8 +186,7 @@ result := failed with input as [
                                     "aws_autoscaling_attachment",
                                     "test_ok_attachment"
                                     ],
-                                    "Attributes": {
-                                    "autoscaling_group_name": "",
+                                    "Attributes": {                                   
                                     "elb": ""
                                     },
                                     "Blocks": [],
@@ -265,7 +264,7 @@ result := failed with input as [
                                         }
                                     },
                                     {
-                                        "Type": "health_check",
+                                        "Type": "",
                                         "Labels": [],
                                         "Attributes": {
                                         "healthy_threshold": "2",

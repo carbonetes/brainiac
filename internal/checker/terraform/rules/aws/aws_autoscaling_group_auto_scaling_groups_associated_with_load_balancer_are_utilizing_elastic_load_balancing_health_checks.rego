@@ -9,7 +9,7 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_348
 
-supportedResources := ["aws_autoscaling_group","aws_lb_target_group"]
+supportedResources := ["aws_autoscaling_attachment", "aws_lb_target_group"]
 
 isvalid(block){
 	block.Type == "resource"
@@ -42,6 +42,13 @@ getTheLabelforAwsElb[label]{
     label := concat(".", resource.Labels)
 }
 
+expectedAttributesforAwsElb{
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "aws_elb"
+    resource.Blocks[_].Type == "health_check"
+}
+
 isValidResourceAttached{
     resource := input[_]
     resource.Type == "resource"
@@ -52,10 +59,25 @@ isValidResourceAttached{
     contains(resource.Attributes.elb, awsElbLabel)
 }
 
+isAwsAutoscalingGroupAttached{
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "aws_autoscaling_attachment"
+    awsAutoscalingGroupLabel := getTheLabelforAwsAutoscalingGroup[_]
+    contains(resource.Attributes.autoscaling_group_name, awsAutoscalingGroupLabel)
+}
+
 pass[resource]{
     resource := input[_]
     isvalid(resource)
     isValidResourceAttached
+}
+
+pass[resource]{
+    resource := input[_]
+    isvalid(resource)
+    expectedAttributesforAwsElb
+    isAwsAutoscalingGroupAttached
 }
 
 fail[block] {
