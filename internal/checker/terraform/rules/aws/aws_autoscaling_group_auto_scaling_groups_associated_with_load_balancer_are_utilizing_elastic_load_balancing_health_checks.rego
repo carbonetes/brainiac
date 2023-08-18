@@ -9,11 +9,11 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_348
 
-supportedResources := ["aws_autoscaling_attachment", "aws_lb_target_group"]
+import future.keywords.if
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    block.Labels[_] == "aws_autoscaling_attachment"
 }
 
 resource[resource] {
@@ -26,7 +26,7 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
-getTheLabelforAwsAutoscalingGroup[label]{
+getTheLabelForAwsAutoscalingGroup[label]{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_autoscaling_group"
@@ -34,50 +34,52 @@ getTheLabelforAwsAutoscalingGroup[label]{
     label := concat(".", resource.Labels)
 }
 
-getTheLabelforAwsElb[label]{
+getTheLabelForAwsElb[label]{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_elb"
-    resource.Blocks[_].Type == "health_check"
+    # resource.Blocks[_].Type == "health_check"
     label := concat(".", resource.Labels)
 }
 
-expectedAttributesforAwsElb{
+getTheAttributeForAwsElb{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_elb"
     resource.Blocks[_].Type == "health_check"
 }
 
-isValidResourceAttached{
+
+isAwsAutoscalingAttachedForAG{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_autoscaling_attachment"
-    awsAutoscalingGroupLabel := getTheLabelforAwsAutoscalingGroup[_]
-    awsElbLabel := getTheLabelforAwsElb[_]
-    contains(resource.Attributes.autoscaling_group_name, awsAutoscalingGroupLabel)
-    contains(resource.Attributes.elb, awsElbLabel)
+    contains(resource.Attributes.autoscaling_group_name, getTheLabelForAwsAutoscalingGroup[_])
 }
 
-isAwsAutoscalingGroupAttached{
+isAwsAutoscalingGroupAttachedForElb{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_autoscaling_attachment"
-    awsAutoscalingGroupLabel := getTheLabelforAwsAutoscalingGroup[_]
-    contains(resource.Attributes.autoscaling_group_name, awsAutoscalingGroupLabel)
+    contains(resource.Attributes.elb, getTheLabelForAwsElb[_])
 }
 
+isValidAttachments := false if{
+    isAwsAutoscalingGroupAttachedForElb 
+ 	isAwsAutoscalingAttachedForAG
+    not getTheAttributeForAwsElb
+}else := true if {
+    not isAwsAutoscalingGroupAttachedForElb
+ 	isAwsAutoscalingAttachedForAG
+}else := true if {
+ 	isAwsAutoscalingGroupAttachedForElb 
+ 	isAwsAutoscalingAttachedForAG
+}
+ 
 pass[resource]{
     resource := input[_]
     isvalid(resource)
-    isValidResourceAttached
-}
-
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    expectedAttributesforAwsElb
-    isAwsAutoscalingGroupAttached
+    isValidAttachments
 }
 
 fail[block] {
