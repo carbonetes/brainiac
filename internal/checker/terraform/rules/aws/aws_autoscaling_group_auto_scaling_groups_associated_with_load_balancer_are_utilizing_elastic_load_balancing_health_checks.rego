@@ -38,7 +38,6 @@ getTheLabelForAwsElb[label]{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_elb"
-    # resource.Blocks[_].Type == "health_check"
     label := concat(".", resource.Labels)
 }
 
