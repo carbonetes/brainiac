@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"errors"
 	"os"
 
 	"github.com/carbonetes/brainiac/internal/checker"
@@ -59,8 +60,9 @@ func ProcessSingleFile(arguments *model.Arguments) (model.Result, error) {
 
 	// if format is not detected, print error message and return
 	if config == "" {
-		log.Println("Platform not detected")
-		return model.Result{}, nil
+		errMsg := "Platform not detected"
+		log.Println(errMsg)
+		return model.Result{}, errors.New(errMsg)
 	}
 	// Call CheckIACFile() from checker module to perform IAC analysis
 	return checker.CheckIACFile(config, *arguments.File)
