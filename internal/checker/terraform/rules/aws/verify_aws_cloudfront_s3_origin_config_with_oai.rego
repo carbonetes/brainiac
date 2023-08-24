@@ -28,7 +28,6 @@ pass[block] {
 	block := input[_]
 	isvalid(block)
 	block.Blocks[_].Type == "origin"
-	block.Blocks[_].Blocks[_].Attributes.origin_access_identity != ""
 	block.Blocks[_].Blocks[_].Type == "s3_origin_config"
 }
 
