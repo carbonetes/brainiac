@@ -16,6 +16,10 @@ isvalid(block){
     block.Labels[_] == "aws_api_gateway_method"
 }
 
+has_attribute(key, value) {
+    _ = key[value]
+}
+
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
@@ -29,7 +33,7 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
     isvalid(resource)
-    resource.Attributes.request_validator_id
+    has_attribute(resource.Attributes, "request_validator_id")
 }
 
 fail[block] {
