@@ -347,7 +347,7 @@ test_aws_cloudfront_s3_origin_config_with_oai_failed {
                         },
                         "Blocks": [],
                         "Labels": [],
-                        "Type": "s3_origin_config",
+                        "Type": "",
                         "line_range": {
                             "endLine": 17,
                             "startLine": 15
