@@ -9,108 +9,63 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_366
 
-supportedResources := ["aws_lb_listener", "aws_alb_listener"]
+supportedResources := ["aws_alb", "aws_lb"]
 
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == supportedResources[_]
 }
 
-resource[resource] {
+resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
 } 
-
-resource[resource] { 
+resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
 } 
 
-getTheLabelforAwsLb[label]{
+getTheLabelForAlb[label]{
     resource := input[_]
     resource.Type == "resource"
-    resource.Labels[_] == "aws_lb"
+    resource.Labels[_] == supportedResources[_]
     label := concat(".", resource.Labels)
 }
 
-getTheLabelforAwsAlb[label]{
+hasInvalidListenerConnections{
     resource := input[_]
     resource.Type == "resource"
-    resource.Labels[_] == "aws_alb"
-    label := concat(".", resource.Labels)
-}
-
-isValidResourceAttachedForAwsLb{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_lb_listener"
+    validListener := ["aws_alb_listener", "aws_lb_listener"]
+    resource.Labels[_] == validListener[_]
+    contains(resource.Attributes.load_balancer_arn, getTheLabelForAlb[_])
     resource.Attributes.port == "80"
-    resource.Attributes.protocol == "HTTP"
-    resource.Blocks[_].Type == "default_action"
-    resource.Blocks[_].Attributes.type == "redirect"
-    resource.Blocks[_].Blocks[_].Type == "redirect"
-    resource.Blocks[_].Blocks[_].Attributes.port == "443"
-    resource.Blocks[_].Blocks[_].Attributes.protocol == "HTTPS"
-
+   	resource.Attributes.protocol == "HTTP"
+    not hasValidDefaultAction(resource)
 }
 
-isValidResourceAttachedForAwsAlb{
+hasValidDefaultAction(resource) {
+   block := resource.Blocks[_]
+   block.Type == "default_action"
+   block.Attributes.type == "redirect"
+   innerBlock := block.Blocks[_]
+   innerBlock.Type == "redirect"
+   innerBlock.Attributes.port == "443"
+   innerBlock.Attributes.protocol == "HTTPS"
+   
+}
+
+fail[resource] {
     resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_alb_listener"
-    resource.Attributes.port == "80"
-    resource.Attributes.protocol == "HTTP"
-    resource.Blocks[_].Type == "default_action"
-    resource.Blocks[_].Attributes.type == "redirect"
-    resource.Blocks[_].Blocks[_].Type == "redirect"
-    resource.Blocks[_].Blocks[_].Attributes.port == "443"
-    resource.Blocks[_].Blocks[_].Attributes.protocol == "HTTPS"
-
+    isvalid(resource)
+    hasInvalidListenerConnections
 }
 
-pass[resource]{
-    resource := input[_]
-    isValidResourceAttachedForAwsLb
-    contains(resource.Attributes.load_balancer_arn, getTheLabelforAwsLb[_])
-}
-
-pass[resource]{
-    resource := input[_]
-    label := getTheLabelforAwsLb[_]
-    not isValidResourceAttachedForAwsLb
-    not contains(resource.Attributes.load_balancer_arn, label)
-}
-
-pass[resource]{
-    resource := input[_]
-    isValidResourceAttachedForAwsAlb
-    contains(resource.Attributes.load_balancer_arn, getTheLabelforAwsAlb[_])
-}
-
-pass[resource]{
-    resource := input[_]
-    label := getTheLabelforAwsAlb[_]
-    not isValidResourceAttachedForAwsAlb
-    not contains(resource.Attributes.load_balancer_arn, label)
-}
-
-pass[resource]{
-    resource := input[_]
-    isValidResourceAttachedForAwsAlb
-    contains(resource.Attributes.load_balancer_arn, getTheLabelforAwsLb[_])
-}
-
-pass[resource]{
-    resource := input[_]
-    isValidResourceAttachedForAwsLb
-    contains(resource.Attributes.load_balancer_arn, getTheLabelforAwsAlb[_])
-}
-
-fail[block] {
+pass[block] {
     block := input[_]
 	isvalid(block)
-   	not pass[block]
+   	not fail[block]
 }
+
 
 
 
