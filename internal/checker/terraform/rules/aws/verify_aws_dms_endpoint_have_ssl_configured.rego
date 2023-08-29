@@ -24,19 +24,21 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-isEngineValidForTypeSource {
-	resource := input[_]
-	resource.Type == "resource"
+isEngineValidForTypeSource(resource) {
 	validEngine := ["s3", "azuredb"]
 	resource.Attributes.engine_name == validEngine[_]
+}
+
+isEngineValidForTypeSource(resource) {
 	resource.Attributes.ssl_mode != "none"
 }
 
-isEngineValidForTypeTarget {
-	resource := input[_]
-	resource.Type == "resource"
+isEngineValidForTypeTarget(resource) {
 	validEngine := ["dynamodb", "kinesis", "neptune", "redshift", "s3", "elasticsearch", "kafka"]
 	resource.Attributes.engine_name == validEngine[_]
+}
+
+isEngineValidForTypeTarget(resource) {
 	resource.Attributes.ssl_mode != "none"
 }
 
@@ -44,14 +46,14 @@ pass[block] {
 	block := input[_]
 	isvalid(block)
 	block.Attributes.endpoint_type == "source"
-	isEngineValidForTypeSource
+	isEngineValidForTypeSource(block)
 }
 
 pass[block] {
 	block := input[_]
 	isvalid(block)
 	block.Attributes.endpoint_type == "target"
-	isEngineValidForTypeTarget
+	isEngineValidForTypeTarget(block)
 }
 
 fail[block] {
