@@ -26,63 +26,57 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
+has_attribute(key, value) {
+  _ = key[value]
+}
+
 getTheLabelForAwsDynamodbTable[label]{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_dynamodb_table"
-    expectedResources := ["PROVISIONED", "PAY_PER_REQUEST"]
-    resource.Attributes.billing_mode == expectedResources[_]
+    resource.Attributes.billing_mode == "PROVISIONED"
     label := concat(".", resource.Labels)
 }
 
-getTheLabelForAwsDynamodbTableNoBillingMode[label]{
+getTheLabelForAwsDynamodbTable[label]{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_dynamodb_table"
+    not has_attribute(resource.Attributes, "billing_mode")
     label := concat(".", resource.Labels)
 }
 
-verifyBillingModeForAwsDynamodbTable{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_dynamodb_table"
-    resource.Attributes.billing_mode
-}
-
-verifyAwsDynamodbTable{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_dynamodb_table"
-    resource.Attributes.billing_mode == "PAY_PER_REQUEST"
-}
-
-isAwsAppAutoscalingTargetAttachedForDynamodb{
+isAwsAppAutoscalingTargetAndPolicyAttachedForDynamodb{
     resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_appautoscaling_target"
     contains(resource.Attributes.resource_id, getTheLabelForAwsDynamodbTable[_])
+    policyIsAttached
 }
-
-isAwsAppAutoscalingTargetAttachedForDynamodbNoBillingMode{
-    resource := input[_]
+getLabelForScalingTarget[label]{
+	resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_appautoscaling_target"
-    contains(resource.Attributes.resource_id, getTheLabelForAwsDynamodbTableNoBillingMode[_])
+    label := concat(".", resource.Labels)
 }
 
-isValidAttachments := true if{
-    not verifyBillingModeForAwsDynamodbTable
-    isAwsAppAutoscalingTargetAttachedForDynamodbNoBillingMode
-}else := true if {
-    isAwsAppAutoscalingTargetAttachedForDynamodb
-}else := true if {
-    verifyAwsDynamodbTable
+policyIsAttached{
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "aws_appautoscaling_policy"
+    contains(resource.Attributes.resource_id, getLabelForScalingTarget[_])
 }
  
 pass[resource]{
     resource := input[_]
     isvalid(resource)
-    isValidAttachments
+    isAwsAppAutoscalingTargetAndPolicyAttachedForDynamodb
+}
+
+pass[resource]{
+    resource := input[_]
+    isvalid(resource)
+    resource.Attributes.billing_mode == "PAY_PER_REQUEST"
 }
 
 fail[block] {
