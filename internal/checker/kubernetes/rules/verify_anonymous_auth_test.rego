@@ -48,7 +48,7 @@ test_anonymous_auth_true {
                     {
                         "command": [
                         "kubelet",
-                        " --anonymous-auth=true"
+                        "--anonymous-auth=true"
                         ],
                         "image": "gcr.io/google_containers/kubelet-amd64:v1.6.0",
                         "name": "gcr"

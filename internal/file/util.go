@@ -82,8 +82,13 @@ func isJSON(fileExtension string) bool {
 
 // check if the file extension is terraform
 func isTerraform(configFile string) bool {
-	fileExtension := filepath.Ext(filepath.Base(configFile))
-	return strings.EqualFold(fileExtension, ".tf") || strings.EqualFold(fileExtension, ".tf.json")
+	for _, ext := range []string{".tf", ".tf.json"} {
+		if strings.HasSuffix(configFile, ext) {
+			return true
+		}
+	}
+
+	return false
 }
 
 // check if the config is dockerfile

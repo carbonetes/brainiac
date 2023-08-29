@@ -47,6 +47,7 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 		if err != nil && modules == nil {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
+			return model.Result{}, err
 		}
 		input, rawContent := file.ParseKubernetesFile(configFile)
 		return proccessInput(input, rawContent, modules, file.FileTypeKubernetes, configFile)
@@ -56,6 +57,7 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 		if err != nil && modules == nil {
 			log.Printf("Failed to parse rego modules")
 			Errors = append(Errors, &err)
+			return model.Result{}, err
 		}
 		input, rawContent := file.ParseTerraformFile(configFile)
 		return proccessInput(input, rawContent, modules, file.FileTypeTerraform, configFile)
@@ -64,7 +66,7 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 
 		//implement other config type here
 	}
-	return *new(model.Result), nil
+	return model.Result{}, nil
 
 }
 
