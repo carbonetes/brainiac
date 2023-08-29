@@ -9,7 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_350
 
-import future.keywords.if
 
 isvalid(block){
 	block.Type == "resource"
@@ -57,6 +56,7 @@ getLabelForScalingTarget[label]{
 	resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "aws_appautoscaling_target"
+    resource.Attributes.service_namespace == "dynamodb"
     label := concat(".", resource.Labels)
 }
 
