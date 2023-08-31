@@ -9,9 +9,11 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_368
 
+supportedResources := ["aws_api_gateway_stage", "aws_apigatewayv2_stage"]
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "aws_api_gateway_stage"
+	block.Labels[_] == supportedResources[_]
 }
 
 resource[resource] {
@@ -27,14 +29,6 @@ resource[resource] {
 pass[block] {
 	block := input[_]
 	isvalid(block)
-	block.Labels[_] == "aws_api_gateway_stage"
-	block.Attributes.client_certificate_id != ""
-}
-
-pass[block] {
-	block := input[_]
-	isvalid(block)
-	block.Labels[_] == "aws_apigatewayv2_stage"
 	block.Attributes.client_certificate_id != ""
 }
 
@@ -43,6 +37,7 @@ getApigatewayv2ApiLabel[label] {
 	block.Type == "resource"
 	block.Labels[_] == "aws_apigatewayv2_api"
 	label := concat(".", block.Labels)
+	block.Attributes.protocol_type != "WEBSOCKET"
 }
 
 
@@ -53,17 +48,11 @@ isApigatewayv2StageExists {
 	contains(block.Attributes.api_id, getApigatewayv2ApiLabel[_])
 }
 
-isApigatewayv2ApiValidType {
-	block := input[_]
-	block.Type == "resource"
-	block.Attributes.protocol_type != "WEBSOCKET"
-}
 
 pass[block] {
 	block := input[_]
 	isvalid(block)
 	isApigatewayv2StageExists
-	isApigatewayv2ApiValidType
 }
 
 fail[block] {
