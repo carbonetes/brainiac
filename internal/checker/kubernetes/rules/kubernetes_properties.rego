@@ -104,6 +104,11 @@ containers_commands[commands] {
 	commands := containers[_].command[_]
 }
 
+containers_commands[commands] {
+	has_attribute(containers[_], "args")
+	commands := containers[_].args[_]
+}
+
 podTemplates[pod] {
 	is_controller
 	pod = input.spec.template
@@ -146,4 +151,9 @@ array_to_set(val) = value {
 is_apiserver(container){
 	has_attribute(container, "command")
 	contains(container.command[_], "kube-apiserver")
+}
+
+is_apiserver(container){
+	has_attribute(container, "args")
+	contains(container.args[_], "kube-apiserver")
 }

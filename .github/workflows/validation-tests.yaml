@@ -2,9 +2,9 @@ name: "Validation Tests"
 
 on:
   push:
-    branches: [ "main" , "feature/terraform-development"]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" , "feature/terraform-development"]
+    branches: [ "main" ]
 
 env:
   GO_CURRENT_VERSION: "1.20.x"

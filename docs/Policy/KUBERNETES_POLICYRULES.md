@@ -155,7 +155,6 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_024 | Resource | RoleBinding | ServiceAccount/Node should not have 'impersonate' permissions for user-accounts/users/groups | checker/kubernetes/rules/rbac/impersonate_permissions.rego |
 | CB_K8S_025 | Resource | ClusterRole | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_025 | Resource | ClusterRoleBinding | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
-| CB_K8S_025 | Resource | Role | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_025| Resource | RoleBinding | RoleBinding should not allow privilege escalation to a ServiceAccount or Node on other RoleBinding | checker/kubernetes/rules/rolebinding_PE.rego |
 | CB_K8S_026 | Resource | ClusterRole | ServiceAccount/Node should not able to all read secrets | checker/kubernetes/rules/rbac/read_all_secrets.rego |
 | CB_K8S_026 | Resource | ClusterRoleBinding | ServiceAccount/Node should not able to all read secrets | checker/kubernetes/rules/rbac/read_all_secrets.rego |
@@ -321,14 +320,8 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_049 | Resource | ReplicaSet | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego |
 | CB_K8S_049 | Resource | ReplicationController | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego |
 | CB_K8S_049 | Resource | StatefulSet | Verify that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate | checker/kubernetes/rules/cert_and_private_file.rego | 
-| CB_K8S_050 | Resource | CronJob | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | DaemonSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
 | CB_K8S_050 | Resource | Deployment | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | Job | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
 | CB_K8S_050 | Resource | Pod | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | ReplicaSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | ReplicationController | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego |
-| CB_K8S_050 | Resource | StatefulSet | Verify Tiller (Helm V2) deployment is not accessible from within the cluster | checker/kubernetes/rules/verify_tiller_helmv2_not_accessible.rego | 
 | CB_K8S_051 | Resource | Ingress | Prevent NGINX Ingress annotation snippets which contain alias statements See CVE-2021-25742 | checker/kubernetes/rules/ingress_annotation_alias.rego | 
 | CB_K8S_052 | Resource | CronJob | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | DaemonSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
@@ -337,15 +330,8 @@ This document provides a comprehensive index of Kubernetes policies available in
 | CB_K8S_052 | Resource | Pod | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | ReplicaSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
 | CB_K8S_052 | Resource | ReplicationController | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego |
-| CB_K8S_052 | Resource | StatefulSet | Verify that the --rotate-certificates argument not set to false | checker/kubernetes/rules/rotate_certificates.rego | 
-| CB_K8S_053 | Resource | CronJob | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | DaemonSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
 | CB_K8S_053 | Resource | Deployment | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | Job | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
 | CB_K8S_053 | Resource | Pod | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | ReplicaSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | ReplicationController | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego |
-| CB_K8S_053 | Resource | StatefulSet | Verify that the kubelet only use Strong Cryptographic Ciphers | checker/kubernetes/rules/cryptographic_ciphers.rego | 
 | CB_K8S_054 | Resource | CronJob | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
 | CB_K8S_054 | Resource | DaemonSet | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
 | CB_K8S_054 | Resource | Deployment | Verify the --anonymous-auth argument is set to False | checker/kubernetes/rules/verify_anonymous_auth.rego |
