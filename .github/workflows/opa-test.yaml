@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "feature/terraform-azure-development"]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" , "feature/terraform-azure-development"]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
