@@ -9,8 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_028
 
-import future.keywords.in 
-
 supportedResource := ["aws_efs_file_system"]
 
 isvalid(block){
