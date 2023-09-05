@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project
 # custom:
 #   id: CB_TFAWS_302
-#   severity: LOW
+#   severity: MEDIUM
 package lib.terraform.CB_TFAWS_302
 
 isvalid(block){
