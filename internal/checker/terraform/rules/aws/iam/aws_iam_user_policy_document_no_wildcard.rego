@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_063
 
-import future.keywords.in 
-
 supportedResource := ["aws_iam_group_policy", "aws_iam_policy", "aws_iam_role_policy", "aws_iam_user_policy", "aws_ssoadmin_permission_set_inline_policy"]
 
 

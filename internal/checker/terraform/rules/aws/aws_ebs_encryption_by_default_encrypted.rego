@@ -8,9 +8,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_069
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_ebs_encryption_by_default"

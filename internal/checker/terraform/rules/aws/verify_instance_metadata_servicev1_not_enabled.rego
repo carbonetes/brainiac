@@ -9,7 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_089
 
-import future.keywords.in 
 
 supportedResources := ["aws_instance", "aws_launch_configuration", "aws_launch_template"]
 isvalid(block){

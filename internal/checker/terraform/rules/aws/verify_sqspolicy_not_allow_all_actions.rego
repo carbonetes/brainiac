@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_079
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_sqs_queue_policy"

@@ -40,6 +40,11 @@ getContainerCommand[container] {
     container := kubernetes.containers[index]
 }
 
+getContainerCommand[container] {
+    startswith(kubernetes.containers[index].args[command_index], flag)
+    container := kubernetes.containers[index]
+}
+
 passed[result] {
     isValid
 	commands := hasContainersCommand[_]

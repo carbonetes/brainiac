@@ -127,7 +127,13 @@ func processTupleVal(tupleVal []cty.Value) interface{} {
 				}
 				listTup = append(listTup, elemObj)
 			} else {
-				listArray = append(listArray, elem.AsString())
+				valType := elem.Type().FriendlyName()
+				switch valType {
+				case "string":
+					listArray = append(listArray, elem.AsString())
+				case "number":
+					listArray = append(listArray, elem.AsBigFloat().String())
+				}
 			}
 		}
 	}

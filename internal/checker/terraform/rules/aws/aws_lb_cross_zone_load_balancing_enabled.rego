@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_132
 
-import future.keywords.in 
-
 supportedResource := ["aws_alb", "aws_lb"]
 
 isvalid(block){

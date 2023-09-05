@@ -8,9 +8,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_120
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_cloudformation_stack"

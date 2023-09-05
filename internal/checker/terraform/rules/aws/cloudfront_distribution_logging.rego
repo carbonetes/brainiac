@@ -9,8 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_092
 
-import future.keywords.if
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_cloudfront_distribution"
@@ -46,11 +44,11 @@ fail[block] {
 passed[result] {
 	block := pass[_]
 	result := { "message": "'aws_cloudfront_distribution' for 'logging_config' is set properly.",
-                "snippet": {} }
+                "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
 	result := { "message": "'aws_cloudfront_distribution' for 'logging_config' should be set.",
-                "snippet": {} }
+                "snippet": block }
 } 
