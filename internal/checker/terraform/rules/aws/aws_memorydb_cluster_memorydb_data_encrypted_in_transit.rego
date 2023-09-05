@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_193
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_memorydb_cluster"

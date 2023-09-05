@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_198
 
-import future.keywords.in 
-
 supportedResource := ["aws_db_instance", "aws_rds_cluster_instance"]
 
 isvalid(block){
