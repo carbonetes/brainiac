@@ -9,9 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_050
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_s3_bucket_public_access_block"

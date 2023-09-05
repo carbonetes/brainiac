@@ -55,7 +55,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_040 | Resource | aws_lambda_function | Verify the lambda environment for any hard-coded secrets | checker/terraform/rules/aws/aws_lambda_function_secret.rego |
 | CB_TFAWS_041 | Resource | aws_dax_cluster | Check to see if DAX is encrypted at rest (the default is unencrypted). | checker/terraform/rules/aws/aws_dax_cluster_encrypted.rego |
 | CB_TFAWS_042 | Data | aws_iam_policy_document | Make sure that none of the IAM policies allow a statement's actions to use a wildcard. | checker/terraform/rules/aws/iam/aws_iam_policy_document_wildcard_not_allowed.rego |
-| CB_TFAWS_043 | Resource | aws_db_security_group | Verify every security groups rule has a description | cchecker/terraform/rules/aws/verify_securitygroups_has_description.rego |
+| CB_TFAWS_043 | Resource | aws_db_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_elasticache_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_redshift_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |

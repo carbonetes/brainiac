@@ -9,8 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_012
 
-import future.keywords.in 
-
 
 isvalid(block){
 	block.Type == "resource"

@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_041
 
-import future.keywords.in 
-
 supportedResource := ["aws_dax_cluster"]
 
 isvalid(block){
