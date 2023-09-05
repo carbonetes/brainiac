@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAWS_302
 
-test_verify_auto_scaling_launch_template_passed {
+test_verify_aws_codebuild_project_privileged_mode_disabled{
     result := passed with input as [
         {
             "Type": "resource",
@@ -32,7 +32,7 @@ test_verify_auto_scaling_launch_template_passed {
     count(result) == 1
 }
 
-test_verify_auto_scaling_launch_template_failed {
+test_verify_aws_codebuild_project_privileged_mode_enabled {
     result := failed with input as [
         {
             "Type": "resource",
