@@ -8,9 +8,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_119
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_vpc_endpoint_service"

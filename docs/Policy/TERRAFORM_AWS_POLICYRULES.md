@@ -194,7 +194,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_142 | Resource | aws_rds_cluster | Verify that RDS clusters have deletion protection enabled | checker/terraform/rules/aws/verify_rds_deletion_protection.rego |
 | CB_TFAWS_143 | Resource | aws_rds_global_cluster | Verify that RDS global clusters are encrypted | checker/terraform/rules/aws/verify_rds_cluster_encrypted.rego |
 | CB_TFAWS_144 | Resource | aws_redshift_cluster | Verify that Redshift cluster allowing version upgrade by default | checker/terraform/rules/aws/verify_redshift_cluster_allow_version_upgrade.rego |
-| CB_TFAWS_145 | Resource | aws_redshift_cluster | Verify that Redshift cluster allowing version upgrade by default | checker/terraform/rules/aws/verifiy_redshift_cluster_kms_key.rego |
+| CB_TFAWS_145 | Resource | aws_redshift_cluster | Verify that Redshift cluster is encrypted by KMS | checker/terraform/rules/aws/verifiy_redshift_cluster_kms_key.rego |
 | CB_TFAWS_146 | Resource | aws_autoscaling_group | Tags for launch configurations should be provided by autoscaling groups | checker/terraform/rules/aws/aws_autoscaling_group_supply_tags_to_launch_configurations.rego |
 | CB_TFAWS_147 | Resource | aws_s3_bucket | Verify that S3 bucket has lock configuration enabled by default | checker/terraform/rules/aws/verify_s3_bucket_object_lock.rego |
 | CB_TFAWS_148 | Resource | aws_db_instance | Verify that Multi-AZ is enabled for RDS instances | checker/terraform/rules/aws/aws_db_instance_rds_instances_multi_az_enabled.rego |

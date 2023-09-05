@@ -7,9 +7,7 @@
 # custom:
 #   id: CB_TFAWS_114
 #   severity: LOW
-package lib.terraform.CB_TFAWS_114
-
-import future.keywords.in 
+package lib.terraform.CB_TFAWS_114 
 
 isvalid(block){
 	block.Type == "resource"
