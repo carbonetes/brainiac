@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_057
 
-import future.keywords.in 
-
 supportedResource := ["aws_api_gateway_method"]
 
 isvalid(block){

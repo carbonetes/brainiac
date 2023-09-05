@@ -9,10 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_072
 
-import future.keywords.in 
-
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_ecs_task_definition"

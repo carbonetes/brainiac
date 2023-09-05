@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_085
 
-import future.keywords.in 
-
 supportedResources := ["aws_api_gateway_stage", "aws_apigatewayv2_stage"]
 isvalid(block){
 	block.Type == "resource"

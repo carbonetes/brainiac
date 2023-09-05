@@ -9,8 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_090
 
-import future.keywords.if
-
 log_types := ["profiler", "audit"]
 
 isvalid(block){

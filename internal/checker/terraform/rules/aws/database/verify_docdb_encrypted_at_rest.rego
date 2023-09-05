@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify DocDB is encrypted at rest (default is unencrypted)"
-# description: "nabling encryption at rest for Amazon DocumentDB (DocDB) provides an added layer of security for your data. By default, DocDB does not encrypt data at rest, which can pose a risk if sensitive or confidential information is stored in the database."
+# description: "Enabling encryption at rest for Amazon DocumentDB (DocDB) provides an added layer of security for your data. By default, DocDB does not encrypt data at rest, which can pose a risk if sensitive or confidential information is stored in the database."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster
@@ -9,7 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_083
 
-import future.keywords.in 
 
 isvalid(block){
 	block.Type == "resource"

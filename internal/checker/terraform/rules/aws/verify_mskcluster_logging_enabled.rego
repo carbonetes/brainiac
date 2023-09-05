@@ -9,8 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_091
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_msk_cluster"
