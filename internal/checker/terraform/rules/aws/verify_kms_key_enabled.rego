@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_199
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_kms_key"
