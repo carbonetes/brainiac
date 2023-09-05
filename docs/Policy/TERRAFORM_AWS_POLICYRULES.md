@@ -378,7 +378,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_300 | Resource | aws_elb | Verify that ALB is configured with defensive or strictest desync mitigation mode | checker/terraform/rules/aws/verify_alb_desync_mode.rego.rego |
 | CB_TFAWS_300 | Resource | aws_lb | Verify that ALB is configured with defensive or strictest desync mitigation mode | checker/terraform/rules/aws/verify_alb_desync_mode.rego.rego |
 | CB_TFAWS_301 | Resource | aws_codebuild_project | Verify that CodeBuild project environments have a logging configuration | checker/terraform/rules/aws/verify_code_build_has_logs.rego |
-| CB_TFAWS_302 | Resource | aws_codebuild_project | Verify that CodeBuild project environments do not have privileged mode enabled | checker/terraform/rules/aws/verify_auto_scaling_launch_template.rego |
+| CB_TFAWS_302 | Resource | aws_codebuild_project | Verify that CodeBuild project environments do not have privileged mode enabled | checker/terraform/rules/aws/verify_codebuild_project_environments_privileged_mode_enabled.rego |
 | CB_TFAWS_303 | Resource | aws_efs_access_point | Verify EFS access points should enforce a root directory | checker/terraform/rules/aws/verify_efs_access_point_root.rego |
 | CB_TFAWS_304 | Resource | aws_elasticsearch_domain | Verify that Elasticsearch Domain Logging is enabled | checker/terraform/rules/aws/verify_elasticsearch_domain_audit_logging.rego |
 | CB_TFAWS_304 | Resource | aws_opensearch_domain | Verify that Elasticsearch Domain Logging is enabled | checker/terraform/rules/aws/verify_elasticsearch_domain_audit_logging.rego |
