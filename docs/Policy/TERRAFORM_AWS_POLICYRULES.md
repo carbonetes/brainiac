@@ -317,7 +317,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_250 | Resource | aws_iam_role_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
 | CB_TFAWS_250 | Resource | aws_iam_user_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
 | CB_TFAWS_250 | Resource | aws_ssoadmin_managed_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
-| CB_TFAWS_251 | Resource | aws_api_gateway_method_settings | Check to make sure that there is no open API access to back-end resources | checker/terraform/rules/aws/aws_api_gateway_method_open_access.rego |
+| CB_TFAWS_251 | Resource | aws_api_gateway_method_settings | Make certain that Data Trace is disabled in API Gateway Method Settings | checker/terraform/rules/aws/aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings.rego |
 | CB_TFAWS_252 | Resource | aws_security_group | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
 | CB_TFAWS_252 | Resource | aws_security_group_rule | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
 | CB_TFAWS_252 | Resource | aws_vpc_security_group_ingress_rule | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
@@ -391,6 +391,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_310 | Resource | aws_elasticache_cluster | Verify that ElastiCache for Redis cache clusters have auto minor version upgrades enabled | checker/terraform/rules/aws/verify_aws_elasticache_cluster_automatic_minor_upgrade.rego |
 | CB_TFAWS_311 | Resource | aws_elasticache_cluster | Verify that ElastiCache clusters do not use the default subnet group | checker/terraform/rules/aws/verify_aws_elasticache_cluster_custom_subnet.rego |
 | CB_TFAWS_312 | Resource | aws_elasticache_cluster | Verify that RDS Cluster log capture is enabled | checker/terraform/rules/aws/verify_aws_rds_cluster_logging.rego |
+| CB_TFAWS_313 | Resource | aws_ec2_transit_gateway | Verify Transit Gateways do not automatically accept VPC attachment requests | checker/terraform/rules/aws/verify_ec2_transit_gateway_auto_accept.rego.rego |
 | CB_TFAWS_314 | Resource | aws_rds_cluster | Verify that RDS Cluster audit logging is enabled for MySQL engine | checker/terraform/rules/aws/verify_aws_rds_cluster_audit_loging.rego |
 | CB_TFAWS_315 | Resource | aws_ecs_service | Verify ECS Fargate services run on the latest Fargate platform version | checker/terraform/rules/aws/verify_ecs_service_fargate_latest.rego |
 | CB_TFAWS_316 | Resource | aws_ecs_service | Verify ECS services do not have public IP addresses assigned to them automatically | checker/terraform/rules/aws/verify_ecs_service_public_ip.rego |
@@ -416,8 +417,8 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_330 | Resource | aws_rds_cluster | Check to see if the AWS Backup of RDS clusters have a backup plan | checker/terraform/rules/aws/aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup.rego |
 | CB_TFAWS_331 | Resource | aws_api_gateway_rest_api | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
 | CB_TFAWS_331 | Resource | aws_api_gateway_stage | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
-| CB_TFAWS_332 | Resource | aws_db_instance | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
-| CB_TFAWS_332 | Resource | aws_db_parameter_group | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
+| CB_TFAWS_332 | Resource | aws_db_instance | Verify Postgres RDS as aws_db_instance has Query Logging enabled | checker/terraform/rules/aws/verify_postgress_rds_aws_db_instance_query_logging_enabled.rego |
+| CB_TFAWS_332 | Resource | aws_db_parameter_group | Verify Postgres RDS as aws_db_instance has Query Logging enabled | checker/terraform/rules/aws/verify_postgress_rds_aws_db_instance_query_logging_enabled.rego |
 | CB_TFAWS_333 | Resource | aws_route | Verify AWS route table with VPC peering does not contain routes overly permissive to all traffic | checker/terraform/rules/aws/verify_vpc_peering_route_table_overly_permissive.rego |
 | CB_TFAWS_333 | Resource | aws_route_table | Verify AWS route table with VPC peering does not contain routes overly permissive to all traffic | checker/terraform/rules/aws/verify_vpc_peering_route_table_overly_permissive.rego |
 | CB_TFAWS_334 | Resource | aws_wafv2_web_acl | Verify WAF2 has a Logging Configuration | checker/terraform/rules/aws/verify_waf2_has_logging.rego |
