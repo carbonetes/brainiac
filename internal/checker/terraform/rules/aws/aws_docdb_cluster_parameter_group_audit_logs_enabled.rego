@@ -9,10 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_073
 
-import future.keywords.in 
-
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_docdb_cluster_parameter_group"

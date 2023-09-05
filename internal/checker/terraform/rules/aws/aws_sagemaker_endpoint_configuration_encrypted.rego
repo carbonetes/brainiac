@@ -3,13 +3,12 @@
 # description: "Enabling at-rest encryption guarantees that the data on your AWS SageMaker notebook instances comply with legal standards and safeguards your SageMaker data."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/neptune_cluster_instance
+# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sagemaker_endpoint_configuration.html
 # custom:
 #   id: CB_TFAWS_082
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_082
 
-import future.keywords.in 
 
 isvalid(block){
 	block.Type == "resource"

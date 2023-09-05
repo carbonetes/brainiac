@@ -9,8 +9,6 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_077
 
-import future.keywords.in 
-
 supportedResources := ["aws_s3_bucket", "aws_s3_bucket_policy"]
 isvalid(block){
 	block.Type == "resource"

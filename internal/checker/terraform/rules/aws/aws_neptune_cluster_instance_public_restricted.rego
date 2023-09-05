@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_071
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_neptune_cluster_instance"

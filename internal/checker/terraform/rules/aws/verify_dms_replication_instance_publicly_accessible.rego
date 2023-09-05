@@ -9,8 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_096
 
-import future.keywords.if
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_dms_replication_instance"

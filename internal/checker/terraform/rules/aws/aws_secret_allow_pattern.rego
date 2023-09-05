@@ -9,8 +9,6 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_054
 
-import future.keywords.in 
-
 isvalid(block){
 	block.Type == "provider"
     block.Labels[_] == "aws"

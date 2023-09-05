@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify S3 bucket has block public policy enabled"
-# description: " By blocking public policies, you reduce the risk of unauthorized access to sensitive data that may be stored in the S3 bucket."
+# description: "By blocking public policies, you reduce the risk of unauthorized access to sensitive data that may be stored in the S3 bucket."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block#block_public_policy
