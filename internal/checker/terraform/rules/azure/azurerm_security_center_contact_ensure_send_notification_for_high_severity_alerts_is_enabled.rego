@@ -15,10 +15,6 @@ isvalid(block){
     block.Labels[_] == "azurerm_security_center_contact"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
@@ -32,15 +28,7 @@ resource[resource] {
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    has_attribute(resource.Attributes, "alert_notifications")
     resource.Attributes.alert_notifications == true
-}
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    has_attribute(resource.Attributes, "alert_notifications")
-    resource.Attributes.alert_notifications == "true"
 }
 
 fail[block] {
