@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/security_center_contact.html
 # custom:
-#   id: CB_TFAZR_002
-#   severity: LOW
-package lib.terraform.CB_TFAZR_002
+#   id: CB_TFAZR_004
+#   severity: MEDIUM
+package lib.terraform.CB_TFAZR_004
 
 isvalid(block){
 	block.Type == "resource"

@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_002
+package lib.terraform.CB_TFAZR_004
 
 test_azurerm_security_center_contact_notif_admins_enabled {
 	result := passed with input as [{
