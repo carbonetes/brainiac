@@ -9,8 +9,6 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_056
 
-import future.keywords.in 
-
 supportedResource := ["aws_eks_cluster"]
 
 isvalid(block){

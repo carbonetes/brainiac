@@ -9,8 +9,6 @@
 #   severity: INFO
 package lib.terraform.CB_TFAWS_029
 
-import future.keywords.in 
-
 supportedResource := ["aws_ecr_repository_policy"]
 
 isvalid(block){

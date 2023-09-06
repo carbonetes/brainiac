@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify DLM cross region events are encrypted with Customer Managed Key"
-# description: ""
+# description: "This adds an extra layer of security and control over your data, reducing the risk of unauthorized access or data breaches."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dlm_lifecycle_policy.html#action

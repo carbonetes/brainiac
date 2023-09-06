@@ -55,7 +55,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_040 | Resource | aws_lambda_function | Verify the lambda environment for any hard-coded secrets | checker/terraform/rules/aws/aws_lambda_function_secret.rego |
 | CB_TFAWS_041 | Resource | aws_dax_cluster | Check to see if DAX is encrypted at rest (the default is unencrypted). | checker/terraform/rules/aws/aws_dax_cluster_encrypted.rego |
 | CB_TFAWS_042 | Data | aws_iam_policy_document | Make sure that none of the IAM policies allow a statement's actions to use a wildcard. | checker/terraform/rules/aws/iam/aws_iam_policy_document_wildcard_not_allowed.rego |
-| CB_TFAWS_043 | Resource | aws_db_security_group | Verify every security groups rule has a description | cchecker/terraform/rules/aws/verify_securitygroups_has_description.rego |
+| CB_TFAWS_043 | Resource | aws_db_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_elasticache_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_redshift_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
 | CB_TFAWS_043 | Resource | aws_security_group | Verify every security groups rule has a description | checker/terraform/rules/aws/verify_securitygroups_has_description.rego |
@@ -78,19 +78,19 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_051 | Resource | aws_s3_bucket_public_access_block | Verify S3 bucket has block public policy enabled | checker/terraform/rules/aws/bucket/s3bucket_block_public_policy_enabled.rego |
 | CB_TFAWS_052 | Resource | aws_s3_bucket_public_access_block | Verify S3 bucket has ignore public ACLs enabled | checker/terraform/rules/aws/bucket/s3bucket_ignore_public_acls_enabled.rego |
 | CB_TFAWS_053 | Resource | aws_s3_bucket_public_access_block | Verify S3 bucket has 'restrict_public_bucket' enabled | checker/terraform/rules/aws/bucket/s3bucket_restrict_public_bucket_enabled.rego |
-| CB_TFAWS_054 | Resource | aws | Avoid storing hardcoded keys and secrets in infrastructure code or version-controlled configuration settings. | checker/terraform/rules/aws/aws_secret_allow_pattern.rego |
-| CB_TFAWS_055 | Resource | aws_s3_bucket |S3 Bucket has an ACL defined which allows public WRITE access. | checker/terraform/rules/aws/bucket/verify_s3bucket_acl_allows_public_write_access.rego |
+| CB_TFAWS_054 | Resource | aws | Verify that the provider has no hard-coded AWS access keys or secret keys | checker/terraform/rules/aws/aws_secret_allow_pattern.rego |
+| CB_TFAWS_055 | Resource | aws_s3_bucket |S3 Bucket has an ACL defined which allows public WRITE access | checker/terraform/rules/aws/bucket/verify_s3bucket_acl_allows_public_write_access.rego |
 | CB_TFAWS_055 | Resource | aws_s3_bucket_acl | S3 Bucket has an ACL defined which allows public WRITE access. | checker/terraform/rules/aws/bucket/verify_s3bucket_acl_allows_public_write_access.rego |
 | CB_TFAWS_056 | Resource | aws_eks_cluster | Make sure Secrets Encryption is enabled in the EKS Cluster | checker/terraform/rules/aws/aws_eks_cluster_eks_encrypted.rego |
 | CB_TFAWS_057 | Resource | aws_api_gateway_method | Check to make sure that there is no open API access to back-end resources | checker/terraform/rules/aws/aws_api_gateway_method_open_access.rego |
 | CB_TFAWS_058 | Resource | aws_iam_role | Verify that the IAM role permits exclusive authorization for designated services or principals to assume its privileges | checker/terraform/rules/aws/iam/aws_iam_role_specific_principals.rego |
 | CB_TFAWS_059 | Resource | aws_athena_database | A secure Athena Database should be encrypted at all times (the default is not encrypted). | checker/terraform/rules/aws/aws_athena_database_encrypted.rego |
-| CB_TFAWS_060 | Resource | aws_ecs_cluster | Check that the ECS cluster's container insights are enabled. | checker/terraform/rules/aws/aws_ecs_cluster_container_insights_enabled.rego |
-| CB_TFAWS_061 | Resource | aws_iam_group_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges. | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
-| CB_TFAWS_061 | Resource | aws_iam_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges. | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
-| CB_TFAWS_061 | Resource | aws_iam_role_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges. | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
-| CB_TFAWS_061 | Resource | aws_iam_user_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges. | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
-| CB_TFAWS_061 | Resource | aws_ssoadmin_permission_set_inline_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges. | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
+| CB_TFAWS_060 | Resource | aws_ecs_cluster | Check that the ECS cluster's container insights are enabled | checker/terraform/rules/aws/aws_ecs_cluster_container_insights_enabled.rego |
+| CB_TFAWS_061 | Resource | aws_iam_group_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
+| CB_TFAWS_061 | Resource | aws_iam_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
+| CB_TFAWS_061 | Resource | aws_iam_role_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
+| CB_TFAWS_061 | Resource | aws_iam_user_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
+| CB_TFAWS_061 | Resource | aws_ssoadmin_permission_set_inline_policy | Aim to prevent the creation of IAM policies that grant full administrative privileges | checker/terraform/rules/aws/iam/aws_iam_role_policy_privileges_not_allowed.rego |
 | CB_TFAWS_062 | Resource | aws_redshift_cluster | Guarantee that the data stored within the Redshift cluster is adequately encrypted when it is at rest | checker/terraform/rules/aws/aws_redshift_cluster_encrypted.rego |
 | CB_TFAWS_063 | Resource | aws_iam_group_policy | IAM policy documents should disallow the utilization of (*) as the action within any statement | checker/terraform/rules/aws/iam/aws_iam_user_policy_document_no_wildcard.rego |
 | CB_TFAWS_063 | Resource | aws_iam_policy | IAM policy documents should disallow the utilization of (*) as the action within any statement | checker/terraform/rules/aws/iam/aws_iam_user_policy_document_no_wildcard.rego |
@@ -194,7 +194,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_142 | Resource | aws_rds_cluster | Verify that RDS clusters have deletion protection enabled | checker/terraform/rules/aws/verify_rds_deletion_protection.rego |
 | CB_TFAWS_143 | Resource | aws_rds_global_cluster | Verify that RDS global clusters are encrypted | checker/terraform/rules/aws/verify_rds_cluster_encrypted.rego |
 | CB_TFAWS_144 | Resource | aws_redshift_cluster | Verify that Redshift cluster allowing version upgrade by default | checker/terraform/rules/aws/verify_redshift_cluster_allow_version_upgrade.rego |
-| CB_TFAWS_145 | Resource | aws_redshift_cluster | Verify that Redshift cluster allowing version upgrade by default | checker/terraform/rules/aws/verifiy_redshift_cluster_kms_key.rego |
+| CB_TFAWS_145 | Resource | aws_redshift_cluster | Verify that Redshift cluster is encrypted by KMS | checker/terraform/rules/aws/verifiy_redshift_cluster_kms_key.rego |
 | CB_TFAWS_146 | Resource | aws_autoscaling_group | Tags for launch configurations should be provided by autoscaling groups | checker/terraform/rules/aws/aws_autoscaling_group_supply_tags_to_launch_configurations.rego |
 | CB_TFAWS_147 | Resource | aws_s3_bucket | Verify that S3 bucket has lock configuration enabled by default | checker/terraform/rules/aws/verify_s3_bucket_object_lock.rego |
 | CB_TFAWS_148 | Resource | aws_db_instance | Verify that Multi-AZ is enabled for RDS instances | checker/terraform/rules/aws/aws_db_instance_rds_instances_multi_az_enabled.rego |
@@ -317,7 +317,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_250 | Resource | aws_iam_role_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
 | CB_TFAWS_250 | Resource | aws_iam_user_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
 | CB_TFAWS_250 | Resource | aws_ssoadmin_managed_policy_attachment | Prohibit the usage of the AWS AdministratorAccess policy for IAM roles, users, and groups | checker/terraform/rules/aws/iam/aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy.rego |
-| CB_TFAWS_251 | Resource | aws_api_gateway_method_settings | Check to make sure that there is no open API access to back-end resources | checker/terraform/rules/aws/aws_api_gateway_method_open_access.rego |
+| CB_TFAWS_251 | Resource | aws_api_gateway_method_settings | Make certain that Data Trace is disabled in API Gateway Method Settings | checker/terraform/rules/aws/aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings.rego |
 | CB_TFAWS_252 | Resource | aws_security_group | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
 | CB_TFAWS_252 | Resource | aws_security_group_rule | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
 | CB_TFAWS_252 | Resource | aws_vpc_security_group_ingress_rule | Verify no security groups allow ingress from 0.0.0.0:0 to port 80 | checker/terraform/rules/aws/verify_security_group_allow_ingress_port_80.rego |
@@ -378,7 +378,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_300 | Resource | aws_elb | Verify that ALB is configured with defensive or strictest desync mitigation mode | checker/terraform/rules/aws/verify_alb_desync_mode.rego.rego |
 | CB_TFAWS_300 | Resource | aws_lb | Verify that ALB is configured with defensive or strictest desync mitigation mode | checker/terraform/rules/aws/verify_alb_desync_mode.rego.rego |
 | CB_TFAWS_301 | Resource | aws_codebuild_project | Verify that CodeBuild project environments have a logging configuration | checker/terraform/rules/aws/verify_code_build_has_logs.rego |
-| CB_TFAWS_302 | Resource | aws_codebuild_project | Verify that CodeBuild project environments do not have privileged mode enabled | checker/terraform/rules/aws/verify_auto_scaling_launch_template.rego |
+| CB_TFAWS_302 | Resource | aws_codebuild_project | Verify that CodeBuild project environments do not have privileged mode enabled | checker/terraform/rules/aws/verify_codebuild_project_environments_privileged_mode_enabled.rego |
 | CB_TFAWS_303 | Resource | aws_efs_access_point | Verify EFS access points should enforce a root directory | checker/terraform/rules/aws/verify_efs_access_point_root.rego |
 | CB_TFAWS_304 | Resource | aws_elasticsearch_domain | Verify that Elasticsearch Domain Logging is enabled | checker/terraform/rules/aws/verify_elasticsearch_domain_audit_logging.rego |
 | CB_TFAWS_304 | Resource | aws_opensearch_domain | Verify that Elasticsearch Domain Logging is enabled | checker/terraform/rules/aws/verify_elasticsearch_domain_audit_logging.rego |
@@ -391,6 +391,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_310 | Resource | aws_elasticache_cluster | Verify that ElastiCache for Redis cache clusters have auto minor version upgrades enabled | checker/terraform/rules/aws/verify_aws_elasticache_cluster_automatic_minor_upgrade.rego |
 | CB_TFAWS_311 | Resource | aws_elasticache_cluster | Verify that ElastiCache clusters do not use the default subnet group | checker/terraform/rules/aws/verify_aws_elasticache_cluster_custom_subnet.rego |
 | CB_TFAWS_312 | Resource | aws_elasticache_cluster | Verify that RDS Cluster log capture is enabled | checker/terraform/rules/aws/verify_aws_rds_cluster_logging.rego |
+| CB_TFAWS_313 | Resource | aws_ec2_transit_gateway | Verify Transit Gateways do not automatically accept VPC attachment requests | checker/terraform/rules/aws/verify_ec2_transit_gateway_auto_accept.rego.rego |
 | CB_TFAWS_314 | Resource | aws_rds_cluster | Verify that RDS Cluster audit logging is enabled for MySQL engine | checker/terraform/rules/aws/verify_aws_rds_cluster_audit_loging.rego |
 | CB_TFAWS_315 | Resource | aws_ecs_service | Verify ECS Fargate services run on the latest Fargate platform version | checker/terraform/rules/aws/verify_ecs_service_fargate_latest.rego |
 | CB_TFAWS_316 | Resource | aws_ecs_service | Verify ECS services do not have public IP addresses assigned to them automatically | checker/terraform/rules/aws/verify_ecs_service_public_ip.rego |
@@ -416,8 +417,8 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAWS_330 | Resource | aws_rds_cluster | Check to see if the AWS Backup of RDS clusters have a backup plan | checker/terraform/rules/aws/aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup.rego |
 | CB_TFAWS_331 | Resource | aws_api_gateway_rest_api | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
 | CB_TFAWS_331 | Resource | aws_api_gateway_stage | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
-| CB_TFAWS_332 | Resource | aws_db_instance | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
-| CB_TFAWS_332 | Resource | aws_db_parameter_group | Verify public API gateway are protected by WAF | checker/terraform/rules/aws/verify_ public_api_gateway_protected_waf.rego |
+| CB_TFAWS_332 | Resource | aws_db_instance | Verify Postgres RDS as aws_db_instance has Query Logging enabled | checker/terraform/rules/aws/verify_postgress_rds_aws_db_instance_query_logging_enabled.rego |
+| CB_TFAWS_332 | Resource | aws_db_parameter_group | Verify Postgres RDS as aws_db_instance has Query Logging enabled | checker/terraform/rules/aws/verify_postgress_rds_aws_db_instance_query_logging_enabled.rego |
 | CB_TFAWS_333 | Resource | aws_route | Verify AWS route table with VPC peering does not contain routes overly permissive to all traffic | checker/terraform/rules/aws/verify_vpc_peering_route_table_overly_permissive.rego |
 | CB_TFAWS_333 | Resource | aws_route_table | Verify AWS route table with VPC peering does not contain routes overly permissive to all traffic | checker/terraform/rules/aws/verify_vpc_peering_route_table_overly_permissive.rego |
 | CB_TFAWS_334 | Resource | aws_wafv2_web_acl | Verify WAF2 has a Logging Configuration | checker/terraform/rules/aws/verify_waf2_has_logging.rego |

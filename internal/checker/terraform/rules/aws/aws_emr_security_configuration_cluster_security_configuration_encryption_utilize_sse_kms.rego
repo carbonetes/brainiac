@@ -9,9 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_164
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_emr_security_configuration"

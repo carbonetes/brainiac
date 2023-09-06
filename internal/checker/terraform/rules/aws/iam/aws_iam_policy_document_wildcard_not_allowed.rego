@@ -9,9 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_042
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "data"
     block.Labels[_] == "aws_iam_policy_document"

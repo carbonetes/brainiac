@@ -9,9 +9,6 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_019
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_db_instance"

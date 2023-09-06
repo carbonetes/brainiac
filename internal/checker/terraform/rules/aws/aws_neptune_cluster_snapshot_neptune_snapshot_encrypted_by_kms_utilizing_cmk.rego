@@ -1,6 +1,6 @@
 # METADATA
-# title: "A customer managed Key (CMK) should be used to encrypt the fx ontap file system"
-# description: "This quick test verifies that the fx ontap file system encrypts its contents with AWS key management - KMS."
+# title: "A customer managed Key (CMK) should be used to encrypt the Neptune snapshot"
+# description: "This allows you to have greater control over the encryption process, adding an extra layer of security to your sensitive data."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/neptune_cluster_snapshot.html

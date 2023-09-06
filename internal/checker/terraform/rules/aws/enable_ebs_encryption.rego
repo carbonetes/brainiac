@@ -1,5 +1,5 @@
 # METADATA
-# title: "Enable encryption for EBS volumes by default"
+# title: "Ensure all data stored in the EBS is securely encrypted"
 # description: "This ensures that all EBS volumes are encrypted by default."
 # scope: package
 # related_resources:

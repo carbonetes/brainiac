@@ -9,9 +9,6 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_040
 
-import future.keywords.in 
-
-
 isvalid(block){
 	block.Type == "resource"
     block.Labels[_] == "aws_lambda_function"

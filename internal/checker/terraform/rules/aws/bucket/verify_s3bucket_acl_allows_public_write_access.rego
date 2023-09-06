@@ -1,6 +1,6 @@
 # METADATA
 # title: "S3 Bucket has an ACL defined which allows public WRITE access."
-# description: ""
+# description: "This is a security risk that should be addressed to prevent unauthorized data modifications and potential financial implications."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl
@@ -8,8 +8,6 @@
 #   id: CB_TFAWS_055
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_055
-
-import future.keywords.in 
 
 supportedResource := ["aws_s3_bucket", "aws_s3_bucket_acl"]
 
