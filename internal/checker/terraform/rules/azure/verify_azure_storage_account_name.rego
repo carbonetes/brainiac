@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account
 # custom:
 #   id: CB_TFAZR_008
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFAZR_008
 
 isvalid(block) {
