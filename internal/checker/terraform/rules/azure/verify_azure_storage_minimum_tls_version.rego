@@ -27,7 +27,8 @@ resource[resource] {
 pass[block] {
 	block := input[_]
 	isvalid(block)
-	block.Attributes.min_tls_version == "TLS1_2"
+	validValue := ["TLS1_2", "TLS1_3"]
+	block.Attributes.min_tls_version == validValue[_]
 }
 
 fail[block] {
