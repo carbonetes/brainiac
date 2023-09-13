@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify that SQL servers have their 'Auditing' setting configured as 'On'"
-# description: "Verify that the "Auditing" setting for SQL servers is enabled, confirming that security and compliance standards are met by keeping auditing functionality turned on. This configuration enhances data monitoring and governance within SQL server environments."
+# title: "Verify that SQL servers have their Auditing setting enabled"
+# description: "Verify that the Auditing setting for SQL servers is enabled, confirming that security and compliance standards are met by keeping auditing functionality turned on. This configuration enhances data monitoring and governance within SQL server environments."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/sql_server
@@ -40,12 +40,12 @@ fail[block] {
 
 passed[result] {
 	block := pass[_]
-	result := { "message": "SQL servers have their 'Auditing' setting configured as 'On'.",
+	result := { "message": "SQL servers have their Auditing setting enabled.",
                 "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
-	result := { "message": "SQL servers must have their 'Auditing' setting configured as 'On'.",
+	result := { "message": "SQL servers must have their Auditing setting enabled.",
                 "snippet": block }
 } 
