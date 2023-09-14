@@ -9,9 +9,11 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_022
 
+supportedResources := ["azurerm_linux_virtual_machine", "azurerm_windows_virtual_machine"]
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_linux_virtual_machine"
+	block.Labels[_] == supportedResources[_]
 }
 
 resource[resource] {
@@ -27,14 +29,6 @@ resource[resource] {
 pass[block] {
 	block := input[_]
 	isvalid(block)
-	block.Labels[_] == "azurerm_linux_virtual_machine"
-	block.Attributes.allow_extension_operations == false
-}
-
-pass[block] {
-	block := input[_]
-	isvalid(block)
-	block.Labels[_] == "azurerm_windows_virtual_machine"
 	block.Attributes.allow_extension_operations == false
 }
 
