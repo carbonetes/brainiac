@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify that the 'connection_throttling' server parameter on the PostgreSQL Database Server is configured as 'ON'"
-# description: "Verify that the 'connection_throttling' server parameter on your PostgreSQL Database Server is configured as 'ON.' This setting is crucial for regulating and optimizing database connections, enhancing performance, and preventing resource exhaustion due to excessive connections. Properly managing connection throttling contributes to the overall stability and efficiency of the database server."
+# title: "Verify that the connection_throttling server parameter on the PostgreSQL Database Server is enabled"
+# description: "Verify that the connection_throttling server parameter on your PostgreSQL Database Server is activated. This setting is crucial for regulating and optimizing database connections, enhancing performance, and preventing resource exhaustion due to excessive connections. Properly managing connection throttling contributes to the overall stability and efficiency of the database server."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_configuration
@@ -40,12 +40,12 @@ pass[block] {
 
 passed[result] {
 	block := pass[_]
-	result := { "message": "The 'connection_throttling' server parameter on the PostgreSQL Database Server is configured as 'ON'.",
+	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server is configured as 'ON'.",
                 "snippet": block }
 }
 
 failed[result] {
     block := fail[_]
-	result := { "message": "The 'connection_throttling' server parameter on the PostgreSQL Database Server must be configured as 'ON'.",
+	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server must be configured as 'ON'.",
                 "snippet": block }
 } 
