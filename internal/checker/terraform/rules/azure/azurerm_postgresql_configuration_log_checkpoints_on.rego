@@ -15,11 +15,6 @@ isvalid(block){
     block.Labels[_] == "azurerm_postgresql_configuration"
 }
 
-
-has_attribute(key, value){
-    _ = key[value]
-}
-
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
