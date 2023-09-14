@@ -29,6 +29,7 @@ getLabelForMssqlServer[label]{
 	resource := input[_]
     resource.Type == "resource"
     resource.Labels[_] == "azurerm_mssql_server"
+    resource.Blocks[_].Type == "extended_auditing_policy" 
     label := concat(".", resource.Labels)
 }
 
