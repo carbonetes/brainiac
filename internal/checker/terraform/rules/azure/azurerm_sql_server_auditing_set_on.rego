@@ -9,11 +9,9 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_021
 
-supportedResources := ["azurerm_sql_server", "azurerm_mssql_server"]
-
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    block.Labels[_] == "azurerm_sql_server"
 }
 
 resource[resource] {
@@ -26,10 +24,26 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
+
+getLabelForMssqlServer[label]{
+	resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "azurerm_mssql_server"
+    label := concat(".", resource.Labels)
+}
+
+policyIsAttached{
+    resource := input[_]
+    resource.Type == "resource"
+    resource.Labels[_] == "azurerm_mssql_server_extended_auditing_policy"
+    contains(resource.Attributes.server_id, getLabelForMssqlServer[_])
+}
+
 pass[resource]{
     resource := input[_]
 	isvalid(resource)
-    resource.Blocks[_].Type == "extended_auditing_policy"
+    resource.Blocks[_].Type == "extended_auditing_policy" 
+    policyIsAttached
 }
 
 fail[block] {
