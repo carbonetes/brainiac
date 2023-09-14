@@ -30,17 +30,17 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
+fail[resource]{
     resource := input[_]
 	isvalid(resource)
-    has_attribute(resource.Attributes, "name")
-    resource.Attributes.value == "on"
+    resource.Attributes.name == "log_checkpoints"
+    resource.Attributes.value == "off"
 }
 
-fail[block] {
+pass[block] {
     block := input[_]
 	isvalid(block)
-   	not pass[block]
+   	not fail[block]
 }
 
 passed[result] {
@@ -51,6 +51,6 @@ passed[result] {
 
 failed[result] {
     block := fail[_]
-	result := { "message": "The PostgreSQL Database Server has the 'log_checkpoints' server parameter configured as 'ON'.",
+	result := { "message": "The PostgreSQL Database Server must have the 'log_checkpoints' server parameter configured as 'ON'.",
                 "snippet": block }
 } 
