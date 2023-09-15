@@ -1,5 +1,5 @@
 # METADATA
-# title: "Confirm that Storage logging is activated including read, write, and delete requests for the Queue service"
+# title: "Verify that Storage logging is activated including read, write, and delete requests for the Queue service"
 # description: "This check confirms that Storage logging is configured to capture activity within the Queue service, specifically for read, write, and delete requests. Activating this logging provides valuable insights into Queue service operations for monitoring and auditing purposes."
 # scope: package
 # related_resources:
