@@ -1,5 +1,5 @@
 # METADATA
-# title: "Administers a rule in a firewall that controls access to a MariaDB Server"
+# title: "Administers a rule in a firewall that controls access to a MariaDB Server."
 # description: "This involves overseeing a specific rule within a firewall to regulate and control access to a MariaDB Server"
 # scope: package
 # related_resources:

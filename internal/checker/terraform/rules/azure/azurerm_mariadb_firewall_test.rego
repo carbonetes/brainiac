@@ -31,11 +31,11 @@ test_azurem_mariadb_firewall_failed {
             "pass_firewall"
         ],
         "Attributes": {
-            "end_ip_address": "40.112.255.255",
+            "end_ip_address": "255.255.255.255",
             "name": "test-rule",
             "resource_group_name": "test-rg",
             "server_name": "test-server",
-            "start_ip_address": "40.112.0.0"
+            "start_ip_address": "0.0.0.0"
         },
         "Blocks": [],
         "line_range": {
