@@ -3,7 +3,7 @@
 # description: "This involves overseeing a specific rule within a firewall to regulate and control access to a MariaDB Server"
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_configuration_recorder.html
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_firewall_rule
 # custom:
 #   id: CB_TFAZR_031
 #   severity: MEDIUM
