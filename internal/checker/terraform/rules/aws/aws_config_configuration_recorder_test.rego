@@ -30,7 +30,7 @@ test_aws_config_configuration_recorder_passed {
 }
 
 test_aws_config_configuration_recorder_failed {
-	result := passed with input as [{
+	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
 			"aws_config_configuration_recorder",
@@ -43,7 +43,7 @@ test_aws_config_configuration_recorder_failed {
 		"Blocks": [{
 			"Type": "recording_group",
 			"Labels": [],
-			"Attributes": {"include_global_resource_types": true},
+			"Attributes": {"include_global_resource_types": false},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 7,
