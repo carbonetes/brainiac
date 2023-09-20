@@ -3,7 +3,7 @@
 # description: "This policy is designed to enhance the security and management of Azure App Services by verifying that remote debugging is disabled."
 # scope: package
 # related_resources:
-# - hhttps://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service
 # custom:
 #   id: CB_TFAZR_035
 #   severity: LOW
