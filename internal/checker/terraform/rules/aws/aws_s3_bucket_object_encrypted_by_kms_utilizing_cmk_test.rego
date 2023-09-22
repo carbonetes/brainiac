@@ -11,7 +11,7 @@ test_aws_s3_bucket_object_encrypted_by_kms_utilizing_cmk_passed {
                                     "Attributes": {
                                     "bucket": "your_bucket_name",
                                     "key": "new_object_key",
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "source": "path/to/file"
                                     },
                                     "Blocks": [],

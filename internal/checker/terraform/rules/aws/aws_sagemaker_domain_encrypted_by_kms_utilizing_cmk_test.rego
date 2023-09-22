@@ -11,7 +11,7 @@ test_aws_sagemaker_domain_encrypted_by_kms_utilizing_cmk_passed {
                                     "Attributes": {
                                     "auth_mode": "IAM",
                                     "domain_name": "example",
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "subnet_ids": "aws_subnet.test.id",
                                     "vpc_id": "aws_vpc.test.id"
                                     },

@@ -12,7 +12,7 @@ test_aws_docdb_cluster_encrypted_kms_utilizing_cmk_passed {
                                     "backup_retention_period": "5",
                                     "cluster_identifier": "my-docdb-cluster",
                                     "engine": "docdb",
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "master_password": "mustbeeightchars",
                                     "master_username": "foo",
                                     "preferred_backup_window": "07:00-09:00",
