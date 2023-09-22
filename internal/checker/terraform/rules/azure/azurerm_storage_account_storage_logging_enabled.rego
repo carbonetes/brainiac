@@ -9,10 +9,11 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_027
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_storage_account"
+    "azurerm_storage_account" in block.Labels
 }
 
 resource[resource] {
@@ -25,20 +26,24 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
+fail[resource]{
     resource := input[_]
-	isvalid(resource)
-    resource.Blocks[_].Type == "queue_properties"
-    resource.Blocks[_].Blocks[_].Type == "logging"
-    resource.Blocks[_].Blocks[_].Attributes.read == true
-    resource.Blocks[_].Blocks[_].Attributes.write == true
-    resource.Blocks[_].Blocks[_].Attributes.delete == true
+    isvalid(resource)
+    supportedKind := ["Storage", "StorageV2"]
+    resource.Attributes.account_kind in supportedKind
+    some block in resource.Blocks
+    block.Type == "queue_properties"
+    some innerBlock in block.Blocks
+    innerBlock.Type == "logging"
+    innerBlock.Attributes.read != true
+    innerBlock.Attributes.write != true
+    innerBlock.Attributes.delete != true
 }
 
-fail[block] {
+pass[block] {
     block := input[_]
 	isvalid(block)
-   	not pass[block]
+   	not fail[block]
 }
 
 passed[result] {

@@ -8,6 +8,7 @@ test_azurerm_storage_account_storage_logging_enabled {
 			"example",
 		],
 		"Attributes": {
+			"account_kind": "NotStorage",
 			"account_replication_type": "GRS",
 			"account_tier": "Standard",
 			"location": "data.azurerm_resource_group.example.location",
@@ -18,61 +19,29 @@ test_azurerm_storage_account_storage_logging_enabled {
 			"Type": "queue_properties",
 			"Labels": [],
 			"Attributes": {},
-			"Blocks": [
-				{
-					"Type": "logging",
-					"Labels": [],
-					"Attributes": {
-						"delete": true,
-						"read": true,
-						"retention_policy_days": "10",
-						"version": "1.0",
-						"write": true,
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 14,
-						"startLine": 8,
-					},
+			"Blocks": [{
+				"Type": "logging",
+				"Labels": [],
+				"Attributes": {
+					"delete": true,
+					"read": true,
+					"retention_policy_days": "10",
+					"version": "1.0",
+					"write": true,
 				},
-				{
-					"Type": "hour_metrics",
-					"Labels": [],
-					"Attributes": {
-						"enabled": true,
-						"include_apis": true,
-						"retention_policy_days": "10",
-						"version": "1.0",
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 20,
-						"startLine": 15,
-					},
+				"Blocks": [],
+				"line_range": {
+					"endLine": 15,
+					"startLine": 9,
 				},
-				{
-					"Type": "minute_metrics",
-					"Labels": [],
-					"Attributes": {
-						"enabled": true,
-						"include_apis": true,
-						"retention_policy_days": "10",
-						"version": "1.0",
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 26,
-						"startLine": 21,
-					},
-				},
-			],
+			}],
 			"line_range": {
-				"endLine": 27,
-				"startLine": 7,
+				"endLine": 16,
+				"startLine": 8,
 			},
 		}],
 		"line_range": {
-			"endLine": 28,
+			"endLine": 17,
 			"startLine": 1,
 		},
 	}]
@@ -87,6 +56,7 @@ test_azurerm_storage_account_storage_logging_disabled {
 			"example",
 		],
 		"Attributes": {
+			"account_kind": "Storage",
 			"account_replication_type": "GRS",
 			"account_tier": "Standard",
 			"location": "data.azurerm_resource_group.example.location",
@@ -97,61 +67,29 @@ test_azurerm_storage_account_storage_logging_disabled {
 			"Type": "queue_properties",
 			"Labels": [],
 			"Attributes": {},
-			"Blocks": [
-				{
-					"Type": "logging",
-					"Labels": [],
-					"Attributes": {
-						"delete": false,
-						"read": false,
-						"retention_policy_days": "10",
-						"version": "1.0",
-						"write": false,
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 14,
-						"startLine": 8,
-					},
+			"Blocks": [{
+				"Type": "logging",
+				"Labels": [],
+				"Attributes": {
+					"delete": false,
+					"read": false,
+					"retention_policy_days": "10",
+					"version": "1.0",
+					"write": false,
 				},
-				{
-					"Type": "hour_metrics",
-					"Labels": [],
-					"Attributes": {
-						"enabled": true,
-						"include_apis": true,
-						"retention_policy_days": "10",
-						"version": "1.0",
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 20,
-						"startLine": 15,
-					},
+				"Blocks": [],
+				"line_range": {
+					"endLine": 15,
+					"startLine": 9,
 				},
-				{
-					"Type": "minute_metrics",
-					"Labels": [],
-					"Attributes": {
-						"enabled": true,
-						"include_apis": true,
-						"retention_policy_days": "10",
-						"version": "1.0",
-					},
-					"Blocks": [],
-					"line_range": {
-						"endLine": 26,
-						"startLine": 21,
-					},
-				},
-			],
+			}],
 			"line_range": {
-				"endLine": 27,
-				"startLine": 7,
+				"endLine": 16,
+				"startLine": 8,
 			},
 		}],
 		"line_range": {
-			"endLine": 28,
+			"endLine": 17,
 			"startLine": 1,
 		},
 	}]
