@@ -9,7 +9,7 @@ test_aws_imagebuilder_component_encrypted_by_kms_utilizing_cmk_passed {
                                     "example"
                                     ],
                                     "Attributes": {
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "name": "example",
                                     "platform": "Linux",
                                     "version": "1.0.0"
