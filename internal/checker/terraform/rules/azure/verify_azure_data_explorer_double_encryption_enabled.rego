@@ -9,35 +9,37 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_040
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_kusto_cluster"
+	"azurerm_kusto_cluster" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.double_encryption_enabled == true
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "Azure Data Explorer uses double encryption.",
 		"snippet": block,
@@ -45,7 +47,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "Azure Data Explorer does not use double encryption.",
 		"snippet": block,
