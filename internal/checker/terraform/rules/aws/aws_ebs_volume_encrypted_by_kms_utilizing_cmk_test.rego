@@ -10,7 +10,7 @@ test_aws_ebs_volume_encrypted_by_kms_utilizing_cmk_passed {
                                     ],
                                     "Attributes": {
                                     "availability_zone": "us-west-2a",
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "size": "40",
                                     "tags": {
                                         "Name": "HelloWorld"

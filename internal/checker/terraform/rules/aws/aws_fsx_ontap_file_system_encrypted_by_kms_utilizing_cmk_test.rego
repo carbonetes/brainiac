@@ -10,7 +10,7 @@ test_aws_fsx_ontap_file_system_encrypted_by_kms_utilizing_cmk_passed {
                                     ],
                                     "Attributes": {
                                     "deployment_type": "MULTI_AZ_1",
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "preferred_subnet_id": "aws_subnet.test1.id",
                                     "storage_capacity": "1024",
                                     "subnet_ids": "aws_subnet.test1.id",
