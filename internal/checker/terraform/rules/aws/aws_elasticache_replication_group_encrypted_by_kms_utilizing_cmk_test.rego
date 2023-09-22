@@ -14,7 +14,7 @@ test_aws_elasticache_replication_group_encrypted_by_kms_utilizing_cmk_passed {
                                         "us-west-2a",
                                         "us-west-2b"
                                     ],
-                                    "kms_key_id": "arm:ckv",
+                                    "kms_key_id": "arm:kms",
                                     "node_type": "cache.m4.large",
                                     "number_cache_clusters": "2",
                                     "parameter_group_name": "default.redis3.2",
