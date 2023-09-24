@@ -10,6 +10,7 @@
 package lib.terraform.CB_TFAZR_045
 
 supportedResource := [
+	"azurerm_app_service",
 	"azurerm_linux_web_app",
 	"azurerm_windows_web_app",
 ]
