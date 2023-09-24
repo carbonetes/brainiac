@@ -1,6 +1,6 @@
 # METADATA
-# title: "Monitors the performance of a web application running on Linux"
-# description: "Manages the operation and maintenance of a web application running on a Linux server"
+# title: "Monitors the performance of a web application running on Linux and Windows"
+# description: "Manages the operation and maintenance of a web application running on a Linux and Windows server"
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app
