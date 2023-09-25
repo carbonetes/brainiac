@@ -36,6 +36,14 @@ pass[resource] {
 	some resource in input
 	some innerBlock in resource.Blocks
 	isvalid(resource)
+	innerBlock.Type == "auth_settings"
+	innerBlock.Attributes.enabled == true
+}
+
+pass[resource] {
+	some resource in input
+	some innerBlock in resource.Blocks
+	isvalid(resource)
 	innerBlock.Type == "auth_settings_v2"
 	innerBlock.Attributes.auth_enabled == true
 }

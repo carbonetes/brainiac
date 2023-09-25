@@ -78,6 +78,20 @@ test_azurerm_app_service_passed {
                     }
                 }
             ],
+            "Blocks": [
+                {
+                    "Type": "auth_settings",
+                    "Labels": [],
+                    "Attributes": {
+                        "enabled": true
+                    },
+                    "Blocks": [],
+                    "line_range": {
+                        "endLine": 24,
+                        "startLine": 24
+                    }
+                }
+            ],
             "line_range": {
                 "endLine": 37,
                 "startLine": 17
