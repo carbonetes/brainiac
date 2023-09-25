@@ -18,37 +18,37 @@ isvalid(block){
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    some block in resource.Blocks
-    block.Type == "auth_settings"
-    block.Attributes.enabled == true
+pass[block]{
+    some block in input
+	isvalid(block)
+    some block_auth in block.Blocks
+    block_auth.Type == "auth_settings"
+    block_auth.Attributes.enabled == true
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The function apps have authentication activated.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The function apps must have authentication activated.",
                 "snippet": block }
 } 
