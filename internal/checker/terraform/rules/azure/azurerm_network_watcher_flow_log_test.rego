@@ -6,57 +6,57 @@ azurerm_network_watcher_flow_log_passed {
 			"Type": "resource",
 			"Labels": [
 				"azurerm_resource_group",
-				"example",
+				"example"
 			],
 			"Attributes": {
 				"location": "West Europe",
-				"name": "example-resources",
+				"name": "example-resources"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 4,
-				"startLine": 1,
-			},
+				"startLine": 1
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_security_group",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestnsg",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 10,
-				"startLine": 6,
-			},
+				"startLine": 6
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_watcher",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestnw",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 16,
-				"startLine": 12,
-			},
+				"startLine": 12
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_storage_account",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"account_kind": "StorageV2",
@@ -65,37 +65,37 @@ azurerm_network_watcher_flow_log_passed {
 				"enable_https_traffic_only": true,
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestsa",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 27,
-				"startLine": 18,
-			},
+				"startLine": 18
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_log_analytics_workspace",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestlaw",
 				"resource_group_name": "azurerm_resource_group.example.name",
-				"sku": "PerGB2018",
+				"sku": "PerGB2018"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 34,
-				"startLine": 29,
-			},
+				"startLine": 29
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_watcher_flow_log",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"enabled": true,
@@ -103,7 +103,7 @@ azurerm_network_watcher_flow_log_passed {
 				"network_security_group_id": "azurerm_network_security_group.test.id",
 				"network_watcher_name": "azurerm_network_watcher.test.name",
 				"resource_group_name": "azurerm_resource_group.example.name",
-				"storage_account_id": "azurerm_storage_account.test.id",
+				"storage_account_id": "azurerm_storage_account.test.id"
 			},
 			"Blocks": [
 				{
@@ -111,13 +111,13 @@ azurerm_network_watcher_flow_log_passed {
 					"Labels": [],
 					"Attributes": {
 						"days": "7",
-						"enabled": true,
+						"enabled": true
 					},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 48,
-						"startLine": 45,
-					},
+						"startLine": 45
+					}
 				},
 				{
 					"Type": "traffic_analytics",
@@ -127,20 +127,20 @@ azurerm_network_watcher_flow_log_passed {
 						"interval_in_minutes": "10",
 						"workspace_id": "azurerm_log_analytics_workspace.test.workspace_id",
 						"workspace_region": "azurerm_log_analytics_workspace.test.location",
-						"workspace_resource_id": "azurerm_log_analytics_workspace.test.id",
+						"workspace_resource_id": "azurerm_log_analytics_workspace.test.id"
 					},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 56,
-						"startLine": 50,
-					},
-				},
+						"startLine": 50
+					}
+				}
 			],
 			"line_range": {
 				"endLine": 57,
-				"startLine": 36,
-			},
-		},
+				"startLine": 36
+			}
+		}
 	]
 }
 
@@ -151,57 +151,57 @@ azurerm_network_watcher_flow_log_failed {
 			"Type": "resource",
 			"Labels": [
 				"azurerm_resource_group",
-				"example",
+				"example"
 			],
 			"Attributes": {
 				"location": "West Europe",
-				"name": "example-resources",
+				"name": "example-resources"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 4,
-				"startLine": 1,
-			},
+				"startLine": 1
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_security_group",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestnsg",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 10,
-				"startLine": 6,
-			},
+				"startLine": 6
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_watcher",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestnw",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 16,
-				"startLine": 12,
-			},
+				"startLine": 12
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_storage_account",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"account_kind": "StorageV2",
@@ -210,37 +210,37 @@ azurerm_network_watcher_flow_log_failed {
 				"enable_https_traffic_only": true,
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestsa",
-				"resource_group_name": "azurerm_resource_group.example.name",
+				"resource_group_name": "azurerm_resource_group.example.name"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 27,
-				"startLine": 18,
-			},
+				"startLine": 18
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_log_analytics_workspace",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"location": "azurerm_resource_group.example.location",
 				"name": "acctestlaw",
 				"resource_group_name": "azurerm_resource_group.example.name",
-				"sku": "PerGB2018",
+				"sku": "PerGB2018"
 			},
 			"Blocks": [],
 			"line_range": {
 				"endLine": 34,
-				"startLine": 29,
-			},
+				"startLine": 29
+			}
 		},
 		{
 			"Type": "resource",
 			"Labels": [
 				"azurerm_network_watcher_flow_log",
-				"test",
+				"test"
 			],
 			"Attributes": {
 				"enabled": true,
@@ -248,7 +248,7 @@ azurerm_network_watcher_flow_log_failed {
 				"network_security_group_id": "azurerm_network_security_group.test.id",
 				"network_watcher_name": "azurerm_network_watcher.test.name",
 				"resource_group_name": "azurerm_resource_group.example.name",
-				"storage_account_id": "azurerm_storage_account.test.id",
+				"storage_account_id": "azurerm_storage_account.test.id"
 			},
 			"Blocks": [
 				{
@@ -256,13 +256,13 @@ azurerm_network_watcher_flow_log_failed {
 					"Labels": [],
 					"Attributes": {
 						"days": "91",
-						"enabled": true,
+						"enabled": false
 					},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 48,
-						"startLine": 45,
-					},
+						"startLine": 45
+					}
 				},
 				{
 					"Type": "traffic_analytics",
@@ -272,20 +272,20 @@ azurerm_network_watcher_flow_log_failed {
 						"interval_in_minutes": "10",
 						"workspace_id": "azurerm_log_analytics_workspace.test.workspace_id",
 						"workspace_region": "azurerm_log_analytics_workspace.test.location",
-						"workspace_resource_id": "azurerm_log_analytics_workspace.test.id",
+						"workspace_resource_id": "azurerm_log_analytics_workspace.test.id"
 					},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 56,
-						"startLine": 50,
-					},
-				},
+						"startLine": 50
+					}
+				}
 			],
 			"line_range": {
 				"endLine": 57,
-				"startLine": 36,
-			},
-		},
+				"startLine": 36
+			}
+		}
 	]
 }
 

@@ -9,43 +9,51 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_032
 
-import future.keywords.if
+import future.keywords.in
 
-supportedResource := ["azurerm_network_watcher_flow_log"]
-
-isvalid(block) if {
+isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResource[_]
+	"azurerm_network_watcher_flow_log" in block.Labels
+}
+
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
 pass[resource] {
-	resource := input[_]
+	some resource in input
+	some innerBlock in resource.Blocks
 	isvalid(resource)
-	not fail[resource]
+	innerBlock.Type == "retention_policy"
+	days := innerBlock.Attributes.days
+	days >= 90
+	innerBlock.Attributes.enabled == true
 }
 
 fail[resource] {
-	resource := input[_]
-	innerBlock := resource.Blocks[_]
+	some resource in input
 	isvalid(resource)
-    innerBlock.Type == "retention_policy" 
-	innerBlock.Attributes.enabled == true
-	days_as_int := resource.days
-	days_as_int >= 90
+	not pass[resource]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
-		"message": "The Network Watcher Flow Log has been successfully managed, ensuring effective monitoring and analysis of network traffic and performance.",
+		"message": "The Network Watcher Flow Log has been successfully managed greater than equal 90 days, ensuring effective monitoring and analysis of network traffic and performance.",
 		"snippet": block,
 	}
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
-		"message": "Unfortunately, the attempt to manage the Network Watcher Flow Log was unsuccessful. Please check your configuration and try again.",
+		"message": "Unfortunately, the attempt to manage the Network Watcher Flow Log was unsuccessful. Should be greater than equal 90 days.",
 		"snippet": block,
 	}
 }
