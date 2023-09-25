@@ -1,9 +1,8 @@
 # METADATA
-# title: "Monitors the performance of a web application running on Linux and Windows"
-# description: "Manages the operation and maintenance of a web application running on a Linux and Windows server"
+# title: "Make sure App Service Authentication is activated on your Azure App Service"
+# description: "Enable App Service Authentication on your Azure App Service to enhance security and add user authentication and authorization to your web application."
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service
 # custom:
 #   id: CB_TFAZR_045
 #   severity: MEDIUM
@@ -12,7 +11,6 @@ package lib.terraform.CB_TFAZR_045
 import future.keywords.in
 
 supportedResource := [
-	"azurerm_app_service",
 	"azurerm_linux_web_app",
 	"azurerm_windows_web_app",
 	"azurerm_app_service",
