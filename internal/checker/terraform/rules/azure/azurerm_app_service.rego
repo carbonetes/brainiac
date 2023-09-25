@@ -9,10 +9,13 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_045
 
+import future.keywords.in
+
 supportedResource := [
 	"azurerm_app_service",
 	"azurerm_linux_web_app",
 	"azurerm_windows_web_app",
+	"azurerm_app_service",
 ]
 
 isvalid(block) {
@@ -24,8 +27,8 @@ pass[resource] {
 	resource := input[_]
 	isvalid(resource)
 	innerBlock := resource.Blocks[_]
-	innerBlock.Type == "site_config"
-	innerBlock.Attributes != null
+	innerBlock.Type == "auth_settings"
+	innerBlock.Attributes.enabled == true
 }
 
 fail[resource] {
