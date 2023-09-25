@@ -3,29 +3,6 @@ package lib.terraform.CB_TFAZR_045
 test_azurerm_app_service_passed {
 	result := passed with input as [
         {
-            "Type": "provider",
-            "Labels": [
-                "azurerm"
-            ],
-            "Attributes": {},
-            "Blocks": [
-                {
-                    "Type": "features",
-                    "Labels": [],
-                    "Attributes": {},
-                    "Blocks": [],
-                    "line_range": {
-                        "endLine": 2,
-                        "startLine": 2
-                    }
-                }
-            ],
-            "line_range": {
-                "endLine": 3,
-                "startLine": 1
-            }
-        },
-        {
             "Type": "resource",
             "Labels": [
                 "azurerm_resource_group",
@@ -37,59 +14,62 @@ test_azurerm_app_service_passed {
             },
             "Blocks": [],
             "line_range": {
-                "endLine": 8,
-                "startLine": 5
+                "endLine": 4,
+                "startLine": 1
             }
         },
         {
             "Type": "resource",
             "Labels": [
-                "azurerm_service_plan",
+                "azurerm_app_service_plan",
                 "example"
             ],
             "Attributes": {
                 "location": "azurerm_resource_group.example.location",
-                "name": "example",
-                "os_type": "Linux",
-                "resource_group_name": "azurerm_resource_group.example.name",
-                "sku_name": "P1v2"
+                "name": "example-appserviceplan",
+                "resource_group_name": "azurerm_resource_group.example.name"
             },
-            "Blocks": [],
+            "Blocks": [
+                {
+                    "Type": "sku",
+                    "Labels": [],
+                    "Attributes": {
+                        "size": "S1",
+                        "tier": "Standard"
+                    },
+                    "Blocks": [],
+                    "line_range": {
+                        "endLine": 14,
+                        "startLine": 11
+                    }
+                }
+            ],
             "line_range": {
-                "endLine": 16,
-                "startLine": 10
+                "endLine": 15,
+                "startLine": 6
             }
         },
         {
             "Type": "resource",
             "Labels": [
-                "azurerm_linux_web_app",
+                "azurerm_app_service",
                 "example"
             ],
             "Attributes": {
-                "location": "azurerm_service_plan.example.location",
-                "name": "example",
-                "resource_group_name": "azurerm_resource_group.example.name",
-                "service_plan_id": "azurerm_service_plan.example.id"
+                "app_service_plan_id": "azurerm_app_service_plan.example.id",
+                "app_settings": {
+                    "SOME_KEY": "some-value"
+                },
+                "location": "azurerm_resource_group.example.location",
+                "name": "example-app-service",
+                "resource_group_name": "azurerm_resource_group.example.name"
             },
             "Blocks": [
                 {
-                    "Type": "site_config",
-                    "Labels": [],
-                    "Attributes": {},
-                    "Blocks": [],
-                    "line_range": {
-                        "endLine": 24,
-                        "startLine": 24
-                    }
-                }
-            ],
-            "Blocks": [
-                {
-                    "Type": "auth_settings",
+                    "Type": "auth_settings_v2",
                     "Labels": [],
                     "Attributes": {
-                        "enabled": true
+                        "auth_enabled": true
                     },
                     "Blocks": [],
                     "line_range": {
@@ -99,8 +79,8 @@ test_azurerm_app_service_passed {
                 }
             ],
             "line_range": {
-                "endLine": 25,
-                "startLine": 18
+                "endLine": 37,
+                "startLine": 17
             }
         }
     ]
@@ -109,29 +89,6 @@ test_azurerm_app_service_passed {
 
 test_azurerm_app_service_failed {
 	result := failed with input as [
-        {
-            "Type": "provider",
-            "Labels": [
-                "azurerm"
-            ],
-            "Attributes": {},
-            "Blocks": [
-                {
-                    "Type": "features",
-                    "Labels": [],
-                    "Attributes": {},
-                    "Blocks": [],
-                    "line_range": {
-                        "endLine": 2,
-                        "startLine": 2
-                    }
-                }
-            ],
-            "line_range": {
-                "endLine": 3,
-                "startLine": 1
-            }
-        },
         {
             "Type": "resource",
             "Labels": [
@@ -144,45 +101,63 @@ test_azurerm_app_service_failed {
             },
             "Blocks": [],
             "line_range": {
-                "endLine": 8,
-                "startLine": 5
+                "endLine": 4,
+                "startLine": 1
             }
         },
         {
             "Type": "resource",
             "Labels": [
-                "azurerm_service_plan",
+                "azurerm_app_service_plan",
                 "example"
             ],
             "Attributes": {
                 "location": "azurerm_resource_group.example.location",
-                "name": "example",
-                "os_type": "Linux",
-                "resource_group_name": "azurerm_resource_group.example.name",
-                "sku_name": "P1v2"
+                "name": "example-appserviceplan",
+                "resource_group_name": "azurerm_resource_group.example.name"
             },
-            "Blocks": [],
+            "Blocks": [
+                {
+                    "Type": "sku",
+                    "Labels": [],
+                    "Attributes": {
+                        "size": "S1",
+                        "tier": "Standard"
+                    },
+                    "Blocks": [],
+                    "line_range": {
+                        "endLine": 14,
+                        "startLine": 11
+                    }
+                }
+            ],
             "line_range": {
-                "endLine": 16,
-                "startLine": 10
+                "endLine": 15,
+                "startLine": 6
             }
         },
         {
             "Type": "resource",
             "Labels": [
-                "azurerm_linux_web_app",
+                "azurerm_app_service",
                 "example"
             ],
             "Attributes": {
-                "location": "azurerm_service_plan.example.location",
-                "name": "example",
-                "resource_group_name": "azurerm_resource_group.example.name",
-                "service_plan_id": "azurerm_service_plan.example.id"
+                "app_service_plan_id": "azurerm_app_service_plan.example.id",
+                "app_settings": {
+                    "SOME_KEY": "some-value"
+                },
+                "location": "azurerm_resource_group.example.location",
+                "name": "example-app-service",
+                "resource_group_name": "azurerm_resource_group.example.name"
             },
             "Blocks": [
                 {
-                    "Type": "site_config",
+                    "Type": "auth_settings_v2",
                     "Labels": [],
+                    "Attributes": {
+                        "auth_enabled": false
+                    },
                     "Blocks": [],
                     "line_range": {
                         "endLine": 24,
@@ -191,8 +166,8 @@ test_azurerm_app_service_failed {
                 }
             ],
             "line_range": {
-                "endLine": 25,
-                "startLine": 18
+                "endLine": 37,
+                "startLine": 17
             }
         }
     ]
