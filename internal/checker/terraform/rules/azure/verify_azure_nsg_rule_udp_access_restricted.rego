@@ -40,6 +40,7 @@ fail[block] {
 	isvalid(block)
 	some innerBlock in block.Blocks
 	innerBlock.Attributes.protocol == "Udp"
+	innerBlock.Type == "security_rule"
 	innerBlock.Attributes.direction == "Inbound"
 	innerBlock.Attributes.access == "Allow"
 	internetAddresses := ["*", "0.0.0.0", "<nw>/0", "/0", "internet", "any"]
