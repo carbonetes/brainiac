@@ -8,11 +8,12 @@
 #   id: CB_TFAZR_037
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_037
+import future.keywords.in
 
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_mysql_server"
+    "azurerm_mysql_server" in block.Labels
 }
 
 resource[resource] {
