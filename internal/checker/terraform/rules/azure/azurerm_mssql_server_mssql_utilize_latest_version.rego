@@ -9,41 +9,43 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_034
 
+import future.keywords.in
+
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_mssql_server"
+    "azurerm_mssql_server" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    to_number(resource.Attributes.minimum_tls_version) == 1.2
+pass[block]{
+    some block in input
+	isvalid(block)
+    block.Attributes.minimum_tls_version == "1.2"
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "MSSQL is utilizing the most up-to-date TLS encryption version.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "MSSQL must utilize the most up-to-date TLS encryption version.",
                 "snippet": block }
 } 
