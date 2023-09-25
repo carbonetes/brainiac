@@ -17,35 +17,35 @@ isvalid(block){
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Attributes.ssl_minimal_tls_version_enforced == "TLS1_2"
+pass[block]{
+    some block in input
+	isvalid(block)
+    block.Attributes.ssl_minimal_tls_version_enforced == "TLS1_2"
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "MySQL is utilizing the most up-to-date TLS encryption version.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "MySQL must utilize the most up-to-date TLS encryption version.",
                 "snippet": block }
 } 
