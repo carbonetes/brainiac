@@ -10,7 +10,7 @@ package lib.terraform.CB_TFAZR_045
 
 import future.keywords.in
 
-supportedResource := [
+supportedResources := [
 	"azurerm_linux_web_app",
 	"azurerm_windows_web_app",
 	"azurerm_app_service",
@@ -18,25 +18,36 @@ supportedResource := [
 
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label in supportedResources
+}
+
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
 pass[resource] {
-	resource := input[_]
+	some resource in input
+	some innerBlock in resource.Blocks
 	isvalid(resource)
-	innerBlock := resource.Blocks[_]
 	innerBlock.Type == "auth_settings"
 	innerBlock.Attributes.enabled == true
 }
 
 fail[resource] {
-	resource := input[_]
+	some resource in input
 	isvalid(resource)
 	not pass[resource]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "Azure App Service is set to be always on.",
 		"snippet": block,
@@ -44,7 +55,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "Azure App Service is not set to be always on.",
 		"snippet": block,
