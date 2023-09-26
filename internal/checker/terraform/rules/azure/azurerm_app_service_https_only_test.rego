@@ -1,6 +1,6 @@
-package lib.terraform.CB_TFAZR_045
+package lib.terraform.CB_TFAZR_046
 
-test_azurerm_app_service_passed {
+test_azurerm_app_service_https_only_passed {
 	result := passed with input as [
         {
             "Type": "resource",
@@ -62,33 +62,35 @@ test_azurerm_app_service_passed {
                 },
                 "location": "azurerm_resource_group.example.location",
                 "name": "example-app-service",
-                "resource_group_name": "azurerm_resource_group.example.name"
+                "resource_group_name": "azurerm_resource_group.example.name",
+                "https_only": true
             },
             "Blocks": [
                 {
-                    "Type": "auth_settings_v2",
+                    "Type": "site_config",
                     "Labels": [],
                     "Attributes": {
-                        "auth_enabled": true
+                        "dotnet_framework_version": "v4.0",
+                        "scm_type": "LocalGit"
                     },
                     "Blocks": [],
                     "line_range": {
-                        "endLine": 24,
-                        "startLine": 24
+                        "endLine": 26,
+                        "startLine": 23
                     }
-                }
-            ],
-            "Blocks": [
+                },
                 {
-                    "Type": "auth_settings",
+                    "Type": "connection_string",
                     "Labels": [],
                     "Attributes": {
-                        "enabled": true
+                        "name": "Database",
+                        "type": "SQLServer",
+                        "value": "Server=some-server.mydomain.com;Integrated Security=SSPI"
                     },
                     "Blocks": [],
                     "line_range": {
-                        "endLine": 24,
-                        "startLine": 24
+                        "endLine": 36,
+                        "startLine": 32
                     }
                 }
             ],
@@ -101,7 +103,7 @@ test_azurerm_app_service_passed {
 	count(result) == 1
 }
 
-test_azurerm_app_service_failed {
+test_azurerm_app_service_https_only_failed {
 	result := failed with input as [
         {
             "Type": "resource",
@@ -163,19 +165,35 @@ test_azurerm_app_service_failed {
                 },
                 "location": "azurerm_resource_group.example.location",
                 "name": "example-app-service",
-                "resource_group_name": "azurerm_resource_group.example.name"
+                "resource_group_name": "azurerm_resource_group.example.name",
+                "https_only": false
             },
             "Blocks": [
                 {
-                    "Type": "auth_settings_v2",
+                    "Type": "site_config",
                     "Labels": [],
                     "Attributes": {
-                        "auth_enabled": false
+                        "dotnet_framework_version": "v4.0",
+                        "scm_type": "LocalGit"
                     },
                     "Blocks": [],
                     "line_range": {
-                        "endLine": 24,
-                        "startLine": 24
+                        "endLine": 26,
+                        "startLine": 23
+                    }
+                },
+                {
+                    "Type": "connection_string",
+                    "Labels": [],
+                    "Attributes": {
+                        "name": "Database",
+                        "type": "SQLServer",
+                        "value": "Server=some-server.mydomain.com;Integrated Security=SSPI"
+                    },
+                    "Blocks": [],
+                    "line_range": {
+                        "endLine": 36,
+                        "startLine": 32
                     }
                 }
             ],
