@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_045
 
-test_azurerm_app_service_passed {
+test_azurerm_app_service_authentication_passed {
 	result := passed with input as [
         {
             "Type": "resource",
@@ -101,7 +101,7 @@ test_azurerm_app_service_passed {
 	count(result) == 1
 }
 
-test_azurerm_app_service_failed {
+test_azurerm_app_service_authentication_failed {
 	result := failed with input as [
         {
             "Type": "resource",
