@@ -15,7 +15,8 @@ supportedResources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_
 
 isvalid(block) {
 	block.Type == "resource"
-	some supportedResources in block.Labels
+	some label in block.Labels
+	label in supportedResources
 }
 
 resource[resource] {
