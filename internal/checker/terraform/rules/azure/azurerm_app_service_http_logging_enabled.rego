@@ -1,5 +1,5 @@
 # METADATA
-# title: Verify that HTTP logging is activated for the App service"
+# title: "Verify that HTTP logging is activated for the App service"
 # description: "Take the necessary steps to activate HTTP logging for your App service, enhancing your ability to monitor and analyze web traffic effectively. This configuration confirms that vital information is captured for auditing, troubleshooting, and security analysis purposes, contributing to a more robust and informed operational environment."
 # scope: package
 # related_resources:
