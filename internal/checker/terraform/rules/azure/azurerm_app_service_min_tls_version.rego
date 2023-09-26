@@ -37,7 +37,7 @@ pass[resource] {
 	isvalid(resource)
 	some innerBlock in resource.Blocks
 	innerBlock.Type == "site_config"
-	innerBlock.Attributes.min_tls_version >= 1.0
+	to_number(innerBlock.Attributes.min_tls_version) >= 1.0
 }
 
 fail[resource] {
