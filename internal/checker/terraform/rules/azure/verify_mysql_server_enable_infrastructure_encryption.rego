@@ -41,7 +41,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "'azurerm_virtual_machine_scale_set' infrastructure_encryption_enabled is set properly.",
+		"message": "'azurerm_mysql_server' infrastructure_encryption_enabled is set properly.",
 		"snippet": block,
 	}
 }
@@ -49,7 +49,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "'azurerm_virtual_machine_scale_set' infrastructure_encryption_enabled should be set to true.",
+		"message": "'azurerm_mysql_server' infrastructure_encryption_enabled should be set to true.",
 		"snippet": block,
 	}
 }
