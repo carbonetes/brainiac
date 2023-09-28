@@ -2,7 +2,7 @@
 # title: "Confirm that the 'Phone number' is configured for the security contact"
 # description: "Validate that a 'Phone number' is provided and configured for the security contact. This ensures that there is a valid and reachable contact number associated with security-related matters"
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/security_center_subscription_pricing
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/security_center_contact
 # custom:
 #   id: CB_TFAZR_087
 #   severity: LOW
