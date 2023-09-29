@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_097
 
-test_azurerm_security_center_subscription_pricing_azure_defender_enabled {
+test_azurerm_security_center_subscription_pricing_azure_defender_enabled_on_servers_enabled {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +20,7 @@ test_azurerm_security_center_subscription_pricing_azure_defender_enabled {
 	count(result) == 1
 }
 
-test_azurerm_security_center_subscription_pricing_azure_defender_disabled {
+test_azurerm_security_center_subscription_pricing_azure_defender_enabled_on_servers_disabled {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
