@@ -21,6 +21,17 @@ isvalid(block) {
 	label in supportedResources
 }
 
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+
 pass[resource] {
 	some resource in input
 	isvalid(resource)
