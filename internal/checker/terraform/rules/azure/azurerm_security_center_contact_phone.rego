@@ -20,26 +20,10 @@ isvalid(block) {
 	label in supportedResources
 }
 
-resource[resource] {
-	some block in pass
-	resource := concat(".", block.Labels)
-}
-
-resource[resource] {
-	some block in fail
-	resource := concat(".", block.Labels)
-}
-
 pass[resource] {
 	some resource in input
 	isvalid(resource)
     resource.Attributes.phone != null
-}
-
-pass[resource] {
-	some resource in input
-	isvalid(resource)
-    resource.Attributes.tier == "Free"
 }
 
 fail[resource] {
