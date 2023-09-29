@@ -3,7 +3,7 @@
 # description: "This policy is designed to enhance the storage efficiency and data management of Azure App Services by verifying that Azure Files is used as the storage solution."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/security_center_subscription_pricing
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service
 # custom:
 #   id: CB_TFAZR_094
 #   severity: LOW
