@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_089
 
-azurerm_data_factory_no_public_network_access_passed {
+test_azurerm_data_factory_no_public_network_access_passed {
     result := passed with input as [
         {
             "Type": "resource",
@@ -41,7 +41,7 @@ azurerm_data_factory_no_public_network_access_passed {
     count(result) == 1
 }
 
-azurerm_data_factory_no_public_network_access_failed {
+test_azurerm_data_factory_no_public_network_access_failed {
 result := failed with input as [
         {
             "Type": "resource",
