@@ -34,7 +34,16 @@ test_azurerm_service_fabric_cluster_active_directory_not_utilized {
 			"example",
 		],
 		"Attributes": {},
-		"Blocks": [],
+		"Blocks": [{
+			"Type": "azure_active_directory",
+			"Labels": [],
+			"Attributes": {"not_tenant_id": "tenant"},
+			"Blocks": [],
+			"linªeª_range": {
+				"endLine": 5,
+				"startLine": 3,
+			},
+		}],
 		"line_range": {
 			"endLine": 7,
 			"startLine": 1,
