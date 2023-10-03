@@ -32,7 +32,7 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	resource.Attributes.public_network_access = false
+	resource.Attributes.public_network_access == false
 }
 
 fail[resource] {
