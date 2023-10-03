@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_092
+package lib.terraform.CB_TFAZR_111
 
 azurerm_key_vault_backed_by_hsm_passed {
 	result := passed with input as [
