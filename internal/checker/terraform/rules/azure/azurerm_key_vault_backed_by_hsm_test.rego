@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_111
 
-azurerm_key_vault_backed_by_hsm_passed {
+test_azurerm_key_vault_backed_by_hsm_passed {
 	result := passed with input as [
         {
             "Type": "provider",
@@ -173,7 +173,7 @@ azurerm_key_vault_backed_by_hsm_passed {
     count(result) == 1
 }
 
-azurerm_key_vault_backed_by_hsm_failed {
+test_azurerm_key_vault_backed_by_hsm_failed {
 	result := failed with input as [
         {
             "Type": "provider",
