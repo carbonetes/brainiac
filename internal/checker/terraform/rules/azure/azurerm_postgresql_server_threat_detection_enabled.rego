@@ -3,7 +3,7 @@
 # description: "Verify that your PostgreSQL server has activated the Threat Detection policy, enhancing its security measures by actively identifying and mitigating potential threats. This proactive approach safeguards your data and database infrastructure from potential vulnerabilities and security risks."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_server
 # custom:
 #   id: CB_TFAZR_112
 #   severity: LOW
