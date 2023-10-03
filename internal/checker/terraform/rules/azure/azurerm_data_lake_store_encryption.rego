@@ -32,7 +32,7 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	resource.Attributes.encryption_state = "Enabled"
+	resource.Attributes.encryption_state == "Enabled"
 }
 
 fail[resource] {
