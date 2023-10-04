@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_application_firewall_policy
 # custom:
-#   id: CB_TFAZR_124
+#   id: CB_TFAZR_125
 #   severity: MEDIUM
-package lib.terraform.CB_TFAZR_124
+package lib.terraform.CB_TFAZR_125
 
 import future.keywords.in
 

@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_124
+package lib.terraform.CB_TFAZR_125
 
 test_azurerm_application_gateway_use_waf_mode_passed {
 	result := passed with input as [
