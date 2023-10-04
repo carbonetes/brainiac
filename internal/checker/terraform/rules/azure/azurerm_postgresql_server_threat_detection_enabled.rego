@@ -30,6 +30,7 @@ pass[block]{
     some block in input
 	isvalid(block)
     some innerBlock in block.Blocks
+    innerBlock.Type == "threat_detection_policy"
     innerBlock.Attributes.enabled == true
 }
 
