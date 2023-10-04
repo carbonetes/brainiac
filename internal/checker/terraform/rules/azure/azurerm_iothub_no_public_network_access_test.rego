@@ -120,7 +120,7 @@ test_azurerm_iothub_no_public_network_access_passed {
                 "local_authentication_enabled": false,
                 "location": "azurerm_resource_group.example.location",
                 "name": "Example-IoTHub",
-                "public_network_access_enabled": "Disabled",
+                "public_network_access_enabled": false,
                 "resource_group_name": "azurerm_resource_group.example.name",
                 "tags": {
                     "purpose": "testing"
@@ -385,7 +385,7 @@ test_azurerm_iothub_no_public_network_access_failed {
                 "local_authentication_enabled": false,
                 "location": "azurerm_resource_group.example.location",
                 "name": "Example-IoTHub",
-                "public_network_access_enabled": "Enabled",
+                "public_network_access_enabled": true,
                 "resource_group_name": "azurerm_resource_group.example.name",
                 "tags": {
                     "purpose": "testing"
