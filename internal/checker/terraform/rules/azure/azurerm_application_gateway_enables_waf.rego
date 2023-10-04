@@ -1,6 +1,6 @@
 # METADATA
-# title: Verify that Application Gateway has Web Application Firewall (WAF) enabled"
-# description: Ensure that Application Gateway is configured with Web Application Firewall (WAF) enabled to provide an additional layer of security against web application attacks
+# title: "Verify that Application Gateway has Web Application Firewall (WAF) enabled"
+# description: "Ensure that Application Gateway is configured with Web Application Firewall (WAF) enabled to provide an additional layer of security against web application attacks"
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_application_firewall_policy
