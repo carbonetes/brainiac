@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that Application Gateway utilizes WAF in either Detection or  Prevention modes"
+# title: "Verify that Application Gateway utilizes WAF in either Detection or Prevention modes"
 # description: "Ensure that Application Gateway uses WAF in either Detection or Prevention modes by verifying the enabled state of the Web Application Firewall (WAF) policy"
 # scope: package
 # related_resources:
