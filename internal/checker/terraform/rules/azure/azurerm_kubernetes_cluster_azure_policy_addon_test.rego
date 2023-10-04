@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_118
 
-test_azurerm_kubernetes_cluster_api_services_use_virtual_network_passed {
+test_azurerm_kubernetes_cluster_azure_policy_addon_passed {
     result := passed with input as [
         {
             "Type": "resource",
@@ -117,7 +117,7 @@ test_azurerm_kubernetes_cluster_api_services_use_virtual_network_passed {
     count(result) == 1
 }
 
-test_azurerm_kubernetes_cluster_api_services_use_virtual_network_failed {
+test_azurerm_kubernetes_cluster_azure_policy_addon_failed {
         result := failed with input as [
         {
             "Type": "resource",
