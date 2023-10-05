@@ -9,42 +9,41 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_120
 
+import future.keywords.in
 
-isvalid(block){
+isvalid(block) {
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_postgresql_server"
+	"azurerm_postgresql_server" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Attributes.infrastructure_encryption_enabled == true
 }
 
-fail[block] {
-    block := input[_]
-	isvalid(block)
-   	not pass[block]
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass[resource] {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.infrastructure_encryption_enabled == true
+}
+
+fail[resource] {
+	some resource in input
+	isvalid(resource)
+	not pass[resource]
 }
 
 passed[result] {
-	block := pass[_]
-	result := { "message": "The infrastructure encryption is activated on the PostgreSQL server.",
-                "snippet": block }
+	some block in pass
+	result := {"message": "The infrastructure encryption is activated on the PostgreSQL server."}
 }
 
 failed[result] {
-    block := fail[_]
-	result := { "message": "The infrastructure encryption is not activated on the PostgreSQL server.",
-                "snippet": block }
-} 
+	some block in fail
+	result := {"message": "The infrastructure encryption is not activated on the PostgreSQL server."}
+}
