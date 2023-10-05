@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_132
 
-test_azure_passed {
+test_azure_postgre_sql_min_tls_version_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -45,7 +45,7 @@ test_azure_passed {
 	count(result) == 1
 }
 
-test_azure_failed {
+test_azure_postgre_sql_min_tls_version_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
