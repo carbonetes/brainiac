@@ -1,6 +1,6 @@
 # METADATA
 # title: "Require Web PubSub to use a SKU that includes an SLA"
-# description: This policy ensures that Web PubSub utilizes a Service Level Agreement (SLA)-backed SKU to guarantee reliability and performance for your application's real-time messaging requirements
+# description: "This policy ensures that Web PubSub utilizes a Service Level Agreement (SLA)-backed SKU to guarantee reliability and performance for your application's real-time messaging requirements"
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_pubsub
