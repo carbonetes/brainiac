@@ -34,7 +34,7 @@ pass[resource] {
 	isvalid(resource)
     some innerblock in resource.Blocks
 	innerblock.Type == "identity"
-	resource.Attributes.type != null
+	innerblock.Attributes.type != null
 }
 
 fail[resource] {
