@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_135
 
-test_aazurerm_container_registry_enable_retention_policy_passed {
+test_azurerm_container_registry_enable_retention_policy_passed {
 	result := passed with input as [
         {
             "Type": "resource",
@@ -119,7 +119,7 @@ test_aazurerm_container_registry_enable_retention_policy_passed {
     count(result) == 1
 }
 
-testazurerm_container_registry_enable_retention_policy_failed {
+test_azurerm_container_registry_enable_retention_policy_failed {
 	result := failed with input as [
         {
             "Type": "resource",
