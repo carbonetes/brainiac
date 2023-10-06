@@ -33,7 +33,8 @@ pass[resource] {
 	some resource in input
 	isvalid(resource)
     some innerblock in resource.Blocks
-	innerblock.Attributes.type != null
+	innerblock.Type == "identity"
+	resource.Attributes.type != null
 }
 
 fail[resource] {
