@@ -32,12 +32,6 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	to_number(resource.Attributes.max_pods) >= 50
-}
-
-pass[resource] {
-	some resource in input
-	isvalid(resource)
 	some innerblock in resource.Blocks
 	innerblock.Type == "default_node_pool"
 	innerblock.Attributes.type == "AvailabilitySet"
