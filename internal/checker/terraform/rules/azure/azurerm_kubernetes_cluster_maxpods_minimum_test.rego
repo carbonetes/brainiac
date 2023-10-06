@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_136
 
-test_azurerm_kubernetes_cluster_aks_maxpods_minimum_passed {
+test_azurerm_kubernetes_cluster_maxpods_minimum_passed {
 	result := passed with input as [
         {
             "Type": "resource",
@@ -101,7 +101,7 @@ test_azurerm_kubernetes_cluster_aks_maxpods_minimum_passed {
     count(result) == 1
 }
 
-test_azurerm_kubernetes_cluster_aks_maxpods_minimum_failed {
+test_azurerm_kubernetes_cluster_maxpods_minimum_failed {
 	result := failed with input as [
         {
             "Type": "resource",
