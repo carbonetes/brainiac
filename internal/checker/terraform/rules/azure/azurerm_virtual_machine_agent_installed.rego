@@ -1,5 +1,5 @@
 # METADATA
-# title: " Verify VM Agent Installation"
+# title: "Verify VM Agent Installation"
 # description: "Ensure that the VM Agent is correctly installed on virtual machines for enhanced management and monitoring"
 # scope: package
 # related_resources:
