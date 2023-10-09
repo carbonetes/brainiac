@@ -5,7 +5,6 @@ test_azurerm_container_registry_image_pull_disabled {
 		"Type": "resource",
 		"Labels": [
 			"azurerm_container_registry",
-			"ckv_unittest_pass_1",
 		],
 		"Attributes": {
 			"anonymous_pull_enabled": false,
@@ -27,8 +26,7 @@ test_azurerm_container_registry_image_pull_enabled {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
-			"azurerm_container_registry",
-			"ckv_unittest_pass_1",
+			"azurerm_container_registry"
 		],
 		"Attributes": {
 			"anonymous_pull_enabled": true,
