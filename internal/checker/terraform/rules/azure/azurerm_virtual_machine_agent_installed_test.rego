@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_152
+package lib.terraform.CB_TFAZR_153
 
 test_azurerm_virtual_machine_agent_installed_passed {
     result := passed with input as [
