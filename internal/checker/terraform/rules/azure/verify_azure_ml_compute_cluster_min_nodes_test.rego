@@ -27,8 +27,7 @@ test_azure_ml_compute_cluster_min_nodes_passed {
     {
         "Type": "resource",
         "Labels": [
-            "azurerm_machine_learning_compute_cluster",
-            "ckv_unittest_pass"
+            "azurerm_machine_learning_compute_cluster"
         ],
         "Attributes": {
             "location": "West Europe",
@@ -90,7 +89,7 @@ test_azure_ml_compute_cluster_min_nodes_failed {
         "Type": "resource",
         "Labels": [
             "azurerm_machine_learning_compute_cluster",
-            "ckv_unittest_pass"
+
         ],
         "Attributes": {
             "location": "West Europe",
