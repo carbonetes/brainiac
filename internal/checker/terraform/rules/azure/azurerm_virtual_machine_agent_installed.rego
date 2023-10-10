@@ -37,7 +37,7 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not resource.Attributes.provision_vm_agent
+	resource.Attributes.provision_vm_agent == true
 }
 
 fail[resource] {
