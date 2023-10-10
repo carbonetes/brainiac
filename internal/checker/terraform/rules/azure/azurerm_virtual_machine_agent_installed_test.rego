@@ -105,7 +105,8 @@ test_azurerm_virtual_machine_agent_installed_passed {
                 "location": "azurerm_resource_group.example.location",
                 "name": "example-vmss",
                 "resource_group_name": "azurerm_resource_group.example.name",
-                "sku": "Standard_F2"
+                "sku": "Standard_F2",
+                "provision_vm_agent": true
             },
             "Blocks": [
                 {
@@ -288,7 +289,7 @@ test_azurerm_virtual_machine_agent_installed_failed {
                 "location": "azurerm_resource_group.example.location",
                 "name": "example-machine",
                 "network_interface_ids": "azurerm_network_interface.example.id",
-                "provision_vm_agent": true,
+                "provision_vm_agent": false,
                 "resource_group_name": "azurerm_resource_group.example.name",
                 "size": "Standard_F2"
             },
