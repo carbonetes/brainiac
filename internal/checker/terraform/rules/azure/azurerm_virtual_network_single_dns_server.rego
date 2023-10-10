@@ -33,20 +33,20 @@ resource[resource] {
 }
 
 pass[resource] {
-    some resource in input
-    isvalid(resource)
-    has_attribute(resource.Attributes, "dns_servers")
-    count(resource.Attributes.dns_servers) >= 2
-}
-
-has_attribute(key, value) {
-  _ = key[value]
+	some resource in input
+	isvalid(resource)
+	not fail[resource]
 }
 
 fail[resource] {
 	some resource in input
 	isvalid(resource)
-	not pass[resource]
+	has_attribute(resource.Attributes, "dns_servers")
+	count(resource.Attributes.dns_servers) == 1
+}
+
+has_attribute(key, value) {
+  _ = key[value]
 }
 
 passed[result] {
