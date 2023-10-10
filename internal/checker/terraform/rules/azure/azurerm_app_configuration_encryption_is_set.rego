@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_configuration
 # custom:
 #   id: CB_TFAZR_165
-#   severity: HIGH
+#   severity: MEDIUM
 package lib.terraform.CB_TFAZR_165
 
 import future.keywords.in
