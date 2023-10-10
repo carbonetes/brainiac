@@ -32,14 +32,6 @@ resource[resource] {
 pass[resource] {
     some resource in input
     isvalid(resource)
-    some innerblock in resource.Blocks
-    innerblock.Type == "sku"
-    
-}
-
-pass[resource] {
-    some resource in input
-    isvalid(resource)
 	not fail[resource]
     
 }
