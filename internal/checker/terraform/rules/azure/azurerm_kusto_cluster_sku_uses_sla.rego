@@ -40,15 +40,10 @@ fail[resource] {
     some resource in input
     isvalid(resource)
     some innerblock in resource.Blocks
-    innerblock.Attributes.name == "Dev(No SLA)_Standard_E2a_v4"
+    invalidValues := ["Dev(No SLA)_Standard_E2a_v4", "Dev(No SLA)_Standard_D11_v2"]
+    innerblock.Attributes.name in invalidValues
 }
 
-fail[resource] {
-    some resource in input
-    isvalid(resource)
-    some innerblock in resource.Blocks
-    innerblock.Attributes.name == "Dev(No SLA)_Standard_D11_v2"
-}
 
 passed[result] {
     some block in pass
