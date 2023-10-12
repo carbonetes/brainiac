@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
 # custom:
-#   id: CB_TFAZR_172
+#   id: CB_TFAZR_177
 #   severity: LOW
-package lib.terraform.CB_TFAZR_172
+package lib.terraform.CB_TFAZR_177
 
 import future.keywords.in
 
