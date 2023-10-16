@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_172
+package lib.terraform.CB_TFAZR_177
 
 test_azurerm_kubernetes_cluster_no_public_ip {
 	result := passed with input as [{
