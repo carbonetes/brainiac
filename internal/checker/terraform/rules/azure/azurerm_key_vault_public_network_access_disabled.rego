@@ -7,7 +7,7 @@
 # custom:
 #   id: CB_TFAZR_184
 #   severity: HIGH
-package lib.terraform.CB_TFAZR_184
+package lib.terraform.CB_TFAZR_184 
 
 import future.keywords.if
 import future.keywords.in

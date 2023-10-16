@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_184
+package lib.terraform.CB_TFAZR_184 
 
 test_azurerm_key_vault_public_network_access_disabled_passed {
 	result := passed with input as [
