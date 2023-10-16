@@ -1,7 +1,7 @@
-package lib.terraform.CB_TFAZR_118
+package lib.terraform.CB_TFAZR_117
 
 test_azurerm_kubernetes_cluster_api_services_use_virtual_network_passed {
-    result := passed with input as [
+	result := passed with input as [
         {
             "Type": "resource",
             "Labels": [
@@ -75,7 +75,7 @@ test_azurerm_kubernetes_cluster_api_services_use_virtual_network_passed {
                 "example"
             ],
             "Attributes": {
-                "azure_policy_enabled": true,
+                "depends_on": "azurerm_role_assignment.example",
                 "dns_prefix": "aksexamplednsprefix1",
                 "location": "azurerm_resource_group.example.location",
                 "name": "aksexamplewithprivatednszone1",
@@ -83,42 +83,18 @@ test_azurerm_kubernetes_cluster_api_services_use_virtual_network_passed {
                 "private_dns_zone_id": "azurerm_private_dns_zone.example.id",
                 "resource_group_name": "azurerm_resource_group.example.name"
             },
-            "Blocks": [
-                {
-                    "Type": "addon_profile",
-                    "Labels": [],
-                    "Attributes": {},
-                    "Blocks": [
-                        {
-                            "Type": "azure_policy",
-                            "Labels": [],
-                            "Attributes": {
-                                "enabled": true
-                            },
-                            "Blocks": [],
-                            "line_range": {
-                                "endLine": 35,
-                                "startLine": 33
-                            }
-                        }
-                    ],
-                    "line_range": {
-                        "endLine": 36,
-                        "startLine": 32
-                    }
-                }
-            ],
+            "Blocks": [],
             "line_range": {
-                "endLine": 38,
+                "endLine": 36,
                 "startLine": 23
             }
         }
     ]
-    count(result) == 1
+	count(result) == 1
 }
 
 test_azurerm_kubernetes_cluster_api_services_use_virtual_network_failed {
-        result := failed with input as [
+	result := failed with input as [
         {
             "Type": "resource",
             "Labels": [
@@ -192,41 +168,17 @@ test_azurerm_kubernetes_cluster_api_services_use_virtual_network_failed {
                 "example"
             ],
             "Attributes": {
-                "azure_policy_enabled": false,
+                "depends_on": "azurerm_role_assignment.example",
                 "dns_prefix": "aksexamplednsprefix1",
                 "location": "azurerm_resource_group.example.location",
                 "name": "aksexamplewithprivatednszone1",
-                "private_cluster_enabled": true,
+                "private_cluster_enabled": false,
                 "private_dns_zone_id": "azurerm_private_dns_zone.example.id",
                 "resource_group_name": "azurerm_resource_group.example.name"
             },
-            "Blocks": [
-                {
-                    "Type": "addon_profile",
-                    "Labels": [],
-                    "Attributes": {},
-                    "Blocks": [
-                        {
-                            "Type": "azure_policy",
-                            "Labels": [],
-                            "Attributes": {
-                                "enabled": false
-                            },
-                            "Blocks": [],
-                            "line_range": {
-                                "endLine": 35,
-                                "startLine": 33
-                            }
-                        }
-                    ],
-                    "line_range": {
-                        "endLine": 36,
-                        "startLine": 32
-                    }
-                }
-            ],
+            "Blocks": [],
             "line_range": {
-                "endLine": 38,
+                "endLine": 36,
                 "startLine": 23
             }
         }
