@@ -3,7 +3,7 @@
 # description: "This policy ensures that Azure CDN endpoints are configured to use the latest version of TLS encryption to enhance security and protect data during communication."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace
+# - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_endpoint_custom_domain
 # custom:
 #   id: CB_TFAZR_196
 #   severity: MEDIUM
