@@ -45,10 +45,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Service Bus utilizes double encryption for enhanced data security."}
+	result := {
+	"message": "Azure Service Bus utilizes double encryption for enhanced data security.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Service Bus should implement double encryption to improve data security during communication."}
+	result := {
+	"message": "Azure Service Bus should implement double encryption to improve data security during communication.",
+	"snippet": block 
+    }
 }
