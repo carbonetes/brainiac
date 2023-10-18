@@ -45,10 +45,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Managed Identity Provider is enabled for Azure Service Bus, enhancing security and access control."}
+	result := {
+	"message": "Managed Identity Provider is enabled for Azure Service Bus, enhancing security and access control.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Service Bus should have Managed Identity Provider enabled to enhance security and access control."}
+	result := {
+	"message": "Azure Service Bus should have Managed Identity Provider enabled to enhance security and access control.",
+	"snippet": block 
+    }
 }
