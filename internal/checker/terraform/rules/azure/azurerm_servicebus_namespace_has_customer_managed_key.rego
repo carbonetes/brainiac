@@ -45,10 +45,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Service Bus utilizes customer-managed keys for data encryption, ensuring data security and control."}
+	result := {
+	"message": "Azure Service Bus utilizes customer-managed keys for data encryption, ensuring data security and control.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Service Bus must be configured to use customer-managed keys for data encryption to enhance security and maintain control over data protection."}
+	result := {
+	"message": "Azure Service Bus must be configured to use customer-managed keys for data encryption to enhance security and maintain control over data protection.",
+	"snippet": block 
+    }
 }
