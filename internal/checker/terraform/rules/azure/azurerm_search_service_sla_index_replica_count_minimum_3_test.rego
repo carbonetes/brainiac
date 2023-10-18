@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_205
 
-test_azurerm_search_service_sla_index_passed {
+test_azurerm_search_service_sla_index_replica_count_minimum_3_passed {
 	result := passed with input as [
         {
             "Type": "resource",
@@ -42,7 +42,7 @@ test_azurerm_search_service_sla_index_passed {
     count(result) == 1
 }
 
-test_azurerm_search_service_sla_index_failed {
+test_azurerm_search_service_sla_index_replica_count_minimum_3_failed {
 	result := failed with input as [
         {
             "Type": "resource",
