@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The Azure Cognitive Search service's allowed IP addresses do not allow public access, enhancing security."}
+	result := {
+	"message": "The Azure Cognitive Search service's allowed IP addresses do not allow public access, enhancing security.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The Azure Cognitive Search service's allowed IP addresses grant public access, which can lead to security vulnerabilities and should be restricted."}
+	result := {
+	"message": "The Azure Cognitive Search service's allowed IP addresses grant public access, which can lead to security vulnerabilities and should be restricted.",
+	"snippet": block 
+    }
 }
