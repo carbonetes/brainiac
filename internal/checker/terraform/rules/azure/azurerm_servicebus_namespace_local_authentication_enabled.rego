@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Service Bus has local authentication disabled, enhancing security."}
+	result := {
+	"message": "Azure Service Bus has local authentication disabled, enhancing security.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Service Bus should have local authentication disabled to enhance security by reducing potential attack vectors."}
+	result := {
+	"message": "Azure Service Bus should have local authentication disabled to enhance security by reducing potential attack vectors.",
+	"snippet": block 
+    }
 }
