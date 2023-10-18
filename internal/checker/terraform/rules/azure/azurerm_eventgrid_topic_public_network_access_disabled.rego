@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Public network access is disabled for Azure Event Grid Topic, enhancing security."}
+	result := {
+	"message": "Public network access is disabled for Azure Event Grid Topic, enhancing security.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Disable public network access for Azure Event Grid Topic to enhance security and restrict access to trusted networks."}
+	result := {
+	"message": "Disable public network access for Azure Event Grid Topic to enhance security and restrict access to trusted networks.",
+	"snippet": block 
+    }
 }
