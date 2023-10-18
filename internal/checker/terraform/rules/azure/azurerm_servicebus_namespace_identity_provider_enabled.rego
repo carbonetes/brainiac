@@ -1,5 +1,5 @@
 # METADATA
-# title: " Enable Managed Identity Provider for Azure Service Bus"
+# title: "Enable Managed Identity Provider for Azure Service Bus"
 # description: "This policy ensures that the Managed Identity Provider is enabled for Azure Service Bus, enhancing security and access control."
 # scope: package
 # related_resources:
