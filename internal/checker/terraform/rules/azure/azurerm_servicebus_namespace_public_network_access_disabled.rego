@@ -1,5 +1,5 @@
 # METADATA
-# title: "Azure Service Bus Public Network Access Disabled"
+# title: "Verify Azure Service Bus Public Network Access Disabled"
 # description: "This policy ensures that 'public network access enabled' is set to 'False' for Azure Service Bus to enhance security by restricting access from public networks."
 # scope: package
 # related_resources:
