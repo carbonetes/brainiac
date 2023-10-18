@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Local authentication is disabled for Azure Event Grid Domain, enhancing security by restricting access to trusted networks and managed identity providers."}
+	result := {
+	"message": "Local authentication is disabled for Azure Event Grid Domain, enhancing security by restricting access to trusted networks and managed identity providers.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Disable local authentication for Azure Event Grid Domain to enhance security and restrict access to trusted networks and managed identity providers."}
+	result := {
+	"message": "Disable local authentication for Azure Event Grid Domain to enhance security and restrict access to trusted networks and managed identity providers.",
+	"snippet": block 
+    }
 }
