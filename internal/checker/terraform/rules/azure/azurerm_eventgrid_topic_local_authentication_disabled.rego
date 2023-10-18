@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Local Authentication is disabled for Azure Event Grid Topic, enhancing security and reliability."}
+	result := {
+	"message": "Local Authentication is disabled for Azure Event Grid Topic, enhancing security and reliability.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Disable Local Authentication for Azure Event Grid Topic to enhance security and reliability."}
+	result := {
+	"message": "Disable Local Authentication for Azure Event Grid Topic to enhance security and reliability.",
+	"snippet": block 
+    }
 }
