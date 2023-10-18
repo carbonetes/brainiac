@@ -49,10 +49,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The App Service has a health check configured, which helps monitor the application's status and performance."}
+	result := {
+	"message": "The App Service has a health check configured, which helps monitor the application's status and performance.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The App Service lacks a health check configuration. Consider setting up a health check to monitor the application effectively."}
+	result := {
+	"message": "The App Service lacks a health check configuration. Consider setting up a health check to monitor the application effectively.",
+	"snippet": block 
+    }
 }
