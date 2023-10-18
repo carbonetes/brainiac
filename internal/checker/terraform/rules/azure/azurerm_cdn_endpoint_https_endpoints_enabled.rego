@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure CDN has the HTTPS endpoint enabled, ensuring secure communication."}
+	result := {
+	"message": "Azure CDN has the HTTPS endpoint enabled, ensuring secure communication.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure CDN should enable the HTTPS endpoint to enhance security by providing secure communication."}
+	result := {
+	"message": "Azure CDN should enable the HTTPS endpoint to enhance security by providing secure communication.",
+	"snippet": block 
+    }
 }
