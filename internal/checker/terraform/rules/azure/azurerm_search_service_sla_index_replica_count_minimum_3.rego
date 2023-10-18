@@ -49,10 +49,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Cognitive Search successfully maintains the SLA for index updates, providing reliable performance and responsiveness."}
+	result := {
+	"message": "Azure Cognitive Search successfully maintains the SLA for index updates, providing reliable performance and responsiveness.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Cognitive Search fails to maintain the specified SLA for index updates, potentially leading to performance and responsiveness issues."}
+	result := {
+	"message": "Azure Cognitive Search fails to maintain the specified SLA for index updates, potentially leading to performance and responsiveness issues.",
+	"snippet": block 
+    }
 }
