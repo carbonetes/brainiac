@@ -49,10 +49,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The App Service has the required minimum number of instances, enhancing failover capability."}
+	result := {
+	"message": "The App Service has the required minimum number of instances, enhancing failover capability.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The App Service does not meet the minimum instance requirements for failover. Review and adjust the configuration for improved high availability."}
+	result := {
+	"message": "The App Service does not meet the minimum instance requirements for failover. Review and adjust the configuration for improved high availability.",
+	"snippet": block 
+    }
 }
