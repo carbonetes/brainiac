@@ -57,10 +57,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The selected App Service Plan is suitable for production use."}
+	result := {
+	"message": "The selected App Service Plan is suitable for production use.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The chosen App Service Plan may not be suitable for production use. Review the configuration to ensure it meets production requirements."}
+	result := {
+	"message": "The chosen App Service Plan may not be suitable for production use. Review the configuration to ensure it meets production requirements.",
+	"snippet": block 
+    }
 }
