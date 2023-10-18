@@ -45,13 +45,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-     	"message": "Azure App Configuration uses the Standard SKU, ensuring advanced features and reliability."
+     	"message": "Azure App Configuration uses the Standard SKU, ensuring advanced features and reliability.",
+	"snippet": block 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-    	"message": "Azure App Configuration should be configured with the Standard SKU to access advanced features and enhance reliability."
-	}
+    	"message": "Azure App Configuration should be configured with the Standard SKU to access advanced features and enhance reliability.",
+	"snippet": block 
+    }
 }
