@@ -30,7 +30,7 @@ resource[resource] {
 getLabelForStorageAcc[label]{
 	some block in input
     block.Type == "resource"
-    block.Labels[_] == "azurerm_storage_account"
+    "azurerm_storage_account" in block.Labels
     label := concat(".", block.Labels)
 }
 
