@@ -54,10 +54,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Storage Accounts use replication, ensuring data redundancy and availability."}
+	result := {
+	"message": "Storage Accounts use replication, ensuring data redundancy and availability.",
+	"snippet": block 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Storage Accounts should be configured with replication to enhance data redundancy and availability."}
+	result := {
+	"message": "Storage Accounts should be configured with replication to enhance data redundancy and availability.",
+	"snippet": block 
+    }
 }
