@@ -3,7 +3,7 @@
 # description: "Ensure to minimize the permission of validating or mutating admission webhook configurations from ClusterRoles."
 # scope: package
 # related_resources:
-# - https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/   
+# - https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/
 # custom:
 #   id: CB_K8S_011
 #   severity: HIGH
@@ -26,9 +26,7 @@ is_failed {
     count(kubernetes.filtered_rules(api_groups, resources, verbs)) > 0
 }
 
-getFilteredRules[rules] {
-    rules := kubernetes.filtered_rules(api_groups, resources, [""])
-}
+getFilteredRules[kubernetes.filtered_rules(api_groups, resources, [""])]
 
 passed[result] {
     is_valid

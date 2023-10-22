@@ -9,7 +9,7 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_209
 
-import future.keywords.in 
+import future.keywords.in
 
 supportedResources := ["aws_mq_broker", "aws_mq_configuration"]
 
@@ -21,18 +21,18 @@ isvalid(block){
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 
 pass[resource] {
     resource := input[_]
     isvalid(resource)
     resource.Attributes.engine_type == "ActiveMQ"
-    regex.match("(\\d+\\.\\d+\\.\\d+)", resource.Attributes.engine_version)
+    regex.match(`(\d+\.\d+\.\d+)`, resource.Attributes.engine_version)
     engineVersion := resource.Attributes.engine_version
     major := split(engineVersion, ".")[0]
     minor := split(engineVersion, ".")[1]
@@ -46,7 +46,7 @@ pass[resource] {
     resource := input[_]
     isvalid(resource)
     resource.Attributes.engine_type == "ActiveMQ"
-    regex.match("(\\d+\\.\\d+\\.\\d+)", resource.Attributes.engine_version)
+    regex.match(`(\d+\.\d+\.\d+)`, resource.Attributes.engine_version)
     engineVersion := resource.Attributes.engine_version
     major := split(engineVersion, ".")[0]
     minor := split(engineVersion, ".")[1]
@@ -59,7 +59,7 @@ pass[resource] {
     resource := input[_]
     isvalid(resource)
     resource.Attributes.engine_type == "RabbitMQ"
-    regex.match("(\\d+\\.\\d+\\.\\d+)", resource.Attributes.engine_version)
+    regex.match(`(\d+\.\d+\.\d+)`, resource.Attributes.engine_version)
     engineVersion := resource.Attributes.engine_version
     major := split(engineVersion, ".")[0]
     minor := split(engineVersion, ".")[1]
@@ -73,7 +73,7 @@ pass[resource] {
     resource := input[_]
     isvalid(resource)
     resource.Attributes.engine_type == "RabbitMQ"
-    regex.match("(\\d+\\.\\d+\\.\\d+)", resource.Attributes.engine_version)
+    regex.match(`(\d+\.\d+\.\d+)`, resource.Attributes.engine_version)
     engineVersion := resource.Attributes.engine_version
     major := split(engineVersion, ".")[0]
     minor := split(engineVersion, ".")[1]

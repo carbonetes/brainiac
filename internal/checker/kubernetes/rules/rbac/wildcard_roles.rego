@@ -21,16 +21,19 @@ is_valid {
 }
 
 is_failed[rule] {
+    some rule_index, index
     kubernetes.rules[rule_index].apiGroups[index] == wildcard
     rule := kubernetes.rules[rule_index]
 }
 
 is_failed[rule] {
+    some rule_index, index
     kubernetes.rules[rule_index].resources[index] == wildcard
     rule := kubernetes.rules[rule_index]
 }
 
 is_failed[rule] {
+    some rule_index, index
     kubernetes.rules[rule_index].verbs[index] == wildcard
     rule := kubernetes.rules[rule_index]
 }

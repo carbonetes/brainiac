@@ -54,6 +54,7 @@ has_container_command(key, flag, argument) {
 }
 
 getContainerCommand := result if {
+    some index, command_index
 	startswith(kubernetes.containers[index].command[command_index], flag)
     result := kubernetes.containers[index]
 } else := result if {

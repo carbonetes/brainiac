@@ -18,11 +18,11 @@ isvalid(block){
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
     resource := input[_]
@@ -34,13 +34,9 @@ fail[resource]{
     not is_false(block.Attributes.value)
 }
 
-is_false(value) {
-    value == false
-}
+is_false(false)
 
-is_false(value) {
-    value == "false"
-}
+is_false("false")
 
 fail[resource]{
     resource := input[_]

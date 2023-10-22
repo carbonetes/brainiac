@@ -17,14 +17,15 @@ isvalid(block){
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
+resource[resource] {
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
+    some index
     resource := input[_]
 	isvalid(resource)
     resource.Blocks[index].Type == "default_cache_behavior"
@@ -32,6 +33,7 @@ fail[resource]{
 }
 
 fail[resource]{
+    some index
     resource := input[_]
 	isvalid(resource)
     resource.Blocks[index].Type == "ordered_cache_behavior"
@@ -54,4 +56,4 @@ failed[result] {
     block := fail[_]
 	result := { "message": "'aws_cloudfront_distribution' 'default_cache_behavior' and 'ordered_cache_behavior' should not use 'allow-all'.",
                 "snippet": block }
-} 
+}

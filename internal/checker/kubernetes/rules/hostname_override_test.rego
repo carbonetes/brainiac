@@ -11,9 +11,9 @@ test_hostname_override_failed {
 	count(result) == 1
 }
 
-input_data(params) = patch {
-    patch := json.patch(json_data, [{ "op": "replace", "path": "spec/containers/0/command/1", "value": params }])
-}
+input_data(params) := json.patch(json_data, [
+    { "op": "replace", "path": "spec/containers/0/command/1", "value": params }
+])
 
 json_data := {
                 "apiVersion": "v1",

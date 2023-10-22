@@ -17,13 +17,13 @@ resource = kubernetes.resource
 check {
     kubernetes.is_psp
     requiredDropCapabilities := kubernetes.spec.requiredDropCapabilities
-    regex.match("\\bALL\\b", requiredDropCapabilities)
+    regex.match(`\bALL\b`, requiredDropCapabilities)
 }
 
 check {
     kubernetes.is_psp
     requiredDropCapabilities := kubernetes.spec.requiredDropCapabilities
-    regex.match("\\bNET_RAW\\b", requiredDropCapabilities)
+    regex.match(`\bNET_RAW\b`, requiredDropCapabilities)
 }
 
 passed[result] {

@@ -1,6 +1,6 @@
 package lib.kubernetes.CB_K8S_024
 
-#Test case for 'Cluster Role'
+# Test case for 'Cluster Role'
 
 test_clusterrole_passed {
             result := passed with input as{
@@ -55,7 +55,7 @@ test_clusterrole_failed {
 }
 
 
-#Test case for 'Role'
+# Test case for 'Role'
 
 test_role_passed {
             result := passed with input as{

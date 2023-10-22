@@ -84,11 +84,10 @@ is_psp {
     kind = "PodSecurityPolicy"
 }
 
-pod_containers(pod) = available_containers {
-	available_containers = pod.spec.containers
-}
+pod_containers(pod) := pod.spec.containers
 
 containers[container] {
+	some pod
 	podTemplates[pod]
 	available_containers = pod_containers(pod)
 	container = available_containers[_]
@@ -123,18 +122,17 @@ podTemplates[pod] {
 }
 
 volumes[volume] {
+	some pod
 	podTemplates[pod]
 	volume = pod.spec.volumes[_]
 }
 
-filtered_rules(apiGroups, resources, verbs) = filtered_rules {
-	filtered_rules := [ r |
-		r := rules[_]
-		r.apiGroups[_] == apiGroups[_]
-		r.resources[_] == resources[_]
-		r.verbs[_] == verbs[_]
-	]
-}
+filtered_rules(apiGroups, resources, verbs) := [ r |
+	r := rules[_]
+	r.apiGroups[_] == apiGroups[_]
+	r.resources[_] == resources[_]
+	r.verbs[_] == verbs[_]
+]
 
 has_container_command(key, flag, argument) {
 	split({ r | r := key[_]; startswith(r, flag) }[_], "=")[1] == argument
@@ -144,9 +142,7 @@ has_attribute(key, value) {
   _ = key[value]
 }
 
-array_to_set(val) = value {
-	value := { l | l := val[_] } 
-}
+array_to_set(val) := { l | l := val[_] }
 
 is_apiserver(container){
 	has_attribute(container, "command")

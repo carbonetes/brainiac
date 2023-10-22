@@ -34,7 +34,7 @@ group[resource] {
 group_membership[resource] {
 	resource := input[_]
     resource.Labels[_] == "oci_identity_user_group_membership"
-    
+
     resource.Attributes.user_id == concat(".",[concat(".", users[_].Labels),"id"])
     resource.Attributes.group_id == concat(".",[concat(".", group[_].Labels),"id"])
 }
@@ -54,9 +54,9 @@ admin_check(resource) := true if {
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
+resource[resource] {
     block := fail[_]
 	resource := concat(".", block.Labels)
 }
@@ -68,6 +68,7 @@ pass[block] {
 }
 
 fail[resource] {
+    some index, i
     api_key[_].Attributes.user_id == group_membership[_].Attributes.user_id
     api_users := split(api_key[_].Attributes.user_id, ".")[_]
     api_users != "oci_identity_user"
@@ -88,4 +89,4 @@ failed[result] {
     block := fail[_]
 	result := { "message": "An Administrator user associated with API keys was found.",
                 "snippet": block }
-} 
+}

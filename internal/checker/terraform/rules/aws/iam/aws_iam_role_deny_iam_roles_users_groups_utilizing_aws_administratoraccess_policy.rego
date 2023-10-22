@@ -19,12 +19,12 @@ isvalid(block){
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
+resource[resource] {
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource] {
     resource := input[_]
@@ -36,7 +36,7 @@ fail[resource] {
 
 ends_with_admin_access(arns) {
     arn := arns[_]
-    regex.match(".+/AdministratorAccess$", arn)
+    regex.match(`.+/AdministratorAccess$`, arn)
 }
 
 pass[block] {
@@ -55,4 +55,4 @@ failed[result] {
     block := fail[_]
 	result := { "message": "Utilizing AWS AdministratorAccess policy must be denied for IAM roles, users, and groups.",
                 "snippet": block }
-} 
+}
