@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_214
 
-test_azurerm_mssql_server_scan_reports_send_passed {
+test_azurerm_mssql_server_recurring_scans_passed {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -69,7 +69,7 @@ test_azurerm_mssql_server_scan_reports_send_passed {
 	count(result) == 1
 }
 
-test_azurerm_mssql_server_scan_reports_send_failed {
+test_azurerm_mssql_server_recurring_scans_failed {
 	result := failed with input as [
 		{
 			"Type": "resource",
