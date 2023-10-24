@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFAZR_216
+package lib.terraform.CB_TFAZR_217
 
 test_azurerm_sql_server_admin_configured_passed {
 	result := passed with input as [

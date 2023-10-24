@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/sql_active_directory_administrator
 # custom:
-#   id: CB_TFAZR_216
+#   id: CB_TFAZR_217
 #   severity: LOW
-package lib.terraform.CB_TFAZR_216
+package lib.terraform.CB_TFAZR_217
 
 import future.keywords.in
 
