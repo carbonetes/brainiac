@@ -55,7 +55,7 @@ test_azurerm_eventgrid_domain_identity_provider_enabled_passed {
     count(result) == 1
 }
 
-test_azurerm_eventgrid_domain_identity_provider_enabled_passed {
+test_azurerm_eventgrid_domain_identity_provider_enabled_failed {
     result := failed with input as [
         {
             "Type": "resource",

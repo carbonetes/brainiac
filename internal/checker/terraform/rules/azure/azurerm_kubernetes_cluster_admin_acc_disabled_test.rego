@@ -46,7 +46,7 @@ test_azurerm_kubernetes_cluster_admin_acc_disabled {
 	count(result) == 1
 }
 
-test_azurerm_kubernetes_cluster_admin_acc_disabled {
+test_azurerm_kubernetes_cluster_admin_acc_disabled_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": ["azurerm_kubernetes_cluster"],

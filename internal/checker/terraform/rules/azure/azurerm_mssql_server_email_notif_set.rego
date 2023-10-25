@@ -40,30 +40,32 @@ getLabelForMssqlServer[label]{
     label := concat(".", block.Labels)
 }
 
-sqlServerIsAttached{
+sql_server_is_attached{
     some block in input
     block.Type == "resource"
     "azurerm_mssql_server_security_alert_policy" in block.Labels
     block.Attributes.state == "Enabled"
-    contains(block.Attributes.server_name, getLabelForSqlServer[label])
+    some label in getLabelForSqlServer
+    contains(block.Attributes.server_name, label)
 }
 
-mssqlServerIsAttached{
+mssql_server_is_attached{
     some block in input
     block.Type == "resource"
     "azurerm_mssql_server_vulnerability_assessment" in block.Labels
-    contains(block.Attributes.server_security_alert_policy_id, getLabelForMssqlServer[label])
-    some innerBlock in block.Blocks
-    innerBlock.Type == "recurring_scans"
-    innerBlock.Attributes.enabled == true
-    innerBlock.Attributes.email_subscription_admins == true
+    some label in getLabelForMssqlServer
+    contains(block.Attributes.server_security_alert_policy_id, label)
+    some inner_block in block.Blocks
+    inner_block.Type == "recurring_scans"
+    inner_block.Attributes.enabled == true
+    inner_block.Attributes.email_subscription_admins == true
 }
 
 pass[block]{
     some block in input
 	isvalid(block)
-    sqlServerIsAttached
-    mssqlServerIsAttached
+    sql_server_is_attached
+    mssql_server_is_attached
 }
 
 fail[block] {
