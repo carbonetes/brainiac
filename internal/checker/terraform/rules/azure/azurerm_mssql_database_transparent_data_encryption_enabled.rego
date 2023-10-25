@@ -49,7 +49,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "ransparent Data Encryption (TDE) is not enabled for Azure SQL Database.",
+		"message": "Transparent Data Encryption (TDE) is not enabled for Azure SQL Database.",
 		"snippet": block,
 	}
 }
