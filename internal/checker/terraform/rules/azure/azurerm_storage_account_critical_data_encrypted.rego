@@ -26,25 +26,25 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-getLabelForStorageAcc[label] {
+label_for_storage_acc[label] {
 	some block in input
 	block.Type == "resource"
 	"azurerm_storage_account" in block.Labels
 	label := concat(".", block.Labels)
 }
 
-storageIsAttached {
+storage_is_attached {
 	some block in input
 	block.Type == "resource"
 	"azurerm_storage_account_customer_managed_key" in block.Labels
-	some label in getLabelForStorageAcc
+	some label in label_for_storage_acc
 	contains(block.Attributes.storage_account_id, label)
 }
 
 pass[block] {
 	some block in input
 	isvalid(block)
-	storageIsAttached
+	storage_is_attached
 }
 
 fail[block] {

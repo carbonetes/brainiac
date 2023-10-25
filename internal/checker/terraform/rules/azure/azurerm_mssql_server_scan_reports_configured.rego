@@ -11,9 +11,9 @@ package lib.terraform.CB_TFAZR_215
 
 import future.keywords.in
 
-isvalid(block){
+isvalid(block) {
 	block.Type == "resource"
-    "azurerm_mssql_server_security_alert_policy" in block.Labels
+	"azurerm_mssql_server_security_alert_policy" in block.Labels
 }
 
 resource[resource] {
@@ -26,62 +26,66 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-
-getLabelForSqlServer[label]{
+label_for_sql_server[label] {
 	some block in input
-    block.Type == "resource"
-    "azurerm_sql_server" in block.Labels
-    label := concat(".", block.Labels)
+	block.Type == "resource"
+	"azurerm_sql_server" in block.Labels
+	label := concat(".", block.Labels)
 }
-getLabelForMssqlServer[label]{
+
+label_for_mssql_server[label] {
 	some block in input
-    block.Type == "resource"
-    "azurerm_mssql_server_security_alert_policy" in block.Labels
-    label := concat(".", block.Labels)
+	block.Type == "resource"
+	"azurerm_mssql_server_security_alert_policy" in block.Labels
+	label := concat(".", block.Labels)
 }
 
-sql_server_is_attached{
-    some block in input
-    block.Type == "resource"
-    "azurerm_mssql_server_security_alert_policy" in block.Labels
-    block.Attributes.state == "Enabled"
-    some label in getLabelForSqlServer
-    contains(block.Attributes.server_name, label)
+sql_server_is_attached {
+	some block in input
+	block.Type == "resource"
+	"azurerm_mssql_server_security_alert_policy" in block.Labels
+	block.Attributes.state == "Enabled"
+	some label in label_for_sql_server
+	contains(block.Attributes.server_name, label)
 }
 
-mssql_server_is_attached{
-    some block in input
-    block.Type == "resource"
-    "azurerm_mssql_server_vulnerability_assessment" in block.Labels
-    some label in getLabelForMssqlServer
-    contains(block.Attributes.server_security_alert_policy_id, label)
-    some inner_block in block.Blocks
-    inner_block.Type == "recurring_scans"
-    inner_block.Attributes.email_subscription_admins == true
-    "emails" in object.keys(inner_block.Attributes)
+mssql_server_is_attached {
+	some block in input
+	block.Type == "resource"
+	"azurerm_mssql_server_vulnerability_assessment" in block.Labels
+	some label in label_for_mssql_server
+	contains(block.Attributes.server_security_alert_policy_id, label)
+	some inner_block in block.Blocks
+	inner_block.Type == "recurring_scans"
+	inner_block.Attributes.email_subscription_admins == true
+	"emails" in object.keys(inner_block.Attributes)
 }
 
-pass[block]{
-    some block in input
+pass[block] {
+	some block in input
 	isvalid(block)
-    sql_server_is_attached
-    mssql_server_is_attached
+	sql_server_is_attached
+	mssql_server_is_attached
 }
 
 fail[block] {
-    some block in input
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
 passed[result] {
 	some block in pass
-	result := { "message": "The chosen destination for Azure SQL server ADS VA scan reports is set.",
-                "snippet": block }
+	result := {
+		"message": "The chosen destination for Azure SQL server ADS VA scan reports is set.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
-    some block in fail
-	result := { "message": "The chosen destination for Azure SQL server ADS VA scan reports is not set.",
-                "snippet": block }
-} 
+	some block in fail
+	result := {
+		"message": "The chosen destination for Azure SQL server ADS VA scan reports is not set.",
+		"snippet": block,
+	}
+}
