@@ -9,15 +9,11 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_209
 
-import future.keywords.if
 import future.keywords.in
-
-supportedResources := ["azurerm_service_plan"]
 
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_service_plan" in block.Labels
 }
 
 resource[resource] {
@@ -33,21 +29,18 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not forbiddenValues(resource.Attributes.sku_name)
+	not forbidden_values(resource.Attributes.sku_name)
 }
 
-forbiddenValues(sku_name) if {
-	sku_name == "B1"
-} else if {
-	sku_name == "B2"
-} else if {
-	sku_name == "B3"
-} else if {
-	sku_name == "F1"
-} else if {
-	sku_name == "D1"
-}
+forbidden_values("B1")
 
+forbidden_values("B2")
+
+forbidden_values("B3")
+
+forbidden_values("F1")
+
+forbidden_values("D1")
 
 fail[resource] {
 	some resource in input
@@ -58,15 +51,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "The selected App Service Plan is suitable for production use.",
-	"snippet": block 
-    }
+		"message": "The selected App Service Plan is suitable for production use.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "The chosen App Service Plan may not be suitable for production use. Review the configuration to ensure it meets production requirements.",
-	"snippet": block 
-    }
+		"message": "The chosen App Service Plan may not be suitable for production use. Review the configuration to ensure it meets production requirements.",
+		"snippet": block,
+	}
 }

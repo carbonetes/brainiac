@@ -12,12 +12,9 @@ package lib.terraform.CB_TFAZR_203
 import future.keywords.if
 import future.keywords.in
 
-supportedResources := ["azurerm_storage_account"]
-
 isvalid(block) if {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	some "azurerm_storage_account" in block.Labels
 }
 
 resource[resource] {
@@ -33,18 +30,16 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	validAccountReplicationType(resource.Attributes.account_replication_type)
+	valid_account_replication_type(resource.Attributes.account_replication_type)
 }
 
-validAccountReplicationType(type) if {
-	type == "GRS"
-} else if {
-	type == "RAGRS"
-} else if {
-	type == "GZRS"
-} else if {
-	type == "RAGZRS"
-}
+valid_account_replication_type("GRS")
+
+valid_account_replication_type("RAGRS")
+
+valid_account_replication_type("GZRS")
+
+valid_account_replication_type("RAGZRS")
 
 fail[resource] {
 	some resource in input
@@ -55,15 +50,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Storage Accounts use replication, ensuring data redundancy and availability.",
-	"snippet": block 
-    }
+		"message": "Storage Accounts use replication, ensuring data redundancy and availability.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Storage Accounts should be configured with replication to enhance data redundancy and availability.",
-	"snippet": block 
-    }
+		"message": "Storage Accounts should be configured with replication to enhance data redundancy and availability.",
+		"snippet": block,
+	}
 }
