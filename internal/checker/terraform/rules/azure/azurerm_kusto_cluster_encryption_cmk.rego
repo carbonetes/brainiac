@@ -26,24 +26,25 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-getLabelForKustoCluster[label] {
+label_for_kusto_cluster[label] {
 	some block in input
 	block.Type == "resource"
 	"azurerm_kusto_cluster" in block.Labels
 	label := concat(".", block.Labels)
 }
 
-kustoClusterIsAttached {
+kusto_cluster_is_attached {
 	some block in input
 	block.Type == "resource"
 	"azurerm_kusto_cluster_customer_managed_key" in block.Labels
-	contains(block.Attributes.cluster_id, getLabelForKustoCluster[label])
+	some label in label_for_kusto_cluster
+	contains(block.Attributes.cluster_id, label)
 }
 
 pass[block] {
 	some block in input
 	isvalid(block)
-	kustoClusterIsAttached
+	kusto_cluster_is_attached
 }
 
 fail[block] {
