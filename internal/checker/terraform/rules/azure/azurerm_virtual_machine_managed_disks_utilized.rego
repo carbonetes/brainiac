@@ -16,16 +16,12 @@ isvalid(block) {
 	"azurerm_virtual_machine" in block.Labels
 }
 
-has_attribute(key, value) {
-	_ = key[value]
-}
-
 pass[block] {
 	some block in input
 	isvalid(block)
-	some innerBlock in block.Blocks
-	innerBlock.Type == "storage_os_disk"
-	has_attribute(innerBlock.Attributes, "managed_disk_type")
+	some inner_block in block.Blocks
+	inner_block.Type == "storage_os_disk"
+	"managed_disk_type" in object.keys(inner_block.Attributes)
 }
 
 fail[block] {
