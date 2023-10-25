@@ -39,7 +39,7 @@ pass[resource] {
 	isvalid(resource)
 	some block in resource.Blocks
 	block.Type == "identity"
-	count(block.Attributes.type) != 0
+    	count(split(resource.Attribute.type, "\\s+")) != 0
 }
 
 fail[resource] {
