@@ -56,6 +56,7 @@ mssqlServerIsAttached{
     some innerBlock in block.Blocks
     innerBlock.Type == "recurring_scans"
     innerBlock.Attributes.enabled == true
+    innerBlock.Attributes.email_subscription_admins == true
 }
 
 pass[block]{
