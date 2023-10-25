@@ -56,7 +56,7 @@ test_azurerm_eventgrid_domain_local_authentication_disabled_passed {
     count(result) == 1
 }
 
-test_azurerm_eventgrid_domain_local_authentication_disabled_passed {
+test_azurerm_eventgrid_domain_local_authentication_disabled_failed {
     result := failed with input as [
         {
             "Type": "resource",

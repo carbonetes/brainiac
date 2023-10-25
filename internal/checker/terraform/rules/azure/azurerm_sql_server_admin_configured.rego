@@ -34,17 +34,18 @@ getLabelForSqlServer[label]{
     label := concat(".", block.Labels)
 }
 
-sqlServerIsAttached{
+sql_server_is_attached{
     some block in input
     block.Type == "resource"
     "azurerm_sql_active_directory_administrator" in block.Labels
-    contains(block.Attributes.server_name, getLabelForSqlServer[label])
+    some label in getLabelForSqlServer
+    contains(block.Attributes.server_name, label)
 }
 
 pass[block]{
     some block in input
 	isvalid(block)
-    sqlServerIsAttached
+    sql_server_is_attached
 }
 
 fail[block] {
