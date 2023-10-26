@@ -11,9 +11,9 @@ package lib.terraform.CB_TFAZR_232
 
 import future.keywords.in
 
-isvalid(resource) {
-	resource.Type == "resource"
-	"azurerm_key_vault" in resource.Labels
+isvalid(block) {
+	block.Type == "resource"
+	"azurerm_key_vault" in block.Labels
 }
 
 resource[resource] {
@@ -26,23 +26,30 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[resource] {
-	some resource in input
-	isvalid(resource)
-    azurermPrivateEndpointConnect
+label_for_private_endpoint[label] {
+	some block in input
+	block.Type == "resource"
+	"azurerm_private_endpoint" in block.Labels
+	label := concat(".", block.Labels)
 }
 
-azurermPrivateEndpointConnect {
-	some resource in input
-	resource.Type == "resource"
-	"azurerm_private_endpoint" in resource.Labels
+endpoint_is_attached {
+	some block in input
+	block.Type == "resource"
+	some label in label_for_private_endpoint
+	contains(block.Attributes.resource_group_name, label)
 }
 
+pass[block] {
+	some block in input
+	isvalid(block)
+	endpoint_is_attached
+}
 
-fail[resource] {
-	some resource in input
-	isvalid(resource)
-	not pass[resource]
+fail[block] {
+	some block in input
+	isvalid(block)
+	not pass[block]
 }
 
 passed[result] {
