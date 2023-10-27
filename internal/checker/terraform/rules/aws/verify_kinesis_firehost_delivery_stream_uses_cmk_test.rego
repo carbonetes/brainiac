@@ -34,7 +34,7 @@ test_verify_kinesis_firehost_delivery_stream_uses_cmk_passed {
 	count(result) == 1
 }
 
-test_verify_kinesis_firehost_delivery_stream_uses_cmk_passed {
+test_verify_kinesis_firehost_delivery_stream_uses_cmk_failed {
 	result := failed with input as [
 									{
 									"Type": "resource",

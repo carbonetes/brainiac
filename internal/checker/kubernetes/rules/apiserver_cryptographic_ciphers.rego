@@ -69,9 +69,7 @@ is_failed {
 	count(non_matching_ciphers) > 0
 }
 
-getContainerCommand[container] {
-    container := kubernetes.containers[_]
-}
+getContainerCommand[kubernetes.containers[_]]
 
 passed[result] {
     isValid

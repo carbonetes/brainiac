@@ -32,7 +32,7 @@ test_aws_lamda_function_configured_inside_vpc {
 	count(result) == 1
 }
 
-test_aws_lamda_function_configured_inside_vpc {
+test_aws_lamda_function_configured_inside_vpc_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -29,7 +29,7 @@ check[container]{
 	startswith(commands, "--service-account-key-file")
 	contains(commands, "=")
 	args := split(commands, "=")[1]
-	regex.match("^(\\/?[a-zA-Z0-9_\\-]+)+\\.pem$", args)
+	regex.match(`^(\/?[a-zA-Z0-9_\-]+)+\.pem$`, args)
 }
 
 serviceAccountKeyInvalid[container]{

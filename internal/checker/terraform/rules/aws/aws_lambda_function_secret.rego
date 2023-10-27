@@ -18,22 +18,22 @@ has_attribute(key, value) {
 }
 
 checkRegex(value){
-	regex.match("[A-Z0-9]{20}", value)
+	regex.match(`[A-Z0-9]{20}`, value)
 
 }
 
 checkRegex(value){
-	regex.match("[a-zA-Z0-9/+]{40}", value)
+	regex.match(`[a-zA-Z0-9/+]{40}`, value)
 }
 
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[block] {
   block := input[_]
