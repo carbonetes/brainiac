@@ -9,36 +9,38 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_005
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_key_vault"
+	"azurerm_key_vault" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.purge_protection_enabled == true
 	block.Attributes.soft_delete_enabled == true
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "The key vault is recoverable. Proper measures are in place for data recovery and restoration.",
 		"snippet": block,
@@ -46,7 +48,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "The key vault is not recoverable. Verify that purge protection and soft delete are enabled.",
 		"snippet": block,
