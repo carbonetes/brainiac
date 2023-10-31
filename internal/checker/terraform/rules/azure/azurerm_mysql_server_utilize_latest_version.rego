@@ -8,8 +8,8 @@
 #   id: CB_TFAZR_037
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_037
-import future.keywords.in
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
@@ -48,4 +48,4 @@ failed[result] {
     some block in fail
 	result := { "message": "MySQL must utilize the most up-to-date TLS encryption version.",
                 "snippet": block }
-} 
+}
