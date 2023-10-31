@@ -9,39 +9,42 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_035
 
-supportedResources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
+import future.keywords.in
+
+supported_resources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
 
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+    some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "site_config"
-	innerBlock.Attributes.remote_debugging_enabled == false
+    some inner_blocks in block.Blocks
+	inner_blocks.Type == "site_config"
+	inner_blocks.Attributes.remote_debugging_enabled == false
 }
 
 fail[block] {
-	block := input[_]
+    some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+    some block in pass
 	result := {
 		"message": "Remote debugging is not enabled for the App Service.",
 		"snippet": block,
@@ -49,7 +52,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+    some block in fail
 	result := {
 		"message": "Remote debugging is enabled for the App Service.",
 		"snippet": block,
