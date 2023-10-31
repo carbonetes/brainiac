@@ -9,44 +9,47 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_001
 
-supportedResources := ["azurerm_virtual_machine", "azurerm_linux_virtual_machine"]
+import future.keywords.in
+
+supported_resources := ["azurerm_virtual_machine", "azurerm_linux_virtual_machine"]
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels
+    label in supported_resources
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
+    some block in resource.Blocks
     block.Type == "os_profile_linux_config"
     block.Attributes.disable_password_authentication == false
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "Azure Instance does not use basic authentication.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "Azure Instance 'os_profile_linux_config' disable_password_authentication should not be set false",
                 "snippet": block }
 } 

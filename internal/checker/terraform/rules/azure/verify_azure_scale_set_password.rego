@@ -9,35 +9,37 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_019
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_linux_virtual_machine_scale_set"
+	"azurerm_linux_virtual_machine_scale_set" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.disable_password_authentication == true
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "Azure Linux Scale Set does not use basic authentication. SSH key authentication is configured.",
 		"snippet": block,
@@ -45,7 +47,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "Azure Linux Scale Set is using basic authentication instead of SSH key authentication.",
 		"snippet": block,

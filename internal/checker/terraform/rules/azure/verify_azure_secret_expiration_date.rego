@@ -9,35 +9,37 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAZR_003
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_key_vault_secret"
+	"azurerm_key_vault_secret" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.expiration_date != ""
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "All secrets have a valid expiration date set.",
 		"snippet": block,
@@ -45,7 +47,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "All secrets don't have a valid expiration date set.",
 		"snippet": block,

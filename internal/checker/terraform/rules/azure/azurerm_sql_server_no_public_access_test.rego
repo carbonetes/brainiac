@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAZR_031
 
-test_azurem_mariadb_firewall_passed {
+test_azurem_sql_server_no_public_access_passed {
     result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -23,7 +23,7 @@ test_azurem_mariadb_firewall_passed {
 	count(result) == 1
 }
 
-test_azurem_mariadb_firewall_failed {
+test_azurem_sql_server_no_public_access_failed {
     result := failed with input as [{
         "Type": "resource",
         "Labels": [

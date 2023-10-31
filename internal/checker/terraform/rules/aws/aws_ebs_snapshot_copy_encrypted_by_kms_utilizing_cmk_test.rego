@@ -9,7 +9,7 @@ test_aws_ebs_snapshot_copy_encrypted_by_kms_utilizing_cmk_passed {
                                     "example_copy"
                                     ],
                                     "Attributes": {
-                                    "kms_key_id": "ckv_kms",
+                                    "kms_key_id": "kms",
                                     "source_region": "us-west-2",
                                     "source_snapshot_id": "aws_ebs_snapshot.example_snapshot.id",
                                     "tags": {

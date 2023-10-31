@@ -9,43 +9,44 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_023
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_postgresql_configuration"
+    "azurerm_postgresql_configuration" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.name == "log_checkpoints"
     resource.Attributes.value == "off"
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The PostgreSQL Database Server has the 'log_checkpoints' server parameter configured as 'ON'.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The PostgreSQL Database Server must have the 'log_checkpoints' server parameter configured as 'ON'.",
                 "snippet": block }
 } 

@@ -9,47 +9,44 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_017
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_mssql_server_security_alert_policy"
-}
-
-has_attribute(key, value){
-    _ = key[value]
+    "azurerm_mssql_server_security_alert_policy" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "email_addresses")
+    "email_addresses" in object.keys(resource.Attributes)
     resource.Attributes.email_addresses != ""
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "MSSQL servers have the 'Send Alerts To' feature activated.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "MSSQL servers must have the 'Send Alerts To' feature activated.",
                 "snippet": block }
 } 

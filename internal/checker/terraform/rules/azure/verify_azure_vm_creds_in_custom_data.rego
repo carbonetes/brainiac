@@ -9,41 +9,39 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAZR_013
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_virtual_machine"
-}
-
-has_attribute(key, value) {
-	_ = key[value]
+	"azurerm_virtual_machine" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "os_profile"
-	not has_attribute(innerBlock.Attributes, "custom_data")
+	some inner_block in block.Blocks
+	inner_block.Type == "os_profile"
+	not "custom_data" in object.keys(inner_block.Attributes)
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "No sensitive credentials are exposed in VM custom data.",
 		"snippet": block,
@@ -51,7 +49,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "Sensitive credentials are exposed in VM custom data.",
 		"snippet": block,

@@ -9,58 +9,63 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_021
 
+import future.keywords.in
+
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_sql_server"
+    "azurerm_sql_server" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 
-getLabelForMssqlServer[label]{
-	resource := input[_]
+label_for_mssql_server[label]{
+	some resource in input
     resource.Type == "resource"
-    resource.Labels[_] == "azurerm_mssql_server"
-    resource.Blocks[_].Type == "extended_auditing_policy" 
+    "azurerm_mssql_server" in resource.Labels
+    some inner_block in resource.Blocks
+    inner_block.Type == "extended_auditing_policy" 
     label := concat(".", resource.Labels)
 }
 
-policyIsAttached{
-    resource := input[_]
+policy_is_attached{
+    some resource in input
     resource.Type == "resource"
-    resource.Labels[_] == "azurerm_mssql_server_extended_auditing_policy"
-    contains(resource.Attributes.server_id, getLabelForMssqlServer[_])
+    "azurerm_mssql_server_extended_auditing_policy" in resource.Labels
+    some label in label_for_mssql_server
+    contains(resource.Attributes.server_id, label)
 }
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "extended_auditing_policy" 
-    policyIsAttached
+    some inner_block in resource.Blocks
+    inner_block.Type == "extended_auditing_policy" 
+    policy_is_attached
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "SQL servers have their Auditing setting enabled.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "SQL servers must have their Auditing setting enabled.",
                 "snippet": block }
 } 

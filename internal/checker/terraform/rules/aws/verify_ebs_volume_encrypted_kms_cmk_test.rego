@@ -7,7 +7,7 @@ test_ebs_volume_encrypted_kms_cmk {
 			"aws_dms_replication_instance",
 			"example",
 		],
-		"Attributes": {"kms_key_id": "ckv_kms"},
+		"Attributes": {"kms_key_id": "kms"},
 		"Blocks": [],
 		"line_range": {
 			"endLine": 3,

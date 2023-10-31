@@ -11,7 +11,7 @@ test_aws_kinesis_video_stream_encrypted_by_kms_utilizing_cmk_passed{
                         "Attributes": {
                         "data_retention_in_hours": "1",
                         "device_name": "kinesis-video-device-name",
-                        "kms_key_id": "ckv_kms",
+                        "kms_key_id": "kms",
                         "media_type": "video/h264",
                         "name": "terraform-kinesis-video-stream",
                         "tags": {

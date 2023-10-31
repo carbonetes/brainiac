@@ -9,42 +9,43 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_006
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_mssql_server_security_alert_policy"
+    "azurerm_mssql_server_security_alert_policy" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.email_account_admins == true
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
-	result := { "message": "Email service and co-administrators are enabled for MSSQL servers",
+	some block in pass
+	result := { "message": "Email service and co-administrators are enabled for MSSQL servers.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
-	result := { "message": "Email service and co-administrators must be enabled for MSSQL servers",
+    some block in fail
+	result := { "message": "Email service and co-administrators must be enabled for MSSQL servers.",
                 "snippet": block }
 } 
