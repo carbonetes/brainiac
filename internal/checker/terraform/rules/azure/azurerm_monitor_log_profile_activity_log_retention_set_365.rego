@@ -9,50 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_018
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_monitor_log_profile"
+    "azurerm_monitor_log_profile" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "retention_policy"
-    to_number(resource.Blocks[_].Attributes.days) >= 365
+    some inner_block in resource.Blocks
+    inner_block.Type == "retention_policy"
+    to_number(inner_block.Attributes.days) >= 365
 }
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "retention_policy"
-    resource.Blocks[_].Attributes.enabled == false
+    some inner_block in resource.Blocks
+    inner_block.Type == "retention_policy"
+    inner_block.Attributes.enabled == false
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The Activity Log Retention is configured for a duration equal to or exceeding 365 days",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The Activity Log Retention must be configured for a duration equal to or exceeding 365 days",
                 "snippet": block }
 } 

@@ -9,44 +9,48 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_020
 
-supportedResources := ["azurerm_mssql_server", "azurerm_sql_server"]
+import future.keywords.in
+
+supported_resources := ["azurerm_mssql_server", "azurerm_sql_server"]
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels
+    label in supported_resources
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "extended_auditing_policy"
-    to_number(resource.Blocks[_].Attributes.retention_in_days) >= 90
+    some inner_block in resource.Blocks
+    inner_block.Type == "extended_auditing_policy"
+    to_number(inner_block.Attributes.retention_in_days) >= 90
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The retention period for SQL servers' auditing is set to more than 90 days.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The retention period for SQL servers' auditing must be set to more than 90 days.",
                 "snippet": block }
 } 

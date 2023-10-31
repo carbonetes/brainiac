@@ -9,42 +9,44 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_007
 
+import future.keywords.in
+
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_mysql_server"
+    "azurerm_mysql_server" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.ssl_enforcement_enabled == true
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The MySQL Database Server has 'Enforce SSL connection' configured as 'ENABLED'.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The MySQL Database Server must have 'Enforce SSL connection' configured as 'ENABLED'.",
                 "snippet": block }
 } 

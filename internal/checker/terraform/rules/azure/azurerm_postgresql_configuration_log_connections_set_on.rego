@@ -9,43 +9,44 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_024
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_postgresql_configuration"
+    "azurerm_postgresql_configuration" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.name == "log_connections"
     resource.Attributes.value == "off"
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The 'log_connections' server parameter is configured as 'ON' for the PostgreSQL Database Server.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The 'log_connections' server parameter must be configured as 'ON' for the PostgreSQL Database Server.",
                 "snippet": block }
 } 

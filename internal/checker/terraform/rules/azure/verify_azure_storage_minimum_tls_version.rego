@@ -9,36 +9,38 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_012
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_storage_account"
+	"azurerm_storage_account" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
-	validValue := ["TLS1_2", "TLS1_3"]
-	block.Attributes.min_tls_version == validValue[_]
+	valid_value := ["TLS1_2", "TLS1_3"]
+	block.Attributes.min_tls_version in valid_value
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "The Storage Account is using the latest version of TLS encryption.",
 		"snippet": block,
@@ -46,7 +48,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "The Storage Account is not using the latest version of TLS encryption.",
 		"snippet": block,

@@ -9,35 +9,37 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_016
 
+import future.keywords.in
+
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == "azurerm_mariadb_server"
+	"azurerm_mariadb_server" in block.Labels
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.public_network_access_enabled == false
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "The 'Public Network Access Enabled' setting is properly configured and set to 'False' for MariaDB servers.",
 		"snippet": block,
@@ -45,7 +47,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "The 'Public Network Access Enabled' setting is not properly configured or set to 'False' for MariaDB servers.",
 		"snippet": block,

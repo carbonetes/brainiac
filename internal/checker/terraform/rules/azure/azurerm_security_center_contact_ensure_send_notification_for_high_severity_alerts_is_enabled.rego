@@ -9,42 +9,43 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_002
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_security_center_contact"
+    "azurerm_security_center_contact" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.alert_notifications == true
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
-	result := { "message": "Email notification function for high severity alerts is active",
+	some block in pass
+	result := { "message": "Email notification function for high severity alerts is active.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
-	result := { "message": "email notification function for high severity alerts is not active",
+    some block in fail
+	result := { "message": "Email notification function for high severity alerts is not active.",
                 "snippet": block }
 } 

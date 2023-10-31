@@ -9,37 +9,39 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_022
 
-supportedResources := ["azurerm_linux_virtual_machine", "azurerm_windows_virtual_machine"]
+import future.keywords.in
 
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := ["azurerm_linux_virtual_machine", "azurerm_windows_virtual_machine"]
+	label in supported_resources
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	block.Attributes.allow_extension_operations == false
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "No virtual machine extensions are installed on the virtual machine.",
 		"snippet": block,
@@ -47,7 +49,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "Virtual machine extensions are installed on the virtual machine.",
 		"snippet": block,

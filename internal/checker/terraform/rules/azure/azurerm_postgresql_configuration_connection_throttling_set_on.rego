@@ -9,43 +9,44 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_025
 
+import future.keywords.in
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == "azurerm_postgresql_configuration"
+    "azurerm_postgresql_configuration" in block.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.name == "connection_throttling"
     resource.Attributes.value == "off"
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server is configured as 'ON'.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server must be configured as 'ON'.",
                 "snippet": block }
 } 

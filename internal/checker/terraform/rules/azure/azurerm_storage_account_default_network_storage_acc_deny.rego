@@ -9,44 +9,48 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_011
 
-supportedResources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
+import future.keywords.in
+
+supported_resources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
 
 isvalid(block){
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels
+    label in supported_resources
 }
 
 resource[resource] {
-    block := pass[_]
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
 resource[resource] { 
-    block := fail[_]
+    some block in fail
 	resource := concat(".", block.Labels)
 } 
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "network_rules"
-    resource.Blocks[_].Attributes.default_action == "Deny"
+    some inner_blocks in resource.Blocks
+    inner_blocks.Type == "network_rules"
+    inner_blocks.Attributes.default_action == "Deny"
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The default network access rule for Storage Accounts is configured to deny access.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The default network access rule for Storage Accounts must be configured to deny access.",
                 "snippet": block }
 } 
