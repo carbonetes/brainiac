@@ -31,8 +31,7 @@ pass[resource] {
 	some innerBlock in resource.Blocks
 	isvalid(resource)
 	innerBlock.Type == "retention_policy"
-	days := innerBlock.Attributes.days
-	days >= 90
+	to_number(innerBlock.Attributes.days) >= 90
 	innerBlock.Attributes.enabled == true
 }
 
