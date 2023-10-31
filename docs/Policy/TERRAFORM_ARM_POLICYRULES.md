@@ -68,9 +68,9 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAZR_043 | resource | azurerm_function_app | Make certain that function apps have authentication activated | checker/terraform/rules/azure/azurerm_function_app_authentication_enabled.rego |
 | CB_TFAZR_044 | resource | azurerm_network_security_group | Verify that UDP Services are restricted from the Internet | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
 | CB_TFAZR_044 | resource | azurerm_network_security_rule | Verify that UDP Services are restricted from the Internet | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
-| CB_TFAZR_045 | resource | azurerm_app_service | Verify that UDP Services are restricted from the Internet | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
-| CB_TFAZR_045 | resource | azurerm_linux_web_app | Verify that UDP Services are restricted from the Internet | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
-| CB_TFAZR_045 | resource | azurerm_windows_web_app | Verify that UDP Services are restricted from the Internet | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
+| CB_TFAZR_045 | resource | azurerm_app_service | Make sure App Service Authentication is activated on your Azure App Service | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
+| CB_TFAZR_045 | resource | azurerm_linux_web_app | Make sure App Service Authentication is activated on your Azure App Service | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
+| CB_TFAZR_045 | resource | azurerm_windows_web_app | Make sure App Service Authentication is activated on your Azure App Service | checker/terraform/rules/azure/verify_azure_nsg_rule_udp_access_restricted.rego |
 | CB_TFAZR_046 | resource | azurerm_app_service | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
 | CB_TFAZR_046 | resource | azurerm_linux_web_app | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
 | CB_TFAZR_046 | resource | azurerm_windows_web_app | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
