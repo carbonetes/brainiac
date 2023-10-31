@@ -9,43 +9,45 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAZR_029
 
+import future.keywords.in
 
-isvalid(block){
-	block.Type == "resource"
-    block.Labels[_] == "azurerm_role_definition"
+isvalid(resource) {
+	resource.Type == "resource"
+	"azurerm_role_definition" in resource.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource[resource] {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "permissions"
-    contains(resource.Blocks[_].Attributes.actions[_], "*")
+    some blocks in resource.Blocks
+    blocks.Type == "permissions"
+    "*" in blocks.Attributes.actions
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "No custom subscription owner roles defined within the environment.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+	some block in fail
 	result := { "message": "Custom subscription owner roles must not be defined within the environment.",
                 "snippet": block }
-} 
+}
