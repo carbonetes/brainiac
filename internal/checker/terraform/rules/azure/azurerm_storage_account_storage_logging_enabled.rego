@@ -17,17 +17,17 @@ isvalid(block){
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource[resource] {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
     isvalid(resource)
     supportedKind := ["Storage", "StorageV2"]
     resource.Attributes.account_kind in supportedKind
@@ -41,19 +41,19 @@ fail[resource]{
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The Storage logging is activated including read, write, and delete requests for the Queue service.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+	some block in fail
 	result := { "message": "The Storage logging must be activated including read, write, and delete requests for the Queue service.",
                 "snippet": block }
 } 
