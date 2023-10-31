@@ -11,12 +11,12 @@ package lib.terraform.CB_TFAZR_028
 
 import future.keywords.in
 
-supportedResources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
+supported_resources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
 
 isvalid(block) {
 	block.Type == "resource"
 	some label in block.Labels
-	label in supportedResources
+	label in supported_resources
 }
 
 resource[resource] {
