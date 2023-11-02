@@ -9,7 +9,9 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_031
 
-supportedResource := [
+import future.keywords.in
+
+supported_resources := [
 	"azurerm_mariadb_firewall_rule",
 	"azurerm_sql_firewall_rule",
 	"azurerm_postgresql_firewall_rule",
@@ -18,25 +20,36 @@ supportedResource := [
 
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label in supported_resources
+}
+
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
 pass[resource] {
-	resource := input[_]
+    some resource in input
 	isvalid(resource)
 	not fail[resource]
 }
 
 fail[resource] {
-	resource := input[_]
+    some resource in input
 	isvalid(resource)
-	invalidStartAddress := ["0.0.0.0", "0.0.0.0/0"]
-	resource.Attributes.start_ip_address == invalidStartAddress[_]
+	invalid_start_address := ["0.0.0.0", "0.0.0.0/0"]
+	resource.Attributes.start_ip_address in invalid_start_address
 	resource.Attributes.end_ip_address == "255.255.255.255"
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "The firewall rule is correctly configured and secure.",
 		"snippet": block,
@@ -44,7 +57,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "The firewall rule configuration is not secure.",
 		"snippet": block,

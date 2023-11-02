@@ -9,6 +9,8 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_033
 
+import future.keywords.in
+
 supportedResources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
 
 isvalid(block) {
@@ -17,21 +19,22 @@ isvalid(block) {
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
+
 pass[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "identity"
-	innerBlock.Attributes.type != ""
+	some blocks in block.Blocks
+	blocks.Type == "identity"
+	blocks.Attributes.type != ""
 }
 
 fail[block] {

@@ -9,42 +9,43 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAZR_026
 
+import future.keywords.in
 
-isvalid(block){
-	block.Type == "resource"
-    block.Labels[_] == "azurerm_mssql_server_security_alert_policy"
+isvalid(resource) {
+	resource.Type == "resource"
+	"azurerm_mssql_server_security_alert_policy" in resource.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource[resource] {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Attributes.disabled_alerts[_] != ""
+    count(resource.Attributes.disabled_alerts) != 0
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The 'Threat Detection types' are configured as 'All'",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The 'Threat Detection types' must be configured as 'All'",
                 "snippet": block }
 } 

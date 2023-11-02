@@ -48,4 +48,4 @@ failed[result] {
     some block in fail
 	result := { "message": "MSSQL must utilize the most up-to-date TLS encryption version.",
                 "snippet": block }
-} 
+}

@@ -9,46 +9,50 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAZR_028
 
-supportedResources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
+import future.keywords.in
 
-isvalid(block){
+supported_resources := ["azurerm_storage_account", "azurerm_storage_account_network_rules"]
+
+isvalid(block) {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource[resource] {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
 fail[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "network_rules"
-    resource.Blocks[_].Attributes.default_action == "Deny"
-    resource.Blocks[_].Attributes.bypass[_] != "AzureServices"
+    some blocks in resource.Blocks
+    blocks.Type == "network_rules"
+    blocks.Attributes.default_action == "Deny"
+    blocks.Attributes.bypass != "AzureServices"
   
 }
 
 pass[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := { "message": "The 'Trusted Microsoft Services' is active for interaction with the Storage Account.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+	some block in fail
 	result := { "message": "The 'Trusted Microsoft Services' must be active for interaction with the Storage Account.",
                 "snippet": block }
-} 
+}

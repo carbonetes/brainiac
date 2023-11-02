@@ -9,42 +9,43 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_036
 
+import future.keywords.in
 
-isvalid(block){
-	block.Type == "resource"
-    block.Labels[_] == "azurerm_mysql_server"
+isvalid(resource) {
+	resource.Type == "resource"
+	"azurerm_mysql_server" in resource.Labels
 }
 
 resource[resource] {
-    block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource[resource] {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
 pass[resource]{
-    resource := input[_]
+    some resource in input
 	isvalid(resource)
     resource.Attributes.public_network_access_enabled == false
 }
 
 fail[block] {
-    block := input[_]
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+    some block in pass
 	result := { "message": "The 'public network access enabled' setting for MySQL servers is configured as 'False' to enhance security.",
                 "snippet": block }
 }
 
 failed[result] {
-    block := fail[_]
+    some block in fail
 	result := { "message": "The 'public network access enabled' setting for MySQL servers must be configured as 'False' to enhance security.",
                 "snippet": block }
-} 
+}

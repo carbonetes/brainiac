@@ -9,37 +9,40 @@
 #   severity: LOW
 package lib.terraform.CB_TFAZR_038
 
-supportedResources := ["azurerm_automation_variable_bool", "azurerm_automation_variable_datetime", "azurerm_automation_variable_int", "azurerm_automation_variable_string"]
+import future.keywords.in
+
+supported_resources := ["azurerm_automation_variable_bool", "azurerm_automation_variable_datetime", "azurerm_automation_variable_int", "azurerm_automation_variable_string"]
 
 isvalid(block) {
 	block.Type == "resource"
-	block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
-	block := pass[_]
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
 resource[resource] {
-	block := fail[_]
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
 pass[block] {
-	block := input[_]
+    some block in input
 	isvalid(block)
 	block.Attributes.encrypted == true
 }
 
 fail[block] {
-	block := input[_]
+    some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+    some block in pass
 	result := {
 		"message": "Automation account variables are encrypted.",
 		"snippet": block,
@@ -47,7 +50,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+    some block in fail
 	result := {
 		"message": "Automation account variables are not encrypted.",
 		"snippet": block,
