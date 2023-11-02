@@ -11,15 +11,14 @@ package lib.terraform.CB_TFAZR_158
 
 import future.keywords.in
 
-supportedResources := [
-	"azurerm_virtual_network",
-	"azurerm_virtual_network_dns_servers",
-]
-
 isvalid(block) {
+	supported_resources := [
+		"azurerm_virtual_network",
+		"azurerm_virtual_network_dns_servers",
+		]
 	block.Type == "resource"
 	some label in block.Labels
-	label in supportedResources
+	label in supported_resources
 }
 
 resource[resource] {
@@ -41,12 +40,8 @@ pass[resource] {
 fail[resource] {
 	some resource in input
 	isvalid(resource)
-	has_attribute(resource.Attributes, "dns_servers")
+	"dns_servers" in object.keys(resource.Attributes)
 	count(resource.Attributes.dns_servers) == 1
-}
-
-has_attribute(key, value) {
-  _ = key[value]
 }
 
 passed[result] {

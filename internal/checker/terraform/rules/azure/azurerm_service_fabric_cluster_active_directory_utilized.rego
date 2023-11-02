@@ -16,10 +16,6 @@ isvalid(block) {
 	"azurerm_service_fabric_cluster" in block.Labels
 }
 
-has_attribute(key, value) {
-    _ = key[value]
-}
-
 resource[resource] {
 	some block in pass
 	resource := concat(".", block.Labels)
@@ -33,8 +29,8 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-    some innerBlock in block.Blocks
-	has_attribute(innerBlock.Attributes, "tenant_id")
+    some inner_block in block.Blocks
+	 "tenant_id" in object.keys(inner_block.Attributes)
 }
 
 fail[block] {
