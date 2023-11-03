@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main" , "feature/terraform-azure-development"]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" , "feature/terraform-azure-development"]
+    branches: [ "main" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
@@ -18,9 +18,3 @@ jobs:
 
     - name: Run OPA Tests
       run: opa test internal/checker -v
-
-    - name: Setup Regal
-      uses: StyraInc/setup-regal@v0.2.0
-      with:
-        version: v0.11.0
-    - run: regal lint --format=github internal/checker/terraform/rules/azure
