@@ -169,7 +169,8 @@ func getFilteredSeverities() []string {
 
 	index := -1
 	for i, s := range severities {
-		if s == *criteria {
+		
+		if strings.EqualFold(s, *criteria) {
 			index = i
 			break
 		}
