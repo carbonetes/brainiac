@@ -14,7 +14,8 @@ import future.keywords.in
 isvalid(block) {
 	supported_resources := ["azurerm_network_security_group", "azurerm_network_security_rule"]
 	block.Type == "resource"
-	some supportedResources in block.Labels
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
