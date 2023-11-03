@@ -12,12 +12,9 @@ package lib.terraform.CB_TFAZR_143
 import future.keywords.in
 import future.keywords.if
 
-supportedResources := ["azurerm_api_management"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_api_management" in block.Labels
 }
 
 resource[resource] {

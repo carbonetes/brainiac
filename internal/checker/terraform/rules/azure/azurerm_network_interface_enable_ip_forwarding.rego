@@ -11,12 +11,9 @@ package lib.terraform.CB_TFAZR_121
 
 import future.keywords.in
 
-supportedResources := ["azurerm_network_interface"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_network_interface" in block.Labels
 }
 
 resource[resource] {

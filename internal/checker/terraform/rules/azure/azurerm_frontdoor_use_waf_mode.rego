@@ -11,12 +11,9 @@ package lib.terraform.CB_TFAZR_126
 
 import future.keywords.in
 
-supportedResources := ["azurerm_frontdoor_firewall_policy"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_frontdoor_firewall_policy" in block.Labels
 }
 
 resource[resource] {
