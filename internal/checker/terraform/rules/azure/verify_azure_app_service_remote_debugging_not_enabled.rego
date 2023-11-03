@@ -11,9 +11,8 @@ package lib.terraform.CB_TFAZR_035
 
 import future.keywords.in
 
-supported_resources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
-
 isvalid(block) {
+	supported_resources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
 	block.Type == "resource"
 	some label in block.Labels
 	label in supported_resources

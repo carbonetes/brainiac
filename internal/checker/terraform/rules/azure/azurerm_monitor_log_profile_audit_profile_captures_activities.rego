@@ -12,8 +12,10 @@ package lib.terraform.CB_TFAZR_030
 import future.keywords.in
 
 isvalid(resource) {
+	supported_resources := ["azurerm_sql_firewall_rule", "azurerm_monitor_log_profile"]
 	resource.Type == "resource"
-	"azurerm_monitor_log_profile" in resource.Labels
+	some label in resource.Labels
+	label in supported_resources
 }
 
 resource[resource] {

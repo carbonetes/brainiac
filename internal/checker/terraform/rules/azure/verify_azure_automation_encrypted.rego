@@ -11,9 +11,11 @@ package lib.terraform.CB_TFAZR_038
 
 import future.keywords.in
 
-supported_resources := ["azurerm_automation_variable_bool", "azurerm_automation_variable_datetime", "azurerm_automation_variable_int", "azurerm_automation_variable_string"]
-
 isvalid(block) {
+	supported_resources := ["azurerm_automation_variable_bool", 
+							"azurerm_automation_variable_datetime", 
+							"azurerm_automation_variable_int", 
+							"azurerm_automation_variable_string"]
 	block.Type == "resource"
 	some label in block.Labels
 	label in supported_resources

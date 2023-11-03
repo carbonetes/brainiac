@@ -74,7 +74,6 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFAZR_046 | resource | azurerm_app_service | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
 | CB_TFAZR_046 | resource | azurerm_linux_web_app | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
 | CB_TFAZR_046 | resource | azurerm_windows_web_app | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
-| CB_TFAZR_046 | resource | azurerm_windows_web_app | Make sure the web app in Azure App Service directs all HTTP traffic to HTTPS | checker/terraform/rules/azure/azurerm_app_service_https_only.rego |
 | CB_TFAZR_047 | resource | azurerm_storage_account | Verify that enable_https_traffic_only is enabled | checker/terraform/rules/azure/verify_https_traffic_only_enabled.rego |
 | CB_TFAZR_048 | resource | azurerm_app_service | Verify FTP deployments are disabled | checker/terraform/rules/azure/verify_azure_app_service_ftps_state.rego |
 | CB_TFAZR_048 | resource | azurerm_linux_web_app | Verify FTP deployments are disabled | checker/terraform/rules/azure/verify_azure_app_service_ftps_state.rego |

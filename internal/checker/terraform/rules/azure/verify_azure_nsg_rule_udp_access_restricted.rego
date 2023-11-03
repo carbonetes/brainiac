@@ -11,9 +11,8 @@ package lib.terraform.CB_TFAZR_044
 
 import future.keywords.in
 
-supportedResources := ["azurerm_network_security_group", "azurerm_network_security_rule"]
-
 isvalid(block) {
+	supported_resources := ["azurerm_network_security_group", "azurerm_network_security_rule"]
 	block.Type == "resource"
 	some supportedResources in block.Labels
 }

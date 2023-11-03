@@ -11,11 +11,11 @@ package lib.terraform.CB_TFAZR_033
 
 import future.keywords.in
 
-supportedResources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
-
 isvalid(block) {
+	supported_resources := ["azurerm_app_service", "azurerm_linux_web_app", "azurerm_windows_web_app"]
 	block.Type == "resource"
-	block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
@@ -38,13 +38,13 @@ pass[block] {
 }
 
 fail[block] {
-	block := input[_]
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
 passed[result] {
-	block := pass[_]
+	some block in pass
 	result := {
 		"message": "The Managed Identity provider is enabled for the App Service.",
 		"snippet": block,
@@ -52,7 +52,7 @@ passed[result] {
 }
 
 failed[result] {
-	block := fail[_]
+	some block in fail
 	result := {
 		"message": "The Managed Identity provider is not enabled for the App Service.",
 		"snippet": block,
