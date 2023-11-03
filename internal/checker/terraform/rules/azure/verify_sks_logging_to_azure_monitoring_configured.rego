@@ -61,7 +61,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "AKS logging to Azure Monitoring should be Configured",
+		"message": "AKS logging to Azure Monitoring should be Configured.",
 		"snippet": block,
 	}
 }

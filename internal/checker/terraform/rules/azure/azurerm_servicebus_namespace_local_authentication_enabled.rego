@@ -11,12 +11,9 @@ package lib.terraform.CB_TFAZR_199
 
 import future.keywords.in
 
-supportedResources := ["azurerm_servicebus_namespace"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_servicebus_namespace" in block.Labels
 }
 
 resource[resource] {

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Administers a Flow Log within a Network Watcher Log retention period is greater than or equal 90 days"
-# description: "This involves overseeing and controlling the activities and data captured by a Flow Log within a Network Watcher, typically to monitor and analyze network traffic and performance"
+# description: "This involves overseeing and controlling the activities and data captured by a Flow Log within a Network Watcher, typically to monitor and analyze network traffic and performance."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_watcher_flow_log

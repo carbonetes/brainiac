@@ -11,12 +11,9 @@ package lib.terraform.CB_TFAZR_102
 
 import future.keywords.in
 
-supportedResources := ["azurerm_data_factory"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_data_factory" in block.Labels
 }
 
 resource[resource] {

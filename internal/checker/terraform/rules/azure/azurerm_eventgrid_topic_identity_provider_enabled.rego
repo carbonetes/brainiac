@@ -11,12 +11,9 @@ package lib.terraform.CB_TFAZR_187
 
 import future.keywords.in
 
-supportedResources := ["azurerm_eventgrid_topic"]
-
 isvalid(block) {
 	block.Type == "resource"
-	some label in block.Labels
-	label in supportedResources
+	"azurerm_eventgrid_topic" in block.Labels
 }
 
 resource[resource] {
