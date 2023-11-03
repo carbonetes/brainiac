@@ -10,9 +10,9 @@ test_encryption_provider_config_failed {
 	count(result) == 1
 }
 
-input_data(args) = patch {
-    patch := json.patch(json_data, [{ "op": "replace", "path": "spec/containers/0/command/1", "value": args }])
-}
+input_data(args) := json.patch(json_data, [
+    {"op": "replace", "path": "spec/containers/0/command/1", "value": args}
+])
 
 json_data := {
                 "apiVersion": "v1",

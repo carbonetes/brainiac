@@ -35,6 +35,7 @@ hasContainersCommand {
 }
 
 getContainerCommand[container] {
+    some index, command_index
     startswith(kubernetes.containers[index].command[command_index], flag_0)
     container := kubernetes.containers[index]
 }

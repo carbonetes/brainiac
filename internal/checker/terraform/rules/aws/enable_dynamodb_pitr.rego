@@ -17,14 +17,15 @@ isvalid(block){
 resource[resource] {
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
+resource[resource] {
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 pass[resource]{
+    some index
     resource := input[_]
 	isvalid(resource)
     resource.Blocks[index].Type == "point_in_time_recovery"
@@ -47,4 +48,4 @@ failed[result] {
     block := fail[_]
 	result := { "message": "'aws_dynamodb_table' 'point_in_time_recovery' must be set to true.",
                 "snippet": block }
-} 
+}

@@ -18,7 +18,7 @@ check {
     container := input.spec.containers[_]
     kubernetes.has_attribute(container.securityContext.capabilities, "drop")
     drop := container.securityContext.capabilities.drop[_]
-    regex.match("(?i)\\ball\\b", drop)
+    regex.match(`(?i)\ball\b`, drop)
 }
 
 

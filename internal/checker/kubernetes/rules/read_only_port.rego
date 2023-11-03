@@ -30,11 +30,13 @@ hasReadOnlyPort(container) {
 }
 
 getContainerCommand[container] {
+    some index, command_index
     startswith(kubernetes.containers[index].command[command_index], flag)
     container := kubernetes.containers[index]
 }
 
 getContainerCommand[container] {
+    some index, command_index
     startswith(kubernetes.containers[index].args[command_index], flag)
     container := kubernetes.containers[index]
 }

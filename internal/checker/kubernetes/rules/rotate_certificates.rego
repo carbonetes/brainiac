@@ -3,7 +3,7 @@
 # description: "The --rotate-certificates setting causes the kubelet to rotate its client certificates by creating new CSRs as its existing credentials expire"
 # scope: package
 # related_resources:
-# - https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ 
+# - https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
 # custom:
 #   id: CB_K8S_052
 #   severity: HIGH
@@ -31,11 +31,13 @@ hasReadOnlyPort(container) {
 }
 
 getContainerCommand[container] {
+    some index, command_index
     startswith(kubernetes.containers[index].command[command_index], flag)
     container := kubernetes.containers[index]
 }
 
 getContainerCommand[container] {
+    some index, command_index
     startswith(kubernetes.containers[index].args[command_index], flag)
     container := kubernetes.containers[index]
 }

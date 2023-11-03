@@ -17,19 +17,19 @@ isvalid(block){
 resource [resource]{
     block := pass[_]
 	resource := concat(".", block.Labels)
-} 
+}
 resource [resource]{
     block := fail[_]
 	resource := concat(".", block.Labels)
-} 
+}
 
 checkRegex(block){
-	regex.match("[A-Z0-9]{20}", block.Attributes.access_key)
+	regex.match(`[A-Z0-9]{20}`, block.Attributes.access_key)
 
 }
 
 checkRegex(block){
-	regex.match("[a-zA-Z0-9/+]{40}", block.Attributes.secret_key)
+	regex.match(`[a-zA-Z0-9/+]{40}`, block.Attributes.secret_key)
 }
 
 fail[resource] {
