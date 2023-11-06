@@ -34,6 +34,12 @@ pass[resource] {
     validate_config(resource)
 }
 
+pass[resource] {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.remove_default_node_pool
+}
+
 fail[resource] {
 	some resource in input
 	isvalid(resource)
@@ -46,8 +52,6 @@ validate_config(resource) if {
 	image_type := block.Attributes.image_type
 	image_type != ""
 	startswith(lower(image_type), "cos")
-} else if {
-	resource.Attributes.remove_default_node_pool
 }
 
 passed[result] {
