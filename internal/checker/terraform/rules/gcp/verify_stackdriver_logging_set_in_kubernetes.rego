@@ -15,6 +15,16 @@ isvalid(block){
     "google_container_cluster" in block.Labels
 }
 
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
 fail[block] {
     some block in input
 	isvalid(block)
