@@ -11,9 +11,8 @@ package lib.terraform.CB_TFGCP_003
 
 import future.keywords.in
 
-supported_resources := ["google_project_iam_binding", "google_project_iam_member"]
-
 isvalid(block) {
+	supported_resources := ["google_project_iam_binding", "google_project_iam_member"]
 	block.Type == "resource"
 	some label in block.Labels
 	label in supported_resources
