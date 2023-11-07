@@ -29,6 +29,7 @@ pass[block] {
     some block in input
 	isvalid(block)
 	some inner_block in block.Blocks
+	inner_block.Type == "management"
 	inner_block.Attributes.auto_upgrade == true
 }
 
