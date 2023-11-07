@@ -28,26 +28,20 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
+fail[block] {
 	some block in input
 	isvalid(block)
 	invalid_member := [
 		"project-number-compute@developer.gserviceaccount.com",
 		"project-id@appspot.gserviceaccount.com",
 	]
-	not block.Attributes.member in invalid_member
+	block.Attributes.member in invalid_member
 }
 
 pass[block] {
 	some block in input
 	isvalid(block)
-	not "member" in object.keys(block.Attributes)
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed[result] {
