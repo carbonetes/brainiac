@@ -18,28 +18,27 @@ isvalid(block) {
 	label in supported_resources
 }
 
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountTokenCreator"
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
 }
 
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountUser"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	not "role" in object.keys(block.Attributes)
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
 pass[block] {
+some block in input
+isvalid(block)
+invalid_roles := ["roles/iam.serviceAccountUser", "roles/iam.serviceAccountTokenCreator"]
+not block.Attributes.role in invalid_roles
+}
+
+fail[block] {
 	some block in input
 	isvalid(block)
-	not fail[block]
+	not pass[block]
 }
 
 passed[result] {
