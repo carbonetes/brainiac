@@ -16,6 +16,16 @@ isvalid(block) {
 	"google_project_iam_member" in block.Labels
 }
 
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
 fail[block] {
 	some block in input
 	isvalid(block)
