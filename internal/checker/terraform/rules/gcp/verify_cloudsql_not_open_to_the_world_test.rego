@@ -62,7 +62,7 @@ test_cloud_sql_not_publicly_enabled {
 	count(result) == 1
 }
 
-test_cloud_sql_not_publicly_enabled {
+test_cloud_sql_publicly_enabled {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
