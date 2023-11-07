@@ -29,10 +29,30 @@ resource[resource] {
 }
 
 pass[block] {
-some block in input
-isvalid(block)
-invalid_roles := ["roles/iam.securityAdmin", "roles/iam.serviceAccountAdmin", "roles/iam.serviceAccountKeyAdmin", "roles/iam.serviceAccountUser", "roles/iam.serviceAccountTokenCreator", "roles/iam.workloadIdentityUser", "roles/dataproc.editor", "roles/dataproc.admin", "roles/dataflow.developer", "roles/resourcemanager.folderAdmin", "roles/resourcemanager.folderIamAdmin", "roles/resourcemanager.projectIamAdmin", "roles/resourcemanager.organizationAdmin", "roles/cloudasset.viewer", "roles/cloudasset.owner", "roles/serverless.serviceAgent", "roles/dataproc.serviceAgent"]
-not block.Attributes.role in invalid_roles
+	some block in input
+	isvalid(block)
+	invalid_roles := [
+		"roles/owner",
+		"roles/editor",
+		"roles/iam.securityAdmin",
+		"roles/iam.serviceAccountAdmin",
+		"roles/iam.serviceAccountKeyAdmin",
+		"roles/iam.serviceAccountUser",
+		"roles/iam.serviceAccountTokenCreator",
+		"roles/iam.workloadIdentityUser",
+		"roles/dataproc.editor",
+		"roles/dataproc.admin",
+		"roles/dataflow.developer",
+		"roles/resourcemanager.folderAdmin",
+		"roles/resourcemanager.folderIamAdmin",
+		"roles/resourcemanager.projectIamAdmin",
+		"roles/resourcemanager.organizationAdmin",
+		"roles/cloudasset.viewer",
+		"roles/cloudasset.owner",
+		"roles/serverless.serviceAgent",
+		"roles/dataproc.serviceAgent",
+	]
+	not block.Attributes.role in invalid_roles
 }
 
 fail[block] {
