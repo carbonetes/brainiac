@@ -24,7 +24,6 @@ resource[resource] {
 
 resource[resource] {
 	some block in fail
-	"google_container_cluster" in block.Labels
 	resource := concat(".", block.Labels)
 }
 
