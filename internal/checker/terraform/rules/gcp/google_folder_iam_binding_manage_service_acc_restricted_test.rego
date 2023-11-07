@@ -10,6 +10,7 @@ test_google_folder_iam_binding_manage_service_acc_restricted_passed {
 		"Attributes": {
 			"folder": "folders/1234567",
 			"member": "user:test@example-project.iam.gserviceaccount.com",
+			"role": "roles/compute.instanceAdmin"
 		},
 		"Blocks": [],
 		"line_range": {

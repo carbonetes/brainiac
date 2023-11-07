@@ -18,124 +18,27 @@ isvalid(block) {
 	label in supported_resources
 }
 
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/owner"
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
 }
 
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/editor"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.securityAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountKeyAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountUser"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.serviceAccountTokenCreator"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/iam.workloadIdentityUser"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/dataproc.editor"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/dataproc.admin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/dataflow.developer"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/resourcemanager.folderAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/resourcemanager.folderIamAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/resourcemanager.projectIamAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/resourcemanager.organizationAdmin"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/cloudasset.viewer"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/cloudasset.owner"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/serverless.serviceAgent"
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.role == "roles/dataproc.serviceAgent"
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
 pass[block] {
+some block in input
+isvalid(block)
+invalid_roles := ["roles/iam.securityAdmin", "roles/iam.serviceAccountAdmin", "roles/iam.serviceAccountKeyAdmin", "roles/iam.serviceAccountUser", "roles/iam.serviceAccountTokenCreator", "roles/iam.workloadIdentityUser", "roles/dataproc.editor", "roles/dataproc.admin", "roles/dataflow.developer", "roles/resourcemanager.folderAdmin", "roles/resourcemanager.folderIamAdmin", "roles/resourcemanager.projectIamAdmin", "roles/resourcemanager.organizationAdmin", "roles/cloudasset.viewer", "roles/cloudasset.owner", "roles/serverless.serviceAgent", "roles/dataproc.serviceAgent"]
+not block.Attributes.role in invalid_roles
+}
+
+fail[block] {
 	some block in input
 	isvalid(block)
-	not fail[block]
+	not pass[block]
 }
 
 passed[result] {
