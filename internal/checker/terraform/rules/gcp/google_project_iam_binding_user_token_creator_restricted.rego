@@ -29,10 +29,10 @@ resource[resource] {
 }
 
 pass[block] {
-some block in input
-isvalid(block)
-invalid_roles := ["roles/iam.serviceAccountUser", "roles/iam.serviceAccountTokenCreator"]
-not block.Attributes.role in invalid_roles
+	some block in input
+	isvalid(block)
+	invalid_roles := ["roles/iam.serviceAccountUser", "roles/iam.serviceAccountTokenCreator"]
+	not block.Attributes.role in invalid_roles
 }
 
 fail[block] {
