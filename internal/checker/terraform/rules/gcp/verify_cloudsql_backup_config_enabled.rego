@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
 # custom:
 #   id: CB_TFGCP_027
-#   severity: LOW
+#   severity: HIGH
 package lib.terraform.CB_TFGCP_027
 import future.keywords.in
 
