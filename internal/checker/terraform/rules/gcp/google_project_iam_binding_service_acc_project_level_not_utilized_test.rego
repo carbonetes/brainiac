@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFGCP_016
 
-test_google_project_iam_binding_service_acc_project_level_not_used_passed {
+test_google_project_iam_binding_service_acc_project_level_not_utilized_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +20,7 @@ test_google_project_iam_binding_service_acc_project_level_not_used_passed {
 	count(result) == 1
 }
 
-test_google_project_iam_binding_service_acc_project_level_not_used_failed {
+test_google_project_iam_binding_service_acc_project_level_not_utilized_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
