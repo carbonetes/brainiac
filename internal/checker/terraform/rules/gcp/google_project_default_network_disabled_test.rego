@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFGCP_030
 
-test_google_compute_subnetwork_logging_enabled_passed {
+test_google_project_default_network_disabled_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -38,7 +38,7 @@ test_google_compute_subnetwork_logging_enabled_passed {
 	count(result) == 1
 }
 
-test_google_compute_subnetwork_logging_enabled_failed {
+test_google_project_default_network_disabled_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
