@@ -10,11 +10,11 @@ package lib.terraform.CB_TFGCP_031
 
 import future.keywords.in
 
-isvalid(resource) {
-    supported_resources = ["google_storage_bucket_iam_binding", "google_storage_bucket_iam_member"]
-    resource.Type == "resource"
-    some label in resource.Labels
-    label in supported_resources
+isvalid(block) {
+	supported_resources := ["google_storage_bucket_iam_binding", "google_storage_bucket_iam_member"]
+	block.Type == "resource"
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
