@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 # custom:
 #   id: CB_TFGCP_039
-#   severity: LOW
+#   severity: MEDIUM
 package lib.terraform.CB_TFGCP_039
 import future.keywords.in
 import future.keywords.if
