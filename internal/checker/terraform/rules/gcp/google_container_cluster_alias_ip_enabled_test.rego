@@ -91,7 +91,7 @@ test_google_container_cluster_alias_ip_enabled_passed {
 	count(result) == 1
 }
 
-test_google_container_cluster_alias_ip_enable_failed {
+test_google_container_cluster_alias_ip_enabled_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
