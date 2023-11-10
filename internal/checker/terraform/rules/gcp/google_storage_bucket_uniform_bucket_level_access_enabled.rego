@@ -25,16 +25,16 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-fail[resource] {
-	some resource in input
-	isvalid(resource)
-	resource.Attributes.uniform_bucket_level_access == false
-}
-
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not fail[resource]
+	resource.Attributes.uniform_bucket_level_access == true
+}
+
+fail[resource] {
+	some resource in input
+	isvalid(resource)
+	not pass[resource]
 }
 
 passed[result] {
