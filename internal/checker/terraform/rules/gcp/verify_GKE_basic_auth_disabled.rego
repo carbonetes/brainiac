@@ -48,12 +48,12 @@ pass[block] {
 
 passed[result] {
     some block in pass
-	result := { "message": "GKE GKE basic auth is disabled.",
+	result := { "message": "GKE basic auth is disabled.",
                 "snippet": block }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "GKE GKE basic auth should be disabled",
+	result := { "message": "GKE basic auth should be disabled",
                 "snippet": block }
 }
