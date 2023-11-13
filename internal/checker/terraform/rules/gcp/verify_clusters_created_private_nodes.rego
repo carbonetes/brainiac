@@ -3,7 +3,7 @@
 # description: "Creating clusters with Private Nodes enhances security by isolating node communication, reducing exposure to external threats."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
+# - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 # custom:
 #   id: CB_TFGCP_050
 #   severity: MEDIUM
