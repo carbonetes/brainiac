@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
 # custom:
 #   id: CB_TFGCP_047
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFGCP_047
 import future.keywords.in
 
