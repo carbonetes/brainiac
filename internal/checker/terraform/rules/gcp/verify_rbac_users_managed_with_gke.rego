@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Kubernetes RBAC users are managed with Google Groups for GKE"
-# description: "Verify Kubernetes RBAC users are managed with Google Groups for GKE" ensures that Role-Based Access Control (RBAC) users in a Kubernetes cluster are organized and controlled through Google Groups, enhancing security and simplifying user management in Google Kubernetes Engine (GKE)."
+# description: "This ensures that Role-Based Access Control (RBAC) users in a Kubernetes cluster are organized and controlled through Google Groups, enhancing security and simplifying user management in Google Kubernetes Engine (GKE)."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
