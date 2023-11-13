@@ -54,7 +54,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "The 'log_min_duration_statement' configuration for the PostgreSQL database is configured to '-1'.",
+		"message": "The 'log_min_duration_statement' configuration for the PostgreSQL database is not configured to '-1'.",
 		"snippet": block,
 	}
 }
