@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Bucket log access"
-# description: "Verifying Bucket Log Access ensures comprehensive auditing and traceability of object storage activities, fostering accountability and security within the cloud environment.""
+# description: "Verifying Bucket Log Access ensures comprehensive auditing and traceability of object storage activities, fostering accountability and security within the cloud environment."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
