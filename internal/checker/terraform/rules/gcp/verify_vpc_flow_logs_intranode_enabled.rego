@@ -9,7 +9,6 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFGCP_045
 import future.keywords.in
-import future.keywords.if
 
 isvalid(block){
 	block.Type == "resource"
