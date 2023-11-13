@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify Instances Do Not Use Default Service Account"
-# description: "This policy ensures that instances are not configured to use the default service account. Using default service accounts can pose security risks by granting unnecessary permissions."
+# title: "Verify instances do not use the default service account with full access to all Cloud APIs"
+# description: "This policy verifies that instances are not configured to use the default service account with unrestricted access to all Cloud APIs. Utilizing the default service account with broad permissions poses a security risk, as it grants unnecessary privileges that can lead to unauthorized access and potential security breaches."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance
 # custom:
@@ -69,7 +69,7 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "Instances are not configured to use the default service account, reducing security risks associated with unnecessary permissions.",
+		"message": "Instances are configured correctly and do not use the default service account with full access to all Cloud APIs.",
 		"snippet": block,
 	}
 }
@@ -77,7 +77,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "Instances are configured to use the default service account, posing potential security risks. Configure instances with specific service accounts to restrict permissions.",
+		"message": "Instances are configured to use the default service account with full access to all Cloud APIs, posing a high security risk. Adjust instance configurations to limit permissions and enhance security.",
 		"snippet": block,
 	}
 }
