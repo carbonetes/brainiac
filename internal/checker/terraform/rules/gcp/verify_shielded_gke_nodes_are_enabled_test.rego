@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFGCP_061
+package lib.terraform.CB_TFGCP_062
 
 test_shielded_gke_nodes_are_enabled {
 	result := passed with input as [{
