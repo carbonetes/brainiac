@@ -13,7 +13,7 @@ test_google_compute_instance_oslogin_passed {
             "metadata": {
                 "13": "42",
                 "fizz": "buzz",
-                "oslogin": "enable-oslogin"
+                "enable-oslogin": true
             },
             "name": "template"
         },
@@ -66,7 +66,8 @@ test_google_compute_instance_oslogin_failed {
             "machine_type": "e2-medium",
             "metadata": {
                 "13": "42",
-                "fizz": "buzz"
+                "fizz": "buzz",
+                "enable-oslogin": false
             },
             "name": "template"
         },

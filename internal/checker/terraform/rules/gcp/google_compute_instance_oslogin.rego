@@ -31,7 +31,7 @@ pass[resource] {
 	some resource in input
 	isvalid(resource)
     not resource.Attributes.source_instance_template
-	"enable-oslogin" in resource.Attributes.metadata
+	resource.Attributes.metadata["enable-oslogin"] == true
 }
 
 
