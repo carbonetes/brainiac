@@ -52,17 +52,6 @@ pass[resource] {
 	innerblock.Attributes.kms_key_self_link != null
 }
 
-pass[resource] {
-	some resource in input
-	isvalid(resource)
-	some block in resource.Blocks
-	block.Type == "boot_disk"
-	some innerblock in block.Blocks
-	innerblock.Type == "disk_encryption_key"
-	innerblock.Attributes.disk_encryption_key_raw != null
-	innerblock.Attributes.kms_key_self_link != null
-}
-
 fail[resource] {
 	some resource in input
 	isvalid(resource)
