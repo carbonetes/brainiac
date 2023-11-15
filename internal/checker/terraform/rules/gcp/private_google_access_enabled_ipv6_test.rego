@@ -22,7 +22,7 @@ test_private_google_access_enabled_ipv6 {
 	count(result) == 1
 }
 
-test_private_google_access_enabled_ipv6 {
+test_private_google_access_not_enabled_ipv6 {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
