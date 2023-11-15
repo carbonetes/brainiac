@@ -30,8 +30,7 @@ resource[resource] {
 fail[resource] {
 	some resource in input
 	isvalid(resource)
-	resource.Attributes.can_ip_forward
-	not resource.Attributes.source_instance_template
+	resource.Attributes.can_ip_forward == true
 }
 
 fail[resource] {
