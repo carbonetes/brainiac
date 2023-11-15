@@ -1,5 +1,5 @@
 # METADATA
-# title: "Google Compute Instance Verify Encryption with Customer Supplied Encryption Keys (CSEK) for Critical VM Disks"
+# title: "Verify Google Compute Instance Encryption with Customer Supplied Encryption Keys (CSEK) for Critical VM Disks"
 # description: "This policy ensures that disks for critical Virtual Machines (VMs) are encrypted using Customer Supplied Encryption Keys (CSEK). CSEK provides an added layer of security for sensitive data."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance
