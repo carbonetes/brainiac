@@ -28,7 +28,7 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-    "enable-oslogin" in resource.Attributes.metadata
+    resource.Attributes.metadata["enable-oslogin"] == true
 }
 
 fail[resource] {
