@@ -31,12 +31,12 @@ resource[resource] {
 fail[block] {
 	some block in input
 	isvalid(block)
-	invalid_roles := [
+	basic_roles := [
 		"roles/editor",
 		"roles/viewer",
 		"roles/owner",
 	]
-	block.Attributes.role in invalid_roles
+	block.Attributes.role in basic_roles
 }
 
 pass[block] {
