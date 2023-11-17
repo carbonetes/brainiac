@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Vertex AI datasets use a CMK (Customer Managed Key)"
+# title: "Verify that Spanner Databases use Customer Supplied Encryption Keys (CSEK)"
 # description: "This check ensures that Google Cloud Spanner databases are configured to use Customer Supplied Encryption Keys (CSEK) for encryption. CSEK allows customers to have greater control over the encryption keys used to protect their data in Spanner, providing an additional layer of security."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/spanner_database
