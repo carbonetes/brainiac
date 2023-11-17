@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFGCP_094
 
-test_data_flow_jobs_encrypted_with_CSEK {
+test_data_flow_jobs_encrypted_with_csek {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +20,7 @@ test_data_flow_jobs_encrypted_with_CSEK {
 	count(result) == 1
 }
 
-test_data_flow_jobs_not_encrypted_with_CSEK {
+test_data_flow_jobs_not_encrypted_with_csek {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
