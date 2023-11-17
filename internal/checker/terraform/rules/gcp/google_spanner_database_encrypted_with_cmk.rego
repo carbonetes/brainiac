@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/spanner_database
 # custom:
 #   id: CB_TFGCP_097
-#   severity: HIGH
+#   severity: LOW
 package lib.terraform.CB_TFGCP_097
 
 import future.keywords.in
