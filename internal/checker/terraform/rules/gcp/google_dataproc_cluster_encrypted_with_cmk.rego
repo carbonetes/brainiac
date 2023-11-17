@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dataproc_cluster
 # custom:
 #   id: CB_TFGCP_095
-#   severity: HIGH
+#   severity: LOW
 package lib.terraform.CB_TFGCP_095
 
 import future.keywords.in
