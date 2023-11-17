@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vertex_ai_dataset
 # custom:
 #   id: CB_TFGCP_096
-#   severity: HIGH
+#   severity: LOW
 package lib.terraform.CB_TFGCP_096
 
 import future.keywords.in
