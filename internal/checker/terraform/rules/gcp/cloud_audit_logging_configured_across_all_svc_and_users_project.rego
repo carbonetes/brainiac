@@ -3,7 +3,7 @@
 # description: "This ensures comprehensive and accurate logging of activities within Google Cloud services, providing visibility into user actions and enhancing security monitoring and compliance efforts."
 # scope: package
 # related_resources:
-# -https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_audit_config
+# - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_audit_config
 # custom:
 #   id: CB_TFGCP_105
 #   severity: MEDIUM
