@@ -9,7 +9,6 @@
 package lib.terraform.CB_TFGCP_108
 
 import future.keywords.in
-import future.keywords.if
 
 isvalid(block) {
 	supported_resources := ["google_dataproc_cluster_iam_member", "google_dataproc_cluster_iam_binding"]
