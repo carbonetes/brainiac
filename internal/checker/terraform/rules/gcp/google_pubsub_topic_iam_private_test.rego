@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFGCP_110
 
-test_google_pubsub_iam_private_topic_passed {
+test_google_pubsub_topic_iam_private_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -24,7 +24,7 @@ test_google_pubsub_iam_private_topic_passed {
 	count(result) == 1
 }
 
-test_google_pubsub_iam_private_topic_failed {
+test_ggoogle_pubsub_topic_iam_private_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
