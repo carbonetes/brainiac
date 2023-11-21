@@ -33,17 +33,18 @@ pass[resource] {
 	not fail[resource]
 }
 
+
+invalid_members := [
+	"allUsers",
+	"allAuthenticatedUsers",
+]
+
 fail[resource] {
 	some resource in input
 	isvalid(resource)
 	resource.Type == "resource"
 	"google_pubsub_topic_iam_member" in resource.Labels
-	invalid_members := [
-		"allUsers",
-		"allAuthenticatedUsers",
-	]
-	some member in resource.Attributes.member
-	member in invalid_members
+	resource.Attributes.member in invalid_members
 }
 
 fail[resource] {
@@ -51,10 +52,6 @@ fail[resource] {
 	isvalid(resource)
 	resource.Type == "resource"
 	"google_pubsub_topic_iam_binding" in resource.Labels
-	invalid_members := [
-		"allUsers",
-		"allAuthenticatedUsers",
-	]
 	some members in resource.Attributes.members
 	members in invalid_members
 }
