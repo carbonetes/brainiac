@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify BigQuery Tables Restrict Public Access"
-# description: "This policy ensures that Pub/Sub Topics are configured to restrict public access, preventing unauthorized exposure to the public internet."
+# description: "This policy ensures that BigQuery Tables are configured to restrict public access, preventing unauthorized exposure to the public internet."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_table_iam
 # custom:
