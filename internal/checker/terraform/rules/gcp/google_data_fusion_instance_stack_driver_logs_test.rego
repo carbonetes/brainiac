@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFGCP_118
 
-test_google_dataproc_cluster_public_ip_passed {
+test_google_data_fusion_instance_stack_driver_logs_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -104,7 +104,7 @@ test_google_dataproc_cluster_public_ip_passed {
 	count(result) == 1
 }
 
-test_google_dataproc_cluster_public_ip_failed {
+test_google_data_fusion_instance_stack_driver_logs_failed {
 	result := failed with input as [
     {
         "Type": "resource",
