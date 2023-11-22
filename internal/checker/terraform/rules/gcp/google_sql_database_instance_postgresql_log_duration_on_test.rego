@@ -49,7 +49,7 @@ test_google_sql_database_instance_postgresql_log_duration_off {
 			"example",
 		],
 		"Attributes": {
-			"database_version": "MYSQL",
+			"database_version": "POSTGRES",
 			"name": "your-instance-name",
 		},
 		"Blocks": [{

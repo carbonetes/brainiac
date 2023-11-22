@@ -29,6 +29,12 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
+	block.Attributes.database_version != "POSTGRES"
+}
+
+pass[block] {
+	some block in input
+	isvalid(block)
 	some inner_block in block.Blocks
 	inner_block.Type == "settings"
 	some db_flags_block in inner_block.Blocks
