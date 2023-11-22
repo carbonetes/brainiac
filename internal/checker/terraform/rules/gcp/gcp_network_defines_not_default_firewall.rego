@@ -33,16 +33,18 @@ label_for_network[label] {
 	label := concat(".", block.Labels)
 }
 
-firewall_connected(block){
+firewall_connected{
+	some block in input
+	block.Type == "resource"
+	"google_compute_firewall" in block.Labels
 	some label in label_for_network
 	contains(block.Attributes.network, label)
 }
 
 pass[block] {
 	some block in input
-	block.Type == "resource"
-	"google_compute_firewall" in block.Labels
-	firewall_connected(block)
+    isvalid(block)
+	firewall_connected
 }
 
 
@@ -51,7 +53,6 @@ fail[block] {
 	isvalid(block)
 	not pass[block]
 }
-
 passed[result] {
 	some block in pass
 	result := {
