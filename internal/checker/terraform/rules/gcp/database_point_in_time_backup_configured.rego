@@ -3,7 +3,7 @@
 # description: "This ensures that a MySQL database instance is set up with point-in-time recovery backup, allowing for data restoration to a specific point in time, enhancing data protection and recovery capabilities."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
+# - https://registry.terraform.io/providers/hashicorp/google/3.44.0/docs/resources/sql_database_instance
 # custom:
 #   id: CB_TFGCP_124
 #   severity: LOW
