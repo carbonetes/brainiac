@@ -11,11 +11,11 @@ package lib.terraform.CB_TFGCP_121
 import future.keywords.in
 
 isvalid(block) {
-	supported_resources = [
+	supported_resources := [
 		"google_cloudfunctions_function_iam_member",
 		"google_cloudfunctions_function_iam_binding",
 		"google_cloudfunctions2_function_iam_member",
-		"google_cloudfunctions2_function_iam_binding",
+		"google_cloudfunctions2_function_iam_binding"
 	]
 	block.Type == "resource"
 	some label in block.Labels
