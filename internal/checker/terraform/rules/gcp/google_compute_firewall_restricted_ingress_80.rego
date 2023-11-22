@@ -25,19 +25,19 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[resource] {
+fail[resource] {
 	some resource in input
 	isvalid(resource)
 	some block in resource.Blocks
 	block.Type == "allow"
     some port in block.Attributes.ports
-	to_number(port) != 80
+	to_number(port) == 80
 }
 
-fail[resource] {
+pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not pass[resource]
+	not fail[resource]
 }
 
 passed[result] {
