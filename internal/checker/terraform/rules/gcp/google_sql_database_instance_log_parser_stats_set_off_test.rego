@@ -14,11 +14,20 @@ test_google_sql_database_instance_log_parser_stats_set_off {
 		"Blocks": [{
 			"Type": "settings",
 			"Labels": [],
-			"Attributes": {"database_flags": {
-				"name": "log_parser_stats",
-				"value": "off",
-			}},
-			"Blocks": [],
+			"Attributes": {},
+			"Blocks": [{
+				"Type": "database_flags",
+				"Labels": [],
+				"Attributes": {
+					"name": "log_parser_stats",
+					"value": "off",
+				},
+				"Blocks": [],
+				"line_range": {
+					"endLine": 9,
+					"startLine": 6,
+				},
+			}],
 			"line_range": {
 				"endLine": 10,
 				"startLine": 5,
@@ -46,11 +55,20 @@ test_google_sql_database_instance_log_parser_stats_set_on {
 		"Blocks": [{
 			"Type": "settings",
 			"Labels": [],
-			"Attributes": {"database_flags": {
-				"name": "log_parser_stats",
-				"value": "on",
-			}},
-			"Blocks": [],
+			"Attributes": {},
+			"Blocks": [{
+				"Type": "database_flags",
+				"Labels": [],
+				"Attributes": {
+					"name": "log_parser_stats",
+					"value": "on",
+				},
+				"Blocks": [],
+				"line_range": {
+					"endLine": 9,
+					"startLine": 6,
+				},
+			}],
 			"line_range": {
 				"endLine": 10,
 				"startLine": 5,
