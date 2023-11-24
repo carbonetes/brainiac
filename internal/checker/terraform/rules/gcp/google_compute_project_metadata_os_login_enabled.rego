@@ -9,6 +9,7 @@
 package lib.terraform.CB_TFGCP_070
 
 import future.keywords.in
+import future.keywords.if
 
 isvalid(block) {
 	block.Type == "resource"
@@ -28,7 +29,15 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-    resource.Attributes.metadata["enable-oslogin"] == true
+    metadata := resource.Attributes.metadata
+    "enable-oslogin" in object.keys(metadata)
+    metadata_equals_to_true(metadata)
+}
+
+metadata_equals_to_true(metadata) := true if {
+    metadata["enable-oslogin"] == "TRUE"
+} else {
+    metadata["enable-oslogin"] == true
 }
 
 fail[resource] {
