@@ -7,8 +7,8 @@ test_google_compute_project_metadata_os_login_enabled_passed {
             "google"
         ],
         "Attributes": {
-            "project": "your-project-id",
-            "region": "your-region"
+            "project": "<YOUR_PROJECT_ID>",
+            "region": "<YOUR_REGION>"
         },
         "Blocks": [],
         "line_range": {
@@ -20,7 +20,7 @@ test_google_compute_project_metadata_os_login_enabled_passed {
         "Type": "resource",
         "Labels": [
             "google_compute_project_metadata",
-            "os_login_metadata"
+            "example_metadata"
         ],
         "Attributes": {
             "metadata": {
@@ -43,8 +43,8 @@ test_google_compute_project_metadata_os_login_enabled_failed {
             "google"
         ],
         "Attributes": {
-            "project": "your-project-id",
-            "region": "your-region"
+            "project": "<YOUR_PROJECT_ID>",
+            "region": "<YOUR_REGION>"
         },
         "Blocks": [],
         "line_range": {
@@ -56,7 +56,7 @@ test_google_compute_project_metadata_os_login_enabled_failed {
         "Type": "resource",
         "Labels": [
             "google_compute_project_metadata",
-            "os_login_metadata"
+            "example_metadata"
         ],
         "Attributes": {
             "metadata": {
