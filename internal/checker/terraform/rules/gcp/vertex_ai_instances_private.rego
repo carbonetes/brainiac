@@ -40,12 +40,12 @@ fail[block] {
 
 passed[result] {
     some block in pass
-	result := { "message": "Data fusion instances are private.",
+	result := { "message": "Vertex AI instances are private.",
                 "snippet": block }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Data fusion instances should be set to private.",
+	result := { "message": "Vertex AI instances should be private",
                 "snippet": block }
 }

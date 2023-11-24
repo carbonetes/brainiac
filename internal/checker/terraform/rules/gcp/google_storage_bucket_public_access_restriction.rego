@@ -27,16 +27,24 @@ resource[resource] {
     resource := concat(".", block.Labels)
 }
 
+invalid_members := [
+	"allUsers",
+	"allAuthenticatedUsers",
+]
+
 fail[resource] {
     some resource in input
-    isvalid(resource)
-    "allUsers" in resource.Attributes.members
+    resource.Type == "resource"
+    "google_storage_bucket_iam_member" in resource.Labels
+    resource.Attributes.member in invalid_members
 }
 
 fail[resource] {
     some resource in input
-    isvalid(resource)
-    "allAuthenticatedUsers" in resource.Attributes.members
+    resource.Type == "resource"
+    "google_storage_bucket_iam_binding" in resource.Labels
+    some member in resource.Attributes.members
+    member in invalid_members
 }
 
 pass[resource] {
