@@ -24,7 +24,7 @@ test_google_pubsub_topic_iam_private_passed {
 	count(result) == 1
 }
 
-test_ggoogle_pubsub_topic_iam_private_failed {
+test_google_pubsub_topic_iam_private_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
