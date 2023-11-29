@@ -29,7 +29,7 @@ test_alicloud_api_gateway_api_protocol_https_passed {
             "force_nonce_check": false,
             "group_id": "alicloud_api_gateway_group.example.id",
             "name": "tf-example",
-            "service_type": "HTTPS",
+            "service_type": "HTTP",
             "stage_names": [
                 "RELEASE",
                 "TEST"
@@ -43,7 +43,7 @@ test_alicloud_api_gateway_api_protocol_https_passed {
                     "method": "GET",
                     "mode": "MAPPING",
                     "path": "/example/path",
-                    "protocol": "HTTP"
+                    "protocol": "HTTPS"
                 },
                 "Blocks": [],
                 "line_range": {
