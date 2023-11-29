@@ -10,6 +10,7 @@
 package lib.terraform.CB_TFALI_003
 
 import future.keywords.in
+import future.keywords.if
 
 isvalid(block) {
 	block.Type == "resource"
@@ -29,12 +30,30 @@ resource[resource] {
 fail[block] {
 	some block in input
 	isvalid(block)
-	block.Attributes.port_range == "3389/3389"
+	block.Attributes.type == "ingress"
+	check_port_range(block)
+	check_cidr_ip(block)
+
+}
+
+check_cidr_ip(block) := true if {
+	block.Attributes.cidr_ip == "0.0.0.0/0"
+} else := true if {
+	"0.0.0.0/0" in block.Attributes.cidr_ip
+} 
+
+check_port_range(block) := true if {
+	block.Attributes.port_range == "3389"
+} else := true if {
+	"3389" in block.Attributes.port_range
+} else := true if {
+ 	to_number(block.Attributes.port_range) == 3389
 }
 
 pass[block] {
 	some block in input
 	isvalid(block)
+	block.Attributes.type == "ingress"
 	not fail[block]
 }
 
