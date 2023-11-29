@@ -36,7 +36,7 @@ fail[resource] {
 	isvalid(resource)
 	some block in resource.Blocks
 	block.Type == "request_config"
-	block.Attributes.protocol == "HTTPS"
+	block.Attributes.protocol != "HTTPS"
 }
 
 passed[result] {
