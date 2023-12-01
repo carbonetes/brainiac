@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/ram_account_password_policy
 # custom:
 #   id: CB_TFALI_025
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFALI_025
 
 import future.keywords.in
