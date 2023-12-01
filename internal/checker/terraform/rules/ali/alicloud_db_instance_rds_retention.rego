@@ -28,7 +28,6 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	resource.Attributes.sql_collector_status != "Enabled"
 	to_number(resource.Attributes.sql_collector_config_value) >= 180
 }
 
