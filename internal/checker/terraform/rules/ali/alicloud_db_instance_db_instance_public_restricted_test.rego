@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFGCP_013
+package lib.terraform.CB_TFALI_013
 
 test_alicloud_db_instance_db_instance_public_restricted_passed {
 	result := passed with input as [{
