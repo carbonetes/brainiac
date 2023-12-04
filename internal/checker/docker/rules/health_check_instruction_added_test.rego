@@ -1,6 +1,6 @@
 package lib.docker.CB_DKR_002
 
-healthcheck_instruction_is_added {
+test_healthcheck_instruction_is_added {
 	result := passed with input as [
     {
         "line_range": {
@@ -53,7 +53,7 @@ healthcheck_instruction_is_added {
 	count(result) == 1
 }
 
-healthcheck_instruction_is_not_added {
+test_healthcheck_instruction_is_not_added {
 	result := failed with input as [
     {
         "line_range": {
