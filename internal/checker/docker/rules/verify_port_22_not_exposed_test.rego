@@ -1,4 +1,4 @@
-package lib.dockerfile.CB_DKR_001
+package lib.docker.CB_DKR_001
 
 test_port_22_not_exposed {
 	result := passed with input as [
