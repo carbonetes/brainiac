@@ -25,18 +25,18 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-fail[resource] {
+pass[resource] {
 	some resource in input
 	isvalid(resource)
 	some block in resource.Blocks
 	block.Type == "management"
-	block.Attributes.auto_repair != true
+	block.Attributes.auto_repair == true
 }
 
-pass[resource] {
+fail[resource] {
 	some resource in input
 	isvalid(resource)
-	not fail[resource]
+	not pass[resource]
 }
 
 passed[result] {
