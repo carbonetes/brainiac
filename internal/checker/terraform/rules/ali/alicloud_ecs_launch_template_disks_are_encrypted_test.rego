@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFALI_031
 
-test_alicloud_cs_kubernetes_node_pool_auto_repair_passed {
+test_alicloud_ecs_launch_template_disks_are_encrypted_passed {
 	result := passed with input as [{
         "Type": "data",
         "Labels": [
@@ -210,7 +210,7 @@ test_alicloud_cs_kubernetes_node_pool_auto_repair_passed {
 	count(result) == 1
 }
 
-test_alicloud_cs_kubernetes_node_pool_auto_repair_failed {
+test_alicloud_ecs_launch_template_disks_are_encrypted_failed {
 	result := failed with input as [{
         "Type": "data",
         "Labels": [
