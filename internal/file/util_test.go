@@ -27,7 +27,7 @@ func TestConfigType(t *testing.T) {
 		{
 			name: "Test ConfigType - File Dockerfile",
 			file: filepath.Join("Docker", "Dockerfile"),
-			want: "dockerfile",
+			want: "docker",
 		},
 		{
 			name: "Test ConfigType - File Kubernetes",
