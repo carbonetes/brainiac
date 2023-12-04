@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/db_instance
 # custom:
-#   id: CB_TFGCP_013
+#   id: CB_TFALI_013
 #   severity: LOW
-package lib.terraform.CB_TFGCP_013
+package lib.terraform.CB_TFALI_013
 
 import future.keywords.in
 
