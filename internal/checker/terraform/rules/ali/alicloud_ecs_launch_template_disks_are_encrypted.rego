@@ -9,7 +9,6 @@
 package lib.terraform.CB_TFALI_031
 
 import future.keywords.in
-import future.keywords.if
 
 isvalid(block) {
 	block.Type == "resource"
@@ -31,13 +30,7 @@ pass[resource] {
 	isvalid(resource)
 	some block in resource.Blocks
 	block.Type == "data_disks"
-    encrypt_not_true(block.Attributes.encrypted)
-}
-
-encrypt_not_true(encrypted) if {
-	 encrypted == "true"
-} else {
-	encrypted == true
+   	block.Attributes.encrypted == "true"
 }
 
 
