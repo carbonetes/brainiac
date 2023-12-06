@@ -25,21 +25,6 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-isvalid(block) {
-	block.Type == "resource"
-	"alicloud_db_instance" in block.Labels
-}
-
-resource[resource] {
-	some block in pass
-	resource := concat(".", block.Labels)
-}
-
-resource[resource] {
-	some block in fail
-	resource := concat(".", block.Labels)
-}
-
 pass[resource] {
 	some resource in input
 	isvalid(resource)
