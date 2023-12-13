@@ -17,14 +17,19 @@ fail[args]{
     some args in input
     args.instruction == resource
     some argument in args.args
+    has_wget_args(args)
     argument == "--no-check-certificate"
+}
+
+has_wget_args(args){
+    some argument in args.args
+    argument == "wget"
 }
 
 pass[args] {
     some args in input
     args.instruction == resource
-    some argument in args.args
-    argument == "wget"
+    has_wget_args(args)
     not fail[args]
 }
 
