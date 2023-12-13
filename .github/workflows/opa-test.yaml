@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/terraform-kubernetes-development" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "feature/terraform-kubernetes-development" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
