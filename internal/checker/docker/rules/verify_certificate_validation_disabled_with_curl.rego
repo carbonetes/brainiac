@@ -17,14 +17,19 @@ fail[args]{
     some args in input
     args.instruction == resource
     some argument in args.args
+    has_curl_args(args)
     argument == "--insecure"
+}
+
+has_curl_args(args){
+    some argument in args.args
+    argument == "curl"
 }
 
 pass[args] {
     some args in input
     args.instruction == resource
-    some argument in args.args
-    argument == "curl"
+    has_curl_args(args)
     not fail[args]
 }
 
