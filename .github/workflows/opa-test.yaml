@@ -17,7 +17,7 @@ jobs:
         version: latest
 
     - name: Run OPA Tests
-      run: opa test internal/checker/terraform/rules -v
+      run: opa test internal/checker/terraform/rules/kubernetes -v
 
     - name: Setup Regal
       uses: StyraInc/setup-regal@v0.2.0
