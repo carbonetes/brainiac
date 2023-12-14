@@ -38,7 +38,7 @@ test_certificate_validation_not_disabled_with_nodetls_env {
 				"endLine": 7,
 			},
 			"instruction": "ENV",
-			"args": ["PYTHONHTTPSVERIFY=0"],
+			"args": ["NODE_TLS_REJECT_UNAUTHORIZED=0"],
 		},
 	]
 	count(result) == 1
