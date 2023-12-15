@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main" ,"feature/docker-iac" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ,"feature/docker-iac" ]
+    branches: [ "main" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
