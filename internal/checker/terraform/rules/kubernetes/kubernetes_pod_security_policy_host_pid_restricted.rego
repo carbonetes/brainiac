@@ -26,18 +26,18 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
+fail[block] {
 	some block in input
 	isvalid(block)
 	some inner_block in block.Blocks
 	inner_block.Type == "spec"
-	inner_block.Attributes.host_pid == false
+	inner_block.Attributes.host_pid == true
 }
 
-fail[block] {
+pass[block] {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed[result] {
