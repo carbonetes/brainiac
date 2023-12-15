@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/pod_security_policy
 # custom:
-#   id: CB_TFK8S_002
+#   id: CB_TFK8S_003
 #   severity: HIGH
-package lib.terraform.CB_TFK8S_002
+package lib.terraform.CB_TFK8S_003
 
 import future.keywords.in
 
@@ -26,18 +26,18 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
+fail[block] {
 	some block in input
 	isvalid(block)
 	some inner_block in block.Blocks
 	inner_block.Type == "spec"
-	inner_block.Attributes.privileged == false
+	inner_block.Attributes.privileged == true
 }
 
-fail[block] {
+pass[block] {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed[result] {

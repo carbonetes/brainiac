@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFK8S_002
+package lib.terraform.CB_TFK8S_003
 
 test_kubernetes_pod_security_policy_privileged_restricted_passed {
 	result := passed with input as [{
