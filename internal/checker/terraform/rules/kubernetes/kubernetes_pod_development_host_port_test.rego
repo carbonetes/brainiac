@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFK8S_008
 
-test_kubernetes_pod_development_allow_capabilities_passed {
+test_kubernetes_pod_development_host_port_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -131,7 +131,7 @@ test_kubernetes_pod_development_allow_capabilities_passed {
     }]
 }
 
-test_kubernetes_pod_development_allow_capabilities_failed {
+test_kubernetes_pod_development_host_port_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
