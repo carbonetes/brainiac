@@ -32,7 +32,7 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[resource] {
+fail[resource] {
 	some resource in input
 	isvalid(resource)
     some spec_block in resource.Blocks
@@ -47,14 +47,14 @@ pass[resource] {
     container_security_context_block.Type == "security_context"
     some security_context_capabilities_block in container_security_context_block.Blocks
     security_context_capabilities_block.Type == "capabilities"
-    security_context_capabilities_block.Attributes.add != null
+    not security_context_capabilities_block.Attributes.add
 }
 
 
-fail[resource] {
+pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not pass[resource]
+	not fail[resource]
 }
 
 passed[result] {
