@@ -237,11 +237,7 @@ test_kubernetes_pod_development_allow_capabilities_failed {
                                                     {
                                                         "Type": "capabilities",
                                                         "Labels": [],
-                                                        "Attributes": {
-                                                            "add": [
-                                                                "NET_ADMIN"
-                                                            ]
-                                                        },
+                                                        "Attributes": {},
                                                         "Blocks": [],
                                                         "line_range": {
                                                             "endLine": 32,
