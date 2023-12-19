@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Absence of Unnecessary hostPort Specification"
+# title: "Verify Minimization of Containers with NET_RAW Capability"
 # description: "This policy aims to minimize the admission of containers with the NET_RAW capability. The NET_RAW capability allows a container to create raw network sockets, which can pose security risks. Minimizing this capability helps enhance the security posture of the containerized environment."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment

@@ -238,7 +238,7 @@ test_kubernetes_pod_development_drop_capabilities_failed {
                                                         "Type": "capabilities",
                                                         "Labels": [],
                                                         "Attributes": {
-                                                            "drop": [
+                                                            "add": [
                                                                 "NET_RAW"
                                                             ]
                                                         },
