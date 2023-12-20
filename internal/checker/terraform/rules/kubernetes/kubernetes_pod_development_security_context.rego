@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Minimization of Containers with NET_RAW Capability"
+# title: "Verify Application of Security Context to Pods, Deployments, and DaemonSets"
 # description: "This policy ensures the application of security context to pods, deployments, and daemon sets in Kubernetes environments. Security context settings include parameters such as user and group IDs, file permissions, and other attributes that contribute to the security of containerized workloads."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment
