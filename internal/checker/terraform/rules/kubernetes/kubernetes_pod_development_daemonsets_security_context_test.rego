@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFK8S_016
 
-test_kubernetes_pod_development_security_context_passed {
+test_kubernetes_pod_development_daemonsets_security_context_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -143,7 +143,7 @@ test_kubernetes_pod_development_security_context_passed {
     }]
 }
 
-test_kubernetes_pod_development_security_context_failed {
+test_kubernetes_pod_development_daemonsets_security_context_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
