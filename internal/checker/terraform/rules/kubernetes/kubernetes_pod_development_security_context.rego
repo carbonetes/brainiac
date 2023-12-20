@@ -64,7 +64,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": " Security context is not adequately applied to pods and containers, potentially exposing security vulnerabilities. Apply relevant security context settings to enhance the security of containerized workloads.",
+		"message": "Security context is not adequately applied to pods and containers, potentially exposing security vulnerabilities. Apply relevant security context settings to enhance the security of containerized workloads.",
 		"snippet": block,
 	}
 }
