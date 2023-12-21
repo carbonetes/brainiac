@@ -83,8 +83,8 @@ test_kubernetes_pod_deployment_mimimize_capabilities_passed {
                                                         "Type": "capabilities",
                                                         "Labels": [],
                                                         "Attributes": {
-                                                            "add": [
-                                                                "ALL"
+                                                            "drop": [
+                                                                "SYS_ADMIN"
                                                             ]
                                                         },
                                                         "Blocks": [],
