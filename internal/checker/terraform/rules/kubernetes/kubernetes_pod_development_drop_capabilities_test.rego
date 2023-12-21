@@ -96,7 +96,7 @@ test_kubernetes_pod_development_drop_capabilities_passed {
                                                         "Labels": [],
                                                         "Attributes": {
                                                             "drop": [
-                                                                "NET_RAW"
+                                                                "SYS_ADMIN"
                                                             ]
                                                         },
                                                         "Blocks": [],
@@ -238,7 +238,7 @@ test_kubernetes_pod_development_drop_capabilities_failed {
                                                         "Type": "capabilities",
                                                         "Labels": [],
                                                         "Attributes": {
-                                                            "add": [
+                                                            "drop": [
                                                                 "NET_RAW"
                                                             ]
                                                         },
