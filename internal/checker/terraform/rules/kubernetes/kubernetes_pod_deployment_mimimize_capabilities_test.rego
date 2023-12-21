@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFK8S_024
+package lib.terraform.CB_TFK8S_027
 
 test_kubernetes_pod_deployment_mimimize_capabilities_passed {
 	result := passed with input as [{
