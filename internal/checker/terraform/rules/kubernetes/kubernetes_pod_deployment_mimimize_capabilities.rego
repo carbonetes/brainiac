@@ -4,9 +4,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/pod_security_policy
 # custom:
-#   id: CB_TFK8S_024 
+#   id: CB_TFK8S_027
 #   severity: LOW
-package lib.terraform.CB_TFK8S_024
+package lib.terraform.CB_TFK8S_027
 
 import future.keywords.in
 
