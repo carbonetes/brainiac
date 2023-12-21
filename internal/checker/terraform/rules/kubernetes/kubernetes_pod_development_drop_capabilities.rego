@@ -32,7 +32,7 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[resource] {
+fail[resource] {
 	some resource in input
 	isvalid(resource)    
     some spec_block in resource.Blocks
@@ -52,10 +52,10 @@ pass[resource] {
     drop == drop_value
 }
 
-fail[resource] {
+pass[resource] {
 	some resource in input
 	isvalid(resource)
-	not pass[resource]
+	not fail[resource]
 }
 
 passed[result] {
