@@ -2,7 +2,7 @@
 # title: "Avoid Active Usage of Default Service Accounts"
 # description: "This policy advises against actively using default service accounts. Default service accounts, if not properly managed, may have broad permissions, potentially leading to security vulnerabilities."
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment
+# - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account
 # custom:
 #   id: CB_TFK8S_029
 #   severity: LOW
