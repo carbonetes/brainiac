@@ -32,8 +32,8 @@ pass[block] {
 	expected_values := ["NET_RAW", "ALL"]
 	some inner_block in block.Blocks
 	inner_block.Type == "spec"
-	some capabalities in inner_block.Attributes.required_drop_capabilities
-	capabalities in expected_values
+	some capabilities in inner_block.Attributes.required_drop_capabilities
+	capabilities in expected_values
 }
 
 fail[block] {
