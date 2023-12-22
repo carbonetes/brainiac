@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFK8S_040
 
-test_kubernetes_pod_host_network_namespace_passed {
+test_kubernetes_deployment_read_only_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -59,7 +59,7 @@ test_kubernetes_pod_host_network_namespace_passed {
 	count(result) == 1
 }
 
-test_kubernetes_pod_host_network_namespace_failed {
+test_kubernetes_deployment_read_only_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
