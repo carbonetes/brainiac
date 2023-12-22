@@ -71,8 +71,8 @@ test_kubernetes_service_tiller_deleted_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
-            "kubernetes_deployment",
-            "example"
+            "kubernetes_service",
+            "tiller_service"
         ],
         "Attributes": {},
         "Blocks": [
@@ -80,11 +80,16 @@ test_kubernetes_service_tiller_deleted_failed {
                 "Type": "metadata",
                 "Labels": [],
                 "Attributes": {
-                    "name": "example-deployment"
+                    "labels": {
+                        "app": "helm",
+                        "name": "tiller"
+                    },
+                    "name": "tiller-deploy",
+                    "namespace": "kube-system"
                 },
                 "Blocks": [],
                 "line_range": {
-                    "endLine": 4,
+                    "endLine": 10,
                     "startLine": 2
                 }
             },
@@ -92,94 +97,37 @@ test_kubernetes_service_tiller_deleted_failed {
                 "Type": "spec",
                 "Labels": [],
                 "Attributes": {
-                    "replicas": "3"
+                    "selector": {
+                        "app": "helm",
+                        "name": "tiller"
+                    },
+                    "type": "ClusterIP"
                 },
                 "Blocks": [
                     {
-                        "Type": "selector",
+                        "Type": "port",
                         "Labels": [],
                         "Attributes": {
-                            "match_labels": {
-                                "app": "example"
-                            }
+                            "name": "tiller",
+                            "port": "44134",
+                            "protocol": "TCP",
+                            "targetPort": "tiller"
                         },
                         "Blocks": [],
                         "line_range": {
-                            "endLine": 13,
-                            "startLine": 9
-                        }
-                    },
-                    {
-                        "Type": "template",
-                        "Labels": [],
-                        "Attributes": {},
-                        "Blocks": [
-                            {
-                                "Type": "metadata",
-                                "Labels": [],
-                                "Attributes": {
-                                    "labels": {
-                                        "app": "example"
-                                    }
-                                },
-                                "Blocks": [],
-                                "line_range": {
-                                    "endLine": 20,
-                                    "startLine": 16
-                                }
-                            },
-                            {
-                                "Type": "spec",
-                                "Labels": [],
-                                "Attributes": {},
-                                "Blocks": [
-                                    {
-                                        "Type": "container",
-                                        "Labels": [],
-                                        "Attributes": {
-                                            "image": "nginx:latest",
-                                            "name": "example-container"
-                                        },
-                                        "Blocks": [
-                                            {
-                                                "Type": "ports",
-                                                "Labels": [],
-                                                "Attributes": {
-                                                    "container_port": "80"
-                                                },
-                                                "Blocks": [],
-                                                "line_range": {
-                                                    "endLine": 29,
-                                                    "startLine": 27
-                                                }
-                                            }
-                                        ],
-                                        "line_range": {
-                                            "endLine": 30,
-                                            "startLine": 23
-                                        }
-                                    }
-                                ],
-                                "line_range": {
-                                    "endLine": 31,
-                                    "startLine": 22
-                                }
-                            }
-                        ],
-                        "line_range": {
-                            "endLine": 32,
-                            "startLine": 15
+                            "endLine": 23,
+                            "startLine": 18
                         }
                     }
                 ],
                 "line_range": {
-                    "endLine": 33,
-                    "startLine": 6
+                    "endLine": 26,
+                    "startLine": 12
                 }
             }
         ],
         "line_range": {
-            "endLine": 34,
+            "endLine": 27,
             "startLine": 1
         }
     }]
