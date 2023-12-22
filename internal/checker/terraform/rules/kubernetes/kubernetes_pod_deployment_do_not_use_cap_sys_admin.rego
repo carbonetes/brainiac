@@ -1,5 +1,5 @@
 # METADATA
-# title: "Prefer Secrets as Files Over Environment Variables"
+# title: "Avoid Using CAP_SYS_ADMIN Linux Capability"
 # description: "This policy recommends avoiding the use of the CAP_SYS_ADMIN Linux capability in container configurations. This capability grants extensive system administration privileges, posing potential security risks."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment
