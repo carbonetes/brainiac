@@ -33,6 +33,7 @@ fail[block] {
 	block.Type == "resource"
 	isvalid(block)
 	some inner_block in block.Blocks
+	inner_block.Type == "spec"
 	inner_block.Attributes.host_network == true
 }
 
