@@ -37,14 +37,7 @@ pass[resource] {
     some block in resource.Blocks
     block.Type == "metadata"
     block.Attributes.name != "default"
-} 
-# deny[msg] {
-#     input.resource["kind"] in ["kubernetes_service_account", "kubernetes_service_account_v1"]
-#     metadata = input.resource["metadata"][0]
-#     metadata["name"] == "default"
-#     not input.resource["automount_service_account_token"] == [false]
-#     msg = sprintf("Ensure that default service accounts are not actively used. Evaluated keys: %v", [sprintf("automount_service_account_token")])
-# } 
+}
 
 fail[resource] {
 	some resource in input
