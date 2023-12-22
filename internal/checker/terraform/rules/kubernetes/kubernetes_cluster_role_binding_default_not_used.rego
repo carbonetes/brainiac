@@ -1,5 +1,5 @@
 # METADATA
-# title: "Avoid Active Usage of Default Service Accounts"
+# title: "Prevent Active Usage of Default Service Accounts"
 # description: "This policy aims to discourage the active usage of default service accounts. Employing default service accounts for critical tasks can pose security risks, and it is recommended to create and use service accounts with the least privilege required for specific functions."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cluster_role_binding
