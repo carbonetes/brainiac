@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFK8S_036
 
-test_kubernetes_pod_security_policy_host_network_restricted_passed {
+test_kubernetes_deployment_host_ipc_namespace_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -56,7 +56,7 @@ test_kubernetes_pod_security_policy_host_network_restricted_passed {
 	count(result) == 1
 }
 
-test_kubernetes_pod_security_policy_host_network_restricted_failed {
+test_kubernetes_deployment_host_ipc_namespace_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
