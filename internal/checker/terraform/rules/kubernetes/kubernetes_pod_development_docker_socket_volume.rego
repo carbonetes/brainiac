@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Absence of Unnecessary hostPort Specification"
+# title: "Verify Absence of Exposed Docker Daemon Socket to Containers"
 # description: "This policy ensures that the Docker daemon socket is not exposed to containers. Exposing the Docker daemon socket poses a significant security risk, allowing potential unauthorized access and control over the host system."
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment
