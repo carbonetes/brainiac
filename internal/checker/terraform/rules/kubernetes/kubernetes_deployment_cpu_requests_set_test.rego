@@ -33,7 +33,7 @@ test_kubernetes_deployment_cpu_requests_set_passed {
 					"Blocks": [{
 						"Type": "resources",
 						"Labels": [],
-						"Attributes": {"requests": {"memory": "memory_request"}},
+						"Attributes": {"requests": {"cpu": "cpu_request"}},
 						"Blocks": [],
 						"line_range": {
 							"endLine": 15,
