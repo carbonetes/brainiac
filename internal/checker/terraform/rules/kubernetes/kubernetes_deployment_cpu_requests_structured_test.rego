@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFK8S_013
 
-test_kubernetes_deployment_cpu_requests_set_passed {
+test_kubernetes_deployment_cpu_requests_structured_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -59,7 +59,7 @@ test_kubernetes_deployment_cpu_requests_set_passed {
 	count(result) == 1
 }
 
-test_kubernetes_deployment_cpu_requests_set_failed {
+test_kubernetes_deployment_cpu_requests_structured_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
