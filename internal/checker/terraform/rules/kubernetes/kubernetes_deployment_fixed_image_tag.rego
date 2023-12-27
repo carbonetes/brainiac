@@ -28,30 +28,30 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-fail[block] {
+pass[block] {
 	some block in input
 	isvalid(block)
 	some inner_block in block.Blocks
 	inner_block.Type == "spec"
 	some container_block in inner_block.Blocks
 	container_block.Type == "container"
-	endswith(container_block.Attributes.image, ":latest")
-}
-
-fail[block] {
-	some block in input
-	isvalid(block)
-	some inner_block in block.Blocks
-	inner_block.Type == "spec"
-	some container_block in inner_block.Blocks
-	container_block.Type == "container"
-	endswith(container_block.Attributes.image, ":")
+	not contains(container_block.Attributes.image, ":latest")
 }
 
 pass[block] {
 	some block in input
 	isvalid(block)
-	not fail[block]
+	some inner_block in block.Blocks
+	inner_block.Type == "spec"
+	some container_block in inner_block.Blocks
+	container_block.Type == "container"
+	not contains(container_block.Attributes.image, ":")
+}
+
+fail[block] {
+	some block in input
+	isvalid(block)
+	not pass[block]
 }
 
 passed[result] {
