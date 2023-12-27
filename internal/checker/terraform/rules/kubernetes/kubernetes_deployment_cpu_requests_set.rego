@@ -37,7 +37,7 @@ pass[block] {
 	container_block.Type == "container"
 	some resources_block in container_block.Blocks
 	resources_block.Type == "resources"
-	"memory" in object.keys(resources_block.Attributes.requests)
+	"cpu" in object.keys(resources_block.Attributes.requests)
 }
 
 fail[block] {
