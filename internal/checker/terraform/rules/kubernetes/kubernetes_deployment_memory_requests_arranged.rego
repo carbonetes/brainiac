@@ -1,6 +1,6 @@
 # METADATA
-# title: "Confirm that CPU requests are configured appropriately"
-# description: "Verify that the configuration for CPU requests in the Kubernetes Pod is appropriately set."
+# title: "Confirm that memory requests are configured appropriately"
+# description: "Verify that the memory requests have been configured appropriately to assure optimal system performance and resource allocation."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment
@@ -37,7 +37,7 @@ pass[block] {
 	container_block.Type == "container"
 	some resources_block in container_block.Blocks
 	resources_block.Type == "resources"
-	"cpu" in object.keys(resources_block.Attributes.requests)
+	"memory" in object.keys(resources_block.Attributes.requests)
 }
 
 fail[block] {
@@ -49,7 +49,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "CPU requests are configured.",
+		"message": "Memory requests are configured.",
 		"snippet": block,
 	}
 }
@@ -57,7 +57,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "CPU requests must be configured.",
+		"message": "Memory requests must be configured.",
 		"snippet": block,
 	}
 }
