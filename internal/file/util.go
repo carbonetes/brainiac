@@ -15,7 +15,7 @@ import (
 
 const (
 	FileTypeTerraform      string = "terraform"
-	FileTypeDockerfile     string = "dockerfile"
+	FileTypeDockerfile     string = "docker"
 	FileTypeKubernetes     string = "kubernetes"
 	FileTypeCloudFormation string = "cloudformation"
 	FileTypeYAML           string = "yaml"

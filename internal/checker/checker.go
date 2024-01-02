@@ -63,8 +63,14 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 		return proccessInput(input, rawContent, modules, file.FileTypeTerraform, configFile)
 
 	case file.FileTypeDockerfile:
-
-		//implement other config type here
+		modules, err := module.ModuleParser(config, EmbededRules)
+		if err != nil && modules == nil {
+			log.Printf("Failed to parse rego modules")
+			Errors = append(Errors, &err)
+			return model.Result{}, err
+		}
+		input, rawContent := file.ParseDockerfile(configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeDockerfile, configFile)
 	}
 	return model.Result{}, nil
 
@@ -169,7 +175,7 @@ func getFilteredSeverities() []string {
 
 	index := -1
 	for i, s := range severities {
-		
+
 		if strings.EqualFold(s, *criteria) {
 			index = i
 			break
