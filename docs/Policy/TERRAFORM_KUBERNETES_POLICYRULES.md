@@ -38,10 +38,10 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFK8S_012 | resource | kubernetes_deployment_v1 | Verify Minimization of Containers with NET_RAW Capability | checker/terraform/rules/kubernetes_pod_development_drop_capabilities.rego |
 | CB_TFK8S_012 | resource | kubernetes_pod | Verify Minimization of Containers with NET_RAW Capability | checker/terraform/rules/kubernetes_pod_development_drop_capabilities.rego |
 | CB_TFK8S_012 | resource | kubernetes_pod_v1 | Verify Minimization of Containers with NET_RAW Capability | checker/terraform/rules/kubernetes_pod_development_drop_capabilities.rego |
-| CB_TFK8S_013 | resource | kubernetes_deployment | Confirm that CPU requests are configured | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_013 | resource | kubernetes_deployment_v1 | Confirm that CPU requests are configured | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_013 | resource | kubernetes_pod | Confirm that CPU requests are configured | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_013 | resource | kubernetes_pod_v1 | Confirm that CPU requests are configured | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
+| CB_TFK8S_013 | resource | kubernetes_deployment | Confirm that CPU requests are configured | checker\terraform\rules\kubernetes\kubernetes_deployment_cpu_requests_structured.rego |
+| CB_TFK8S_013 | resource | kubernetes_deployment_v1 | Confirm that CPU requests are configured | checker\terraform\rules\kubernetes\kubernetes_deployment_cpu_requests_structured.rego |
+| CB_TFK8S_013 | resource | kubernetes_pod | Confirm that CPU requests are configured | checker\terraform\rules\kubernetes\kubernetes_deployment_cpu_requests_structured.rego |
+| CB_TFK8S_013 | resource | kubernetes_pod_v1 | Confirm that CPU requests are configured | checker\terraform\rules\kubernetes\kubernetes_deployment_cpu_requests_structured.rego |
 | CB_TFK8S_014 | resource | kubernetes_deployment | Confirm that CPU limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_limits_set.rego |
 | CB_TFK8S_014 | resource | kubernetes_deployment_v1 | Confirm that CPU limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_limits_set.rego |
 | CB_TFK8S_014 | resource | kubernetes_pod | Confirm that CPU limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_limits_set.rego |
@@ -66,10 +66,10 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFK8S_020 | resource | kubernetes_deployment_v1 | Confirm that memory limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_memory_limits_set.rego |
 | CB_TFK8S_020 | resource | kubernetes_pod | Confirm that memory limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_memory_limits_set.rego |
 | CB_TFK8S_020 | resource | kubernetes_pod_v1 | Confirm that memory limits are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_memory_limits_set.rego |
-| CB_TFK8S_021 | resource | kubernetes_deployment | Confirm that CPU requests are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_021 | resource | kubernetes_deployment_v1 | Confirm that CPU requests are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_021 | resource | kubernetes_pod | Confirm that CPU requests are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
-| CB_TFK8S_021 | resource | kubernetes_pod_v1 | Confirm that CPU requests are configured appropriately | checker/terraform/rules/kubernetes/kubernetes_deployment_cpu_requests_set.rego |
+| CB_TFK8S_021 | resource | kubernetes_deployment | Confirm that memory requests are configured appropriately | checker\terraform\rules\kubernetes\kubernetes_deployment_memory_requests_arranged.rego |
+| CB_TFK8S_021 | resource | kubernetes_deployment_v1 | Confirm that memory requests are configured appropriately | checker\terraform\rules\kubernetes\kubernetes_deployment_memory_requests_arranged.rego |
+| CB_TFK8S_021 | resource | kubernetes_pod | Confirm that memory requests are configured appropriately | checker\terraform\rules\kubernetes\kubernetes_deployment_memory_requests_arranged.rego |
+| CB_TFK8S_021 | resource | kubernetes_pod_v1 | Confirm that memory requests are configured appropriately | checker\terraform\rules\kubernetes\kubernetes_deployment_memory_requests_arranged.rego |
 | CB_TFK8S_022 | resource | kubernetes_deployment | Confirm that the image tag is set to a specific value and not left as latest or left blank | checker/terraform/rules/kubernetes/kubernetes_deployment_fixed_image_tag.rego |
 | CB_TFK8S_022 | resource | kubernetes_deployment_v1 | Confirm that the image tag is set to a specific value and not left as latest or left blank | checker/terraform/rules/kubernetes/kubernetes_deployment_fixed_image_tag.rego |
 | CB_TFK8S_022 | resource | kubernetes_pod | Confirm that the image tag is set to a specific value and not left as latest or left blank | checker/terraform/rules/kubernetes/kubernetes_deployment_fixed_image_tag.rego |
@@ -135,16 +135,16 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFK8S_033 | resource | kubernetes_cluster_role_v1 | Limit Wildcard Use in Roles and ClusterRoles | checker/terraform/rules/kubernetes_cluster_role_wild_card.rego |
 | CB_TFK8S_034 | resource | kubernetes_deployment | Avoid allowing containers that intend to distribute the host process ID namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_container_host_process_id_namespace.rego |
 | CB_TFK8S_034 | resource | kubernetes_deployment_v1 | Avoid allowing containers that intend to distribute the host process ID namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_container_host_process_id_namespace.rego |
-| CB_TFK8S_035 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host process ID namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_container_host_process_id_namespace.rego |
-| CB_TFK8S_035 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host process ID namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_container_host_process_id_namespace.rego |
+| CB_TFK8S_035 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host process ID namespace | checker\terraform\rules\kubernetes\kubernetes_pod_container_host_process_id_namespace.rego |
+| CB_TFK8S_035 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host process ID namespace | checker\terraform\rules\kubernetes\kubernetes_pod_container_host_process_id_namespace.rego |
 | CB_TFK8S_036 | resource | kubernetes_deployment | Avoid allowing containers that intend to distribute the host IPC namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_ipc_namespace.rego |
 | CB_TFK8S_036 | resource | kubernetes_deployment_v1 | Avoid allowing containers that intend to distribute the host IPC namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_ipc_namespace.rego |
-| CB_TFK8S_037 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host IPC namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_ipc_namespace.rego |
-| CB_TFK8S_037 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host IPC namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_ipc_namespace.rego |
+| CB_TFK8S_037 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host IPC namespace | checker\terraform\rules\kubernetes\kubernetes_pod_host_ipc_namespace.rego |
+| CB_TFK8S_037 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host IPC namespace | checker\terraform\rules\kubernetes\kubernetes_pod_host_ipc_namespace.rego |
 | CB_TFK8S_038 | resource | kubernetes_deployment | Avoid allowing containers that intend to distribute the host network namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_network_namespace.rego |
 | CB_TFK8S_038 | resource | kubernetes_deployment_v1 | Avoid allowing containers that intend to distribute the host network namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_network_namespace.rego |
-| CB_TFK8S_039 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host network namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_network_namespace.rego |
-| CB_TFK8S_039 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host network namespace | checker/terraform/rules/kubernetes/kubernetes_deployment_host_network_namespace.rego |
+| CB_TFK8S_039 | resource | kubernetes_pod | Avoid allowing containers that intend to distribute the host network namespace | checker\terraform\rules\kubernetes\kubernetes_pod_host_network_namespace.rego |
+| CB_TFK8S_039 | resource | kubernetes_pod_v1 | Avoid allowing containers that intend to distribute the host network namespace | checker\terraform\rules\kubernetes\kubernetes_pod_host_network_namespace.rego |
 | CB_TFK8S_040 | resource | kubernetes_deployment | Employ a read-only filesystem whenever feasible for containers | checker/terraform/rules/kubernetes/kubernetes_deployment_read_only.rego |
 | CB_TFK8S_040 | resource | kubernetes_deployment_v1 | Employ a read-only filesystem whenever feasible for containers | checker/terraform/rules/kubernetes/kubernetes_deployment_read_only.rego |
 | CB_TFK8S_040 | resource | kubernetes_pod | Employ a read-only filesystem whenever feasible for containers | checker/terraform/rules/kubernetes/kubernetes_deployment_read_only.rego |
