@@ -26,6 +26,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFK8S_009 | resource | kubernetes_daemon_set_v1 | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
 | CB_TFK8S_009 | resource | kubernetes_daemonset | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
 | CB_TFK8S_009 | resource | kubernetes_deployment | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
+| CB_TFK8S_009 | resource | kubernetes_deployment_v1 | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
 | CB_TFK8S_009 | resource | kubernetes_pod | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
 | CB_TFK8S_009 | resource | kubernetes_pod_v1 | Verify Absence of Exposed Docker Daemon Socket to Containers | checker/terraform/rules/kubernetes_pod_development_docker_socket_volume.rego |
 | CB_TFK8S_010 | resource | kubernetes_pod_security_policy | Disallow containers that possess the NET_RAW capability | checker/terraform/rules/kubernetes/kubernetes_pod_security_policy_containers_net_raw_restricted.rego |
@@ -114,7 +115,7 @@ This document provides a comprehensive index of Terraform policies available in 
 | CB_TFK8S_027 | resource | kubernetes_pod_v1 | Restrict Containers with Assigned Capabilities | checker/terraform/rules/kubernetes_pod_deployment_mimimize_capabilities.rego |
 | CB_TFK8S_028 | resource | kubernetes_deployment | Avoid Using CAP_SYS_ADMIN Linux Capability | checker/terraform/rules/kubernetes_pod_deployment_do_not_use_cap_sys_admin.rego |
 | CB_TFK8S_028 | resource | kubernetes_deployment_v1 | Avoid Using CAP_SYS_ADMIN Linux Capability | checker/terraform/rules/kubernetes_pod_deployment_do_not_use_cap_sys_admin.rego |
-| CB_TFK8S_028 | resource | kubernetes_pod_v1 | Avoid Using CAP_SYS_ADMIN Linux Capability | checker/terraform/rules/kubernetes_pod_deployment_do_not_use_cap_sys_admin.rego |
+| CB_TFK8S_028 | resource | kubernetes_pod | Avoid Using CAP_SYS_ADMIN Linux Capability | checker/terraform/rules/kubernetes_pod_deployment_do_not_use_cap_sys_admin.rego |
 | CB_TFK8S_028 | resource | kubernetes_pod_v1 | Avoid Using CAP_SYS_ADMIN Linux Capability | checker/terraform/rules/kubernetes_pod_deployment_do_not_use_cap_sys_admin.rego |
 | CB_TFK8S_029 | resource | kubernetes_service_account | Avoid Active Usage of Default Service Accounts | checker/terraform/rules/kubernetes_service_account_default_not_used.rego |
 | CB_TFK8S_029 | resource | kubernetes_service_account_v1 | Avoid Active Usage of Default Service Accounts | checker/terraform/rules/kubernetes_service_account_default_not_used.rego |
