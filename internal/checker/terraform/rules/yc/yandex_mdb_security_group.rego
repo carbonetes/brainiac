@@ -40,8 +40,7 @@ resource[resource] {
 pass[resource] {
     some resource in input
     isvalid(resource)
-    resource.Attributes.security_group_ids != null
-    resource.Attributes.security_group_ids != []
+	count(resource.Attributes.security_group_ids) != 0
 }
 
 fail[resource] {
@@ -64,8 +63,4 @@ failed[result] {
         "message": sprintf("No security group is assigned to the database cluster (%v). It is recommended to assign a security group to enhance network security and access control.", [block.Attributes.name]),
         "snippet": block,
     }
-}
-
-main := {
-    "result": pass
 }
