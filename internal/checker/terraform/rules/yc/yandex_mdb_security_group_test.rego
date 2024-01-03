@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFYC_001
 
-test_yandex_mdb_security_group_passed {
+test_yandex_mdb_security_group_passed { 
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [

@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/mdb_clickhouse_cluster
 # custom:
 #   id: CB_TFYC_001
-#   severity: LOW
+#   severity: LOW 
 package lib.terraform.CB_TFYC_001
 
 import future.keywords.in
