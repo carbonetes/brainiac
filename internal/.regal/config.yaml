@@ -2,7 +2,6 @@ rules:
   idiomatic:
     custom-has-key-construct:
     no-defined-entrypoint:
-      # one of "error", "warning", "ignore"
       level: ignore
   style:
     # Style category safe to ignore, but good to follow modern conventions
