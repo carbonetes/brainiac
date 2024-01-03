@@ -67,5 +67,5 @@ failed[result] {
 }
 
 main = {
-    "result": result
+    "policy_result": pass
 }
