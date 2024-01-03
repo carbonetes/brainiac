@@ -60,7 +60,7 @@ passed[result] {
 failed[result] {
     some block in fail
     result := {
-        "message": sprintf("No security group is assigned to the database cluster (%v). It is recommended to assign a security group to enhance network security and access control.", [block.Attributes.name]),
+        "message": "No security group is assigned to the database cluster. It is recommended to assign a security group to enhance network security and access control.",
         "snippet": block,
     }
 }
