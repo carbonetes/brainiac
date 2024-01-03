@@ -66,6 +66,6 @@ failed[result] {
     }
 }
 
-main = {
-    "policy_result": pass
+main := {
+    "result": pass
 }
