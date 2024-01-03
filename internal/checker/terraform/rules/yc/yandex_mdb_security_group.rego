@@ -20,7 +20,7 @@ isvalid(block) {
 		"yandex_mdb_kafka_cluster",
 		"yandex_mdb_greenplum_cluster",
 		"yandex_mdb_elasticsearch_cluster",
-		"yandex_mdb_clickhouse_cluster",
+		"yandex_mdb_clickhouse_cluster"
 	]
 	block.Type == "resource"
 	some label in block.Labels
