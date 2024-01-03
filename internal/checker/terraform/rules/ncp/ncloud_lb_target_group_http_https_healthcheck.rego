@@ -28,11 +28,11 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-	expectedValues := [
+	expected_values := [
 		"HTTPS",
 		"HTTP",
 	]
-	block.Attributes.protocol in expectedValues
+	block.Attributes.protocol in expected_values
 	some inner_block in block.Blocks
 	inner_block.Type == "health_check"
 	"url_path" in object.keys(inner_block.Attributes)
