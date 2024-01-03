@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "main", "feature/terraform-ncp-development" ]
   pull_request:
-    branches: [ "main" "feature/terraform-ncp-development" ]
+    branches: [ "main", "feature/terraform-ncp-development" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
