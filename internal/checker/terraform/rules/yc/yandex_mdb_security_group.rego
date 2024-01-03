@@ -40,7 +40,7 @@ resource[resource] {
 pass[resource] {
 	some resource in input
 	isvalid(resource)
-	count(resource.Attributes.security_group_ids) != 0
+	resource.Attributes.security_group_ids != null
 }
 
 fail[resource] {
