@@ -5,7 +5,7 @@
 # - https://registry.terraform.io/providers/NaverCloudPlatform/ncloud/latest/docs/resources/access_control_group_rule
 # custom:
 #   id: CB_TFNCP_004
-#   severity: LOW
+#   severity: MEDIUM
 package lib.terraform.CB_TFNCP_004
 
 import future.keywords.in
