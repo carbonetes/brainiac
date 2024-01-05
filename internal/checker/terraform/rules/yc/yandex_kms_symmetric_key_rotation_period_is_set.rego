@@ -2,7 +2,7 @@
 # title: "Rotate KMS Symmetric Key"
 # description: "This policy ensures that a Key Management Service (KMS) symmetric key undergoes regular rotation. Key rotation is a security best practice that helps mitigate potential risks by generating a new key while retaining access to the existing one during the transition."
 # related_resources:
-# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/kubernetes_node_group
+# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/kms_symmetric_key
 # custom:
 #   id: CB_TFYC_009
 #   severity: MEDIUM
