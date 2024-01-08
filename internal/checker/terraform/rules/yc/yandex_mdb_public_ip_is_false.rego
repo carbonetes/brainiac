@@ -48,14 +48,6 @@ fail[resource] {
 
 fail[resource] {
 	some resource in input
-	isvalid(resource)
-	some block in resource.Blocks
-	block.Type == "host"
-	block.Attributes.assign_public_ip == true
-}
-
-fail[resource] {
-	some resource in input
 	resource.Type == "resource"
 	"yandex_mdb_kafka_cluster" in resource.Labels
 	some block in resource.Blocks
