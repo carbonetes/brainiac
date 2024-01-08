@@ -3,7 +3,7 @@
 # description: "Confirm that the Load Balancer (LB) Listener is configured to utilize secure protocols exclusively. This check assures that the protocols employed are resistant to security vulnerabilities, contributing to a more robust network infrastructure."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_member
+# - https://registry.terraform.io/providers/NaverCloudPlatform/ncloud/latest/docs/resources/lb_listener
 # custom:
 #   id: CB_TFNCP_013
 #   severity: MEDIUM
