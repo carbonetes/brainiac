@@ -2,7 +2,9 @@
 # title: "Disallow Assignment of Public IP to Database Cluster"
 # description: "This policy ensures that database clusters do not have public IP addresses assigned. Assigning public IPs to database clusters may expose sensitive data and services to unauthorized access, compromising security."
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/role
+# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/mdb_clickhouse_cluster
+# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/mdb_kafka_cluster
+# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/mdb_greenplum_cluster
 # custom:
 #   id: CB_TFYC_012
 #   severity: MEDIUM
