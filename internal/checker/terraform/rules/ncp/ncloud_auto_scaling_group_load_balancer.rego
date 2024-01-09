@@ -26,7 +26,7 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-get_label_for_lb_target_group[label] {
+label_for_lb_target_group[label] {
 	some block in input
 	block.Type == "resource"
 	"ncloud_lb_target_group" in block.Labels
@@ -39,7 +39,7 @@ lb_target_group_is_attached {
 	some block in input
 	block.Type == "resource"
 	"ncloud_auto_scaling_group" in block.Labels
-	some label in get_label_for_lb_target_group
+	some label in label_for_lb_target_group
 	contains(block.Attributes.lb_target_group, label)
 }
 
