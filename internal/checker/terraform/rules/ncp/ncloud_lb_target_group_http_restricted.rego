@@ -48,7 +48,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "The Load Balancer Target Group does must not utilize HTTP as its protocol.",
+		"message": "The Load Balancer Target Group must not utilize HTTP as its protocol.",
 		"snippet": block,
 	}
 }
