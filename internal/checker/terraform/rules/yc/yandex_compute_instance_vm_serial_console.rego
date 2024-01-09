@@ -2,7 +2,7 @@
 # title: "Disable Serial Console for Compute Instances"
 # description: "This policy ensures that the serial console is disabled for compute instances, reducing the potential attack surface and enhancing security."
 # related_resources:
-# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/storage_bucket
+# - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/compute_instance
 # custom:
 #   id: CB_TFYC_004
 #   severity: LOW
