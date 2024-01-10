@@ -32,7 +32,7 @@ fail[resource] {
 	block.Type == "ingress"
 	some cidr_block in block.Attributes.v4_cidr_blocks
 	cidr_block == "0.0.0.0/0"
-	block.Attributes.port == -1
+	to_number(block.Attributes.port) == -1
 }
 
 fail[resource] {
