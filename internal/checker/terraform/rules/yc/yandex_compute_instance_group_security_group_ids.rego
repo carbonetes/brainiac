@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Security Group Assignment for Compute Instance Group"
-# description: "his policy ensures that a security group is properly assigned to a compute instance group, enhancing the security posture of the deployment."
+# description: "This policy ensures that a security group is properly assigned to a compute instance group, enhancing the security posture of the deployment."
 # related_resources:
 # - https://registry.terraform.io/providers/webbankir/yandex/latest/docs/resources/compute_instance_group
 # custom:
