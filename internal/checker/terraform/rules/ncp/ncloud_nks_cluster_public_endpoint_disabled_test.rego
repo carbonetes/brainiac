@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFK8S_018
+package lib.terraform.CB_TFNCP_018
 
 test_ncloud_nks_cluster_public_endpoint_disabled_passed {
 	result := passed with input as [{
