@@ -1,23 +1,7 @@
 rules:
-  bugs:
-    not-equals-in-loop:
-      # This is actually fine the way it's used here.
-      # Issue created in Regal for tracking:
-      # https://github.com/StyraInc/regal/issues/416
-      level: ignore
   idiomatic:
     custom-has-key-construct:
-      # A lot of these, where we could simply use `object.keys`
-      # and `in` instead
-      # https://docs.styra.com/regal/rules/idiomatic/custom-has-key-construct
-      level: ignore
-    use-in-operator:
-      # Same for this one — just use `in`
-      # https://docs.styra.com/regal/rules/idiomatic/custom-in-construct
-      level: ignore
     no-defined-entrypoint:
-      # This is a good practice, but safe to ignore
-      # https://docs.styra.com/regal/rules/idiomatic/no-defined-entrypoint
       level: ignore
   style:
     # Style category safe to ignore, but good to follow modern conventions
@@ -31,13 +15,7 @@ rules:
       level: ignore
     opa-fmt:
       level: ignore
-    prefer-snake-case:
-      level: ignore
-    prefer-some-in-iteration:
-      level: ignore
     rule-length:
-      level: ignore
-    use-assignment-operator:
       level: ignore
   testing:
     test-outside-test-package:
