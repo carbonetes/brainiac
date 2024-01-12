@@ -4,9 +4,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/NaverCloudPlatform/ncloud/latest/docs/resources/nks_cluster
 # custom:
-#   id: CB_TFNCP_018
+#   id: CB_TFK8S_018
 #   severity: MEDIUM
-package lib.terraform.CB_TFNCP_018
+package lib.terraform.CB_TFK8S_018
 
 import future.keywords.in
 
