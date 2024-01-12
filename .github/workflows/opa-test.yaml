@@ -1,26 +1,25 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main", "feature/terraform-yc-development" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "feature/terraform-yc-development" ]
+    branches: [ "main" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
       uses: actions/checkout@v3
-
     - name: Setup OPA
       uses: open-policy-agent/setup-opa@v2
       with:
         version: latest
 
     - name: Run OPA Tests
-      run: opa test internal/checker/terraform/rules/yc -v
+      run: opa test internal/checker -v
 
     - name: Setup Regal
       uses: StyraInc/setup-regal@v0.2.0
       with:
         version: v0.11.0
-    - run: regal lint --format=github internal/checker/terraform/rules/yc
+    - run: regal lint --format=github internal/checker

@@ -2,14 +2,13 @@ name: "Validation Tests"
 
 on:
   push:
-    branches: [ "main", "feature/terraform-yc-development" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "feature/terraform-yc-development" ]
+    branches: [ "main" ]
 
 env:
   GO_CURRENT_VERSION: "1.20.x"
   GO_STABLE_VERSION: true
-
 jobs:
   Lint-Check:
     name: Lint Checks
@@ -17,10 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
-
   Unit-Test:
     name: Unit Tests
     runs-on: ubuntu-latest
