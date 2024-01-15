@@ -1,6 +1,6 @@
 # METADATA
 # title: "Confirm that the droplet is configured with an SSH key"
-# description: "Confirm that the droplet is configured with an SSH key to enhance security and enable secure access."
+# description: "Verify that the droplet is configured with an SSH key to enhance security and enable secure access."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/droplet
