@@ -8,7 +8,7 @@ test_linode_user_email_set_passed {
 			"example_user",
 		],
 		"Attributes": {
-			"email": "user@examdple.com",
+			"email": "user@example.com",
 			"password": "example_password",
 			"username": "example_username",
 		},
