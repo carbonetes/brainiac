@@ -15,11 +15,15 @@ jobs:
       with:
         version: latest
 
-    - name: Run OPA Tests
-      run: opa test internal/checker/terraform/rules -v
+    - name: Run OPA Tests GitHub
+      run: opa test internal/checker/terraform/rules/git -v
+
+    - name: Run OPA Tests GitLab
+      run: opa test internal/checker/terraform/rules/glb -v
 
     - name: Setup Regal
       uses: StyraInc/setup-regal@v0.2.0
       with:
         version: v0.11.0
-    - run: regal lint --format=github internal/checker/terraform/rules
+    - run: regal lint --format=github internal/checker/terraform/rules/git
+    - run: regal lint --format=github internal/checker/terraform/rules/glb
