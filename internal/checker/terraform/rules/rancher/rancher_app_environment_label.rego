@@ -29,7 +29,6 @@ resource[resource] {
 pass[block] {
     some block in input
     isvalid(block)
-    some label in block.Attributes.labels
     "environment" in object.keys(block.Attributes.labels)
     block.Attributes.labels.environment == "production"
     
