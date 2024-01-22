@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFRAN_007
+package lib.terraform.CB_TFRAN_008
 
 test_rancher2_auth_config_activedirectory_server_passed {
 	result := passed with input as [{
