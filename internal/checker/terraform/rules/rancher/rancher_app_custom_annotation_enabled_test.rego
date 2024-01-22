@@ -42,7 +42,7 @@ test_rancher_app_custom_annotation_enabled_passed {
     count(result) == 1
 }
 
-test_rancher_app_custom_annotation_enabled_passed {
+test_rancher_app_v2_custom_annotation_enabled_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -82,7 +82,7 @@ test_rancher_app_custom_annotation_enabled_passed {
 }
 
 
-test_rancher_app_custom_annotation_enabled_failed {
+test_rancher_app_v2_custom_annotation_enabled_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
