@@ -4,6 +4,7 @@
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/app
+# - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/app_v2
 # custom:
 #   id: CB_TFRAN_004
 #   severity: LOW
@@ -12,8 +13,10 @@ package lib.terraform.CB_TFRAN_004
 import future.keywords.in
 
 isvalid(block) {
-	block.Type == "resource"
-	"rancher2_app" in block.Labels
+    supported_resources := ["rancher2_app", "rancher2_app_v2"]
+    block.Type == "resource"
+    some label in block.Labels
+    label in supported_resources
 }
 
 resource[resource] {
