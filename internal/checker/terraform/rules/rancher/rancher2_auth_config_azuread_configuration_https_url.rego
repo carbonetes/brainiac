@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_azuread
 # custom:
 #   id: CB_TFRAN_012
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFRAN_012
 
 import future.keywords.in
