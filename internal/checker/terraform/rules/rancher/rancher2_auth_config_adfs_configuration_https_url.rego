@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_adfs
 # custom:
 #   id: CB_TFRAN_010
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFRAN_010
 
 import future.keywords.in
@@ -29,7 +29,6 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-    block.Attributes.rancher_api_host != ""
 	startswith(block.Attributes.rancher_api_host, "https://")
 }
 
