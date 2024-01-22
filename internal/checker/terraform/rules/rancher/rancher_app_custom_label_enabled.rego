@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Rancher2 App_v2 Custom Label Presence"
+# title: "Verify Rancher2 App Custom Label Presence"
 # description: "This policy ensures that Rancher2 apps have a specific custom label for proper configuration within the Rancher environment."
 # scope: package
 # related_resources:
