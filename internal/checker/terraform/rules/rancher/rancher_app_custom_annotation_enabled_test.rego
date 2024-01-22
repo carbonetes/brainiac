@@ -42,6 +42,45 @@ test_rancher_app_custom_annotation_enabled_passed {
     count(result) == 1
 }
 
+test_rancher_app_custom_annotation_enabled_failed {
+	result := failed with input as [{
+        "Type": "provider",
+        "Labels": [
+            "rancher2"
+        ],
+        "Attributes": {
+            "token": "your-rancher-api-token",
+            "url": "https://rancher.yourcompany.com"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 4,
+            "startLine": 1
+        }
+    },
+    {
+        "Type": "resource",
+        "Labels": [
+            "rancher2_app",
+            "example_app"
+        ],
+        "Attributes": {
+            "catalog_name": "community",
+            "name": "my-app-with-annotation",
+            "project_id": "your-project-id",
+            "target_namespace": "default",
+            "template_name": "nginx",
+            "template_version": "v1.21.1"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 17,
+            "startLine": 6
+        }
+    }]
+    count(result) == 1
+}
+
 test_rancher_app_v2_custom_annotation_enabled_passed {
 	result := passed with input as [{
         "Type": "provider",
