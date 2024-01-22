@@ -29,7 +29,6 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-	block.Attributes.servers != []
 	block.Attributes.service_account_distinguished_name != ""
 	block.Attributes.service_account_password != ""
 	block.Attributes.test_username != ""
