@@ -84,3 +84,78 @@ test_rancher_app_environment_label_failed {
     }]
 count(result) == 1
 }
+
+test_rancher_app_v2_environment_label_passed {
+	result := passed with input as [{
+        "Type": "provider",
+        "Labels": [
+            "rancher2"
+        ],
+        "Attributes": {
+            "token": "your-rancher-api-token",
+            "url": "https://rancher.yourcompany.com"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 4,
+            "startLine": 1
+        }
+    },
+    {
+        "Type": "resource",
+        "Labels": [
+            "rancher2_app_v2",
+            "example_app"
+        ],
+        "Attributes": {
+            "labels": {
+                "environment": "production"
+            },
+            "name": "my-app-with-environment-label",
+            "namespace": "default",
+            "project_id": "your-project-id"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 14,
+            "startLine": 6
+        }
+    }]
+count(result) == 1
+}
+
+test_rancher_app_v2_environment_label_failed {
+	result := failed with input as [{
+        "Type": "provider",
+        "Labels": [
+            "rancher2"
+        ],
+        "Attributes": {
+            "token": "your-rancher-api-token",
+            "url": "https://rancher.yourcompany.com"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 4,
+            "startLine": 1
+        }
+    },
+    {
+        "Type": "resource",
+        "Labels": [
+            "rancher2_app_v2",
+            "example_app"
+        ],
+        "Attributes": {
+            "name": "my-app-with-environment-label",
+            "namespace": "default",
+            "project_id": "your-project-id"
+        },
+        "Blocks": [],
+        "line_range": {
+            "endLine": 14,
+            "startLine": 6
+        }
+    }]
+count(result) == 1
+}
