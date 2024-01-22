@@ -38,7 +38,6 @@ pass[block] {
     not fail[block]
 }
 
-# Provide a message for a successful check
 passed[result] {
     some block in pass
     result := {
@@ -47,7 +46,6 @@ passed[result] {
     }
 }
 
-# Provide a message for a failed check
 failed[result] {
     some block in fail
     result := {
