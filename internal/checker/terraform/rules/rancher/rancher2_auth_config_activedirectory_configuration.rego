@@ -30,7 +30,11 @@ pass[block] {
     some block in input
     isvalid(block) 
     block.Attributes.service_account_username != "" 
-    block.Attributes.service_account_password != ""
+    block.Attributes.service_account_password != "" 
+    block.Attributes.test_username != "" 
+    block.Attributes.test_password != "" 
+    block.Attributes.user_search_base != "" 
+    block.Attributes.group_search_base != "" 
 }
 
 fail[block] {
@@ -39,6 +43,7 @@ fail[block] {
     not pass[block]
 }
 
+# Provide a message for a successful check
 passed[result] {
     some block in pass
     result := {
@@ -47,6 +52,7 @@ passed[result] {
     }
 }
 
+# Provide a message for a failed check
 failed[result] {
     some block in fail
     result := {
