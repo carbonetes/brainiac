@@ -1,5 +1,5 @@
 # METADATA
-# title: "Ensure Rancher Active Directory Configuration is Properly Disabled"
+# title: "Verify Rancher Active Directory Configuration is Properly Disabled"
 # description: "This policy checks if the Rancher Active Directory configuration is properly disabled by ensuring sensitive attributes are set to an empty string."
 # scope: package
 # related_resources:
