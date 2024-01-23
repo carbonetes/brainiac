@@ -1,5 +1,5 @@
 # METADATA
-# title: "Ensure Rancher FreeIPA Configuration is Disabled if Not Needed"
+# title: "Verify Rancher FreeIPA Configuration is Disabled if Not Needed"
 # description: "This policy checks if the Rancher FreeIPA configuration is disabled when not needed to reduce unnecessary exposure."
 # scope: package
 # related_resources:
