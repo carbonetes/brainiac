@@ -1,6 +1,6 @@
 # METADATA
-# title: "Restrict ADFS Configuration URLs to HTTPS"
-# description: "This policy ensures that the Rancher ADFS configuration URLs are using HTTPS."
+# title: "Verify Rancher Auth Configurations API Host uses HTTPS"
+# description: "This policy ensures that the Rancher auth configurations API Host is using HTTPS."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_adfs
@@ -12,8 +12,14 @@ package lib.terraform.CB_TFRAN_010
 import future.keywords.in
 
 isvalid(block) {
+    supported_resources := [
+		"rancher2_auth_config_keycloak",
+		"rancher2_auth_config_adfs",
+		"rancher2_auth_config_okta"
+	]
 	block.Type == "resource"
-	"rancher2_auth_config_adfs" in block.Labels
+	some label in block.Labels
+	label in supported_resources
 }
 
 resource[resource] {
@@ -41,7 +47,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "Rancher ADFS configuration rancher_api_host uses HTTPS.",
+		"message": "Rancher Auth configurations rancher_api_host uses HTTPS.",
 		"snippet": block,
 	}
 }
@@ -49,7 +55,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "Rancher ADFS configuration rancher_api_host must use HTTPS. Update the configuration accordingly.",
+		"message": "Rancher Auth configurations rancher_api_host must use HTTPS. Update the configuration accordingly.",
 		"snippet": block,
 	}
 }
