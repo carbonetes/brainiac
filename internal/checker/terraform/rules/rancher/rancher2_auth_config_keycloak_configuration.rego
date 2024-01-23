@@ -5,7 +5,7 @@
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_keycloak
 # custom:
-#   id: CB_TFRAN_024
+#   id: CB_TFRAN_022
 #   severity: MEDIUM
 package lib.terraform.CB_TFRAN_022
 
