@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_freeipa
 # custom:
 #   id: CB_TFRAN_016
-#   severity: MEDIUM
+#   severity: LOW
 
 package lib.terraform.CB_TFRAN_016
 
