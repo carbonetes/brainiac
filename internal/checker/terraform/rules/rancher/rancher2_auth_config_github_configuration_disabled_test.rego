@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_018
 
-test_rancher2_auth_config_freeipa_tls_configuration_passed {
+test_rancher2_auth_config_github_configuration_disabled_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -21,7 +21,7 @@ test_rancher2_auth_config_freeipa_tls_configuration_passed {
     count(result) == 1
 }
 
-test_rancher2_auth_config_freeipa_tls_configuration_failed {
+test_rancher2_auth_config_github_configuration_disabled_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [

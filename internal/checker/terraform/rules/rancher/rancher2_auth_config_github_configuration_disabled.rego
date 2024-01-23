@@ -1,5 +1,5 @@
 # METADATA
-# title: "Ensure Rancher GitHub Configuration is Disabled if Not Needed"
+# title: "Verify Rancher GitHub Configuration is Disabled if Not Needed"
 # description: "This policy checks if the Rancher GitHub configuration is disabled when not needed to reduce unnecessary exposure."
 # scope: package
 # related_resources:
