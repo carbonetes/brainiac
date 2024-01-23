@@ -7,7 +7,6 @@
 # custom:
 #   id: CB_TFRAN_016
 #   severity: LOW
-
 package lib.terraform.CB_TFRAN_016
 
 import future.keywords.in
