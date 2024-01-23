@@ -15,7 +15,8 @@ test_rancher2_auth_config_activedirectory_configuration_passed {
             "service_account_username": "<SERVICE_DN>",
             "test_password": "<USER_PASSWORD>",
             "test_username": "<USER_NAME>",
-            "user_search_base": "<SEARCH_BASE>"
+            "user_search_base": "<SEARCH_BASE>",
+            "group_search_base": "<GROUP_BASE>"
         },
         "Blocks": [],
         "line_range": {
