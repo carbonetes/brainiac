@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_023
 
-test_rancher_app_set_project_id_passed {
+test_rancher2_auth_config_keycloak_configuration_disabled_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -27,7 +27,7 @@ test_rancher_app_set_project_id_passed {
 count(result) == 1
 }
 
-test_rancher_app_set_project_id_failed {
+test_rancher2_auth_config_keycloak_configuration_disabled_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
