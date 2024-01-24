@@ -1,12 +1,12 @@
 # METADATA
-# title: "Verify Rancher OKTA Configuration"
-# description: "This policy ensures that the Rancher OKTA configuration includes valid settings when enabled."
+# title: "Verify Rancher OKTA Configuration is Properly Disabled"
+# description: "This policy checks if the Rancher OKTA configuration is properly disabled by ensuring all sensitive attributes are set to empty when disabled."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_okta
 # custom:
 #   id: CB_TFRAN_025
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFRAN_025
 
 import future.keywords.in
