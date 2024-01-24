@@ -45,7 +45,7 @@ fail[block] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Rancher OKTA configuration is properly disabled.",
+        "message": "Rancher OpenLDAP configuration is properly disabled or has required attributes properly set.",
         "snippet": block,
     }
 }
@@ -53,7 +53,7 @@ passed[result] {
 failed[result] {
     some block in fail
     result := {
-        "message": "Rancher OKTA configuration is enabled or has non-empty sensitive attributes. Disable the configuration or set sensitive attributes to empty for proper security measures.",
+        "message": "Rancher OpenLDAP configuration is enabled but missing one or more required attributes. Disable the configuration or provide values for the required attributes.",
         "snippet": block,
     }
 }
