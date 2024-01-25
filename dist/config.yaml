@@ -1,45 +1,216 @@
-rules:
-  bugs:
-    not-equals-in-loop:
-      # This is actually fine the way it's used here.
-      # Issue created in Regal for tracking:
-      # https://github.com/StyraInc/regal/issues/416
-      level: ignore
-  idiomatic:
-    custom-has-key-construct:
-      # A lot of these, where we could simply use `object.keys`
-      # and `in` instead
-      # https://docs.styra.com/regal/rules/idiomatic/custom-has-key-construct
-      level: ignore
-    use-in-operator:
-      # Same for this one — just use `in`
-      # https://docs.styra.com/regal/rules/idiomatic/custom-in-construct
-      level: ignore
-    no-defined-entrypoint:
-      # This is a good practice, but safe to ignore
-      # https://docs.styra.com/regal/rules/idiomatic/no-defined-entrypoint
-      level: ignore
-  style:
-    # Style category safe to ignore, but good to follow modern conventions
-    # Address these as you see fit
-    # https://docs.styra.com/regal/category/style
-    external-reference:
-      level: ignore
-    file-length:
-      level: ignore
-    line-length:
-      level: ignore
-    opa-fmt:
-      level: ignore
-    prefer-snake-case:
-      level: ignore
-    prefer-some-in-iteration:
-      level: ignore
-    rule-length:
-      level: ignore
-    use-assignment-operator:
-      level: ignore
-  testing:
-    test-outside-test-package:
-      # https://docs.styra.com/regal/rules/testing/test-outside-test-package
-      level: ignore
+project_name: brainiac
+release:
+  github:
+    owner: carbonetes
+    name: brainiac
+  name_template: '{{.Tag}}'
+builds:
+  - id: linux-builds
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - ppc64le
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - linux_amd64_v1
+      - linux_arm64
+      - linux_ppc64le
+    dir: .
+    main: .
+    binary: brainiac
+    builder: go
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    gobinary: go
+    command: build
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+    env:
+      - CGO_ENABLED=0
+  - id: darwin-builds
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - darwin_amd64_v1
+      - darwin_arm64
+    dir: .
+    main: .
+    binary: brainiac
+    builder: go
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    gobinary: go
+    command: build
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+    env:
+      - CGO_ENABLED=0
+  - id: windows-build
+    goos:
+      - windows
+    goarch:
+      - amd64
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - windows_amd64_v1
+    dir: .
+    main: .
+    binary: brainiac
+    builder: go
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    gobinary: go
+    command: build
+    ldflags:
+      - |
+        -X github.com/carbonetes/brainiac/internal/version.version={{.Version}}
+        -X github.com/carbonetes/brainiac/internal/version.buildDate={{.Date}}
+        -X github.com/carbonetes/brainiac/internal/version.gitCommit={{.Commit}}
+        -X github.com/carbonetes/brainiac/internal/version.gitDesc={{.Summary}}
+    env:
+      - CGO_ENABLED=0
+archives:
+  - id: tar-archives
+    builds:
+      - linux-builds
+      - darwin-builds
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format: tar.gz
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+  - id: zip-archives
+    builds:
+      - windows-build
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format: zip
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+nfpms:
+  - file_name_template: '{{ .PackageName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+    package_name: brainiac
+    id: default
+    formats:
+      - rpm
+      - deb
+    homepage: https://github.com/carbonetes/brainiac
+    maintainer: Carbonetes
+    description: Brainiac uses static code analysis to analyze IAC code to detect security issues before deployment.
+    license: Apache 2.0
+    bindir: /usr/bin
+snapshot:
+  name_template: '{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}'
+checksum:
+  name_template: '{{.ProjectName}}_{{.Version}}_checksums.txt'
+  algorithm: sha256
+changelog:
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+  sort: asc
+  groups:
+    - title: Features
+      regexp: ^.*?feat(\([[:word:]]+\))??!?:.+$
+    - title: Bug Fixes
+      regexp: ^.*?fix(\([[:word:]]+\))??!?:.+$
+      order: 1
+    - title: Others
+      regexp: ^.*?(refactor|chore|docs|test|style)(\([[:word:]]+\))??!?:.+$
+      order: 999
+  abbrev: -1
+dist: dist
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+  gitlab_token: ~/.config/goreleaser/gitlab_token
+  gitea_token: ~/.config/goreleaser/gitea_token
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+gomod:
+  gobinary: go
+announce:
+  twitter:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+  mastodon:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    server: ""
+  reddit:
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    url_template: '{{ .ReleaseURL }}'
+  slack:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    username: GoReleaser
+  discord:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    author: GoReleaser
+    color: "3888754"
+    icon_url: https://goreleaser.com/static/avatar.png
+  teams:
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    color: '#2D313E'
+    icon_url: https://goreleaser.com/static/avatar.png
+  smtp:
+    subject_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    body_template: 'You can view details from: {{ .ReleaseURL }}'
+  mattermost:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    username: GoReleaser
+  linkedin:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+  telegram:
+    message_template: '{{ .ProjectName }} {{ mdv2escape .Tag }} is out! Check it out at {{ mdv2escape .ReleaseURL }}'
+    parse_mode: MarkdownV2
+  webhook:
+    message_template: '{ "message": "{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}"}'
+    content_type: application/json; charset=utf-8
+  opencollective:
+    title_template: '{{ .Tag }}'
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out!<br/>Check it out at <a href="{{ .ReleaseURL }}">{{ .ReleaseURL }}</a>'
+git:
+  tag_sort: -version:refname
+github_urls:
+  download: https://github.com
+gitlab_urls:
+  download: https://gitlab.com
