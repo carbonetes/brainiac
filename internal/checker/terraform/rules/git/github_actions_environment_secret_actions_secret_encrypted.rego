@@ -32,16 +32,16 @@ resource[resource] {
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	some block in input
-	isvalid(block)
-	block.Attributes.plaintext_value == ""
-}
-
 fail[block] {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	block.Attributes.plaintext_value != ""
+}
+
+pass[block] {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
 passed[result] {
