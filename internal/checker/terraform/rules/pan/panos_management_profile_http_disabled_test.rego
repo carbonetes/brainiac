@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFPAN_002
 
-test_panos_management_profile_hhtp_disabled_passed {
+test_panos_management_profile_http_disabled_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +26,7 @@ test_panos_management_profile_hhtp_disabled_passed {
 	count(result) == 1
 }
 
-test_panos_management_profile_hhtp_disabled_failed {
+test_panos_management_profile_http_disabled_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
