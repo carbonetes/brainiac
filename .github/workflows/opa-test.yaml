@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/terraform-openstack-pan-development" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "feature/terraform-openstack-pan-development" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
@@ -15,11 +15,15 @@ jobs:
       with:
         version: latest
 
-    - name: Run OPA Tests
-      run: opa test internal/checker -v
+    - name: Run OPA Tests PANOS
+      run: opa test internal/checker/terraform/rules/pan -v
+
+    - name: Run OPA Tests OpenStack
+      run: opa test internal/checker/terraform/rules/openstack -v
 
     - name: Setup Regal
       uses: StyraInc/setup-regal@v0.2.0
       with:
         version: v0.11.0
-    - run: regal lint --format=github internal/checker
+    - run: regal lint --format=github internal/checker/terraform/rules/pan
+    - run: regal lint --format=github internal/checker/terraform/rules/openstack
