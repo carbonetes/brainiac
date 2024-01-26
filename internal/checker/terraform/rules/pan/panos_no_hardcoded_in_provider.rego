@@ -3,7 +3,7 @@
 # description: "Confirm that PAN-OS credentials, such as API keys and passwords, are not hardcoded in the provider configuration. Failing to adhere to this guideline may expose sensitive information, leading to potential security risks."
 # scope: package
 # related_resources:
-# - Insert link here
+# - https://registry.terraform.io/providers/PaloAltoNetworks/panos/latest/docs
 # custom:
 #   id: CB_TFPAN_001
 #   severity: MEDIUM
