@@ -3,7 +3,7 @@
 # description: "Confirm that security policies do not activate Disable Server Response Inspection (DSRI). Confirming this condition assures that server-to-client inspection integrity remains intact."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/PaloAltoNetworks/panos/latest/docs
+# - https://registry.terraform.io/providers/PaloAltoNetworks/panos/latest/docs/resources/security_policy.html
 # custom:
 #   id: CB_TFPAN_004
 #   severity: MEDIUM
