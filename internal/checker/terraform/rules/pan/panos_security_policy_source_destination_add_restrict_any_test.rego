@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFPAN_007
 
-test_panos_security_policy_services_not_set_to_any_passed {
+test_panos_security_policy_source_destination_add_restrict_any_passed {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -30,7 +30,7 @@ test_panos_security_policy_services_not_set_to_any_passed {
 	count(result) == 1
 }
 
-test_panos_security_policy_services_not_set_to_any_failed {
+test_panos_security_policy_source_destination_add_restrict_any_failed {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
