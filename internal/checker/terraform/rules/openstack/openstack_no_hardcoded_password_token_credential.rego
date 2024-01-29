@@ -59,16 +59,16 @@ password_token_credential_connected {
 	contains(block.Attributes.application_credential_secret, label_credential)
 }
 
-pass[block] {
-	some block in input
-	isvalid(block)
-	password_token_credential_connected
-}
-
 fail[block] {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not password_token_credential_connected
+}
+
+pass[block] {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
 passed[result] {
