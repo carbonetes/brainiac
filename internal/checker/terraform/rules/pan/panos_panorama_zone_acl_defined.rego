@@ -19,13 +19,10 @@ isvalid(block) {
 }
 
 fail[block] {
-	restricted_value := [""]
 	some block in input
 	isvalid(block)
 	block.Attributes.enable_user_id == true
-	some restricted in block.Attributes.include_acls
-	restricted in restricted_value
-	count(block.Attributes.include_acls) == 1
+	"" in block.Attributes.include_acls
 }
 
 pass[block] {
