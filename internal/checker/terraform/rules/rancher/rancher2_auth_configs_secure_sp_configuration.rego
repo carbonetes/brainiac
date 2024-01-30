@@ -1,205 +1,70 @@
+# METADATA
+# title: "Verify Rancher Auth Configs SP Cert and SP Key Secure Configuration"
+# description: "This policy ensures that sensitive information in Rancher configurations are properly handled and not exposed in plain text within Terraform configuration."
+# scope: package
+# related_resources:
+# - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/auth_config_ping
+# custom:
+#   id: CB_TFRAN_031
+#   severity: HIGH
 package lib.terraform.CB_TFRAN_031
 
-test_rancher2_auth_config_ping_sp_configuration_passed {
-	result := passed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_ping",
-            "ping"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "-----BEGIN CERTIFICATE-----",
-            "sp_key": "-----BEGIN PRIVATE KEY-----",
-            "uid_field": "<UID_FIELD>",
-            "user_name_field": "<USER_NAME_FIELD>"
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+import future.keywords.in
+
+isvalid(block) {
+    supported_resources := [
+        "rancher2_auth_config_okta",
+        "rancher2_auth_config_ping",
+        "rancher2_auth_config_keycloak",
+        "rancher2_auth_config_adfs"
+    ]
+	block.Type == "resource"
+	some label in block.Labels
+	label in supported_resources
 }
 
-test_rancher2_auth_config_okta_sp_configuration_passed {
-	result := passed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_okta",
-            "okta"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "-----BEGIN CERTIFICATE-----",
-            "sp_key": "-----BEGIN PRIVATE KEY-----",
-            "uid_field": "<UID_FIELD>",
-            "user_name_field": "<USER_NAME_FIELD>"
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+resource[resource] {
+    some block in pass
+    resource := concat(".", block.Labels)
 }
 
-test_rancher2_auth_config_keycloak_sp_configuration_passed {
-	result := passed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_keycloak",
-            "keycloak"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "-----BEGIN CERTIFICATE-----",
-            "sp_key": "-----BEGIN PRIVATE KEY-----",
-            "uid_field": "<UID_FIELD>",
-            "user_name_field": "<USER_NAME_FIELD>"
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+resource[resource] {
+    some block in fail
+    resource := concat(".", block.Labels)
 }
 
-test_rancher2_auth_config_adfs_sp_configuration_passed {
-	result := passed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_adfs",
-            "adfs"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "-----BEGIN CERTIFICATE-----",
-            "sp_key": "-----BEGIN PRIVATE KEY-----",
-            "uid_field": "<UID_FIELD>",
-            "user_name_field": "<USER_NAME_FIELD>"
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+fail[block] {
+    some block in input
+    isvalid(block) 
+    block.Attributes.sp_cert != "" 
+    contains(block.Attributes.sp_cert, "-----BEGIN CERTIFICATE-----") == false
 }
 
-test_rancher2_auth_config_ping_sp_configuration_failed {
-	result := failed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_ping",
-            "ping"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "<SP_CERT>",
-            "sp_key": "<SP_KEY>",
-            "uid_field": "<UID_FIELD>",
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+fail[block] {
+    some block in input
+    isvalid(block) 
+    block.Attributes.sp_key != "" 
+    contains(block.Attributes.sp_key, "-----BEGIN PRIVATE KEY-----") == false
 }
 
-test_rancher2_auth_config_okta_sp_configuration_failed {
-	result := failed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_okta",
-            "okta"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "<SP_CERT>",
-            "sp_key": "<SP_KEY>",
-            "uid_field": "<UID_FIELD>",
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+pass[block] {
+    some block in input
+    isvalid(block)
+    not fail[block]
 }
 
-test_rancher2_auth_config_keycloak_sp_configuration_failed {
-	result := failed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_keycloak",
-            "keycloak"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "<SP_CERT>",
-            "sp_key": "<SP_KEY>",
-            "uid_field": "<UID_FIELD>",
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+passed[result] {
+    some block in pass
+    result := {
+        "message": "Sensitive information in Rancher configurations are properly handled.",
+        "snippet": block,
+    }
 }
 
-test_rancher2_auth_config_adfs_sp_configuration_failed {
-	result := failed with input as [{
-        "Type": "resource",
-        "Labels": [
-            "rancher2_auth_config_adfs",
-            "adfs"
-        ],
-        "Attributes": {
-            "display_name_field": "<DISPLAY_NAME_FIELD>",
-            "groups_field": "<GROUPS_FIELD>",
-            "idp_metadata_content": "<IDP_METADATA_CONTENT>",
-            "rancher_api_host": "https://<RANCHER_API_HOST>",
-            "sp_cert": "<SP_CERT>",
-            "sp_key": "<SP_KEY>",
-            "uid_field": "<UID_FIELD>",
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 11,
-            "startLine": 2
-        }
-    }]
-    count(result) == 1
+failed[result] {
+    some block in fail
+    result := {
+        "message": "Sensitive information in Rancher configurations are exposed in plain text. Update the configuration to securely handle sensitive information.",
+        "snippet": block,
+    }
 }
