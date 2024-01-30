@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_035
 
-test_rancher2_bootstrap_config_with_rancher2_provider_passed {
+test_rancher2_bootstrap_telemetry_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -36,7 +36,7 @@ test_rancher2_bootstrap_config_with_rancher2_provider_passed {
     count(result) == 1
 }
 
-test_rancher2_bootstrap_config_with_rancher2_provider_failed {
+test_rancher2_bootstrap_telemetry_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
