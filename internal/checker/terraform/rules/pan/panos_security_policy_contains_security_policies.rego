@@ -18,22 +18,22 @@ isvalid(block) {
 	label in supported_resources
 }
 
-pass[block] {
+fail[block] {
 	some block in input
 	isvalid(block)
-	block.Attributes.description != ""
-}
-
-pass[block] {
-	some block in input
-	isvalid(block)
-	"description" in object.keys(block.Attributes)
+	block.Attributes.description == ""
 }
 
 fail[block] {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not "description" in object.keys(block.Attributes)
+}
+
+pass[block] {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
 passed[result] {
