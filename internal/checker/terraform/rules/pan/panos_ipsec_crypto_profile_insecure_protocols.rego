@@ -19,11 +19,9 @@ isvalid(block) {
 }
 
 fail[block] {
-	restricted_values := ["ah"]
 	some block in input
 	isvalid(block)
-	some restricted in block.Attributes.protocol
-	restricted in restricted_values
+	block.Attributes.protocol == "ah"
 }
 
 pass[block] {
