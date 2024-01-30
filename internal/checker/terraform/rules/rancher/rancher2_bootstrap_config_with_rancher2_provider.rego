@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Rancher Bootstrap Configuration connected with rancher2 provider"
-# description: "This policy ensures that the Rancher Bootstrap configuration has required attributes properly set."
+# description: "This policy ensures that the Rancher Bootstrap configuration has the required provider properly set."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/bootstrap
