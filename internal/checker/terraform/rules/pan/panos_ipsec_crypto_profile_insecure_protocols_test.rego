@@ -9,7 +9,7 @@ test_panos_ipsec_crypto_profile_insecure_protocols_passed {
 		],
 		"Attributes": {
 			"name": "example-profile",
-			"protocol": ["esp"],
+			"protocol": "esp",
 		},
 		"Blocks": [],
 		"line_range": {
@@ -29,7 +29,7 @@ test_panos_ipsec_crypto_profile_insecure_protocols_failed {
 		],
 		"Attributes": {
 			"name": "example-profile",
-			"protocol": ["ah"],
+			"protocol": "ah",
 		},
 		"Blocks": [],
 		"line_range": {
