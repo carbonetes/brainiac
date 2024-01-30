@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Rancher Bootstrap Configuration"
+# title: "Verify Rancher Bootstrap Configuration connected with rancher2 provider"
 # description: "This policy ensures that the Rancher Bootstrap configuration has required attributes properly set."
 # scope: package
 # related_resources:
