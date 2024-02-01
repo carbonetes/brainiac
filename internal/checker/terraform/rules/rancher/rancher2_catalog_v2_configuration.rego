@@ -16,6 +16,16 @@ isvalid(block) {
     "rancher2_catalog_v2" in block.Labels
 }
 
+resource[resource] {
+	some block in pass
+	resource := concat(".", block.Labels)
+}
+
+resource[resource] {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
 pass[block] {
     some block in input
     isvalid(block)
