@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Rancher Catalog Version Attribute"
+# title: "Validate Rancher Catalog Version Attribute"
 # description: "This policy ensures that the Rancher Catalog configuration has a valid version attribute."
 # scope: package
 # related_resources:
