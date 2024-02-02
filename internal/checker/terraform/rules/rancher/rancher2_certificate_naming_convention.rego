@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/certificate
 # custom:
 #   id: CB_TFRAN_047
-#   severity: low
+#   severity: LOW
 package lib.terraform.CB_TFRAN_047
 
 import future.keywords.in
