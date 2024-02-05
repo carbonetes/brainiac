@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cloud_credential
 # custom:
 #   id: CB_TFRAN_049
-#   severity: HIGH
+#   severity: MEDIUM
 package lib.terraform.CB_TFRAN_049
 import future.keywords.in
 
