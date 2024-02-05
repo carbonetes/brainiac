@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_049
 
-test_rancher2_cloud_credential_drivers_passed {
+test_rancher2_cloud_credential_amazonec2_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -34,7 +34,7 @@ test_rancher2_cloud_credential_drivers_passed {
     count(result) == 1
 }
 
-test_rancher2_cloud_credential_drivers_failed {
+test_rancher2_cloud_credential_amazonec2_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
