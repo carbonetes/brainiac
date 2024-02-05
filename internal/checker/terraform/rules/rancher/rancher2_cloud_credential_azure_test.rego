@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_050
 
-test_rancher2_cloud_credential_amazonec2_passed {
+test_rancher2_cloud_credential_azure_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -35,7 +35,7 @@ test_rancher2_cloud_credential_amazonec2_passed {
     count(result) == 1
 }
 
-test_rancher2_cloud_credential_amazonec2_failed {
+test_rancher2_cloud_credential_azure_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
