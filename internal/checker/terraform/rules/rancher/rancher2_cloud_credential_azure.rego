@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify Proper Configuration in Rancher Cloud Credentials for AmazonEC2"
-# description: "This policy ensures that the required attributes for the AmazonEC2 driver are properly configured in Rancher Cloud Credentials."
+# title: "Verify Proper Configuration in Rancher Cloud Credentials for Azure"
+# description: "This policy ensures that Rancher Cloud Credentials using the Azure driver are properly configured with valid and required attributes."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cloud_credential
@@ -48,7 +48,7 @@ validate_azure(block) {
 passed[result] {
     some block in pass
     result := {
-        "message": "Proper configuration for AmazonEC2 in Rancher Cloud Credentials is verified.",
+        "message": "Rancher Cloud Credential for Azure is properly configured.",
         "snippet": block,
     }
 }
@@ -56,7 +56,7 @@ passed[result] {
 failed[result] {
     some block in fail
     result := {
-        "message": "Ensure proper configuration for AmazonEC2 in Rancher Cloud Credentials.",
+        "message": "Rancher Cloud Credential for Azure has invalid or missing attributes. Check and fix the configuration.",
         "snippet": block,
     }
 }
