@@ -29,7 +29,6 @@ pass[block] {
     some block in input
     isvalid(block)
 	block.Attributes.name != ""
-    
 }
 
 fail[block] {
