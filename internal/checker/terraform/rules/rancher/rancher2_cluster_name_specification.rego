@@ -36,6 +36,7 @@ fail[block] {
     isvalid(block)
     not pass[block]
 }
+
 passed[result] {
 	some block in pass
 	result := {
