@@ -2,22 +2,6 @@ package lib.terraform.CB_TFRAN_060
 
 test_rancher2_cluster_rke2_config_passed {
 	result := passed with input as [{
-        "Type": "provider",
-        "Labels": [
-            "rancher2"
-        ],
-        "Attributes": {
-            "api_url": "https://your-rancher-server-url.com",
-            "token_key": "your-api-token-key",
-            "token_secret": "your-api-token-secret"
-        },
-        "Blocks": [],
-        "line_range": {
-            "endLine": 7,
-            "startLine": 2
-        }
-    },
-    {
         "Type": "resource",
         "Labels": [
             "rancher2_cluster",
@@ -31,19 +15,33 @@ test_rancher2_cluster_rke2_config_passed {
                 "Type": "rke2_config",
                 "Labels": [],
                 "Attributes": {
-                    "update_strategy": "<update_strategy>",
-                    "version": "v1.21.5+rke2r1"
+                    "version": "v1.22.5+k3s1"
                 },
-                "Blocks": [],
+                "Blocks": [
+                    {
+                        "Type": "upgrade_strategy",
+                        "Labels": [],
+                        "Attributes": {
+                            "draining_timeout": "30m",
+                            "max_unavailable_control_plane_nodes": "1",
+                            "max_unavailable_worker_nodes": "1"
+                        },
+                        "Blocks": [],
+                        "line_range": {
+                            "endLine": 10,
+                            "startLine": 6
+                        }
+                    }
+                ],
                 "line_range": {
-                    "endLine": 28,
-                    "startLine": 15
+                    "endLine": 11,
+                    "startLine": 4
                 }
             }
         ],
         "line_range": {
-            "endLine": 31,
-            "startLine": 10
+            "endLine": 14,
+            "startLine": 1
         }
     }]
     count(result) == 1
@@ -65,13 +63,27 @@ test_rancher2_cluster_rke2_config_failed {
                 "Type": "rke2_config",
                 "Labels": [],
                 "Attributes": {
-                    "update_strategy": "<update_strategy>",
-                    "version": "v1.21.5+rke2r1"
+                    "version": "v1.22.5+k3s1"
                 },
-                "Blocks": [],
+                "Blocks": [
+                    {
+                        "Type": "upgrade_strategy",
+                        "Labels": [],
+                        "Attributes": {
+                            "draining_timeout": "30m",
+                            "max_unavailable_control_plane_nodes": "1",
+                            "max_unavailable_worker_nodes": "1"
+                        },
+                        "Blocks": [],
+                        "line_range": {
+                            "endLine": 10,
+                            "startLine": 6
+                        }
+                    }
+                ],
                 "line_range": {
-                    "endLine": 28,
-                    "startLine": 15
+                    "endLine": 11,
+                    "startLine": 4
                 }
             },
             {
