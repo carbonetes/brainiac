@@ -1,7 +1,7 @@
 # METADATA
-# title: "Verify Proper Configuration in Rancher2 Cluster Resource"
-# description: "This policy ensures that Rancher2 Cluster resources are configured with valid attributes."
-# scope: package
+# title: "Verify Cluster Name in Rancher2 Clusters"
+# description: "Policy to ensure that the 'name' attribute is provided for Rancher2 Clusters"
+# scope: resource
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster
 # custom:
