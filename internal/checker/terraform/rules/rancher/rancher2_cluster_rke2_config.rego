@@ -29,7 +29,7 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-	rke_config(block)
+	rke2_config(block)
 }
 
 pass[block] {
@@ -40,7 +40,7 @@ pass[block] {
 	not innerblock.Type == "rke2_config"
 }
 
-rke_config(block) {
+rke2_config(block) {
     conflict_configs := [
         "aks_config",
         "aks_config_v2",
