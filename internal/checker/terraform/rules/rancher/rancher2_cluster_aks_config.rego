@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster
 # custom:
-#   id: CB_TFRAN_060
+#   id: CB_TFRAN_062
 #   severity: LOW
-package lib.terraform.CB_TFRAN_060
+package lib.terraform.CB_TFRAN_062
 
 import future.keywords.in
 
