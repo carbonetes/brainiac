@@ -1,7 +1,7 @@
 # METADATA
 # title: "Verify Cluster Name in Rancher2 Clusters"
-# description: "Policy to ensure that the 'name' attribute is provided for Rancher2 Clusters"
-# scope: resource
+# description: "Policy to ensure that the 'name' attribute is provided for Rancher2 Clusters."
+# scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster
 # custom:
