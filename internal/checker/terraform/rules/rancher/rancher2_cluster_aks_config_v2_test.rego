@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFRAN_060
+package lib.terraform.CB_TFRAN_063
 
 test_rancher2_cluster_aks_config_v2_passed {
 	result := passed with input as [{

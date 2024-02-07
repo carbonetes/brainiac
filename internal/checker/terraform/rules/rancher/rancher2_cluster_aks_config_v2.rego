@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify AKS Configuration for Rancher2 Cluster"
-# description: "This policy ensures that the Rancher2 Cluster includes a valid Azure AKS (Azure Kubernetes Service) configuration. AKS configuration is essential for defining and managing Kubernetes clusters hosted on the Azure cloud platform."
+# title: "Verify AKS Configuration V2 for Rancher2 Cluster"
+# description: "This policy verifies that the AKS (Azure Kubernetes Service) Configuration V2 is correctly provided for Rancher2 Clusters. The AKS configuration is essential for setting up and managing Azure Kubernetes clusters within the Rancher platform."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster
@@ -66,7 +66,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "The Rancher2 Cluster includes a valid AKS configuration, ensuring proper setup and management of the Kubernetes cluster on the Azure cloud platform.",
+		"message": "The Rancher2 Cluster has a valid AKS Configuration V2 provided, ensuring proper setup and management of Azure Kubernetes clusters.",
 		"snippet": block,
 	}
 }
@@ -74,7 +74,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "The Rancher2 Cluster does not have a valid AKS configuration provided. Please ensure that the AKS configuration is correctly specified to facilitate proper setup and management of the Kubernetes cluster on the Azure cloud platform.",
+		"message": "The Rancher2 Cluster does not have a valid AKS Configuration V2 provided. Please ensure that the required AKS configuration parameters are correctly specified to facilitate the setup and management of Azure Kubernetes clusters within the Rancher platform.",
 		"snippet": block,
 	}
 }
