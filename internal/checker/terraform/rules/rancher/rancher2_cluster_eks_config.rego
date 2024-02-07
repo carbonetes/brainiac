@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify AKS Configuration V2 for Rancher2 Cluster"
-# description: "This policy verifies that the AKS (Azure Kubernetes Service) Configuration V2 is correctly provided for Rancher2 Clusters. The AKS configuration is essential for setting up and managing Azure Kubernetes clusters within the Rancher platform."
+# title: "Verify EKS Configuration for Rancher2 Cluster"
+# description: "This policy ensures that the Rancher2 Cluster has a valid EKS (Amazon Elastic Kubernetes Service) configuration provided. The EKS configuration is crucial for defining and managing Kubernetes clusters on the Amazon Web Services platform within the Rancher environment."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster
@@ -42,8 +42,8 @@ pass[block] {
 
 eks_config(block) {
     conflict_configs := [
+        "aks_config",
         "aks_config_v2",
-        "eks_config",
         "eks_config_v2",
         "gke_config",
         "gke_config_v2",
@@ -66,7 +66,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "The Rancher2 Cluster has a valid AKS Configuration V2 provided, ensuring proper setup and management of Azure Kubernetes clusters.",
+		"message": "The Rancher2 Cluster has a valid EKS configuration provided, meeting the requirements for setting up and managing Kubernetes clusters on the AWS platform within the Rancher environment.",
 		"snippet": block,
 	}
 }
@@ -74,7 +74,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "The Rancher2 Cluster does not have a valid AKS Configuration V2 provided. Please ensure that the required AKS configuration parameters are correctly specified to facilitate the setup and management of Azure Kubernetes clusters within the Rancher platform.",
+		"message": "The Rancher2 Cluster does not have a valid EKS configuration provided. Please ensure that the required EKS configuration parameters are correctly specified to facilitate the proper setup and management of Kubernetes clusters on the AWS platform within the Rancher environment.",
 		"snippet": block,
 	}
 }
