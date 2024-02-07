@@ -29,7 +29,7 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-	aks_config(block)
+	aks_config_v2(block)
 }
 
 pass[block] {
@@ -37,12 +37,12 @@ pass[block] {
 	isvalid(block)
 	count(block.Blocks) == 1
     some innerblock in block.Blocks
-	not innerblock.Type == "aks_config"
+	not innerblock.Type == "aks_config_v2"
 }
 
-aks_config(block) {
+aks_config_v2(block) {
     conflict_configs := [
-        "aks_config_v2",
+        "aks_config",
         "eks_config",
         "eks_config_v2",
         "gke_config",
