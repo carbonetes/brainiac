@@ -27,6 +27,13 @@ resource[resource] {
 }
 
 pass[block] {
+	expected_values := ["internal", "private"]
+	some block in input
+	isvalid(block)
+	block.Attributes.visibility in expected_values
+}
+
+pass[block] {
 	some block in input
 	isvalid(block)
 	block.Attributes.private == true
