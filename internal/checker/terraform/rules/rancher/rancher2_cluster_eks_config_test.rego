@@ -39,61 +39,28 @@ test_rancher2_cluster_aks_config_v2_passed {
         ],
         "Attributes": {
             "description": "Terraform EKS cluster",
-            "name": "foo"
+            "name": "foo",
+            "private_access": true,
+            "public_access": true
         },
         "Blocks": [
             {
-                "Type": "eks_config_v2",
+                "Type": "eks_config",
                 "Labels": [],
                 "Attributes": {
-                    "cloud_credential_id": "rancher2_cloud_credential.foo.id",
-                    "kubernetes_version": "1.24",
-                    "logging_types": [
-                        "audit",
-                        "api"
-                    ],
-                    "private_access": true,
-                    "public_access": true,
-                    "region": "<EKS_REGION>"
+                    "access_key": "<access_key>",
+                    "kubernetes_version": "<kubernetes_version>",
+                    "secret_key": "<secret_key>"
                 },
-                "Blocks": [
-                    {
-                        "Type": "node_groups",
-                        "Labels": [],
-                        "Attributes": {
-                            "desired_size": "3",
-                            "max_size": "5",
-                            "name": "node_group1"
-                        },
-                        "Blocks": [
-                            {
-                                "Type": "launch_template",
-                                "Labels": [],
-                                "Attributes": {
-                                    "id": "<EC2_LAUNCH_TEMPLATE_ID>",
-                                    "version": "1"
-                                },
-                                "Blocks": [],
-                                "line_range": {
-                                    "endLine": 24,
-                                    "startLine": 21
-                                }
-                            }
-                        ],
-                        "line_range": {
-                            "endLine": 25,
-                            "startLine": 17
-                        }
-                    }
-                ],
+                "Blocks": [],
                 "line_range": {
-                    "endLine": 28,
+                    "endLine": 16,
                     "startLine": 12
                 }
             }
         ],
         "line_range": {
-            "endLine": 29,
+            "endLine": 19,
             "startLine": 9
         }
     }]
@@ -113,51 +80,16 @@ test_rancher2_cluster_aks_config_v2_failed {
         },
         "Blocks": [
             {
-                "Type": "eks_config_v2",
+                "Type": "eks_config",
                 "Labels": [],
                 "Attributes": {
-                    "cloud_credential_id": "rancher2_cloud_credential.foo.id",
-                    "kubernetes_version": "1.24",
-                    "logging_types": [
-                        "audit",
-                        "api"
-                    ],
-                    "private_access": true,
-                    "public_access": true,
-                    "region": "<EKS_REGION>"
+                    "access_key": "<access_key>",
+                    "kubernetes_version": "<kubernetes_version>",
+                    "secret_key": "<secret_key>"
                 },
-                "Blocks": [
-                    {
-                        "Type": "node_groups",
-                        "Labels": [],
-                        "Attributes": {
-                            "desired_size": "3",
-                            "max_size": "5",
-                            "name": "node_group1"
-                        },
-                        "Blocks": [
-                            {
-                                "Type": "launch_template",
-                                "Labels": [],
-                                "Attributes": {
-                                    "id": "<EC2_LAUNCH_TEMPLATE_ID>",
-                                    "version": "1"
-                                },
-                                "Blocks": [],
-                                "line_range": {
-                                    "endLine": 24,
-                                    "startLine": 21
-                                }
-                            }
-                        ],
-                        "line_range": {
-                            "endLine": 25,
-                            "startLine": 17
-                        }
-                    }
-                ],
+                "Blocks": [],
                 "line_range": {
-                    "endLine": 28,
+                    "endLine": 16,
                     "startLine": 12
                 }
             },
