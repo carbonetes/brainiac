@@ -52,7 +52,7 @@ aks_config_v2(block) {
 		"rke_config"
     ]
     some innerblock in block.Blocks
-	innerblock.Type == "aks_config"
+	innerblock.Type == "aks_config_v2"
     not innerblock.Type in conflict_configs
 	count(block.Blocks) == 1
 }
