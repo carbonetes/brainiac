@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_064
 
-test_rancher2_cluster_aks_config_v2_passed {
+test_rancher2_cluster_eks_config_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -67,7 +67,7 @@ test_rancher2_cluster_aks_config_v2_passed {
     count(result) == 1
 }
 
-test_rancher2_cluster_aks_config_v2_failed {
+test_rancher2_cluster_eks_config_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
