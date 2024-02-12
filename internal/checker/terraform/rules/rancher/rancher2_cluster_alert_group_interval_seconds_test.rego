@@ -34,7 +34,7 @@ test_rancher2_cluster_alert_group_interval_seconds_failed {
         "Attributes": {
             "cluster_id": "",
             "description": "Terraform cluster alert group",
-            "group_interval_seconds": 0,
+            "group_interval_seconds": -3,
             "name": "foo",
             "repeat_interval_seconds": "not a number"
         },

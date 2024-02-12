@@ -36,21 +36,21 @@ fail[block] {
 	some block in input
 	isvalid(block)
 	is_number(block.Attributes.group_interval_seconds) != false
-    to_number(block.Attributes.group_interval_seconds) == 0
+    to_number(block.Attributes.group_interval_seconds) <= 0
 }
 
 fail[block] {
 	some block in input
 	isvalid(block)
 	is_number(block.Attributes.group_wait_seconds) != false
-    to_number(block.Attributes.group_wait_seconds) == 0
+    to_number(block.Attributes.group_wait_seconds) <= 0
 }
 
 fail[block] {
 	some block in input
 	isvalid(block)
 	is_number(block.Attributes.repeat_interval_seconds) != false
-    to_number(block.Attributes.repeat_interval_seconds) == 0
+    to_number(block.Attributes.repeat_interval_seconds) <= 0
 }
 
 passed[result] {
