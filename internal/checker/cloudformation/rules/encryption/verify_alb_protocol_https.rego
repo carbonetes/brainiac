@@ -10,16 +10,16 @@
 package lib.cloudformation.CB_CFT_001
 import future.keywords.in
 
-resource = "AWS::ElasticLoadBalancingV2::Listener"
+resource := "AWS::ElasticLoadBalancingV2::Listener"
 
-isValid(resources){
-	some res in resources
-    res.Type == resource
+is_valid{
+	some resources in input.Resources
+    resources.Type == resource
 }
 
 pass[properties]{
 	resources := input.Resources
-    isValid(resources)
+    is_valid
     properties := resources.ListenerHTTPS.Properties
     valid_protocol := ["HTTPS", "TLS", "TCP", "UDP", "TCP_UDP"]
     properties.Protocol in valid_protocol
@@ -27,7 +27,7 @@ pass[properties]{
 
 pass[block]{
 	resources := input.Resources
-    isValid(resources)
+    is_valid
     default_action := resources.ListenerHTTPS.Properties.DefaultActions
     some block in default_action
     block.Type == "redirect"
@@ -36,7 +36,7 @@ pass[block]{
 
 fail[resources]{
 	resources := input.Resources
-    isValid(resources)
+    is_valid
     count(pass) == 0
 }
 
