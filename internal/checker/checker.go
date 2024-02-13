@@ -3,6 +3,8 @@ package checker
 import (
 	"context"
 	"embed"
+	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/carbonetes/brainiac/internal/file"
@@ -70,6 +72,18 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 			return model.Result{}, err
 		}
 		input, rawContent := file.ParseDockerfile(configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeDockerfile, configFile)
+
+	case file.FileTypeCloudFormation:
+		modules, err := module.ModuleParser(config, EmbededRules)
+		if err != nil && modules == nil {
+			log.Printf("Failed to parse rego modules")
+			Errors = append(Errors, &err)
+			return model.Result{}, err
+		}
+		input, rawContent := file.ParseCloudformationFile(configFile)
+		res, _ := json.MarshalIndent(input, "", " ") // remove wheh merging to main
+		fmt.Print(string(res))                       // remove wheh merging to main
 		return proccessInput(input, rawContent, modules, file.FileTypeDockerfile, configFile)
 	}
 	return model.Result{}, nil
