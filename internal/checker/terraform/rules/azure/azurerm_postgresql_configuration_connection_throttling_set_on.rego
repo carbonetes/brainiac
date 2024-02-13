@@ -41,12 +41,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server is configured as 'ON'.",
-                "snippet": block }
+	result := { 
+        "message": "The connection_throttling server parameter on the PostgreSQL Database Server is configured as 'ON'.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The connection_throttling server parameter on the PostgreSQL Database Server must be configured as 'ON'.",
-                "snippet": block }
+	result := { 
+        "message": "The connection_throttling server parameter on the PostgreSQL Database Server must be configured as 'ON'.",
+        "snippet": block, 
+    }
 } 

@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Email service and co-administrators are enabled for MSSQL servers.",
-                "snippet": block }
+	result := { 
+        "message": "Email service and co-administrators are enabled for MSSQL servers.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Email service and co-administrators must be enabled for MSSQL servers.",
-                "snippet": block }
+	result := { 
+        "message": "Email service and co-administrators must be enabled for MSSQL servers.",
+        "snippet": block, 
+    }
 } 

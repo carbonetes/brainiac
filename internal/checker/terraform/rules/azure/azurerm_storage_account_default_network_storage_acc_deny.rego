@@ -45,12 +45,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The default network access rule for Storage Accounts is configured to deny access.",
-                "snippet": block }
+	result := { 
+        "message": "The default network access rule for Storage Accounts is configured to deny access.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The default network access rule for Storage Accounts must be configured to deny access.",
-                "snippet": block }
+	result := { 
+        "message": "The default network access rule for Storage Accounts must be configured to deny access.",
+        "snippet": block, 
+    }
 } 

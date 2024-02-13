@@ -43,13 +43,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Network Interfaces are not configured to use public IPs."
+        "message": "Network Interfaces are not configured to use public IPs.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Network Interfaces are configured to use public IPs."
+        "message": "Network Interfaces are configured to use public IPs.",
+		"snippet": block,
     }
 }

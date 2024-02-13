@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Blob containers have their 'Public access level' configured as 'Private'.",
-                "snippet": block }
+	result := { 
+        "message": "Blob containers have their 'Public access level' configured as 'Private'.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Blob containers must have their 'Public access level' configured as 'Private'.",
-                "snippet": block }
+	result := { 
+        "message": "Blob containers must have their 'Public access level' configured as 'Private'.",
+        "snippet": block, 
+    }
 } 

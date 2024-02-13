@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "IP forwarding is verified to be disabled for Network Interfaces."}
+	result := {
+		"message": "IP forwarding is verified to be disabled for Network Interfaces.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "IP forwarding is not disabled for Network Interfaces as required."}
+	result := {
+		"message": "IP forwarding is not disabled for Network Interfaces as required.",
+		"snippet": block,
+	}
 }

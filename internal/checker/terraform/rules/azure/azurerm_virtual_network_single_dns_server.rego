@@ -46,10 +46,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The VNET complies with the policy by having at least 2 connected DNS Endpoints, ensuring network reliability and redundancy."}
+	result := {
+		"message": "The VNET complies with the policy by having at least 2 connected DNS Endpoints, ensuring network reliability and redundancy.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The VNET does not meet the policy requirement of having at least 2 connected DNS Endpoints, potentially affecting network reliability."}
+	result := {
+		"message": "The VNET does not meet the policy requirement of having at least 2 connected DNS Endpoints, potentially affecting network reliability.",
+		"snippet": block,
+	}
 }

@@ -41,12 +41,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Function apps is set to be reached via HTTPS only for enhanced security.",
-                "snippet": block }
+	result := { 
+        "message": "The Function apps is set to be reached via HTTPS only for enhanced security.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Function apps must only be exclusively available through HTTPS for increased security.",
-                "snippet": block }
+	result := { 
+        "message": "The Function apps must only be exclusively available through HTTPS for increased security.",
+        "snippet": block, 
+    }
 } 

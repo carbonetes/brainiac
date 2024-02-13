@@ -41,12 +41,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The MySQL Database Server has 'Enforce SSL connection' configured as 'ENABLED'.",
-                "snippet": block }
+	result := { 
+        "message": "The MySQL Database Server has 'Enforce SSL connection' configured as 'ENABLED'.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The MySQL Database Server must have 'Enforce SSL connection' configured as 'ENABLED'.",
-                "snippet": block }
+	result := { 
+        "message": "The MySQL Database Server must have 'Enforce SSL connection' configured as 'ENABLED'.",
+        "snippet": block, 
+    }
 } 

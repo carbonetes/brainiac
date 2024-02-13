@@ -42,10 +42,16 @@ pass[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "public IP addresses are not assigned to AKS cluster nodes."}
+	result := {
+		"message": "public IP addresses are not assigned to AKS cluster nodes.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "public IP addresses must not be assigned to AKS cluster nodes."}
+	result := {
+		"message": "public IP addresses must not be assigned to AKS cluster nodes.",
+		"snippet": block,
+	}
 }

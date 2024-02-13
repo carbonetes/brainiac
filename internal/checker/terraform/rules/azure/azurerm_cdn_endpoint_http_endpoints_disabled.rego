@@ -41,15 +41,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "The HTTP endpoint for Azure CDN is disabled, enhancing security and performance.",
-	"snippet": block 
+		"message": "The HTTP endpoint for Azure CDN is disabled, enhancing security and performance.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "The HTTP endpoint for Azure CDN should be disabled to improve security and performance by restricting non-secure traffic.",
-	"snippet": block 
+		"message": "The HTTP endpoint for Azure CDN should be disabled to improve security and performance by restricting non-secure traffic.",
+		"snippet": block, 
     }
 }

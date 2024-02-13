@@ -40,12 +40,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The 'Threat Detection types' are configured as 'All'",
-                "snippet": block }
+	result := { 
+		"message": "The 'Threat Detection types' are configured as 'All'",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The 'Threat Detection types' must be configured as 'All'",
-                "snippet": block }
+	result := { 
+		"message": "The 'Threat Detection types' must be configured as 'All'",
+        "snippet": block, 
+	}
 } 

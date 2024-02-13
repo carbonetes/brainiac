@@ -51,13 +51,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "AKS is verified to be configured with the Azure Policies Add-on."
+        "message": "AKS is verified to be configured with the Azure Policies Add-on.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "AKS is not configured with the Azure Policies Add-on as required."
+        "message": "AKS is not configured with the Azure Policies Add-on as required.",
+		"snippet": block,
     }
 }

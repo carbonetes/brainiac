@@ -46,10 +46,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "HTTP to HTTPS redirection is properly configured for your web app. It enhances security and encrypts your traffic."}
+	result := {
+		"message": "HTTP to HTTPS redirection is properly configured for your web app. It enhances security and encrypts your traffic.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "HTTP to HTTPS redirection is not properly configured for your web app. Ensure it redirects all HTTP traffic to HTTPS for enhanced security and encryption."}
+	result := {
+		"message": "HTTP to HTTPS redirection is not properly configured for your web app. Ensure it redirects all HTTP traffic to HTTPS for enhanced security and encryption.",
+		"snippet": block,
+	}
 }

@@ -41,12 +41,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The 'log_connections' server parameter is configured as 'ON' for the PostgreSQL Database Server.",
-                "snippet": block }
+	result := { 
+        "message": "The 'log_connections' server parameter is configured as 'ON' for the PostgreSQL Database Server.",
+        "snippet": block, 
+        }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The 'log_connections' server parameter must be configured as 'ON' for the PostgreSQL Database Server.",
-                "snippet": block }
+	result := { 
+        "message": "The 'log_connections' server parameter must be configured as 'ON' for the PostgreSQL Database Server.",
+        "snippet": block, 
+    }
 } 

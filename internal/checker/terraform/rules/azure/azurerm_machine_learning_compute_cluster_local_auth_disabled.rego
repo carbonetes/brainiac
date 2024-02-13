@@ -41,12 +41,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Machine Learning Compute Cluster Local Authentication is deactivated.",
-                "snippet": block }
+	result := { 
+        "message": "The Machine Learning Compute Cluster Local Authentication is deactivated.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Machine Learning Compute Cluster Local Authentication is activated, it must be deactivated.",
-                "snippet": block }
+	result := { 
+        "message": "The Machine Learning Compute Cluster Local Authentication is activated, it must be deactivated.",
+        "snippet": block, 
+    }
 } 

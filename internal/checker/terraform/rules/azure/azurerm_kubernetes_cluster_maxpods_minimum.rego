@@ -45,10 +45,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Kubernetes Cluster (AKS) nodes support a minimum of 50 pods."}
+	result := {
+		"message": "Azure Kubernetes Cluster (AKS) nodes support a minimum of 50 pods.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Kubernetes Cluster (AKS) nodes must support a minimum of 50 pods."}
+	result := {
+		"message": "Azure Kubernetes Cluster (AKS) nodes must support a minimum of 50 pods.",
+		"snippet": block,
+	}
 }

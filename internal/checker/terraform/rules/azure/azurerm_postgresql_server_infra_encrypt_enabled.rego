@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The infrastructure encryption is activated on the PostgreSQL server."}
+	result := {
+		"message": "The infrastructure encryption is activated on the PostgreSQL server.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The infrastructure encryption is not activated on the PostgreSQL server."}
+	result := {
+		"message": "The infrastructure encryption is not activated on the PostgreSQL server.",
+		"snippet": block,
+	}
 }
