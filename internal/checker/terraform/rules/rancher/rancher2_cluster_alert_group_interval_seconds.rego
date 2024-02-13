@@ -56,7 +56,7 @@ fail[block] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "Some Rancher2 Cluster Alert Group configurations have invalid interval seconds. Please ensure all interval seconds are set to non-zero values.",
+		"message": "All Rancher2 Cluster Alert Group has valid interval seconds.",
 		"snippet": block,
 	}
 }
@@ -64,7 +64,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "Some Rancher2 Cluster Alert Group configurations are invalid. Please ensure all required fields are provided.",
+		"message": "Some Rancher2 Cluster Alert Group configurations have invalid interval seconds. Please ensure all interval seconds are set to non-zero values.",
 		"snippet": block,
 	}
 }
