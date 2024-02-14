@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Cosmos DB inhibits privileged escalation by limiting changes to the management plane."}
+	result := {
+		"message": "Cosmos DB inhibits privileged escalation by limiting changes to the management plane.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Cosmos DB must inhibit privileged escalation by limiting changes to the management plane."}
+	result := {
+		"message": "Cosmos DB must inhibit privileged escalation by limiting changes to the management plane.",
+		"snippet": block,
+	}
 }

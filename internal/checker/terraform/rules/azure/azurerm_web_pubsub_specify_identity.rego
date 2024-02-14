@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Web PubSub is configured to use a SKU that includes an SLA."}
+	result := {
+		"message": "Web PubSub is configured to use a SKU that includes an SLA.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Web PubSub should use a SKU that includes an SLA for enhanced reliability and performance."}
+	result := {
+		"message": "Web PubSub should use a SKU that includes an SLA for enhanced reliability and performance.",
+		"snippet": block,
+	}
 }

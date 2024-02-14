@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "AKS is verified to utilize disk encryption settings."
+        "message": "AKS is verified to utilize disk encryption settings.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "AKS does not utilize disk encryption settings as required."
+        "message": "AKS does not utilize disk encryption settings as required.",
+		"snippet": block,
     }
 }

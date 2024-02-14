@@ -41,15 +41,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Storage blobs restrict public access, enhancing security.",
-	"snippet": block 
+		"message": "Storage blobs restrict public access, enhancing security.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Storage blobs should restrict public access to prevent unauthorized access and enhance security.",
-	"snippet": block 
+		"message": "Storage blobs should restrict public access to prevent unauthorized access and enhance security.",
+		"snippet": block, 
     }
 }

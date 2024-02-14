@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Application Gateway utilizes WAF in either 'Detection' or 'Prevention' modes."}
+	result := {
+		"message": "Application Gateway utilizes WAF in either 'Detection' or 'Prevention' modes.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Application Gateway does not utilize WAF in either 'Detection' or 'Prevention' modes."}
+	result := {
+		"message": "Application Gateway does not utilize WAF in either 'Detection' or 'Prevention' modes.",
+		"snippet": block,
+	}
 }

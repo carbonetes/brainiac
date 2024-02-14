@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Encryption is verified to be enabled for Data Lake Store accounts."
+        "message": "Encryption is verified to be enabled for Data Lake Store accounts.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Encryption is not enabled for Data Lake Store accounts as required."
+        "message": "Encryption is not enabled for Data Lake Store accounts as required.",
+		"snippet": block,
     }
 }

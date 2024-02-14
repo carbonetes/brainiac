@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Soft delete is verified to be enabled for the Key Vault."
+        "message": "Soft delete is verified to be enabled for the Key Vault.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Soft delete is not enabled for the Key Vault as required."
+        "message": "Soft delete is not enabled for the Key Vault as required.",
+		"snippet": block,
     }
 }

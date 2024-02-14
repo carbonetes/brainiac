@@ -41,12 +41,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The PostgreSQL Database Server has the 'log_checkpoints' server parameter configured as 'ON'.",
-                "snippet": block }
+	result := { 
+        "message": "The PostgreSQL Database Server has the 'log_checkpoints' server parameter configured as 'ON'.",
+        "snippet": block,
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The PostgreSQL Database Server must have the 'log_checkpoints' server parameter configured as 'ON'.",
-                "snippet": block }
+	result := {
+        "message": "The PostgreSQL Database Server must have the 'log_checkpoints' server parameter configured as 'ON'.",
+        "snippet": block, 
+    }
 } 

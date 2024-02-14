@@ -50,12 +50,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Activity Log Retention is configured for a duration equal to or exceeding 365 days",
-                "snippet": block }
+	result := { 
+        "message": "The Activity Log Retention is configured for a duration equal to or exceeding 365 days",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Activity Log Retention must be configured for a duration equal to or exceeding 365 days",
-                "snippet": block }
+	result := { 
+        "message": "The Activity Log Retention must be configured for a duration equal to or exceeding 365 days",
+        "snippet": block,
+    }
 } 

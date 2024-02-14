@@ -54,13 +54,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-        "message": "The web application has 'Client Certificates (Incoming client certificates)' configuration enabled"
+        "message": "The web application has 'Client Certificates (Incoming client certificates)' configuration enabled",
+		"snippet": block,
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-        "message": "The web application does not have 'Client Certificates (Incoming client certificates)' configuration enabled"
-        }
+        "message": "The web application does not have 'Client Certificates (Incoming client certificates)' configuration enabled",
+		"snippet": block,
+    }
 }

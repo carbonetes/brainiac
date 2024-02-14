@@ -42,12 +42,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Threat Detection policy is activated on your PostgreSQL server.",
-                "snippet": block }
+	result := { 
+        "message": "The Threat Detection policy is activated on your PostgreSQL server.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Threat Detection policy is inactive on your PostgreSQL server.",
-                "snippet": block }
+	result := { 
+        "message": "The Threat Detection policy is inactive on your PostgreSQL server.",
+        "snippet": block, 
+    }
 } 

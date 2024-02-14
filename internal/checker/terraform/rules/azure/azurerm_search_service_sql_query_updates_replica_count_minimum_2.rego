@@ -47,15 +47,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "The Azure Cognitive Search service maintains the required SLA for index queries, ensuring reliable and efficient search capabilities.",
-	"snippet": block 
+		"message": "The Azure Cognitive Search service maintains the required SLA for index queries, ensuring reliable and efficient search capabilities.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "The Azure Cognitive Search service does not meet the required SLA for index queries, which may result in performance and reliability issues.",
-	"snippet": block 
+		"message": "The Azure Cognitive Search service does not meet the required SLA for index queries, which may result in performance and reliability issues.",
+		"snippet": block, 
     }
 }

@@ -42,12 +42,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "No custom subscription owner roles defined within the environment.",
-                "snippet": block }
+	result := { 
+		"message": "No custom subscription owner roles defined within the environment.",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := { "message": "Custom subscription owner roles must not be defined within the environment.",
-                "snippet": block }
+	result := { 
+		"message": "Custom subscription owner roles must not be defined within the environment.",
+        "snippet": block, 
+	}
 }

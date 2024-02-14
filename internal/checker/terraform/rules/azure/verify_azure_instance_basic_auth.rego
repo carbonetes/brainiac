@@ -44,12 +44,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Azure Instance does not use basic authentication.",
-                "snippet": block }
+	result := { 
+        "message": "Azure Instance does not use basic authentication.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Azure Instance 'os_profile_linux_config' disable_password_authentication should not be set false",
-                "snippet": block }
+	result := { 
+        "message": "Azure Instance 'os_profile_linux_config' disable_password_authentication should not be set false",
+        "snippet": block, 
+    }
 } 

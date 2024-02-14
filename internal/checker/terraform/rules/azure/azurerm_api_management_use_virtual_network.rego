@@ -43,14 +43,16 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "API management services are verified to be configured to use virtual networks."
+        "message": "API management services are verified to be configured to use virtual networks.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "API management services are not configured to use virtual networks as required."
+        "message": "API management services are not configured to use virtual networks as required.",
+		"snippet": block,
     }
 }
 

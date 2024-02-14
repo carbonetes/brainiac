@@ -44,10 +44,16 @@ fail[resource] {
 
 passed[result] {
     some block in pass
-    result := {"message": "Azure Data Explorer (ADX) is configured with an SLA-backed SKU, ensuring higher performance and reliability."}
+    result := {
+        "message": "Azure Data Explorer (ADX) is configured with an SLA-backed SKU, ensuring higher performance and reliability.",
+	    "snippet": block,
+    }
 }
 
 failed[result] {
     some block in fail
-    result := {"message": "Azure Data Explorer (ADX) should be configured with an SLA-backed SKU to guarantee better performance and reliability."}
+    result := {
+        "message": "Azure Data Explorer (ADX) should be configured with an SLA-backed SKU to guarantee better performance and reliability.",
+	    "snippet": block,
+    }
 }

@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Public network access is verified to be disabled for Azure Data Factory."}
+	result := {
+		"message": "Public network access is verified to be disabled for Azure Data Factory.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Public network access is not disabled for Azure Data Factory."}
+	result := {
+		"message": "Public network access is not disabled for Azure Data Factory.",
+		"snippet": block,
+	}
 }

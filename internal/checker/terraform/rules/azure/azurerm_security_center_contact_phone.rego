@@ -45,13 +45,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "The 'Phone number' is configured for the security contact."
+        "message": "The 'Phone number' is configured for the security contact.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "The 'Phone number' is not configured for the security contact."
+        "message": "The 'Phone number' is not configured for the security contact.",
+		"snippet": block,
     }
 }

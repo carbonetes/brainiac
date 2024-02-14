@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "PostgreSQL server is configured to prevent public network accessibility.",
-                "snippet": block }
+	result := { 
+        "message": "PostgreSQL server is configured to prevent public network accessibility.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "PostgreSQL server must be configured to prevent public network accessibility.",
-                "snippet": block }
+	result := { 
+        "message": "PostgreSQL server must be configured to prevent public network accessibility.",
+        "snippet": block, 
+    }
 } 

@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Public network access is verified to be deactivated for the SQL server."
+        "message": "Public network access is verified to be deactivated for the SQL server.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Public network access is not deactivated for the SQL server as required."
+        "message": "Public network access is not deactivated for the SQL server as required.",
+		"snippet": block,
     }
 }

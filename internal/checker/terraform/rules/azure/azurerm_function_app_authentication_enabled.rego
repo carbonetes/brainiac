@@ -43,12 +43,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The function apps have authentication activated.",
-                "snippet": block }
+	result := { 
+        "message": "The function apps have authentication activated.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The function apps must have authentication activated.",
-                "snippet": block }
+	result := { 
+        "message": "The function apps must have authentication activated.",
+        "snippet": block, 
+    }
 } 
