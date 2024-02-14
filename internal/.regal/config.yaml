@@ -1,13 +1,13 @@
 rules:
-  bugs:
-    not-equals-in-loop:
+  bugs: 
+    not-equals-in-loop: 
       # This is actually fine the way it's used here.
       # Issue created in Regal for tracking:
-      # https://github.com/StyraInc/regal/issues/416
-      level: ignore
+      # https://github.com/StyraInc/regal/issues/416 
+      level: ignore 
   idiomatic:
-    custom-has-key-construct:
-      # A lot of these, where we could simply use `object.keys`
+    custom-has-key-construct: 
+      # A lot of these, where we could simply use `object.keys` 
       # and `in` instead
       # https://docs.styra.com/regal/rules/idiomatic/custom-has-key-construct
       level: ignore
