@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_102
 
-test_rancher2_storageClass_v2_configuration_passed {
+test_rancher2_storage_class_v2_configuration_passed {
     result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -27,7 +27,7 @@ test_rancher2_storageClass_v2_configuration_passed {
     count(result) == 1
 }
 
-test_rancher2_storageClass_v2_configuration_failed {
+test_rancher2_storage_class_v2_configuration_failed {
     result := failed with input as [{
         "Type": "resource",
         "Labels": [
