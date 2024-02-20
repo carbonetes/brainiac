@@ -29,10 +29,8 @@ resource[resource] {
 pass[block] {
 	some block in input
 	isvalid(block)
-	count(block.Blocks) != 0
 	some innerblock in block.Blocks
 	innerblock.Type == "registries"
-	count(innerblock) != 0
 	innerblock.Attributes.address != ""
 }
 
