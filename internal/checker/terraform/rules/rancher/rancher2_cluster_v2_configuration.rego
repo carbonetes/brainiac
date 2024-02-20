@@ -31,7 +31,6 @@ pass[block] {
 	isvalid(block)
 	block.Attributes.name != ""
     block.Attributes.kubernetes_version != ""
-	block.Attributes.kubernetes_version in ["rke2/k3s-version", "rke2-version", "k3s-version"]
 }
 
 fail[block] {

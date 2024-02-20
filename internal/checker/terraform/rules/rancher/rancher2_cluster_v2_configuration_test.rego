@@ -8,7 +8,7 @@ test_rancher2_cluster_v2_configuration_passed {
             "foo"
         ],
         "Attributes": {
-            "kubernetes_version": "rke2/k3s-version",
+            "kubernetes_version": "rke2-/k3s-version",
             "name": "foo"
         },
         "Blocks": [],
@@ -28,7 +28,7 @@ test_rancher2_cluster_v2_configuration_failed {
             "foo"
         ],
         "Attributes": {
-            "kubernetes_version": "not a version",
+            "kubernetes_version": "rke2-/k3s-version",
             "name": ""
         },
         "Blocks": [],
