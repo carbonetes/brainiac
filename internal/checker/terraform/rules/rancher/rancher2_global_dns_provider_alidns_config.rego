@@ -31,6 +31,13 @@ fail[block] {
 	isvalid(block)
 	count(block.Blocks) == 1
 	some innerblock in block.Blocks
+	not innerblock.Type == "alidns_config"
+}
+
+fail[block] {
+	some block in input
+	isvalid(block)
+	some innerblock in block.Blocks
 	innerblock.Type == "alidns_config"
 	"access_key" in object.keys(innerblock.Attributes)
 	innerblock.Attributes.access_key == ""
@@ -39,7 +46,6 @@ fail[block] {
 fail[block] {
 	some block in input
 	isvalid(block)
-	count(block.Blocks) == 1
 	some innerblock in block.Blocks
 	innerblock.Type == "alidns_config"
 	"secret_key" in object.keys(innerblock.Attributes)
