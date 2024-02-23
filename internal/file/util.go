@@ -191,6 +191,7 @@ func isCloudFormation(configFile string) bool {
 	//if yaml
 	var result map[string]interface{}
 	if err := yaml.Unmarshal(file, &result); err != nil {
+		return false
 	}
 	if _, ok := result["Resources"]; ok {
 		return true

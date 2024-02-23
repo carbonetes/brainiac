@@ -26,9 +26,9 @@ pass[properties]{
 }
 
 pass[block]{
-	resources := input.Resources
     is_valid
-    default_action := resources.ListenerHTTPS.Properties.DefaultActions
+    some resources in input.Resources
+    default_action := resources.Properties.DefaultActions
     some block in default_action
     block.Type == "redirect"
     block.RedirectConfig.Protocol == "HTTPS"

@@ -84,7 +84,7 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 		input, rawContent := file.ParseCloudformationFile(configFile)
 		res, _ := json.MarshalIndent(input, "", " ") // remove wheh merging to main
 		fmt.Print(string(res))                       // remove wheh merging to main
-		return proccessInput(input, rawContent, modules, file.FileTypeDockerfile, configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeCloudFormation, configFile)
 	}
 	return model.Result{}, nil
 
