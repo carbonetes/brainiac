@@ -21,8 +21,10 @@ is_valid {
 
 pass {
 	is_valid
-	input.Resources[_].Properties.TransitEncryptionEnabled == true
-	input.Resources[_].Properties.AuthToken != ""
+	some resources in input.Resources
+	resource_properties := resources.Properties
+	resource_properties.TransitEncryptionEnabled == true
+	not resource_properties.AuthToken == ""
 }
 
 fail {
@@ -31,25 +33,25 @@ fail {
 }
 
 passed[result] {
-	some i
+	some resources in input.Resources
 	pass
 	result := {
 		"message": "Data is securely encrypted at transit and has auth token.",
 		"snippet": {
-			"TransitEncryptionEnabled": input.Resources[i].Properties.TransitEncryptionEnabled,
-			"AuthToken": input.Resources[i].Properties.AuthToken,
+			"TransitEncryptionEnabled": resources.Properties.TransitEncryptionEnabled,
+			"AuthToken": resources.Properties.AuthToken,
 		},
 	}
 }
 
 failed[result] {
-	some i
+	some resources in input.Resources
 	fail
 	result := {
 		"message": "Data should be securely encrypted at transit and have auth token.",
 		"snippet": {
-			"TransitEncryptionEnabled": input.Resources[i].Properties.TransitEncryptionEnabled,
-			"AuthToken": input.Resources[i].Properties.AuthToken,
+			"TransitEncryptionEnabled": resources.Properties.TransitEncryptionEnabled,
+			"AuthToken": resources.Properties.AuthToken,
 		},
 	}
 }
