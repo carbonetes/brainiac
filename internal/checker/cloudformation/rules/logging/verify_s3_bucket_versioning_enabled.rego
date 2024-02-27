@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
 # custom:
-#   id: CB_CFT_011
+#   id: CB_CFT_012
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_011
+package lib.cloudformation.CB_CFT_012
 
 import future.keywords.in
 

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_011
+package lib.cloudformation.CB_CFT_012
 
 test_s3_bucket_versioning_enabled {
     result := passed with input as {"Resources": {
