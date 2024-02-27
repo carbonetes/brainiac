@@ -3,7 +3,7 @@
 # description: "Policy to ensure that Rancher2 Node Pool configuration specifies non-zero quantity."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/node_driver
+# - https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/node_pool
 # custom:
 #   id: CB_TFRAN_145
 #   severity: LOW
