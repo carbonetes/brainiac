@@ -7,9 +7,7 @@
 # custom:
 #   id: CB_CFT_25
 #   severity: MEDIUM
-
 package lib.cloudformation.CB_CFT_25
-
 import future.keywords.in
 
 resource := "AWS::ElastiCache::ReplicationGroup"
