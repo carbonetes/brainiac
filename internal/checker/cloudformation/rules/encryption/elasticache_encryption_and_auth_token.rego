@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html
 # custom:
-# id: CB_CFT_25
-# severity: MEDIUM
+#   id: CB_CFT_25
+#   severity: MEDIUM
 package lib.cloudformation.CB_CFT_25
 import future.keywords.in
 
