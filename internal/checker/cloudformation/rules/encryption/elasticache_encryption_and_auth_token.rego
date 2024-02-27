@@ -34,7 +34,7 @@ passed[result]{
 	some resources in input.Resources
 	pass
 	result := {
-		"message": "Data is securely encrypted at transit and has auth token.",
+		"message": "Data is securely encrypted at transit and has auth token",
 		"snippet": {
 			"TransitEncryptionEnabled": resources.Properties.TransitEncryptionEnabled,
 			"AuthToken": resources.Properties.AuthToken,
@@ -46,7 +46,7 @@ failed[result]{
 	some resources in input.Resources
 	fail
 	result := {
-		"message": "Data should be securely encrypted at transit and have auth token.",
+		"message": "Data should be securely encrypted at transit and have auth token",
 		"snippet": {
 			"TransitEncryptionEnabled": resources.Properties.TransitEncryptionEnabled,
 			"AuthToken": resources.Properties.AuthToken,
