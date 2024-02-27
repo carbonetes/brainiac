@@ -42,7 +42,7 @@ fail[resources] {
 passed[result] {
     some block in pass
  	result := {
-		"message": "Encryption settings must be enforced for the EBS volume.",
+		"message": "Encryption settings are enforced for the EBS volume.",
 		"snippet": block,
 	}
 }
@@ -50,7 +50,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "Encryption settings are enforced for the EBS volume.",
+		"message": "Encryption settings must be  enforced for the EBS volume.",
 		"snippet": block,
 	}
 }
