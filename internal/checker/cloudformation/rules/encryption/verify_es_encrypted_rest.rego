@@ -8,50 +8,42 @@
 #   id: CB_CFT_003
 #   severity: LOW
 package lib.cloudformation.CB_CFT_003
+
 import future.keywords.in
 
 resource := "AWS::Elasticsearch::Domain"
 
 is_valid {
-    some resources in input.Resources
-    resources.Type == resource
-}
-
-pass[properties] {
-    resources := input.Resources
-    is_valid
-    properties := resources.Properties
-    is_enabled := true
-    properties.Enabled == is_enabled
+	some resources in input.Resources
+	resources.Type == resource
 }
 
 pass[block] {
-    is_valid
-    some resources in input.Resources
-    resources.Type == resource
-    block :=  resources.Properties.EncryptionAtRestOptions
-	block.Enabled = true
+	is_valid
+	some resources in input.Resources
+	rest := resources.Properties.EncryptionAtRestOptions
+	rest.Enabled == true
+	block := rest
 }
 
-
 fail[resources] {
-    resources := input.Resources
-    is_valid
-    count(pass) == 0
+	resources := input.Resources
+	is_valid
+	count(pass) == 0
 }
 
 passed[result] {
-    some block in pass
-    result := {
-        "message": "Encryption requirements are met for securing the Elasticsearch domain while data is at rest.",
-        "snippet": block,
-    }
+	some block in pass
+	result := {
+		"message": "Encryption requirements are met for securing the Elasticsearch domain while data is at rest.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
-    some block in fail
-    result := {
-        "message": "Encryption settings are necessary to ensure the security of the Elasticsearch domain when data is at rest.",
-        "snippet": block,
-    }
+	some block in fail
+	result := {
+		"message": "Encryption settings are necessary to ensure the security of the Elasticsearch domain when data is at rest.",
+		"snippet": block,
+	}
 }
