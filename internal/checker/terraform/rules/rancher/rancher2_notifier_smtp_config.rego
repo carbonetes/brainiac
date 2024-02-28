@@ -44,7 +44,6 @@ validate_smtp(block) {
 	innerblock.Attributes.default_recipient != ""
 	innerblock.Attributes.host != ""
     is_number(innerblock.Attributes.port) == true
-    to_number(innerblock.Attributes.port)
     innerblock.Attributes.sender != ""
 }
 
