@@ -17,36 +17,20 @@ is_valid {
 	resources.Type == resource
 }
 
-contains_wildcard_principal(statements) {
-	some statement in statements
-	statement.Principal == "*"
+fail[properties] {
+    is_valid
+    some resources in input.Resources
+    properties := resources.Properties.KeyPolicy
+    statements := properties.Statement
+   	some statement in statements
+    statement.Principal.AWS == "*"
+    statement.Effect == "Deny"
 }
 
-aws_principal(statements) {
-	some statement in statements
-	statement.Principal.AWS == "*"
-}
-
-contains_deny_effect(statements) {
-	some statement in statements
-	statement.Effect == "Deny"
-}
-
-pass[block] {
-	is_valid
-	some resources in input.Resources
-	properties := resources.Properties.KeyPolicy
-	statements := properties.Statement
-	not aws_principal(statements)
-	not contains_wildcard_principal(statements)
-	not contains_deny_effect(statements)
-	block := [statement | statement := statements]
-}
-
-fail[resources] {
-	resources := input.Resources
-	is_valid
-	count(pass) == 0
+pass[resources] {
+    resources := input.Resources
+    is_valid
+    count(fail) == 0
 }
 
 passed[result] {
