@@ -26,7 +26,7 @@ fail[ingress] {
 	ingress.FromPort == 22
 	ingress.ToPort == 22
 	ingress.CidrIp == "0.0.0.0/0"
-	}
+}
 
 
 pass[resources] {
