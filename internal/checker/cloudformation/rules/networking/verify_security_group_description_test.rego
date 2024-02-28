@@ -39,7 +39,6 @@ test_verify_security_group_description_empty {
         "GroupDescription": "My Security Group",
         "SecurityGroupIngress": [
           {
-            "Description": "",
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
@@ -48,7 +47,7 @@ test_verify_security_group_description_empty {
         ],
         "SecurityGroupEgress": [
           {
-            "Description": "",
+            "Description": "Allow outgoing HTTP traffic",
             "IpProtocol": "tcp",
             "FromPort": 80,
             "ToPort": 80,

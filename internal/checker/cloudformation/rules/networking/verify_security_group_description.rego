@@ -11,28 +11,31 @@ package lib.cloudformation.CB_CFT_013
 
 import future.keywords.in
 
-resource := ["AWS::EC2::SecurityGroup", "AWS::EC2::SecurityGroupIngress", "AWS::EC2::SecurityGroupEgress"]
+resource := "AWS::EC2::SecurityGroup"
 
 is_valid {
 	some resources in input.Resources
-	some resource_type in resource
-	resources.Type == resource_type
+	resources.Type == resource
 }
 
-pass[block] {
+fail[ingress] {
 	is_valid
 	some resources in input.Resources
 	some ingress in resources.Properties.SecurityGroupIngress
-	ingress.Description != ""
-	some egress in resources.Properties.SecurityGroupEgress
-	egress.Description != ""
-	block := {ingress, egress}
+	not "Description" in object.keys(ingress)
 }
 
-fail[resources] {
+fail[egress] {
+	is_valid
+	some resources in input.Resources
+	some egress in resources.Properties.SecurityGroupEgress
+	not "Description" in object.keys(egress)
+}
+
+pass[resources] {
 	some resources in input.Resources
 	is_valid
-	count(pass) == 0
+	count(fail) == 0
 }
 
 passed[result] {
