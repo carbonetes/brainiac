@@ -19,20 +19,19 @@ is_valid {
 	resources.Type == resource_type
 }
 
-pass[block] {
+fail[ingress] {
 	is_valid
 	some resources in input.Resources
 	some ingress in resources.Properties.SecurityGroupIngress
 	ingress.FromPort == 3389
 	ingress.ToPort == 3389
-	ingress.CidrIp != "0.0.0.0/0"
-	block := ingress
+	ingress.CidrIp == "0.0.0.0/0"
 }
 
-fail[resources] {
+pass[resources] {
 	some resources in input.Resources
 	is_valid
-	count(pass) == 0
+	count(fail) == 0
 }
 
 passed[result] {
