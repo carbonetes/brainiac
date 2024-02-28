@@ -14,38 +14,36 @@ import future.keywords.in
 resource := "AWS::AutoScaling::LaunchConfiguration"
 
 is_valid {
-	some resources in input.Resources
-	resources.Type == resource
+    some resources in input.Resources
+    resources.Type == resource
 }
 
-pass[block] {
+pass[resources] {
 	is_valid
-	some resources in input.Resources
-	resources.Type == resource
-	some block in resources.Properties.BlockDeviceMappings
-	block.Ebs.Encrypted = true
+	resources := input.Resources
+	count(fail) == 0
 }
 
 fail[resources] {
-	is_valid
-	some resources in input.Resources
-	resources.Type == resource
-	some block in resources.Properties.BlockDeviceMappings
-	block.Ebs.Encrypted = false
+    is_valid
+    some resources in input.Resources
+    resources.Type == resource
+    some block in resources.Properties.BlockDeviceMappings
+    block.Ebs.Encrypted = false
 }
 
 passed[result] {
-	some block in pass
-	result := {
-		"message": "All data stored in launch configurations for EBS instances is securely encrypted.",
-		"snippet": block,
-	}
+    some block in pass
+    result := {
+        "message": "All data stored in launch configurations for EBS instances is securely encrypted.",
+        "snippet": block,
+    }
 }
 
 failed[result] {
-	some block in fail
-	result := {
-		"message": "All data stored in launch configurations for EBS instances needs to be encrypted",
-		"snippet": block,
-	}
+    some block in fail
+    result := {
+        "message": "All data stored in launch configurations for EBS instances needs to be encrypted",
+        "snippet": block,
+    }
 }
