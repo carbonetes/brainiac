@@ -3,10 +3,10 @@
 # description: "This Policy ensures that Amazon EFS, a scalable file storage solution for AWS and on-premises resources, automatically adjusts its size as files are added or removed. Encrypting Amazon EFS data and metadata is essential to prevent unauthorized access and comply with data-at-rest encryption requirements in production systems."
 # scope: package
 # related_resources:
-# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-volume.html
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-filesystem.html
 # custom:
 #   id: CB_CFT_32
-#   severity: HIGH
+#   severity: MEDIUM
 package lib.cloudformation.CB_CFT_32
 import future.keywords.in
 
