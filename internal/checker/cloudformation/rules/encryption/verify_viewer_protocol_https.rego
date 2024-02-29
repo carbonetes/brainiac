@@ -17,13 +17,12 @@ is_valid{
     resources.Type == resource
 }
 
-pass[block] {
+pass[protocol] {
     is_valid
     some resources in input.Resources
     properties := resources.Properties
     some protocol in properties.DistributionConfig
     protocol.ViewerProtocolPolicy == "HTTPS"
-    block := protocol
 }
 
 fail[resources] {
