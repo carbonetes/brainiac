@@ -3,12 +3,11 @@
 # description: "This policy enables secure hosting of sensitive workloads by implementing encryption at rest. This feature safeguards data stored on instances within a cluster using encryption protocols, ensuring protection against unauthorized access." 
 # scope: package
 # related_resources:
-# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticsearch-domain-nodetonodeencryptionoptions.html
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html
 # custom:
 #   id: CB_CFT_004
 #   severity: MEDIUM
 package lib.cloudformation.CB_CFT_004
-
 import future.keywords.in
 
 resource := "AWS::Elasticsearch::Domain"
@@ -18,12 +17,11 @@ is_valid {
     resources.Type == resource
 }
 
-pass[block] {
+pass[resources] {
     is_valid
     some resources in input.Resources
     node := resources.Properties.NodeToNodeEncryptionOptions
     node.Enabled == true
-    block := node
 }
 
 fail[resources] {
