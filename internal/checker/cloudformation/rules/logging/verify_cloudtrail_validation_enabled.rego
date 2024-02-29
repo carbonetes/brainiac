@@ -17,7 +17,7 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[protocol] {
+pass[properties] {
 	is_valid
 	some resources in input.Resources
 	properties := resources.Properties
