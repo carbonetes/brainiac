@@ -19,14 +19,13 @@ is_valid {
 
 permitted_engines := {"aurora", "mysql", "oracle", "postgresql", "mariadb", "sqlserver"}
 
-pass[block] {
+pass[resources] {
     is_valid
     some resources in input.Resources
     rest := resources.Properties.StorageEncrypted 
     rest == true
     some permitted_engine in permitted_engines
     permitted_engine == resources.Properties.Engine
-    block := {rest, permitted_engine}
 }
 
 fail[resources] {
