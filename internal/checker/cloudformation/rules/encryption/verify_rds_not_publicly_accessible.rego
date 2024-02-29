@@ -17,17 +17,16 @@ is_valid{
     resources.Type == resource
 }
 
-pass[block] {
+fail[resources] {
     is_valid
     some resources in input.Resources
-    block := resources.Properties.PubliclyAccessible 
-    block == false
+    resources.Properties.PubliclyAccessible == true
 }
 
-fail[resources] {
+pass[resources] {
     resources := input.Resources
     is_valid
-    count(pass) == 0
+    count(fail) == 0
 }
 
 passed[result] {
