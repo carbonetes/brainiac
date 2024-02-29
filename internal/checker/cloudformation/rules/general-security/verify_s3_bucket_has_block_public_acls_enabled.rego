@@ -7,9 +7,7 @@
 # custom:
 #   ID: CB_CFT_40
 #   Severity: Medium
-
 package lib.cloudformation.CB_CFT_40
-
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"
