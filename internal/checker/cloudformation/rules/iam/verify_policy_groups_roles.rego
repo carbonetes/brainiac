@@ -8,6 +8,7 @@
 #   id: CB_CFT_31
 #   severity: LOW
 package lib.cloudformation.CB_CFT_31
+
 import future.keywords.in
 
 resource := "AWS::IAM::Policy"
@@ -18,11 +19,10 @@ is_valid {
 }
 
 pass[properties] {
-	is_valid
-	some resources in input.Resources
-	properties := resources.Properties
-	some statements in properties.Users
-	statements == ""
+    is_valid
+    some resources in input.Resources
+    properties := resources.Properties
+    not "Users" in object.keys(properties)
 }
 
 fail[resources] {
@@ -34,7 +34,7 @@ fail[resources] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "IAM policy attached succesfully",
+		"message": "IAM policies attached only to groups or roles",
 		"snippet": block,
 	}
 }

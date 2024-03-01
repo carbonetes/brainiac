@@ -9,7 +9,6 @@ test_verify_policy_only_groups_or_roles_pass {
                     "Groups": ["MyIAMGroup"],
                     "PolicyName": "MyIAMPolicy",
                     "Roles": ["MyIAMRole"],
-                    "Users": [""]
                 }
             }
         }
@@ -26,7 +25,7 @@ test_verify_policy_only_groups_or_roles_fail {
                     "Groups": ["MyIAMGroup"],
                     "PolicyName": "MyIAMPolicy",
                     "Roles": ["MyIAMRole"],
-                    "Users": ["User1"]
+                    "Users": ["User1, User2"]
                 }
             }
         }
