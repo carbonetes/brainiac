@@ -17,15 +17,12 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[resources] {
-    is_valid
+pass[properties] {
+	is_valid
     some resources in input.Resources
-    logging_config := resources.Properties.LoggingConfiguration
-    logging_config != null
-    logging_config != {}
-    logging_config.DestinationBucketName != null
+    properties := resources.Properties
+    "LoggingConfiguration" in object.keys(properties)
 }
-
 
 fail[resources] {
 	resources := input.Resources
