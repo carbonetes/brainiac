@@ -17,12 +17,12 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[resources] {
- 	is_valid
-    some resources in input.Resources
-    read_permissions := resources.Properties.AccessControl
-    read_permissions != "PublicReadWrite" 
-    read_permissions != "PublicRead"
+pass[read_permissions] {
+	is_valid
+	some resources in input.Resources
+	read_permissions := resources.Properties
+	forbidden_values := ["PublicReadWrite", "PublicRead"]
+	not read_permissions.AccessControl in forbidden_values
 }
 
 fail[resources] {
