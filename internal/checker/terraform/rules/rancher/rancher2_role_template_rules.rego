@@ -68,7 +68,8 @@ policy_rule_verbs(block) {
 	]
 	some innerblock in block.Blocks
 	innerblock.Type == "rules"
-	innerblock.Attributes.verbs[_] in verbs
+	some verb in innerblock.Attributes.verbs
+	verb in verbs
 }
 
 pass[block] {
