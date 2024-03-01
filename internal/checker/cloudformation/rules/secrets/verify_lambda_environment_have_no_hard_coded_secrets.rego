@@ -34,7 +34,7 @@ passed[result] {
     some resources in input.Resources
     pass
     result := {
-        "message": "S3 bucket has blocked public ACLs.",
+        "message": "No hard coded secrets in lambda environment.",
         "snippet": resources,
     }
 }
@@ -43,7 +43,7 @@ failed[result] {
     some resources in input.Resources
     not pass
     result := {
-        "message": "S3 bucket should block public ACLs.",
+        "message": "Hard coded secrets found in lambda environment.",
         "snippet": resources,
     }
 }
