@@ -17,16 +17,11 @@ is_valid {
     resources.Type == resource
 }
 
-pass[resources] {
+pass[encryption] {
     is_valid
     some resources in input.Resources
-    bucket_encryption := resources.Properties.BucketEncryption
-    bucket_encryption != null
-    bucket_encryption.ServerSideEncryptionConfiguration != null
-    count(bucket_encryption.ServerSideEncryptionConfiguration) > 0
-    some enc in bucket_encryption.ServerSideEncryptionConfiguration 
-    enc.ServerSideEncryptionByDefault.SSEAlgorithm == "AES256"
-    
+    some encryption in resources.Properties.BucketEncryption.ServerSideEncryptionConfiguration
+    encryption.ServerSideEncryptionByDefault.SSEAlgorithm = "AES256"
 }
 
 fail[resources] {
