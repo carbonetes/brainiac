@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify S3 Bucket Restricts READ Permissions from Everyone"
-# description: "This policy verifies that the specified S3 bucket is configured to restrict READ permissions from everyone. By enforcing this restriction, the policy aims to mitigate the risk of unauthorized access to sensitive data stored within the bucket, thus enhancing overall security."
+# description: "This policy verifies that the specified S3 bucket is configured to restrict READ permissions from everyone. By enforcing this restriction, the policy aims to mitigate the risk of unauthorized access to sensitive data stored within the bucket."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
