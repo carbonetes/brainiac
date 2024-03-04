@@ -1,4 +1,4 @@
-#METADATA
+# METADATA
 # title: "Verify Lambda environment have no hard coded secrets."
 # description: "This policy checks AWS Lambda functions to ensure that no hard-coded secrets are present in their environment variables."
 # scope: package
@@ -29,7 +29,8 @@ fail[block] {
     is_valid
     some resources in input.Resources
     some environment_variables in resources.Properties.Environment.Variables
-    regex.match("^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$", environment_variables)
+    regex_pattern = `^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$`
+    regex.match(regex_pattern, environment_variables)
     block := resources.Properties.Environment.Variables
 }
 
