@@ -1,20 +1,22 @@
-# METADATA
+#METADATA
 # title: "Verify Lambda environment have no hard coded secrets."
 # description: "This policy checks AWS Lambda functions to ensure that no hard-coded secrets are present in their environment variables."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
+# - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
 # custom:
 #   ID: CB_CFT_35
 #   Severity: High
 package lib.cloudformation.CB_CFT_35
 import future.keywords.in
 
-resource := "AWS::Lambda::Function"
+resource := ["AWS::Lambda::Function", "AWS::Serverless::Function"]
 
 is_valid {
     some resources in input.Resources
-    resources.Type == resource
+    some resource_type in resource
+    resources.Type == resource_type
 }
 
 pass[resources] {
@@ -23,16 +25,16 @@ pass[resources] {
     count(fail) == 0
 }
 
-fail[resources] {
+fail[block] {
     is_valid
     some resources in input.Resources
-    some no_secret in resources.Properties.Environment.Variables
-    no_secret == "secret"
+    some environment_variables in resources.Properties.Environment.Variables
+    regex.match("^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$", environment_variables)
+    block := resources.Properties.Environment.Variables
 }
 
 passed[result] {
-    some resources in input.Resources
-    pass
+    some resources in pass
     result := {
         "message": "No hard coded secrets in lambda environment.",
         "snippet": resources,
@@ -40,8 +42,7 @@ passed[result] {
 }
 
 failed[result] {
-    some resources in input.Resources
-    not pass
+    some resources in fail
     result := {
         "message": "Hard coded secrets found in lambda environment.",
         "snippet": resources,
