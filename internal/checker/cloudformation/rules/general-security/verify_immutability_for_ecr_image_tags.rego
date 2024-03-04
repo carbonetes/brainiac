@@ -17,12 +17,13 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[block] {
-	is_valid
-	some resources in input.Resources
-	resources.Type == resource
-	block := resources.Properties.ImageTagMutability
-	block == "IMMUTABLE"
+pass[Properties] {
+    is_valid
+    some resources in input.Resources
+    resources.Type == resource
+    Properties := resources.Properties
+    block := Properties.ImageTagMutability
+    block == "IMMUTABLE"
 }
 
 fail[resources] {
