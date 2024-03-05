@@ -1,6 +1,6 @@
 package lib.cloudformation.CB_CFT_37
 
-test_no_hard_coded_secrets_EC2_user_data {
+test_no_hard_coded_secrets_user_data {
     passed := {
         "Resources": {
             "MyLambdaFunction": {
@@ -16,7 +16,7 @@ test_no_hard_coded_secrets_EC2_user_data {
     count(passed) == 1
 }
 
-test_has_hard_coded_EC2_user_data {
+test_has_hard_coded_user_data {
     failed := {
         "Resources": {
             "MyLambdaFunction": {
