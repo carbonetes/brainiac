@@ -8,6 +8,7 @@
 #   id: CB_CFT_44
 #   severity: High
 package lib.cloudformation.CB_CFT_44
+
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"
@@ -17,18 +18,18 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[block] {
+pass[resources] {
+	some resources in input.Resources
+	is_valid
+	count(fail) == 0
+}
+
+fail[block] {
 	is_valid
 	some resources in input.Resources
 	resources.Type == resource
 	block := resources.Properties
-	block.AccessControl == "Private"
-}
-
-fail[resources] {
-	some resources in input.Resources
-	is_valid
-	count(pass) == 0
+	block.AccessControl == "PublicReadWrite"
 }
 
 passed[result] {

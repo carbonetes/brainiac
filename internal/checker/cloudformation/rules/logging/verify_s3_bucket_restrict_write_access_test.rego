@@ -11,7 +11,7 @@ test_s3_bucket_write_access_private {
 test_s3_bucket_write_access_public {
 	result := passed with input as {"Resources": {"MyS3Bucket": {
 		"Type": "AWS::S3::Bucket",
-		"Properties": {"AccessControl": "Public"},
+		"Properties": {"AccessControl": "PublicReadWrite"},
 	}}}
 	count(result) == 0
 }
