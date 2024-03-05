@@ -1,0 +1,49 @@
+# METADATA
+# title: "Verify at rest DAX is encrypted"
+# description: "Automate verification to ensure AWS DAX clusters maintain encryption for data at rest."
+# related_resources:
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
+# custom:
+#   ID: CB_CFT_38
+#   Severity: High
+package lib.cloudformation.CB_CFT_38
+
+import future.keywords.in
+
+resource := "AWS::DAX::Cluster"
+
+is_valid {
+	some resources in input.Resources
+	resources.Type == resource
+}
+
+pass[properties] {
+    is_valid
+    some resources in input.Resources
+    properties := resources.Properties
+    properties.AtRestEncryptionEnabled == true
+    enabled := properties.SSESpecification
+    enabled.SSEEnabled == true
+}
+
+fail[resources] {
+	some resources in input.Resources
+	is_valid
+	count(pass) == 0
+}
+
+passed[result] {
+	some block in pass
+	result := {
+		"message": "Dax is encrypted at rest.",
+		"snippet": block,
+	}
+}
+
+failed[result] {
+	some resources in fail
+	result := {
+		"message": "Dax must be encrypted at rest.",
+		"snippet": resources,
+	}
+}
