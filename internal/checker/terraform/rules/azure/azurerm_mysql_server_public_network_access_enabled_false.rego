@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
     some block in pass
-	result := { "message": "The 'public network access enabled' setting for MySQL servers is configured as 'False' to enhance security.",
-                "snippet": block }
+	result := { 
+		"message": "The 'public network access enabled' setting for MySQL servers is configured as 'False' to enhance security.",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The 'public network access enabled' setting for MySQL servers must be configured as 'False' to enhance security.",
-                "snippet": block }
+	result := { 
+		"message": "The 'public network access enabled' setting for MySQL servers must be configured as 'False' to enhance security.",
+        "snippet": block, 
+	}
 }

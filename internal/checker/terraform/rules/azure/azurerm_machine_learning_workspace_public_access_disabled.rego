@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The Machine Learning Workspace has deactivated Public Access."}
+	result := {
+		"message": "The Machine Learning Workspace has deactivated Public Access.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The Machine Learning Workspace must deactivate Public Access."}
+	result := {
+		"message": "The Machine Learning Workspace must deactivate Public Access.",
+		"snippet": block,
+	}
 }

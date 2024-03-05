@@ -47,10 +47,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The VNET configuration utilizes local DNS addresses, enhancing network reliability."}
+	result := {
+		"message": "The VNET configuration utilizes local DNS addresses, enhancing network reliability.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The VNET configuration does not utilize local DNS addresses, potentially relying on external DNS servers."}
+	result := {
+		"message": "The VNET configuration does not utilize local DNS addresses, potentially relying on external DNS servers.",
+		"snippet": block,
+	}
 }

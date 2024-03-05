@@ -47,12 +47,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The 'Trusted Microsoft Services' is active for interaction with the Storage Account.",
-                "snippet": block }
+	result := { 
+		"message": "The 'Trusted Microsoft Services' is active for interaction with the Storage Account.",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := { "message": "The 'Trusted Microsoft Services' must be active for interaction with the Storage Account.",
-                "snippet": block }
+	result := { 
+		"message": "The 'Trusted Microsoft Services' must be active for interaction with the Storage Account.",
+    	"snippet": block, 
+	}
 }

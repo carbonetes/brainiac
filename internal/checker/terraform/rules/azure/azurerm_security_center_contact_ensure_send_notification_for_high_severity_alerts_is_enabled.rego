@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Email notification function for high severity alerts is active.",
-                "snippet": block }
+	result := { 
+        "message": "Email notification function for high severity alerts is active.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Email notification function for high severity alerts is not active.",
-                "snippet": block }
+	result := { 
+        "message": "Email notification function for high severity alerts is not active.",
+        "snippet": block, 
+    }
 } 

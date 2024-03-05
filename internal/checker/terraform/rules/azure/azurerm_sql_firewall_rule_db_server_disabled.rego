@@ -64,12 +64,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Important data storage is secured using a Customer Managed Key.",
-                "snippet": block }
+	result := { 
+		"message": "Important data storage is secured using a Customer Managed Key.",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Important data storage must be secured using a Customer Managed Key.",
-                "snippet": block }
+	result := { 
+		"message": "Important data storage must be secured using a Customer Managed Key.",
+        "snippet": block, 
+	}
 } 

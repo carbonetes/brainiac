@@ -43,15 +43,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Managed Identity Provider is enabled for Azure Event Grid Topic, enhancing security and reliability.",
-	"snippet": block 
+		"message": "Managed Identity Provider is enabled for Azure Event Grid Topic, enhancing security and reliability.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Enable Managed Identity Provider for Azure Event Grid Topic to enhance security and reliability.",
-	"snippet": block 
+		"message": "Enable Managed Identity Provider for Azure Event Grid Topic to enhance security and reliability.",
+		"snippet": block, 
     }
 }

@@ -57,10 +57,16 @@ hasInvalidAttribute(block) := true if {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Require API management to utilize TLS 1.2 as a minimum security protocol version."}
+	result := {
+		"message": "Require API management to utilize TLS 1.2 as a minimum security protocol version.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Require API management to utilize TLS 1.2 as a minimum security protocol version."}
+	result := {
+		"message": "Require API management to utilize TLS 1.2 as a minimum security protocol version.",
+		"snippet": block,
+	}
 }

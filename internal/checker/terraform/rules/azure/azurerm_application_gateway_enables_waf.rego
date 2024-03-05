@@ -45,10 +45,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Application Gateway has Web Application Firewall (WAF) enabled."}
+	result := {
+		"message": "Application Gateway has Web Application Firewall (WAF) enabled.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Application Gateway does not have Web Application Firewall (WAF) enabled."}
+	result := {
+		"message": "Application Gateway does not have Web Application Firewall (WAF) enabled.",
+		"snippet": block,
+	}
 }

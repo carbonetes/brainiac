@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The Local Authentication is deactivated in CosmosDB."}
+	result := {
+		"message": "The Local Authentication is deactivated in CosmosDB.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The Local Authentication is activated in CosmosDB, it must be deactivated."}
+	result := {
+		"message": "The Local Authentication is activated in CosmosDB, it must be deactivated.",
+		"snippet": block,
+	}
 }

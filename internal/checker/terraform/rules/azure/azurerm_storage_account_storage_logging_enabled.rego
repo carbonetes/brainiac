@@ -48,12 +48,16 @@ pass[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Storage logging is activated including read, write, and delete requests for the Queue service.",
-                "snippet": block }
+	result := { 
+        "message": "The Storage logging is activated including read, write, and delete requests for the Queue service.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
 	some block in fail
-	result := { "message": "The Storage logging must be activated including read, write, and delete requests for the Queue service.",
-                "snippet": block }
+	result := { 
+        "message": "The Storage logging must be activated including read, write, and delete requests for the Queue service.",
+        "snippet": block, 
+    }
 } 

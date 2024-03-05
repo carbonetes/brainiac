@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Front Door utilizes WAF in either 'Detection' or 'Prevention' modes."}
+	result := {
+		"message": "Azure Front Door utilizes WAF in either 'Detection' or 'Prevention' modes.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Front Door does not utilize WAF in either 'Detection' or 'Prevention' modes."}
+	result := {
+		"message": "Azure Front Door does not utilize WAF in either 'Detection' or 'Prevention' modes.",
+		"snippet": block,
+	}
 }

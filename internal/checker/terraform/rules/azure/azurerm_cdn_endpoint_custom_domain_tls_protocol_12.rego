@@ -58,15 +58,15 @@ checkTlsVersion(block) if {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Azure CDN endpoints use the latest version of TLS encryption, enhancing security.",
-	"snippet": block 
+		"message": "Azure CDN endpoints use the latest version of TLS encryption, enhancing security.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Azure CDN endpoints should be configured to use the latest version of TLS encryption for improved security and data protection during communication.",
-	"snippet": block 
+		"message": "Azure CDN endpoints should be configured to use the latest version of TLS encryption for improved security and data protection during communication.",
+		"snippet": block, 
     }
 }

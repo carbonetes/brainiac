@@ -41,12 +41,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The geo-redundant backups are activated for the MariaDB server.",
-                "snippet": block }
+	result := { 
+        "message": "The geo-redundant backups are activated for the MariaDB server.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The geo-redundant backups must be activated for the MariaDB server.",
-                "snippet": block }
+	result := { 
+        "message": "The geo-redundant backups must be activated for the MariaDB server.",
+        "snippet": block, 
+    }
 } 

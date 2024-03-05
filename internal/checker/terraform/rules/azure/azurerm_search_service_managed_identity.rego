@@ -43,15 +43,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Azure Cognitive Search service uses managed identities to access Azure resources, ensuring enhanced security and access management.",
-	"snippet": block 
+		"message": "Azure Cognitive Search service uses managed identities to access Azure resources, ensuring enhanced security and access management.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Azure Cognitive Search service should be configured to use managed identities for accessing Azure resources to enhance security and access management.",
-	"snippet": block 
+		"message": "Azure Cognitive Search service should be configured to use managed identities for accessing Azure resources to enhance security and access management.",
+		"snippet": block, 
     }
 }

@@ -44,12 +44,16 @@ fail[block] {
 
 passed[result] {
     some block in pass
-	result := { "message": "The audit profile comprehensively records every action.",
-                "snippet": block }
+	result := { 
+		"message": "The audit profile comprehensively records every action.",
+        "snippet": block, 
+	}
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The audit profile must comprehensively record every action.",
-                "snippet": block }
+	result := { 
+		"message": "The audit profile must comprehensively record every action.",
+        "snippet": block, 
+	}
 }

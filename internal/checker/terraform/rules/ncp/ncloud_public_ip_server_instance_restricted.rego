@@ -28,6 +28,12 @@ resource[resource] {
 fail[block] {
 	some block in input
 	isvalid(block)
+	count(block.Attributes.server_instance_no) >= 1
+}
+
+fail[block] {
+	some block in input
+	isvalid(block)
 	"server_instance_no" in object.keys(block.Attributes)
 }
 

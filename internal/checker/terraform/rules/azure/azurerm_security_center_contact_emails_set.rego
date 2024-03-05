@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The 'Security contact emails' field has been configured.",
-                "snippet": block }
+	result := { 
+        "message": "The 'Security contact emails' field has been configured.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The 'Security contact emails' field must be configured.",
-                "snippet": block }
+	result := { 
+        "message": "The 'Security contact emails' field must be configured.",
+        "snippet": block, 
+    }
 } 

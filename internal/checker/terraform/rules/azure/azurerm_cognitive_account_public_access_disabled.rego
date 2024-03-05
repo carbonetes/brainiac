@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Cognitive Services accounts have public network access deactivated."}
+	result := {
+		"message": "Cognitive Services accounts have public network access deactivated.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Cognitive Services accounts have public network access activated, it must be deactivated."}
+	result := {
+		"message": "Cognitive Services accounts have public network access activated, it must be deactivated.",
+		"snippet": block,
+	}
 }

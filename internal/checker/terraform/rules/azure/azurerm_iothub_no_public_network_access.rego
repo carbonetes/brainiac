@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Public network access is verified to be disabled for Azure IoT Hub."
+        "message": "Public network access is verified to be disabled for Azure IoT Hub.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Public network access is not disabled for Azure IoT Hub as required."
+        "message": "Public network access is not disabled for Azure IoT Hub as required.",
+		"snippet": block,
     }
 }

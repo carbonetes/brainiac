@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "AKS is using the Paid SKU as required by its SLA."}
+	result := {
+		"message": "AKS is using the Paid SKU as required by its SLA.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "AKS should use the Paid SKU to comply with its SLA."}
+	result := {
+		"message": "AKS should use the Paid SKU to comply with its SLA.",
+		"snippet": block,
+	}
 }

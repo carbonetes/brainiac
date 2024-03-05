@@ -45,12 +45,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The retention period for SQL servers' auditing is set to more than 90 days.",
-                "snippet": block }
+	result := { 
+        "message": "The retention period for SQL servers' auditing is set to more than 90 days.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The retention period for SQL servers' auditing must be set to more than 90 days.",
-                "snippet": block }
+	result := { 
+        "message": "The retention period for SQL servers' auditing must be set to more than 90 days.",
+        "snippet": block, 
+    }
 } 

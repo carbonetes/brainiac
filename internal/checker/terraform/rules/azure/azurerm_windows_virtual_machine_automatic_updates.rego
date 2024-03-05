@@ -46,10 +46,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Automatic updates are enabled for Windows VMs."}
+	result := {
+		"message": "Automatic updates are enabled for Windows VMs.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Automatic updates must be enabled for Windows VMs."}
+	result := {
+		"message": "Automatic updates must be enabled for Windows VMs.",
+		"snippet": block,
+	}
 }

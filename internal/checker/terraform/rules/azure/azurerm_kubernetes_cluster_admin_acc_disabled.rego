@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The AKS local admin account is deactivated."}
+	result := {
+		"message": "The AKS local admin account is deactivated.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The AKS local admin account is activated, it must be deactivated."}
+	result := {
+		"message": "The AKS local admin account is activated, it must be deactivated.",
+		"snippet": block,
+	}
 }

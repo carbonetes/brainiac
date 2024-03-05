@@ -47,10 +47,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Register with Azure Active Directory is enabled on App Service."}
+	result := {
+		"message": "Register with Azure Active Directory is enabled on App Service.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Register with Azure Active Directory is not enabled on App Service."}
+	result := {
+		"message": "Register with Azure Active Directory is not enabled on App Service.",
+		"snippet": block,
+	}
 }

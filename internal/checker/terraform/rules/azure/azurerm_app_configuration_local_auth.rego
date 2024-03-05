@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The 'local_auth_enabled' attribute is set to 'False,' which disallows the use of local authentication methods."}
+	result := {
+		"message": "The 'local_auth_enabled' attribute is set to 'False,' which disallows the use of local authentication methods.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The 'local_auth_enabled' attribute should be set to 'False' to disallow the use of local authentication methods."}
+	result := {
+		"message": "The 'local_auth_enabled' attribute should be set to 'False' to disallow the use of local authentication methods.",
+		"snippet": block,
+	}
 }

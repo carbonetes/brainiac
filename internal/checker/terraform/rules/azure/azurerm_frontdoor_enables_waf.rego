@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Front Door has Web Application Firewall (WAF) enabled."}
+	result := {
+		"message": "Azure Front Door has Web Application Firewall (WAF) enabled.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Front Door does not have Web Application Firewall (WAF) enabled."}
+	result := {
+		"message": "Azure Front Door does not have Web Application Firewall (WAF) enabled.",
+		"snippet": block,
+	}
 }

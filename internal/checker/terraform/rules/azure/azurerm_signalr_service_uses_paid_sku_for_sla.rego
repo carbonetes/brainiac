@@ -43,15 +43,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Azure SignalR Service uses a paid SKU, ensuring SLA commitments are met.",
-	"snippet": block 
+		"message": "Azure SignalR Service uses a paid SKU, ensuring SLA commitments are met.",
+		"snippet": block 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Azure SignalR Service should use a paid SKU to guarantee SLA commitments are met.",
-	"snippet": block 
+		"message": "Azure SignalR Service should use a paid SKU to guarantee SLA commitments are met.",
+		"snippet": block 
     }
 }

@@ -60,12 +60,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "SQL servers have their Auditing setting enabled.",
-                "snippet": block }
+	result := { 
+        "message": "SQL servers have their Auditing setting enabled.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "SQL servers must have their Auditing setting enabled.",
-                "snippet": block }
+	result := { 
+        "message": "SQL servers must have their Auditing setting enabled.",
+        "snippet": block, 
+    }
 } 

@@ -42,12 +42,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Threat Detection policy is activated on your MySQL server.",
-                "snippet": block }
+	result := { 
+        "message": "The Threat Detection policy is activated on your MySQL server.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Threat Detection policy is not activated on your MySQL server.",
-                "snippet": block }
+	result := { 
+        "message": "The Threat Detection policy is not activated on your MySQL server.",
+        "snippet": block, 
+    }
 } 

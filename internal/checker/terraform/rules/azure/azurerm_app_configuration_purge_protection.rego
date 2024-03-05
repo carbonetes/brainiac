@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Purge protection is enabled in App Configuration, preventing accidental or malicious data deletion."}
+	result := {
+		"message": "Purge protection is enabled in App Configuration, preventing accidental or malicious data deletion.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Purge protection must be enabled in App Configuration to prevent accidental or malicious data deletion."}
+	result := {
+		"message": "Purge protection must be enabled in App Configuration to prevent accidental or malicious data deletion.",
+		"snippet": block,
+	}
 }

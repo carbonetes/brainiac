@@ -48,10 +48,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"The web app is confirmed to use the latest 'HTTP Version' where applicable."}
+	result := {
+		"message": "The web app is confirmed to use the latest 'HTTP Version' where applicable.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The web app does not use the latest 'HTTP Version' when applicable."}
+	result := {
+		"message": "The web app does not use the latest 'HTTP Version' when applicable.",
+		"snippet": block,
+	}
 }

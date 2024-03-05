@@ -1,7 +1,7 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main", feature/terraform-rancher-development ]
+    branches: [ "main" ] 
   pull_request:
     branches: [ "main", feature/terraform-rancher-development ]
 jobs:

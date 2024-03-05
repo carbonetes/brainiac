@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Kubernetes Cluster (AKS) nodes are configured to use scale sets."}
+	result := {
+		"message": "Azure Kubernetes Cluster (AKS) nodes are configured to use scale sets.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Kubernetes Cluster (AKS) nodes should use scale sets for better scalability and manageability."}
+	result := {
+		"message": "Azure Kubernetes Cluster (AKS) nodes should use scale sets for better scalability and manageability.",
+		"snippet": block,
+	}
 }

@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The geo-redundant backups are activated for the PostgreSQL Flexible server."}
+	result := {
+		"message": "The geo-redundant backups are activated for the PostgreSQL Flexible server.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The geo-redundant backups must be activated for the PostgreSQL Flexible server."}
+	result := {
+		"message": "The geo-redundant backups must be activated for the PostgreSQL Flexible server.",
+		"snippet": block,
+	}
 }

@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "ACR does not allow unauthorized image pulling."}
+	result := {
+		"message": "ACR does not allow unauthorized image pulling.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "ACR must not allow unauthorized image pulling."}
+	result := {
+		"message": "ACR must not allow unauthorized image pulling.",
+		"snippet": block,
+	}
 }

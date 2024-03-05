@@ -46,13 +46,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "The standard pricing tier is selected."
+        "message": "The standard pricing tier is selected.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "The standard pricing tier is not selected."
+        "message": "The standard pricing tier is not selected.",
+		"snippet": block,
     }
 }

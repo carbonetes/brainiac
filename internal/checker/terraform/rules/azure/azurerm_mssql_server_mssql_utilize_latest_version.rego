@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "MSSQL is utilizing the most up-to-date TLS encryption version.",
-                "snippet": block }
+	result := { 
+        "message": "MSSQL is utilizing the most up-to-date TLS encryption version.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "MSSQL must utilize the most up-to-date TLS encryption version.",
-                "snippet": block }
+	result := { 
+        "message": "MSSQL must utilize the most up-to-date TLS encryption version.",
+        "snippet": block, 
+    }
 }

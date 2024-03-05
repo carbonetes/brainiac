@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Cognitive Search has public network access disabled."}
+	result := {
+		"message": "Azure Cognitive Search has public network access disabled.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Cognitive Search does not have public network access disabled."}
+	result := {
+		"message": "Azure Cognitive Search does not have public network access disabled.",
+		"snippet": block,
+	}
 }

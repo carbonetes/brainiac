@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "Email Notifications for Admins Regarding High Severity Alerts are activated.",
-                "snippet": block }
+	result := { 
+        "message": "Email Notifications for Admins Regarding High Severity Alerts are activated.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "Email Notifications for Admins Regarding High Severity Alerts must be activated.",
-                "snippet": block }
+	result := { 
+        "message": "Email Notifications for Admins Regarding High Severity Alerts must be activated.",
+        "snippet": block, 
+    }
 } 

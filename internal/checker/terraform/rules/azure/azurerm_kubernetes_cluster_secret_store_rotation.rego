@@ -43,10 +43,16 @@ fail[resource] {
 
 passed[result] {
     some block in pass
-    result := {"message": "Secrets Store CSI Driver secrets for AKS clusters are set to autorotate."}
+    result := {
+		"message": "Secrets Store CSI Driver secrets for AKS clusters are set to autorotate.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
     some block in fail
-    result := {"message": "Secrets Store CSI Driver secrets for AKS clusters must be set to autorotate."}
+    result := {
+		"message": "Secrets Store CSI Driver secrets for AKS clusters must be set to autorotate.",
+		"snippet": block,
+	}
 }

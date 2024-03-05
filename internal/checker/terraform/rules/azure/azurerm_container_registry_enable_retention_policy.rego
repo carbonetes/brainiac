@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "A retention policy for cleaning up untagged manifests is present and enabled."}
+	result := {
+		"message": "A retention policy for cleaning up untagged manifests is present and enabled.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "No retention policy should be enabled for cleaning up untagged manifests."}
+	result := {
+		"message": "No retention policy should be enabled for cleaning up untagged manifests.",
+		"snippet": block,
+	}
 }
