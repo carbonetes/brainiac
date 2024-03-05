@@ -18,7 +18,7 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[properties] {
+fail[properties] {
 	is_valid
 	some resources in input.Resources
 	properties := resources.Properties
@@ -27,10 +27,10 @@ pass[properties] {
 	properties.ApiKeyRequired == false
 }
 
-fail[resources] {
+pass[resources] {
 	resources := input.Resources
 	is_valid
-	count(pass) == 0
+	count(fail) == 0
 }
 
 passed[result] {
