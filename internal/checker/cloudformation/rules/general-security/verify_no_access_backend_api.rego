@@ -19,11 +19,11 @@ is_valid {
 
 fail[properties] {
 	is_valid
-	some resources in input.Resources
-	properties := resources.Properties
-	properties.HttpMethod != "OPTIONS"
-	properties.AuthorizationType == "NONE"
-	properties.ApiKeyRequired == false
+    some resources in input.Resources
+    properties := resources.Properties
+    properties.HttpMethod == "OPTIONS"
+    properties.AuthorizationType == "NONE"
+    properties.ApiKeyRequired == false
 }
 
 pass[resources] {

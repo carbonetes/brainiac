@@ -6,7 +6,7 @@ test_verify_no_access_backend_api_pass {
             "MyApiGatewayMethod": {
                 "Type": "AWS::ApiGateway::Method",
                 "Properties": {
-                    "ApiKeyRequired": false,
+                    "ApiKeyRequired": true,
                     "AuthorizationType": "NONE",
                     "HttpMethod": "GET",
     }}}}
@@ -19,7 +19,7 @@ test_verify_no_access_backend_api_fail {
             "MyApiGatewayMethod": {
                 "Type": "AWS::ApiGateway::Method",
                 "Properties": {
-                    "ApiKeyRequired": true,
+                    "ApiKeyRequired": false,
                     "AuthorizationType": "NONE",
                     "HttpMethod": "OPTIONS",
     }}}}
