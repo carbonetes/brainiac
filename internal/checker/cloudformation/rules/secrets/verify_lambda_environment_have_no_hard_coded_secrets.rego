@@ -9,43 +9,43 @@
 #   ID: CB_CFT_35
 #   Severity: High
 package lib.cloudformation.CB_CFT_35
+
 import future.keywords.in
 
 resource := ["AWS::Lambda::Function", "AWS::Serverless::Function"]
 
 is_valid {
-    some resources in input.Resources
-    some resource_type in resource
-    resources.Type == resource_type
+	some resources in input.Resources
+	resources.Type in resource
 }
 
 pass[resources] {
-    is_valid
-    resources := input.Resources
-    count(fail) == 0
+	is_valid
+	resources := input.Resources
+	count(fail) == 0
 }
 
 fail[block] {
-    is_valid
-    some resources in input.Resources
-    some environment_variables in resources.Properties.Environment.Variables
-    regex_pattern = `^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$`
-    regex.match(regex_pattern, environment_variables)
-    block := resources.Properties.Environment.Variables
+	is_valid
+	some resources in input.Resources
+	some environment_variables in resources.Properties.Environment.Variables
+	regex_pattern = `^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$`
+	regex.match(regex_pattern, environment_variables)
+	block := resources.Properties.Environment.Variables
 }
 
 passed[result] {
-    some resources in pass
-    result := {
-        "message": "No hard coded secrets in lambda environment.",
-        "snippet": resources,
-    }
+	some resources in pass
+	result := {
+		"message": "No hard coded secrets in lambda environment.",
+		"snippet": resources,
+	}
 }
 
 failed[result] {
-    some resources in fail
-    result := {
-        "message": "Hard coded secrets found in lambda environment.",
-        "snippet": resources,
-    }
+	some resources in fail
+	result := {
+		"message": "Hard coded secrets found in lambda environment.",
+		"snippet": resources,
+	}
 }
