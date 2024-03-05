@@ -6,14 +6,14 @@ This document provides a comprehensive index of Terraform policies available in 
 
 | ID | Type | Entity | Policy | Resource |
 | --- | --- | --- | --- | --- |
-| CB_TFRAN_001 | resource | rancher2_app | Verify Setting of Rancher Project ID | checker/terraform/rules/rancher/rancher_app_set_project_id.rego |
-| CB_TFRAN_002 | resource | rancher2_app | Verify Rancher App Template Version | checker/terraform/rules/rancher/rancher_app_template_version_latest.rego |
-| CB_TFRAN_003 | resource | rancher2_app | Verify Rancher App Label Has Environment Set To Production | checker/terraform/rules/rancher/rancher_app_environment_label.rego |
-| CB_TFRAN_003 | resource | rancher2_app_v2 | Verify Rancher App Label Has Environment Set To Production | checker/terraform/rules/rancher/rancher_app_environment_label.rego |
-| CB_TFRAN_004 | resource | rancher2_app | Verify Rancher App Custom Annotation Enabled | checker/terraform/rules/rancher/rancher_app_custom_annotation_enabled.rego |
-| CB_TFRAN_004 | resource | rancher2_app_v2 | Verify Rancher App Custom Annotation Enabled | checker/terraform/rules/rancher/rancher_app_custom_annotation_enabled.rego |
-| CB_TFRAN_005 | resource | rancher2_app | Verify Rancher App Custom Label Enabled | checker/terraform/rules/rancher/rancher_app_custom_label.rego |
-| CB_TFRAN_005 | resource | rancher2_app_v2 | Verify Rancher App Custom Label Enabled | checker/terraform/rules/rancher/rancher_app_custom_label.rego |
+| CB_TFRAN_001 | resource | rancher2_app | Verify Setting of Rancher Project ID | checker/terraform/rules/rancher/rancher2_app_set_project_id.rego |
+| CB_TFRAN_002 | resource | rancher2_app | Verify Rancher App Template Version | checker/terraform/rules/rancher/rancher2_app_template_version_latest.rego |
+| CB_TFRAN_003 | resource | rancher2_app | Verify Rancher App Label Has Environment Set To Production | checker/terraform/rules/rancher/rancher2_app_environment_label.rego |
+| CB_TFRAN_003 | resource | rancher2_app_v2 | Verify Rancher App Label Has Environment Set To Production | checker/terraform/rules/rancher/rancher2_app_environment_label.rego |
+| CB_TFRAN_004 | resource | rancher2_app | Verify Rancher App Custom Annotation Enabled | checker/terraform/rules/rancher/rancher2_app_custom_annotation_enabled.rego |
+| CB_TFRAN_004 | resource | rancher2_app_v2 | Verify Rancher App Custom Annotation Enabled | checker/terraform/rules/rancher/rancher2_app_custom_annotation_enabled.rego |
+| CB_TFRAN_005 | resource | rancher2_app | Verify Rancher App Custom Label Enabled | checker/terraform/rules/rancher/rancher2_app_custom_label.rego |
+| CB_TFRAN_005 | resource | rancher2_app_v2 | Verify Rancher App Custom Label Enabled | checker/terraform/rules/rancher/rancher2_app_custom_label.rego |
 | CB_TFRAN_006 | resource | rancher2_auth_config_activedirectory | Verify Rancher Active Directory Configuration | checker/terraform/rules/rancher/rancher2_auth_config_activedirectory_configuration.rego |
 | CB_TFRAN_007 | resource | rancher2_auth_config_activedirectory | Verify Rancher Active Directory Enabled | checker/terraform/rules/rancher/rancher2_auth_config_activedirectory_enabled.rego |
 | CB_TFRAN_008 | resource | rancher2_auth_config_activedirectory | Verify Rancher Active Directory Configuration Servers | checker/terraform/rules/rancher/rancher2_auth_config_activedirectory_server.rego |

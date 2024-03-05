@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFRAN_002
 
-test_rancher_app_template_version_latest_passed {
+test_rancher2_app_template_version_latest_passed {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -30,7 +30,7 @@ test_rancher_app_template_version_latest_passed {
 count(result) == 1
 }
 
-test_rancher_app_template_version_latest_failed {
+test_rancher2_app_template_version_latest_failed {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [

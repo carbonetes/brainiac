@@ -1,6 +1,6 @@
-package lib.terraform.CB_TFRAN_003
+package lib.terraform.CB_TFRAN_004
 
-test_rancher_app_environment_label_passed {
+test_rancher2_app_custom_annotation_enabled_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -23,27 +23,26 @@ test_rancher_app_environment_label_passed {
             "example_app"
         ],
         "Attributes": {
-            "catalog_name": "community",
-            "labels": {
-                "app_type": "web",
-                "environment": "production"
+            "annotations": {
+                "custom_annotation": true
             },
-            "name": "my-production-app",
-            "project_id": "1a5",
-            "target_namespace": "production",
+            "catalog_name": "community",
+            "name": "my-app-with-annotation",
+            "project_id": "your-project-id",
+            "target_namespace": "default",
             "template_name": "nginx",
             "template_version": "v1.21.1"
         },
         "Blocks": [],
         "line_range": {
-            "endLine": 19,
+            "endLine": 17,
             "startLine": 6
         }
     }]
-count(result) == 1
+    count(result) == 1
 }
 
-test_rancher_app_environment_label_failed {
+test_rancher2_app_custom_annotation_enabled_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
@@ -67,25 +66,22 @@ test_rancher_app_environment_label_failed {
         ],
         "Attributes": {
             "catalog_name": "community",
-            "labels": {
-                "app_type": "web"
-            },
-            "name": "my-production-app",
-            "project_id": "1a5",
-            "target_namespace": "production",
+            "name": "my-app-with-annotation",
+            "project_id": "your-project-id",
+            "target_namespace": "default",
             "template_name": "nginx",
             "template_version": "v1.21.1"
         },
         "Blocks": [],
         "line_range": {
-            "endLine": 19,
+            "endLine": 17,
             "startLine": 6
         }
     }]
-count(result) == 1
+    count(result) == 1
 }
 
-test_rancher_app_v2_environment_label_passed {
+test_rancher2_app_v2_custom_annotation_enabled_passed {
 	result := passed with input as [{
         "Type": "provider",
         "Labels": [
@@ -108,10 +104,10 @@ test_rancher_app_v2_environment_label_passed {
             "example_app"
         ],
         "Attributes": {
-            "labels": {
-                "environment": "production"
+            "annotations": {
+                "custom_annotation": "true"
             },
-            "name": "my-app-with-environment-label",
+            "name": "my-app-with-annotation",
             "namespace": "default",
             "project_id": "your-project-id"
         },
@@ -121,10 +117,11 @@ test_rancher_app_v2_environment_label_passed {
             "startLine": 6
         }
     }]
-count(result) == 1
+    count(result) == 1
 }
 
-test_rancher_app_v2_environment_label_failed {
+
+test_rancher2_app_v2_custom_annotation_enabled_failed {
 	result := failed with input as [{
         "Type": "provider",
         "Labels": [
@@ -147,7 +144,7 @@ test_rancher_app_v2_environment_label_failed {
             "example_app"
         ],
         "Attributes": {
-            "name": "my-app-with-environment-label",
+            "name": "my-app-with-annotation",
             "namespace": "default",
             "project_id": "your-project-id"
         },
@@ -157,5 +154,5 @@ test_rancher_app_v2_environment_label_failed {
             "startLine": 6
         }
     }]
-count(result) == 1
+    count(result) == 1
 }
