@@ -8,7 +8,6 @@
 #   id: CB_CFT_46
 #   severity: LOW
 package lib.cloudformation.CB_CFT_46
-
 import future.keywords.in
 
 resource := "AWS::ApiGateway::Method"
