@@ -10,11 +10,24 @@
 package lib.cloudformation.CB_CFT_49
 import future.keywords.in
 
-resource := "AWS::IAM::Group"
-
 is_valid {
+	supported_resources := ["AWS::IAM::Group", "AWS::IAM::Policy", "AWS::IAM::Role", "AWS::IAM::User"]
 	some resources in input.Resources
-	resources.Type == resource
+	resources.Type in supported_resources
+}
+
+resource[type] {
+	some resource in input.Resources
+    is_valid
+    count(fail) > 0
+    type := resource.Type
+}
+
+resource[type] {
+	some resource in input.Resources
+    is_valid
+    count(pass) > 0
+    type := resource.Type
 }
 
 fail[properties] {
@@ -26,6 +39,17 @@ fail[properties] {
     deny.Effect == "Allow"
     deny.Resource == "*"
     some actions in deny.Action
+    actions == "*"
+}
+
+fail[properties] {
+    some resource in input.Resources
+    properties := resource.Properties
+    policy := properties.PolicyDocument
+    some statement in policy.Statement
+    statement.Effect == "Allow"
+    statement.Resource == "*"
+    some actions in statement.Action
     actions == "*"
 }
 

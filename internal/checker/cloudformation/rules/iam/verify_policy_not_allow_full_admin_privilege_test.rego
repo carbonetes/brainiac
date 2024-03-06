@@ -3,35 +3,44 @@ package lib.cloudformation.CB_CFT_49
 test_verify_policy_not_allow_full_admin_privilege_pass {
     result := passed with input as {
         "Resources": {
-            "MyIAMGroup": {
-                "Type": "AWS::IAM::Group",
+            "MyIAMPolicy": {
+                "Type": "AWS::IAM::Policy",
                 "Properties": {
-                    "Policies": [
-                        {
-                        "PolicyDocument": {
-                                "Statement": [
-                                    {
-                                        "Action": ["*"],
-                                        "Effect": "Deny",
-                                        "Resource": "*"
-    }]}}]}}}}
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": ["*"],
+                                "Effect": "Deny",
+                                "Resource": "*"
+                            },
+
+                        ],
+                    },
+                }
+            }
+        }
+    }
     count(result) == 1
 }
 
 test_verify_policy_not_allow_full_admin_privilege_fail {
     result := failed with input as {
         "Resources": {
-            "MyIAMGroup": {
-                "Type": "AWS::IAM::Group",
+            "MyIAMPolicy": {
+                "Type": "AWS::IAM::Policy",
                 "Properties": {
-                    "Policies": [
-                        {
-                        "PolicyDocument": {
-                                "Statement": [
-                                    {
-                                        "Action": ["*"],
-                                        "Effect": "Allow",
-                                        "Resource": "*"
-    }]}}]}}}}
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": ["*"],
+                                "Effect": "Allow",
+                                "Resource": "*"
+                            },
+                        ],
+                    },
+                }
+            }
+        }
+    }
     count(result) == 1
 }
