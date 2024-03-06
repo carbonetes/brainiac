@@ -22,7 +22,8 @@ pass[block] {
 	some resources in input.Resources
 	resources.Type == resource
 	block := resources.Properties.LoadBalancerAttributes
-	block[_].Value == true
+	some value in block.Value
+    value == true
 }
 
 fail[resources] {
