@@ -34,7 +34,7 @@ fail[resources] {
 passed[result] {
 	some block in pass
 	result := {
-		"message": "S3 bucket have blocked public policy",
+		"message": "DocumentDB TLS is enabled",
 		"snippet": block,
 	}
 }
@@ -42,7 +42,7 @@ passed[result] {
 failed[result] {
 	some block in fail
 	result := {
-		"message": "S3 bucket should block public policy .",
+		"message": "DocumentDB TLS is disabled.",
 		"snippet": block,
 	}
 }
