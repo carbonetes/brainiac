@@ -8,7 +8,7 @@ test_dms_replication_is_private {
 	count(result) == 1
 }
 
-test_s3_bucket_public_policy_not_blocked {
+test_dms_replication_is_not_private {
 	result := passed with input as {"Resources": {"MyReplicationInstance": {
 		"Type": "AWS::DMS::ReplicationInstance",
 		"Properties": {"PubliclyAccessible": true},
