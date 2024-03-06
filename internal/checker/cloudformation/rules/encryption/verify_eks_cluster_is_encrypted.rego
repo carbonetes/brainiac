@@ -1,3 +1,12 @@
+# METADATA
+# title: "Verify EKS cluster is encrypted."
+# description: "Verification Process: Ensuring Encryption for an Amazon EKS (Elastic Kubernetes Service) Cluster to Safeguard Data Integrity and Security."
+# scope: package
+# related_resources:
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
+# custom:
+#   ID: CB_CFT_45
+#   Severity: High
 package lib.cloudformation.CB_CFT_45
 import future.keywords.in
 
