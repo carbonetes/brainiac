@@ -20,10 +20,8 @@ is_valid {
 pass[properties] {
     is_valid
     some resources in input.Resources
-    properties := resources.Properties
-    properties.AtRestEncryptionEnabled == true
-    enabled := properties.SSESpecification
-    enabled.SSEEnabled == true
+    properties := resources.Properties.SSESpecification
+    properties.SSEEnabled  == true
 }
 
 fail[resources] {
