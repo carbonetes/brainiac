@@ -18,19 +18,19 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[encryption] {
+fail[encryption] {
 	is_valid
 	some resources in input.Resources
 	resources.Type == resource
 	encryption := resources.Properties.Artifacts
 	encryption.Type == "S3"
-	encryption.EncryptionDisabled == false
+	encryption.EncryptionDisabled == true
 }
 
-fail[resources] {
+pass[resources] {
 	some resources in input.Resources
 	is_valid
-	count(pass) == 0
+	count(fail) == 0
 }
 
 passed[result] {
