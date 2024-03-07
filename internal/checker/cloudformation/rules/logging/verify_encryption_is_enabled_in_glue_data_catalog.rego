@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-datacatalogencryptionsettings.html
 # custom:
 #   id: CB_CFT_074
-#   severity: High
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_074
 import future.keywords.in
 
