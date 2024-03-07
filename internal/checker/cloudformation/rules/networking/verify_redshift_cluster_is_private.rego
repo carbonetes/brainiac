@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
 #   ID: CB_CFT_068
-#   Severity: High
+#   Severity: HIGH
 package lib.cloudformation.CB_CFT_068
 import future.keywords.in
 
