@@ -36,7 +36,7 @@ test_public_ip_ec2_instance_exist {
     count(result) == 1
 }
 
-test_no_public_ip_ec2_instance {
+test_no_public_ip_ec2_instance_launchtemplate {
     result := passed with input as {
         "Resources": {
             "MyLaunchTemplate": {
@@ -56,7 +56,7 @@ test_no_public_ip_ec2_instance {
     count(result) == 1
 }
 
-test_public_ip_ec2_instance_exist {
+test_public_ip_ec2_instance_launchtemplate_exist {
     result := failed with input as {
         "Resources": {
             "MyLaunchTemplate": {
