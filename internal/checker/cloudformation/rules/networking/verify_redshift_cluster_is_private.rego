@@ -3,7 +3,7 @@
 # description: "Ensure Redshift cluster privacy by verifying the 'PubliclyAccessible' property is set to 'false' in its configuration."
 # scope: package
 # related_resources:
-# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html
 # custom:
 #   ID: CB_CFT_068
 #   Severity: HIGH
