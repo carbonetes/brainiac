@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
 # custom:
 #   ID: CB_CFT_071
-#   Severity: Medium
+#   Severity: MEDIUM
 package lib.cloudformation.CB_CFT_071
 import future.keywords.in
 
