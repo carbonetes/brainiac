@@ -9,9 +9,9 @@ test_documentdb_tls_enabled {
 }
 
 test_documentdb_tls_disabled  {
-	result := passed with input as {"Resources": {"DocDBParameterGroupEnabled": {
+	result := failed with input as {"Resources": {"DocDBParameterGroupEnabled": {
 		"Type": "AWS::DocDB::DBClusterParameterGroup",
 		"Properties": {"Parameters": {"tls": "disabled"}},
 	}}}
-	count(result) == 0
+	count(result) == 1
 }
