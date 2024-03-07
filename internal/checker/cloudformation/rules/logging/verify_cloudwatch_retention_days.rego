@@ -22,8 +22,8 @@ pass[properties] {
     some resources in input.Resources
     properties := resources.Properties
 	cluster := properties.RetentionInDays
-    cluster != ""
-    cluster != 0
+    forbidden_values := ["", 0]
+	not cluster in forbidden_values
 }
 
 fail[resources] {
