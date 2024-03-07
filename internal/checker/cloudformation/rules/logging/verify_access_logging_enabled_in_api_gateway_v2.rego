@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html
 # custom:
 #   id: CB_CFT_075
-#   severity: Low
+#   severity: LOW
 package lib.cloudformation.CB_CFT_075
 import future.keywords.in
 
