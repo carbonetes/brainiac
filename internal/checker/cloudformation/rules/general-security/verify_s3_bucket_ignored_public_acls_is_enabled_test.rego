@@ -9,9 +9,9 @@ test_s3_bucket_public_acls_blocked {
 }
 
 test_s3_bucket_public_acls_not_blocked {
-	result := passed with input as {"Resources": {"MyS3Bucket": {
+	result := failed with input as {"Resources": {"MyS3Bucket": {
 		"Type": "AWS::S3::Bucket",
 		"Properties": {"PublicAccessBlockConfiguration": {"IgnorePublicAcls": false}},
 	}}}
-	count(result) == 0
+	count(result) == 1
 }
