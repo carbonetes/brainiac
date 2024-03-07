@@ -11,19 +11,29 @@ package lib.cloudformation.CB_CFT_058
 
 import future.keywords.in
 
-resource := ["AWS::ApiGateway::Stage", "AWS::Serverless::Api"]
-
 is_valid {
+	supported_resources := ["AWS::ApiGateway::Stage", "AWS::Serverless::Api"]
 	some resources in input.Resources
-	some resource_type in resource
-	resources.Type == resource_type
+	resources.Type in supported_resources
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(fail) > 0
+	type := resource.Type
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(pass) > 0
+	type := resource.Type
 }
 
 pass[block] {
 	is_valid
 	some resources in input.Resources
-	some resource_type in resource
-	resources.Type == resource_type
 	block := resources.Properties
 	block.TracingEnabled == true
 }
