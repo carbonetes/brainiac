@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationinstance.html
 # custom:
 #   ID: CB_CFT_070
-#   Severity: High
+#   Severity: HIGH
 package lib.cloudformation.CB_CFT_070
 import future.keywords.in
 
