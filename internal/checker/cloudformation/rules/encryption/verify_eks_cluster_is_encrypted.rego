@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
 # custom:
 #   ID: CB_CFT_45
-#   Severity: High
+#   Severity: HIGH
 package lib.cloudformation.CB_CFT_45
 import future.keywords.in
 
