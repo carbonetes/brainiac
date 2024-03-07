@@ -22,9 +22,8 @@ pass[block] {
     is_valid
     some resources in input.Resources
     resources.Type == resource
-    block := resources.Properties.LoggingProperties
-    block.BucketName
-    block.S3KeyPrefix
+    block := resources.Properties
+    "BucketName" in object.keys(block.LoggingProperties)
 }
 
 fail[resources] {
