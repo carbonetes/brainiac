@@ -17,16 +17,13 @@ is_valid {
 	resources.Type == resource
 }
 
-pass[properties] {
-    is_valid
-    some resources in input.Resources
-    resources.Type == resource
-    destination_arn := resources.Properties.AccessLogSettings.DestinationArn
-    regex_pattern = `^arn:aws:logs:[a-z0-9-]+:[0-9]+:log-group:[a-zA-Z0-9-_]+$`
-    regex.match(regex_pattern, destination_arn)
-    properties := resources.Properties.AccessLogSettings
+pass[log_settings] {
+	is_valid
+	some resources in input.Resources
+	resources.Type == resource
+	log_settings := resources.Properties.AccessLogSettings
+	log_settings.DestinationArn != ""
 }
-
 
 fail[resources] {
 	resources := input.Resources
