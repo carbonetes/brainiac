@@ -9,9 +9,9 @@ test_s3_bucket_public_policy_blocked {
 }
 
 test_s3_bucket_public_policy_not_blocked {
-	result := passed with input as {"Resources": {"MyS3Bucket": {
+	result := failed with input as {"Resources": {"MyS3Bucket": {
 		"Type": "AWS::S3::Bucket",
 		"Properties": {"PublicAccessBlockConfiguration": {"BlockPublicPolicy": false}},
 	}}}
-	count(result) == 0
+	count(result) == 1
 }

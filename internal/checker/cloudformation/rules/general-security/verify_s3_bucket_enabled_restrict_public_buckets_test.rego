@@ -9,9 +9,9 @@ test_s3_bucket_restrict_public_buckets {
 }
 
 test_s3_bucket_not_restrict_public_buckets {
-	result := passed with input as {"Resources": {"MyS3Bucket": {
+	result := failed with input as {"Resources": {"MyS3Bucket": {
 		"Type": "AWS::S3::Bucket",
 		"Properties": {"PublicAccessBlockConfiguration": {"RestrictPublicBuckets": false}},
 	}}}
-	count(result) == 0
+	count(result) == 1
 }
