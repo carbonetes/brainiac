@@ -11,29 +11,17 @@ package lib.cloudformation.CB_CFT_092
 
 import future.keywords.in
 
+resource := "AWS::RDS::DBInstance"
+
 is_valid {
-	supported_resources := ["AWS::RDS::DBInstance"]
 	some resources in input.Resources
-	resources.Type in supported_resources
-}
-
-resource[type] {
-	some resource in input.Resources
-	is_valid
-	count(fail) > 0
-	type := resource.Type
-}
-
-resource[type] {
-	some resource in input.Resources
-	is_valid
-	count(pass) > 0
-	type := resource.Type
+	resources.Type == resource
 }
 
 pass[block] {
 	is_valid
 	some resources in input.Resources
+	resources.Type == resource
 	block := resources.Properties
 	values := [1, 5, 10, 15, 30, 60, "1", "5", "10", "15", "30", "60"]
 	some block.MonitoringInterval in values
