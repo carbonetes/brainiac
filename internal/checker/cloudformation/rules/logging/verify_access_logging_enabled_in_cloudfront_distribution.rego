@@ -21,7 +21,7 @@ pass[block] {
 	is_valid
 	some resources in input.Resources
 	block := resources.Properties.DistributionConfig.Logging
-    not block.Bucket == ""
+    block.Bucket != ""
 }
 
 fail[resources] {
