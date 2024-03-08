@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-cluster.html
 # custom:
-#   ID: CB_CFT_45
-#   Severity: LOW
+#   id: CB_CFT_45
+#   severity: LOW
 package lib.cloudformation.CB_CFT_45
 import future.keywords.in
 

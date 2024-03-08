@@ -6,8 +6,8 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
 # custom:
-#   ID: CB_CFT_35
-#   Severity: High
+#   id: CB_CFT_35
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_35
 
 import future.keywords.in
