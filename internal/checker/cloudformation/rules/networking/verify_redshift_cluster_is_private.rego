@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html
 # custom:
-#   ID: CB_CFT_068
-#   Severity: HIGH
+#   id: CB_CFT_068
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_068
 import future.keywords.in
 

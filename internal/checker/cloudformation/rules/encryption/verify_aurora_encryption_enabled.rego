@@ -4,8 +4,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html
 # custom:
-#   ID: CB_CFT_76
-#   Severity: HIGH
+#   id: CB_CFT_76
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_76
 import future.keywords.in
 

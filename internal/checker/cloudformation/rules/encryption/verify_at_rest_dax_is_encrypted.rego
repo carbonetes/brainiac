@@ -4,8 +4,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
 # custom:
-#   ID: CB_CFT_38
-#   Severity: High
+#   id: CB_CFT_38
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_38
 
 import future.keywords.in

@@ -4,8 +4,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
-#   ID: CB_CFT_43
-#   Severity: Medium
+#   id: CB_CFT_43
+#   severity: MEDIUM
 package lib.cloudformation.CB_CFT_43
 import future.keywords.in
 

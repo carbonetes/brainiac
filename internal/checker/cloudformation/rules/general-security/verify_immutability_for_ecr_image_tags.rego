@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
 # custom:
-#   ID: CB_CFT_39
-#   Severity: Low
+#   id: CB_CFT_39
+#   severity: LOW
 package lib.cloudformation.CB_CFT_39
 import future.keywords.in
 
