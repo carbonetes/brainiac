@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
 # custom:
-#   ID: CB_CFT_097
-#   Severity: LOW
+#   id: CB_CFT_097
+#   severity: LOW
 package lib.cloudformation.CB_CFT_097
 import future.keywords.in
 
@@ -17,18 +17,18 @@ is_valid {
     resources.Type == resource
 }
 
-pass[resources] {
-	is_valid
-	resources := input.Resources
-	count(fail) == 0
-}
-
-fail[properties] {
+pass[properties] {
     is_valid
     some resources in input.Resources
     resources.Type == resource
     properties := resources.Properties.EncryptionConfiguration
-    properties.EncryptionType != "KMS"
+    properties.EncryptionType == "KMS"
+}
+
+fail[resources] {
+	resources := input.Resources
+	is_valid
+	count(pass) == 0
 }
 
 passed[result] {
