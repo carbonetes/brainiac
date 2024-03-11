@@ -24,7 +24,7 @@ pass[block] {
 	resources.Type == resource
 	block := resources.Properties
 	values := [1, 5, 10, 15, 30, 60, "1", "5", "10", "15", "30", "60"]
-	some block.MonitoringInterval in values
+	block.MonitoringInterval in values
 }
 
 fail[resources] {
