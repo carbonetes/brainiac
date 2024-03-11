@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify runtime for Lambda is not deprecated"
-# description: "This policy ensures Lambda functions operate on up-to-date runtimes, guarding against deprecated environments. Lambda, an AWS service, enables serverless code execution. "Runtime" here refers to the programming language environment. Using deprecated runtimes poses risks: they may lack security updates, leading to vulnerabilities. Also, they might not support latest language features, causing compatibility issues. Embracing outdated runtimes can escalate maintenance costs and technical debt."
+# description: "This policy ensures Lambda functions use current runtimes, avoiding deprecated environments. Lambda, an AWS service, enables serverless code execution. Runtime here refers to the programming language environment. Using deprecated runtimes poses risks like lack of security updates and compatibility issues. Embracing outdated runtimes can escalate maintenance costs and technical debt."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
