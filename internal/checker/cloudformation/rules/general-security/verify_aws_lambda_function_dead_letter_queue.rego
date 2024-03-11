@@ -38,6 +38,13 @@ fail[block] {
 	not "TargetArn" in object.keys(block.DeadLetterConfig)
 }
 
+fail[block] {
+	is_valid
+	some resources in input.Resources
+	block := resources.Properties
+	not "TargetArn" in object.keys(block.DeadLetterQueue)
+}
+
 pass[resources] {
 	some resources in input.Resources
 	is_valid
