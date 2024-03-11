@@ -23,8 +23,8 @@ pass[block] {
 	some resources in input.Resources
 	resources.Type == resource
 	block := resources.Properties
-	backupRetentionPeriod := block.BackupRetentionPeriod
-	backupRetentionPeriod >= 7
+	backup_retention_period := block.BackupRetentionPeriod
+	backup_retention_period >= 7
 }
 
 fail[resources] {
