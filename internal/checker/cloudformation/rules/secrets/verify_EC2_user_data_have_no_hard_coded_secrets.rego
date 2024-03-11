@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-instance.html
 # custom:
 #   ID: CB_CFT_37
-#   Severity: High
+#   severity: High
 package lib.cloudformation.CB_CFT_37
 
 import future.keywords.in
@@ -24,13 +24,12 @@ pass[resources] {
 	count(fail) == 0
 }
 
-fail[block] {
+fail[user_data] {
 	is_valid
 	some resources in input.Resources
 	some user_data in resources.Properties.UserData
 	regex_pattern = `^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$`
 	regex.match(regex_pattern, user_data)
-	block := resources.Properties.UserData
 }
 
 passed[result] {
