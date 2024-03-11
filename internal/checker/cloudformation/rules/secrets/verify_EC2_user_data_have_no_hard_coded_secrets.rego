@@ -5,7 +5,7 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-instance.html
 # custom:
-#   ID: CB_CFT_37
+#   id: CB_CFT_37
 #   severity: High
 package lib.cloudformation.CB_CFT_37
 
