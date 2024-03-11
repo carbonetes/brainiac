@@ -1,5 +1,5 @@
 # METADATA
-# title: Title: "Verify if WAF Prevents Message Lookup in Log4j2. See CVE-2021-44228, aka log4jshell, for more information."
+# title: "Verify if WAF Prevents Message Lookup in Log4j2. See CVE-2021-44228, aka log4jshell, for more information."
 # description: "Checks if WAF prevents message lookup in Log4j2 (CVE-2021-44228)."
 # scope: package
 # related_resources:
