@@ -5,8 +5,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpointservice.html
 # custom:
-#   ID: CB_CFT_095
-#   Severity: LOW
+#   id: CB_CFT_095
+#   severity: LOW
 package lib.cloudformation.CB_CFT_095
 import future.keywords.in
 
