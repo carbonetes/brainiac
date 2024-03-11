@@ -4,8 +4,8 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html
 # custom:
-#   ID: CB_CFT_108
-#   Severity: MEDIUM
+#   id: CB_CFT_108
+#   severity: MEDIUM
 package lib.cloudformation.CB_CFT_108
 import future.keywords.in
 
@@ -19,6 +19,7 @@ is_valid {
 pass[properties] {
     some resource in input.Resources
     properties := resource.Properties
+	"EndpointType" in object.keys(properties)
     endpoint_values := ["VPC", "VPC_ENDPOINT"]
     properties.EndpointType in endpoint_values
 }
