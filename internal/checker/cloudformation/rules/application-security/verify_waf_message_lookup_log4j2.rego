@@ -5,7 +5,7 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-webacl.html
 # custom:
-#   id: CB_CFT_910
+#   id: CB_CFT_115
 #   severity: CRITICAL
 package lib.cloudformation.CB_CFT_115
 
