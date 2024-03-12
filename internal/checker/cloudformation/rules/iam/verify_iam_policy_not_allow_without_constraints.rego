@@ -8,8 +8,10 @@
 #   id: CB_CFT_86
 #   severity: LOW
 package lib.cloudformation.CB_CFT_86
+
+import data.lib.cloudformation
 import future.keywords.in
-import data.lib.cloudformation.exposures
+
 
 is_valid {
 	supported_resources := ["AWS::IAM::Group", "AWS::IAM::Policy", "AWS::IAM::Role", "AWS::IAM::User", "AWS::IAM::ManagedPolicy"]
@@ -38,9 +40,8 @@ pass[properties] {
     some statement in policy.Statement
     statement.Effect == "Allow"
     statement.Resource != "*"
-    action_value := exposures
     some actions in statement.Action
-    actions in action_value
+    actions in cloudformation.exposures
 }
 
 pass[properties] {
@@ -51,9 +52,8 @@ pass[properties] {
     some deny in statement.Statement
     deny.Effect == "Allow"
     deny.Resource != "*"
-    action_value := exposures
     some actions in deny.Action
-    actions in action_value
+    actions in cloudformation.exposures
 }
 
 

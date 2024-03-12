@@ -9,7 +9,7 @@ test_verify_policy_not_allow_permission_without_constraints_pass {
                     "PolicyDocument": {
                         "Statement": [
                             {
-                                "Action": ["chime:DeleteVoiceConnectorTerminationCredentials"],
+                                "Action": ["codeartifact:DeleteRepositoryPermissionsPolicy"],
                                 "Effect": "Allow",
                                 "Resource": "foo"
                             },
