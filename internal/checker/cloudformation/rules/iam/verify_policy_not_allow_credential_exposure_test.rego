@@ -1,0 +1,51 @@
+package lib.cloudformation.CB_CFT_84
+
+test_verify_policy_not_allow_credential_exposed_pass {
+    result := passed with input as {
+        "Resources": {
+            "MyManagedPolicy": {
+                "Type": "AWS::IAM::ManagedPolicy",
+                "Properties": {
+                    "ManagedPolicyName": "EnsureNoCredentialExposurePolicy",
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "ecr:GetAuthorizationToken",
+                                    "iam:UpdateAccessKey"
+                                ],
+                                "Effect": "Deny",
+                            }
+                        ],
+                    }
+                }
+            }
+        }
+    }
+    count(result) == 1
+}
+
+test_verify_policy_not_allow_credential_exposed_fail {
+    result := failed with input as {
+        "Resources": {
+            "MyManagedPolicy": {
+                "Type": "AWS::IAM::ManagedPolicy",
+                "Properties": {
+                    "ManagedPolicyName": "EnsureNoCredentialExposurePolicy",
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "ecr:GetAuthorizationToken",
+                                    "iam:UpdateAccessKey"
+                                ],
+                                "Effect": "Allow",
+                            }
+                        ],
+                    }
+                }
+            }
+        }
+    }
+    count(result) == 1
+}
