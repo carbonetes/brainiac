@@ -1,6 +1,6 @@
 package lib.cloudformation
 
-resource_exposures := {
+exposures := {
     "acm-pca:CreatePermission",
     "acm-pca:DeletePermission",
     "acm-pca:DeletePolicy",
