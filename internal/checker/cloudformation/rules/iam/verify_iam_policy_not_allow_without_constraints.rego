@@ -8,9 +8,8 @@
 #   id: CB_CFT_86
 #   severity: LOW
 package lib.cloudformation.CB_CFT_86
-
-import future.keywords.in
 import data.lib.cloudformation.resource_exposures
+import future.keywords.in
 
 is_valid {
 	supported_resources := ["AWS::IAM::Group", "AWS::IAM::Policy", "AWS::IAM::Role", "AWS::IAM::User", "AWS::IAM::ManagedPolicy"]
