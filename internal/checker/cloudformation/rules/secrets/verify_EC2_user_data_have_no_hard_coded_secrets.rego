@@ -6,7 +6,7 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-instance.html
 # custom:
 #   id: CB_CFT_37
-#   severity: High
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_37
 
 import future.keywords.in
