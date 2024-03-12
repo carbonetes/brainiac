@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Lambda function URLs AuthType is not None"
-# description: "Checks if Lambda function URLs AuthType is not None."
+# description: "Defining the AWS AuthType for your Lambda function URLs is crucial as it dictates the authentication mechanism for user access, contributing to the security and protection of your functions against unauthorized entry."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-url.html

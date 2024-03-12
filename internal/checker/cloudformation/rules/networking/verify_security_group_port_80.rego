@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Security Groups allowing ingress from 0.0.0.0/0 to port 80"
-# description: "Checks if the security groups are allowing ingress from 0.0.0.0/0 to port 22."
+# description: "Exposing port 80 (HTTP) to all IP addresses (0.0.0.0/0) on your AWS resources poses a security risk, as it facilitates potential unauthorized access and increases vulnerability to external threats."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroup.html

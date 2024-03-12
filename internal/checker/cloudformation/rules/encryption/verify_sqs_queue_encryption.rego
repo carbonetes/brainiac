@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Encryption for SQS Queue"
-# description: "Checks if encryption is specified for all data stored in AWS SQS Queue"
+# description: "Checks if encryption is specified for all data stored in AWS SQS Queue. Amazon Simple Queue Service (SQS) offers encryption capabilities for queues, ensuring the secure transmission of sensitive data."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queue.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Instance Metadata Service Version 1 is not enabled for EC2 Launch Template"
-# description: "Checks if Instance Metadata Service (IMDS) version 1 is disabled for the specified AWS EC2 Launch Template"
+# description: "Instance Metadata Service (IMDS) version 1 exposes security vulnerabilities. Disabling v1 improves the security posture of your instances launched from this template."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify AWS MQ Broker Audit logging is enabled"
-# description: "Checks if Amazon MQ Broker Audit logging is enabled."
+# description: "Ensure a reliable logging process for AWS MQBroker to track manual and programmatic configuration changes, facilitating the detection and tracing of unauthorized modifications."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-broker.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify API Gateway Stage has Access Logging enabled"
-# description: "Checks whether API Gateway Stage has Access Logging enabled."
+# description: "Enabling custom access logging in API Gateway unlocks detailed request insights through CloudWatch Logs analysis with CloudWatch Logs Insights."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html

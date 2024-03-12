@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Elasticsearch Domain Logging is enabled"
-# description: "Checks if the LogPublishingOptions property of an Elasticsearch Domain is set to true"
+# description: "Checks if the LogPublishingOptions property of an Elasticsearch Domain is set to true. Enabling logs provides valuable insights for troubleshooting performance and stability issues, tracking user activity for compliance purposes (audit logs), and gaining a more comprehensive view of your domain's health."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html
