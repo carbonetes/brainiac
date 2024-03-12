@@ -1,12 +1,12 @@
 # METADATA
 # title: "Verify ECR image scan on push are enabled"
-# description: "This policy allows Amazon ECR to manage container images by scanning for operating system vulnerabilities. Automated scans ensure vulnerabilities are identified before images are pushed to production, with notifications provided by ECR APIs upon completion."
+# description: "This policy allows Amazon ECR to manage container images by scanning for operating system vulnerabilities. Automated scans ensure vulnerabilities are identified before images are pushed to production with notifications provided by ECR APIs upon completion."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
 # custom:
-#   ID: CB_CFT_107
-#   Severity: HIGH
+#   id: CB_CFT_107
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_107
 import future.keywords.in
 
