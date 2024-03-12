@@ -8,7 +8,6 @@
 #   id: CB_CFT_86
 #   severity: LOW
 package lib.cloudformation.CB_CFT_86
-
 import future.keywords.in
 import data.lib.cloudformation.exposures
 
