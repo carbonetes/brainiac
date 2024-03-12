@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Elasticsearch Domain Audit Logging is enabled"
-# description: "Checks if Elasticsearch Domain Audit Logging is enabled."
+# description: "Enabling Elasticsearch Domain Audit Logging ensures a crucial security layer, allowing effective monitoring and tracking of activities within the Elasticsearch domain for enhanced protection against potential threats."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html

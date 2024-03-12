@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Elasticsearch Domain enforces HTTPS"
-# description: "Checks if the EnforceHTTPS property of an Elasticsearch Domain is set to true"
+# description: "Checks if the EnforceHTTPS property of an Elasticsearch Domain is set to true. This encrypts communication between your clients and the domain, safeguarding sensitive data in transit."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify all data stored in the ElastiCache Group is encrypted at transit"
-# description: "Checks if all data stored in the ElastiCache Group is encrypted at transit"
+# description: "ElastiCache for Redis offers encryption at transit to protect your data against unauthorized access even if the underlying storage is compromised. Enabling encryption at rest is highly recommended for enhanced security."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html

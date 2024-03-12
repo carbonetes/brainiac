@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Athena Workgroup should enforce configuration to prevent client disabling encryption"
-# description: "Checks if the EnforceWorkGroupConfiguration property of an Athena Workgroup is set to true"
+# description: "Checks if the EnforceWorkGroupConfiguration property of an Athena Workgroup is set to true. This setting prevents users from disabling encryption at the client level"
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-workgroup.html

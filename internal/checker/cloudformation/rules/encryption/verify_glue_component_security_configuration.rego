@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Glue component has a security configuration associated"
-# description: "Checks if the AWS Glue component has a security configuration associated."
+# description: "Ensure that AWS Glue Crawlers, Jobs, and Development Endpoints have an associated security configuration to enable data-at-rest encryption."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html

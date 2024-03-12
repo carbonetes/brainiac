@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify enhanced monitoring is enabled for Amazon RDS instances"
-# description: "Checks if the Amazon RDS instances enabled enhanced monitoring."
+# description: "Turning on enhanced monitoring for Amazon RDS instances gives you more detailed and real-time insights into how your databases are performing, making it easier to troubleshoot issues, spot trends in resource usage, and catch potential problems early on."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html
