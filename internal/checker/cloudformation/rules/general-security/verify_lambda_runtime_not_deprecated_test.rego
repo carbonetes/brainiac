@@ -6,7 +6,7 @@ test_verify_lambda_runtime_not_deprecated_pass {
             "MyServerlessFunction": {
                 "Type": "AWS::Lambda::Function",
                 "Properties": {
-                    "Runtime": "nodejs14.x",
+                    "Runtime": "sample version",
                 }
             }
         }
@@ -20,7 +20,7 @@ test_verify_lambda_runtime_not_deprecated_fail {
             "MyServerlessFunction": {
                 "Type": "AWS::Lambda::Function",
                 "Properties": {
-                    "Runtime": "random version",
+                    "Runtime": "nodejs4.3-edge",
                 }
             }
         }

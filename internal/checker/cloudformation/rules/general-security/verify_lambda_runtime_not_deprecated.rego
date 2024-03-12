@@ -41,7 +41,7 @@ pass[properties] {
                 "nodejs10.x", "nodejs8.10", "nodejs4.3", "nodejs6.10", "dotnetcore1.0", "dotnetcore2.0",
                 "nodejs4.3-edge", "nodejs", "python3.7", "nodejs14.x", "ruby2.7", "provided", "go1.x", 
                 "java8", "nodejs16.x", "dotnet7",]
-    runtime in runtime_value
+    not runtime in runtime_value
 }
 
 fail[resources] {
