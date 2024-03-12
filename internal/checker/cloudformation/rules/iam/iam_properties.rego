@@ -1,4 +1,4 @@
-package lib.iam
+package lib.cloudformation
 
 resource_exposures := {
     "acm-pca:CreatePermission",
