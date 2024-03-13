@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_069
+package lib.cloudformation.CB_CFT_064
 
 test_no_public_ip_ec2_instance {
     result := passed with input as {

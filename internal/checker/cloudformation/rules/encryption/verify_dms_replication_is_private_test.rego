@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_070
+package lib.cloudformation.CB_CFT_065
 
 test_dms_replication_is_private {
 	result := passed with input as {"Resources": {"MyReplicationInstance": {

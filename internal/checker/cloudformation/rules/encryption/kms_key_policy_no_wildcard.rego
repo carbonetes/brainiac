@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify that the KMS key policy does not incorporate any wildcard (*) principals."
+# title: "Verify KMS key policy does not incorporate wildcard (*) principals."
 # description: "A wildcard principal serves as a placeholder granting access to all users or accounts, posing a risk of unauthorized access to your KMS keys. Eliminating wildcard principals from your key policies ensures that only designated users or accounts can access your KMS keys, enhancing key security and mitigating the risk of unauthorized entry."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html
 # custom:
-#   id: CB_CFT_27
+#   id: CB_CFT_023
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_27
+package lib.cloudformation.CB_CFT_023
 import future.keywords.in
 
 resource := "AWS::KMS::Key"

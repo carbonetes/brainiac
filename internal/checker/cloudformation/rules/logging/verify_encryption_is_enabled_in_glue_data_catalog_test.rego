@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_074
+package lib.cloudformation.CB_CFT_069
 
 test_glue_data_catalog_encryption_enabled {
 	result := passed with input as {"Resources": {"GlueDataCatalogEncryptionSettings": {

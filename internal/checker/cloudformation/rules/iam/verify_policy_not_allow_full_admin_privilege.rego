@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-group.html
 # custom:
-#   id: CB_CFT_49
+#   id: CB_CFT_044
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_49
+package lib.cloudformation.CB_CFT_044
 import future.keywords.in
 
 is_valid {

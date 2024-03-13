@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_056
+package lib.cloudformation.CB_CFT_051
 
 test_amazon_mq_broker_disabled_public_access {
 	result := passed with input as {"Resources": {

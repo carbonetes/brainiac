@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_28
+package lib.cloudformation.CB_CFT_024
 
 test_viewer_protocol_is_https {
 	result := passed with input as {

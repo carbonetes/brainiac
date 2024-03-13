@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_30
+package lib.cloudformation.CB_CFT_026
 
 test_cloudtrail_validation_enabled_pass {
     result := passed with input as {

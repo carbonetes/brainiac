@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_068
+package lib.cloudformation.CB_CFT_063
 
 test_redshift_cluster_is_private {
 	result := passed with input as {"Resources": {"MyRedshiftCluster": {

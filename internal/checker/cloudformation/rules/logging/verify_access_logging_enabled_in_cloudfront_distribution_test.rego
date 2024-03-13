@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_067
+package lib.cloudformation.CB_CFT_062
 
 test_cloudfront_distribution_access_enabled {
 	result := passed with input as {"Resources": {"MyCloudFrontDistribution": {

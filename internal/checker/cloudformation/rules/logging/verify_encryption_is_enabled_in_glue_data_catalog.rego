@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify encryption is enabled in Glue Data Catalog"
-# description: "Ensure encryption is enabled in the AWS Glue Data Catalog to enhance data security and compliance."
+# description: "This policy validates the aws_glue_data_catalog_encryption_settings resource, ensuring encryption setup. It examines properties encrypted_at_rest and connection_encrypted in connection_password_encryption and encryption_at_rest blocks."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-datacatalogencryptionsettings.html
 # custom:
-#   id: CB_CFT_074
+#   id: CB_CFT_069
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_074
+package lib.cloudformation.CB_CFT_069
 import future.keywords.in
 
 resource := "AWS::Glue::DataCatalogEncryptionSettings"

@@ -1,12 +1,12 @@
 # METADATA
 # title: "Verify S3 bucket enabled RestrictPublicBuckets"
-# description: "Verify the activation of RestrictPublicBuckets for an S3 bucket to enhance security measures."
+# description: "This policy in S3 Block Public Access lets you control whether public bucket policies are restricted for buckets in your account. When RestrictPublicBucket is set to TRUE, access to buckets with public policies is limited to AWS services and authorized users within the account. Enabling this setting doesn't affect existing bucket policies but blocks any public or cross-account access specified in them."
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
-#   id: CB_CFT_43
+#   id: CB_CFT_038
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_43
+package lib.cloudformation.CB_CFT_038
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"

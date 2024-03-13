@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_073
+package lib.cloudformation.CB_CFT_068
 
 test_elb_logging_access_enabled {
 	result := passed with input as {"Resources": {"MyDocDBCluster": {

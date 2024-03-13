@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_44
+package lib.cloudformation.CB_CFT_039
 
 test_s3_bucket_write_access_private {
 	result := passed with input as {"Resources": {"MyS3Bucket": {

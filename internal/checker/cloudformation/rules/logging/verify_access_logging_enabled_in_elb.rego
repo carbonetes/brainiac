@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify access logging enabled in ELB"
-# description: "Ensure that access logging is enabled for an Elastic Load Balancer (ELB) by verifying the appropriate settings in the configuration."
+# description: "This policy enables analysis of traffic patterns and troubleshooting of security and operational issues. Access logging, optional in ELB, is disabled by default."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancing-loadbalancer.html
 # custom:
-#   id: CB_CFT_073
+#   id: CB_CFT_068
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_073
+package lib.cloudformation.CB_CFT_068
 import future.keywords.in
 
 resource := "AWS::ElasticLoadBalancing::LoadBalancer"

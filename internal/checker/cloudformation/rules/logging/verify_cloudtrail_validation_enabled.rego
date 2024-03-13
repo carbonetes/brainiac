@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-trail.html
 # custom:
-#   id: CB_CFT_30
+#   id: CB_CFT_026
 #   severity: LOW
-package lib.cloudformation.CB_CFT_30
+package lib.cloudformation.CB_CFT_026
 import future.keywords.in
 
 resource := "AWS::CloudTrail::Trail"

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbcluster.html
 # custom:
-#   id: CB_CFT_059
+#   id: CB_CFT_054
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_059
+package lib.cloudformation.CB_CFT_054
 
 import future.keywords.in
 

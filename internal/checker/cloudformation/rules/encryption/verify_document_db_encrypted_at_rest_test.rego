@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_059
+package lib.cloudformation.CB_CFT_054
 
 test_verify_document_db_encryption_at_rest_enabled {
     result := passed with input as {"Resources": {

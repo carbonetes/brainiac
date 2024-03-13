@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_37
+package lib.cloudformation.CB_CFT_032
 
 test_no_hard_coded_secrets_user_data {
     passed := {

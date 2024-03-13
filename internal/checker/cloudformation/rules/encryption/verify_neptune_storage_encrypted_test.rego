@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_34
+package lib.cloudformation.CB_CFT_030
 
 test_neptune_storage_is_encrypted_securely_pass{
     result := passed with input as {

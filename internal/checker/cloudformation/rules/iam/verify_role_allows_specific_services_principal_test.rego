@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_47
+package lib.cloudformation.CB_CFT_042
 
 test_verify_policy_only_groups_or_roles_pass {
     result := passed with input as {

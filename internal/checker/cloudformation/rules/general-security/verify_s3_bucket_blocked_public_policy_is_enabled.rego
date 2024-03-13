@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify S3 bucket blocked public policy is enabled."
-# description: "Ensure that the S3 bucket is configured with the Block Public ACLs setting enabled to prevent public access control list modifications."
+# description: "This policy applies at both the account and bucket levels, including future buckets. It blocks existing public access and prevents new items from being publicly accessible. For AWS accounts hosting data lakes or other business applications, it acts as a protective measure against accidental public exposure."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
-#   id: CB_CFT_41
+#   id: CB_CFT_036
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_41
+package lib.cloudformation.CB_CFT_036
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"

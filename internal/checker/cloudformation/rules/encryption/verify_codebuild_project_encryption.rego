@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify that CodeBuild Project encryption is not disabled"
-# description: "CodeBuild encrypts build artifacts (cache, logs, test data, results) by default using AWS-managed keys, but you can configure your own key with AWS Key Management Service."
+# description: "This policy ensures that AWS CodeBuild, a fully managed build service, encrypts build artifacts by default using CMKs managed by AWS Key Management Service for Amazon S3. If desired, you can configure a customer-managed CMK instead."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
 # custom:
-#   id: CB_CFT_061
+#   id: CB_CFT_056
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_061
+package lib.cloudformation.CB_CFT_056
 
 import future.keywords.in
 

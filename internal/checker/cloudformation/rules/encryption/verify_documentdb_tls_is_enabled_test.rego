@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_071
+package lib.cloudformation.CB_CFT_066
 
 test_documentdb_tls_enabled {
 	result := passed with input as {"Resources": {"DocDBParameterGroupEnabled": {

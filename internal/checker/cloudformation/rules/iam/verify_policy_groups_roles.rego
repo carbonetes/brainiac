@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html
 # custom:
-#   id: CB_CFT_31
+#   id: CB_CFT_027
 #   severity: LOW
-package lib.cloudformation.CB_CFT_31
+package lib.cloudformation.CB_CFT_027
 
 import future.keywords.in
 

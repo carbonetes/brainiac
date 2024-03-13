@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesis-stream.html
 # custom:
-#   id: CB_CFT_33
+#   id: CB_CFT_029
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_33
+package lib.cloudformation.CB_CFT_029
 import future.keywords.in
 
 resource := "AWS::Kinesis::Stream"

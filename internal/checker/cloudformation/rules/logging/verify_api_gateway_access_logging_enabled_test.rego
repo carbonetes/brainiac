@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_060
+package lib.cloudformation.CB_CFT_055
 
 test_api_gateway_access_logging_enabled {
     result := passed with input as {"Resources": {

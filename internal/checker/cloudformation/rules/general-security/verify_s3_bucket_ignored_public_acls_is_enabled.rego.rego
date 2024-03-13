@@ -1,12 +1,12 @@
 # METADATA
 # title: "Verify S3 bucket ignored public ACLs is enabled"
-# description: "Confirm that an AWS S3 bucket restricts public write permissions to bolster security measures."
+# description: "This policy disregards all public ACLs on a bucket and its objects in S3. It doesn't affect existing ACLs or prevent new public ACLs. While it blocks public access granted by ACLs, it still allows PUT Object calls with a public ACL."
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
-#   id: CB_CFT_42
-#   severity: Medium
-package lib.cloudformation.CB_CFT_42
+#   id: CB_CFT_037
+#   severity: MEDIUM
+package lib.cloudformation.CB_CFT_037
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_53
+package lib.cloudformation.CB_CFT_048
 
 test_cloudwatch_loggroup_retention_specified_pass {
     result := passed with input as {

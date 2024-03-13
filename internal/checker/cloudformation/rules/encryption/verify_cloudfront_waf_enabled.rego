@@ -4,9 +4,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html
 # custom:
-#   id: CB_CFT_55
+#   id: CB_CFT_050
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_55
+package lib.cloudformation.CB_CFT_050
 import future.keywords.in
 
 resource := "AWS::CloudFront::Distribution"

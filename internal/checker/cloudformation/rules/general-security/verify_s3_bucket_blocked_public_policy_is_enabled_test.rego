@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_41
+package lib.cloudformation.CB_CFT_036
 
 test_s3_bucket_public_policy_blocked {
 	result := passed with input as {"Resources": {"MyS3Bucket": {

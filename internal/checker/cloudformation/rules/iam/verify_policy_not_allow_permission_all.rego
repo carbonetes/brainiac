@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
 # custom:
-#   id: CB_CFT_48
+#   id: CB_CFT_043
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_48
+package lib.cloudformation.CB_CFT_043
 import future.keywords.in
 
 resource := "AWS::IAM::Role"

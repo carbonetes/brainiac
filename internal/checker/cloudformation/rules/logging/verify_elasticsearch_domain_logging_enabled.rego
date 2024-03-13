@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify Elasticsearch Domain Logging is enabled"
-# description: "Checks if the LogPublishingOptions property of an Elasticsearch Domain is set to true. Enabling logs provides valuable insights for troubleshooting performance and stability issues, tracking user activity for compliance purposes (audit logs), and gaining a more comprehensive view of your domain's health."
+# title: "Verify Elasticsearch Domain Logging are enabled"
+# description: "This policy suggests enabling Elasticsearch domain logging, which provides access to various logs through CloudWatch, including error, search slow, index slow, and audit logs. These logs aid in troubleshooting performance issues and monitoring user activity for compliance."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html
 # custom:
-#   id: CB_CFT_065
+#   id: CB_CFT_060
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_065
+package lib.cloudformation.CB_CFT_060
 
 import future.keywords.in
 

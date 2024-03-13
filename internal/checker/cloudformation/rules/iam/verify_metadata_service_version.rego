@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify Instance Metadata Service Version 1 is not enabled for EC2 Launch Template"
-# description: "Instance Metadata Service (IMDS) version 1 exposes security vulnerabilities. Disabling v1 improves the security posture of your instances launched from this template."
+# title: "Verify Instance Metadata Service Version 1 are  disabled"
+# description: "This policy allows code on an instance to securely access instance metadata through the Instance Metadata Service (IMDS). Two methods are available: IMDSv1, which is prone to local misconfigurations, and IMDSv2, which offers a session-oriented approach."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html
 # custom:
-#   id: CB_CFT_062
+#   id: CB_CFT_057
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_062
+package lib.cloudformation.CB_CFT_057
 
 import future.keywords.in
 

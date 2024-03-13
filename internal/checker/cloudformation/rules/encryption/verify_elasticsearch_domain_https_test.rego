@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_064
+package lib.cloudformation.CB_CFT_059
 
 test_verify_elasticsearch_domain_enforces_https_enabled {
     result := passed with input as {"Resources": {

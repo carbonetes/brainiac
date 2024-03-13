@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_55
+package lib.cloudformation.CB_CFT_050
 
 test_cloudfront_has_waf_enabled {
     result := passed with input as {

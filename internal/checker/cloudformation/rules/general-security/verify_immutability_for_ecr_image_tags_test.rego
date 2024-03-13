@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_39
+package lib.cloudformation.CB_CFT_034
 
 test_ecr_image_tags_immutable {
 	result := passed with input as {"Resources": {"MyRepository": {

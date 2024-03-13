@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify Redshift Cluster Logging is Enabled"
-# description: "Checks if logging is enabled for an AWS Redshift Cluster."
+# description: "This policy entails Amazon Redshift logging connections and user actions in S3 buckets for security monitoring and troubleshooting, commonly referred to as database auditing. Enabling S3 bucket logging for Redshift databases captures all events affecting the database, aiding in security and incident response workflows."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html
 # custom:
-#   id: CB_CFT_057
+#   id: CB_CFT_052
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_057
+package lib.cloudformation.CB_CFT_052
 
 import future.keywords.in
 

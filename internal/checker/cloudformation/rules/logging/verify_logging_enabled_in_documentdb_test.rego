@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_066
+package lib.cloudformation.CB_CFT_061
 
 test_documentdb_logging_enabled {
 	result := passed with input as {"Resources": {"MyDocDBCluster":{
