@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify DynamoDB point-in-time recovery (backup) is enabled"
-# description: "Checks if point-in-time recovery is enabled for the DynamoDB"
+# description: "DynamoDB Point-in-Time Recovery acts as a safety net for your tables. It automatically creates backups of your data, allowing you to restore your table to a specific point in time in case of accidental deletions or edits."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html

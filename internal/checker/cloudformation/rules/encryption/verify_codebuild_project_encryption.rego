@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify that CodeBuild Project encryption is not disabled"
-# description: "Checks whether encryption is enabled for a CodeBuild Project."
+# description: "CodeBuild encrypts build artifacts (cache, logs, test data, results) by default using AWS-managed keys, but you can configure your own key with AWS Key Management Service."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify API Gateway has X-Ray Tracing enabled"
-# description: "Checks whether X-Ray Tracing is enabled for an API Gateway stage."
+# description: "Enabled tracing in X-Ray offers an end-to-end view of HTTP requests, allowing you to analyze latency in both APIs and their backend services."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html

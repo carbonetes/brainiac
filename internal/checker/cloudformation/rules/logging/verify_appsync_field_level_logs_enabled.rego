@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify AWS AppSync has Field-Level logs enabled"
-# description: "Checks if AWS AppSync has field-level logs enabled."
+# description: "Implementing a comprehensive logging process for AWS AppSync is crucial to identify and trace both manual and programmatic configuration changes, ensuring the detection of unauthorized modifications."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html

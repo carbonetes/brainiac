@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify DocumentDB has an adequate backup retention period"
-# description: "Checks if AWS DocumentDB has an adequate backup retention period."
+# description: "Checks if AWS DocumentDB maintains a sufficient backup retention period, this is crucial for effective data protection and recovery strategies."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbcluster.html

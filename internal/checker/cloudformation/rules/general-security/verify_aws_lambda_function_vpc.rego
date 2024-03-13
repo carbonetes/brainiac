@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify AWS Lambda Function VPC Configuration"
-# description: "Checks if VPC is configured inside the AWS Lambda Function."
+# description: "Lambda securely runs functions within its isolated VPC, separate from the account's default VPC, and to grant internet access from a private subnet, you need to route outbound traffic to a NAT gateway in a public subnet."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html

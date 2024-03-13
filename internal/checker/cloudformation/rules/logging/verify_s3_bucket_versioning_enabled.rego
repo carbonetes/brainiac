@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify S3 Bucket Versioning is enabled"
-# description: "Checks if versioning is enabled on AWS S3 buckets"
+# description: "Checks if versioning is enabled on AWS S3 buckets. S3 versioning lets you restore previous versions of your files in buckets for effortless recovery."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html

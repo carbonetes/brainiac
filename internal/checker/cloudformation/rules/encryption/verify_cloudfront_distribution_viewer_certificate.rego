@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify CloudFront Distribution Viewer Certificate is using TLS v1.2"
-# description: "Checks if the CloudFront Distribution Viewer Certificate is using a TLS v1.2."
+# description: "This policy detects AWS CloudFront web distributions using TLS versions for secure communication and recommends setting a minimum protocol of TLSv1.1_2016 or later for enhanced security."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html
