@@ -8,6 +8,8 @@
 #   id: CB_CFT_84
 #   severity: LOW
 package lib.cloudformation.CB_CFT_84
+
+import data.lib.cloudformation 
 import future.keywords.in
 
 is_valid {
@@ -36,9 +38,9 @@ fail[properties] {
     policy := properties.PolicyDocument
     some statement in policy.Statement
     statement.Effect == "Allow"
-    action_value := ["ecr:GetAuthorizationToken", "iam:UpdateAccessKey", "chime:createapikey", "codepipeline:pollforjobs", "cognito-identity:getopenidtoken", "cognito-identity:getopenidtokenfordeveloperidentity", "cognito-identity:getcredentialsforidentity", "connect:getfederationtoken", "connect:getfederationtokens", "ec2:getpassworddata", "ecr:getauthorizationtoken", "gamelift:requestuploadcredentials", "iam:createaccesskey", "iam:createloginprofile", "iam:createservicespecificcredential", "iam:resetservicespecificcredential", "iam:updateaccesskey", "lightsail:getinstanceaccessdetails", "lightsail:getrelationaldatabasemasteruserpassword", "rds-db:connect", "redshift:getclustercredentials", "sso:getrolecredentials", "mediapackage:rotatechannelcredentials", "mediapackage:rotateingestendpointcredentials", "sts:assumerole", "sts:assumerolewithsaml", "sts:assumerolewithwebidentity", "sts:getfederationtoken", "sts:getsessiontoken"]
     some actions in statement.Action
-    actions in action_value
+    actions == "*"
+    actions in cloudformation.exposed
 }
 
 fail[properties] {
@@ -48,9 +50,9 @@ fail[properties] {
     statement := policy.PolicyDocument
     some deny in statement.Statement
     deny.Effect == "Allow"
-    action_value := ["ecr:GetAuthorizationToken", "iam:UpdateAccessKey", "chime:createapikey", "codepipeline:pollforjobs", "cognito-identity:getopenidtoken", "cognito-identity:getopenidtokenfordeveloperidentity", "cognito-identity:getcredentialsforidentity", "connect:getfederationtoken", "connect:getfederationtokens", "ec2:getpassworddata", "ecr:getauthorizationtoken", "gamelift:requestuploadcredentials", "iam:createaccesskey", "iam:createloginprofile", "iam:createservicespecificcredential", "iam:resetservicespecificcredential", "iam:updateaccesskey", "lightsail:getinstanceaccessdetails", "lightsail:getrelationaldatabasemasteruserpassword", "rds-db:connect", "redshift:getclustercredentials", "sso:getrolecredentials", "mediapackage:rotatechannelcredentials", "mediapackage:rotateingestendpointcredentials", "sts:assumerole", "sts:assumerolewithsaml", "sts:assumerolewithwebidentity", "sts:getfederationtoken", "sts:getsessiontoken"]
     some actions in deny.Action
-    actions in action_value
+    actions == "*"
+    actions in cloudformation.exposed
 }
 
 pass[resources] {

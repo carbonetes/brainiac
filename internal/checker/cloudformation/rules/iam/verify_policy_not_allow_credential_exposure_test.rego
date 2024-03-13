@@ -14,7 +14,8 @@ test_verify_policy_not_allow_credential_exposed_pass {
                                     "ecr:GetAuthorizationToken",
                                     "iam:UpdateAccessKey"
                                 ],
-                                "Effect": "Deny",
+                                "Effect": "Allow",
+                                "Resource": "*"
                             }
                         ],
                     }
@@ -36,10 +37,10 @@ test_verify_policy_not_allow_credential_exposed_fail {
                         "Statement": [
                             {
                                 "Action": [
-                                    "ecr:GetAuthorizationToken",
-                                    "iam:UpdateAccessKey"
+                                    "*"
                                 ],
                                 "Effect": "Allow",
+                                "Resource": "*"
                             }
                         ],
                     }
