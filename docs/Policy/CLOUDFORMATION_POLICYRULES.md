@@ -1,0 +1,173 @@
+# CloudFormation Policy Rules
+
+This document provides a comprehensive index of CloudFormation policies available in BrainIAC.
+
+| ID | Type | Entity | Policy | Resource |
+| --- | --- | --- | --- | --- |
+| CB_CFT_001 | resource | AWS::ElasticLoadBalancingV2::Listener | Verify ALB protocol is HTTPS | checker/cloudformation/rules/encryption/verify_alb_protocol_https.rego |
+| CB_CFT_002 | resource | AWS::EC2::Volume | Verify that all information stored in the Elastic Block Store (EBS) is encrypted securely. | checker/cloudformation/rules/encryption/verify_ebs_encrypted_securely.rego |
+| CB_CFT_003 | resource | AWS::Elasticsearch::Domain | Verify that all information stored within Elasticsearch is securely encrypted while at rest. | checker/cloudformation/rules/encryption/verify_es_encrypted_rest.rego |
+| CB_CFT_004 | resource | AWS::Elasticsearch::Domain | Verify that all information stored within Elasticsearch has node-to-node encryption enabled. | checker/cloudformation/rules/encryption/verify_es_encrypted_node.rego |
+| CB_CFT_005 | resource | AWS::KMS::Key | Verify that rotation for customer-created CMKs is enabled | checker/cloudformation/rules/encryption/verify_cmk_rotation_enabled.rego |
+| CB_CFT_006 | resource | AWS::AutoScaling::LaunchConfiguration | Verify that data stored in the launch config for EBS instances is encrypted to guarantee security. | checker/cloudformation/rules/encryption/verify_ebs_encrypted_launch_config.rego |
+| CB_CFT_007 | resource | AWS::RDS::DBInstance | Verify the secure encryption status of data stored in the RDS at rest. | checker/cloudformation/rules/encryption/verify_rds_encryption_rest.rego |
+| CB_CFT_008 | resource | AWS::RDS::DBInstance | Verify that public access to RDS data is prohibited | checker/cloudformation/rules/encryption/verify_rds_not_publicly_accessible.rego |
+| CB_CFT_009 | resource | AWS::S3::Bucket | Verify S3 bucket access logging is enabled | checker/cloudformation/rules/logging/verify_s3_bucket_logging_enabled.rego |
+| CB_CFT_010 | resource | AWS::S3::Bucket | Verify S3 bucket server-side-encryption is enabled | checker/cloudformation/rules/logging/verify_s3_bucket_server_encryption_enabled.rego |
+| CB_CFT_011 | resource | AWS::S3::Bucket | Verify S3 bucket does not allow everyone to READ permissions | checker/cloudformation/rules/logging/verify_s3_bucket_read_permissions.rego |
+| CB_CFT_012 | resource | AWS::S3::Bucket | Verify S3 Bucket Versioning is enabled | checker/cloudformation/rules/encryption/verify_s3_bucket_versioning_enabled.rego |
+| CB_CFT_013 | resource | AWS::EC2::SecurityGroup | Verify Security Groups description | checker/cloudformation/rules/encryption/verify_security_group_description.rego |
+| CB_CFT_013 | resource | AWS::EC2::SecurityGroupEgress | Verify Security Groups description | checker/cloudformation/rules/encryption/verify_security_group_description.rego |
+| CB_CFT_013 | resource | AWS::EC2::SecurityGroupIngress | Verify Security Groups description | checker/cloudformation/rules/encryption/verify_security_group_description.rego |
+| CB_CFT_014 | resource | AWS::EC2::SecurityGroup | Verify that no security groups allow ingress from 0.0.0.0:0 to port 22 | checker/cloudformation/rules/networking/verify_security_group_port_22.rego |
+| CB_CFT_014 | resource | AWS::EC2::SecurityGroupIngress | Verify that no security groups allow ingress from 0.0.0.0:0 to port 22 | checker/cloudformation/rules/networking/verify_security_group_port_22.rego |
+| CB_CFT_015 | resource | AWS::EC2::SecurityGroup | Verify that no security groups allow ingress from 0.0.0.0:0 to port 3389 | checker/cloudformation/rules/networking/verify_security_group_port_3389.rego |
+| CB_CFT_015 | resource | AWS::EC2::SecurityGroupIngress | Verify that no security groups allow ingress from 0.0.0.0:0 to port 3389 | checker/cloudformation/rules/networking/verify_security_group_port_3389.rego |
+| CB_CFT_016 | resource | AWS::SNS::Topic | Verify that all data stored in the SNS Topic is encrypted | checker/cloudformation/rules/encryption/verify_sns_topic_encryption.rego |
+| CB_CFT_017 | resource | AWS::SQS::Queue | Verify that all data stored in the SQS Queue is encrypted | checker/cloudformation/rules/encryption/verify_sqs_queue_encryption.rego |
+| CB_CFT_018 | resource | AWS::DynamoDB::Table | Verify that point-in-time recovery (backup) in DynamoDB is enabled | checker/cloudformation/rules/backup-and-recovery/verify_dynamo_db_recovery.rego |
+| CB_CFT_019 | resource | AWS::ElastiCache::ReplicationGroup | Verify all data stored in ElastiCache group is encrypted at rest | checker/cloudformation/rules/encryption/elasticache_encryption_at_rest.rego |
+| CB_CFT_020 | resource | AWS::ElastiCache::ReplicationGroup | Verify all data stored in ElastiCache group is encrypted at transit | checker/cloudformation/rules/encryption/elasticache_encryption_at_transit.rego |
+| CB_CFT_025 | resource | AWS::ElastiCache::ReplicationGroup | Verify all ElastiCache Replication Group data is encrypted in transit with authentication tokens | checker/cloudformation/rules/encryption/elasticache_encryption_and_auth_token.rego |
+| CB_CFT_26 | resource | AWS::ECR::Repository | Verify ECR policy is not exposed to the public | checker/cloudformation/rules/general-security/ecr_policy_not_public.rego |
+| CB_CFT_27 | resource | AWS::KMS::Key | Verify that the KMS key policy does not incorporate any wildcard (*) principals. | checker/cloudformation/rules/encryption/kms_key_policy_no_wildcard.rego |
+| CB_CFT_28 | resource | AWS::CloudFront::Distribution | Verify viewer policy protocol is HTTPS | checker/cloudformation/rules/encryption/verify_viewer_protocol_https.rego |
+| CB_CFT_29 | resource | AWS::CloudTrail::Trail | Verify Cloudtrail logs are encrypted at rest | checker/cloudformation/rules/logging/verify_cloudtrail_encrypted.rego |
+| CB_CFT_30 | resource | AWS::CloudTrail::Trail | Verify CloudTrail log validation is enabled | checker/cloudformation/rules/logging/verify_cloudtrail_validation_enabled.rego |
+| CB_CFT_31 | resource | AWS::IAM::Policy | Verify IAM policies attached only to groups or roles | checker/cloudformation/rules/iam/verify_policy_groups_roles.rego |
+| CB_CFT_32 | resource | AWS::EFS::FileSystem | Verify that encryption for data is enabled for EFS. | checker/cloudformation/rules/encryption/verify_efs_encrypted.rego |
+| CB_CFT_33 | resource | AWS::Kinesis::Stream | Verify Kinesis Stream is encrypted | checker/cloudformation/rules/encryption/verify_kinesis_stream_encrypted.rego |
+| CB_CFT_34 | resource | AWS::Neptune::DBCluster | Verify Neptune storage is encrypted | checker/cloudformation/rules/encryption/verify_neptune_storage_encrypted.rego |
+| CB_CFT_35 | resource | AWS::Lambda::Function | Verify Lambda environment has no hard-coded secrets | checker/cloudformation/rules/secrets/verify_lambda_environment_have_no_hard_coded_secrets.rego |
+| CB_CFT_35 | resource | AWS::Serverless::Function | Verify Lambda environment has no hard-coded secrets | checker/cloudformation/rules/secrets/verify_lambda_environment_have_no_hard_coded_secrets.rego |
+| CB_CFT_37 | resource | AWS::EC2::Instance | Verify EC2 user data has no hard-coded secrets | checker/cloudformation/rules/secrets/verify_EC2_user_data_have_no_hard_coded_secrets.rego |
+| CB_CFT_38 | resource | AWS::DAX::Cluster | Verify at rest DAX is encrypted at rest | checker/cloudformation/rules/encryption/verify_at_rest_dax_is_encrypted.rego |
+| CB_CFT_39 | resource | AWS::ECR::Repository | Verify Immutability for ECR Image Tags | checker/cloudformation/rules/general-security/verify_immutability_for_ecr_image_tags.rego |
+| CB_CFT_40 | resource | AWS::S3::Bucket | Verify S3 bucket blocked public ACLs is enabled | checker/cloudformation/rules/general-security/verify_s3_bucket_has_block_public_acls_enabled.rego |
+| CB_CFT_41 | resource | AWS::S3::Bucket | Verify S3 bucket blocked public policy is enabled | checker/cloudformation/rules/general-security/verify_s3_bucket_blocked_public_policy_is_enabled.rego |
+| CB_CFT_42 | resource | AWS::S3::Bucket | Verify S3 bucket ignored public ACLs is enabled | checker/cloudformation/rules/general-security/verify_s3_bucket_ignored_public_acls_is_enabled.rego.rego |
+| CB_CFT_43 | resource | AWS::S3::Bucket | Verify S3 bucket enabled RestrictPublicBuckets | checker/cloudformation/rules/general-security/verify_s3_bucket_enabled_restrict_public_buckets.rego.rego |
+| CB_CFT_44 | resource | AWS::S3::Bucket | Verify S3 bucket restrict WRITE access | checker/cloudformation/rules/logging/verify_s3_bucket_restrict_write_access.rego |
+| CB_CFT_45 | resource | AWS::EKS::Cluster | Verify EKS cluster is encrypted | checker/cloudformation/rules/encryption/verify_eks_cluster_is_encrypted.rego |
+| CB_CFT_46 | resource | AWS::ApiGateway::Method | Verify no open access to back-end through API | checker/cloudformation/rules/general-security/verify_no_access_backend_api.rego |
+| CB_CFT_47 | resource | AWS::IAM::Role | Verify IAM role allows specific services or principal assumed | checker/cloudformation/rules/iam/verify_role_allows_specific_services_principal.rego |
+| CB_CFT_48 | resource | AWS::IAM::Role | Verify IAM policy does not allow assumed role permission | checker/cloudformation/rules/iam/verify_policy_not_allow_permission_all.rego |
+| CB_CFT_49 | resource | AWS::IAM::Group | Verify IAM policy does not allow full admin privilege | checker/cloudformation/rules/iam/verify_policy_not_allow_full_admin_privilege.rego |
+| CB_CFT_49 | resource | AWS::IAM::Policy | Verify IAM policy does not allow full admin privilege | checker/cloudformation/rules/iam/verify_policy_not_allow_full_admin_privilege.rego |
+| CB_CFT_49 | resource | AWS::IAM::Role | Verify IAM policy does not allow full admin privilege | checker/cloudformation/rules/iam/verify_policy_not_allow_full_admin_privilege.rego |
+| CB_CFT_49 | resource | AWS::IAM::User | Verify IAM policy does not allow full admin privilege | checker/cloudformation/rules/iam/verify_policy_not_allow_full_admin_privilege.rego |
+| CB_CFT_50 | resource | AWS::IAM::Group | Verify IAM policy does not allow asterisk statement in action | checker/cloudformation/rules/iam/verify_policy_not_allow_asterisk_action.rego |
+| CB_CFT_50 | resource | AWS::IAM::Policy | Verify IAM policy does not allow asterisk statement in action | checker/cloudformation/rules/iam/verify_policy_not_allow_asterisk_action.rego |
+| CB_CFT_50 | resource | AWS::IAM::Role | Verify IAM policy does not allow asterisk statement in action | checker/cloudformation/rules/iam/verify_policy_not_allow_asterisk_action.rego |
+| CB_CFT_50 | resource | AWS::IAM::User | Verify IAM policy does not allow asterisk statement in action | checker/cloudformation/rules/iam/verify_policy_not_allow_asterisk_action.rego |
+| CB_CFT_51 | resource | AWS::Redshift::Cluster | Verify data stored in Redshift cluster is encrypted | checker/cloudformation/rules/encryption/verify_data_redshift_cluster_encrypted.rego |
+| CB_CFT_52 | resource | AWS::ECS::Cluster | Verify ECS cluster container insights are enabled | checker/cloudformation/rules/logging/verify_container_insight_enabled.rego |
+| CB_CFT_53 | resource | AWS::Logs::LogGroup | Verify Cloudwatch Log groups specify retention days | checker/cloudformation/rules/logging/verify_cloudwatch_retention_days.rego |
+| CB_CFT_54 | resource | AWS::CloudTrail::Trail | Verify Cloudtrail is enabled for all regions | checker/cloudformation/rules/logging/verify_cloudtrail_enabled_all_region.rego |
+| CB_CFT_55 | resource | AWS::CloudFront::Distribution | Verify CloudFront Distribution WAF is enabled | checker/cloudformation/rules/encryption/verify_cloudfront_waf_enabled.rego |
+| CB_CFT_056 | resource | AWS::AmazonMQ::Broker | Verify that the Amazon MQ Broker does not have public access | checker/cloudformation/rules/general-security/verify_amazon_mq_broker_public_access.rego |
+| CB_CFT_057 | resource | AWS::Redshift::Cluster | Verify Redshift Cluster logging is enabled | checker/cloudformation/rules/logging/verify_redshift_cluster_logging_enabled.rego |
+| CB_CFT_058 | resource | AWS::ApiGateway::Stage | Verify API Gateway has X-Ray Tracing enabled | checker/cloudformation/rules/logging/verify_api_gateway_xray_tracing_enabled.rego |
+| CB_CFT_058 | resource | AWS::Serverless::Api | Verify API Gateway has X-Ray Tracing enabled | checker/cloudformation/rules/logging/verify_api_gateway_xray_tracing_enabled.rego |
+| CB_CFT_059 | resource | AWS::DocDB::DBCluster | Verify DocumentDB is encrypted at rest (default is unencrypted) | checker/cloudformation/rules/encryption/verify_document_db_encrypted_at_rest.rego |
+| CB_CFT_060 | resource | AWS::ApiGateway::Stage | Verify API Gateway has Access Logging enabled | checker/cloudformation/rules/logging/verify_api_gateway_access_logging_enabled.rego |
+| CB_CFT_060 | resource | AWS::Serverless::Api | Verify API Gateway has Access Logging enabled | checker/cloudformation/rules/logging/verify_api_gateway_access_logging_enabled.rego |
+| CB_CFT_061 | resource | AWS::CodeBuild::Project | Verify that CodeBuild Project encryption is not disabled | checker/cloudformation/rules/encryption/verify_codebuild_project_encryption.rego |
+| CB_CFT_062 | resource | AWS::EC2::LaunchTemplate | Verify Instance Metadata Service Version 1 is not enabled | checker/cloudformation/rules/iam/verify_metadata_service_version.rego |
+| CB_CFT_063 | resource | AWS::Athena::WorkGroup | Verify Athena Workgroup enforces configuration to prevent client disabling encryption | checker/cloudformation/rules/general-security/verify_athena_workgroup_configuration.rego |
+| CB_CFT_064 | resource | AWS::Elasticsearch::Domain | Verify Elasticsearch Domain enforces HTTPS | checker/cloudformation/rules/encryption/verify_elasticsearch_domain_https.rego |
+| CB_CFT_065 | resource | AWS::Elasticsearch::Domain | Verify Elasticsearch Domain Logging is enabled | checker/cloudformation/rules/logging/verify_elasticsearch_domain_logging_enabled.rego |
+| CB_CFT_065 | resource | AWS::OpenSearchService::Domain | Verify Elasticsearch Domain Logging is enabled | checker/cloudformation/rules/logging/verify_elasticsearch_domain_logging_enabled.rego |
+| CB_CFT_066 | resource | AWS::DocDB::DBCluster | Verify logging enabled in DocumentDB | checker/cloudformation/rules/logging/verify_logging_enabled_in_documentdb.rego |
+| CB_CFT_067 | resource | AWS::CloudFront::Distribution | Verify access logging enabled in CloudFront Distribution | checker/cloudformation/rules/logging/verify_access_logging_enabled_in_cloudfront_distribution.rego |
+| CB_CFT_068 | resource | AWS::Redshift::Cluster | Verify Redshift cluster is private | checker/cloudformation/rules/networking/verify_redshift_cluster_is_private.rego |
+| CB_CFT_069 | resource | AWS::EC2::Instance | Verify no public IP in EC2 instance | checker/cloudformation/rules/networking/verify_no_public_ip_in_ec2_instance.rego |
+| CB_CFT_069 | resource | AWS::EC2::LaunchTemplate | Verify no public IP in EC2 instance | checker/cloudformation/rules/networking/verify_no_public_ip_in_ec2_instance.rego |
+| CB_CFT_070 | resource | AWS::DMS::ReplicationInstance | Verify DMS replication is private | checker/cloudformation/rules/encryption/verify_dms_replication_is_private.rego |
+| CB_CFT_071 | resource | AWS::DocDB::DBClusterParameterGroup | DocumentDB TLS is enabled | checker/cloudformation/rules/encryption/verify_documentdb_tls_is_enabled.rego |
+| CB_CFT_072 | resource | AWS::ElasticLoadBalancingV2::LoadBalancer | Verify access logging enabled in ELBv2 | checker/cloudformation/rules/logging/verify_access_logging_enabled_in_elbv2.rego |
+| CB_CFT_073 | resource | AWS::ElasticLoadBalancing::LoadBalancer | Verify access logging enabled in ELB | checker/cloudformation/rules/logging/verify_access_logging_enabled_in_elb.rego |
+| CB_CFT_074 | resource | AWS::Glue::DataCatalogEncryptionSettings | Verify encryption is enabled in glue data catalog | checker/cloudformation/rules/logging/verify_encryption_is_enabled_in_glue_data_catalog.rego |
+| CB_CFT_075 | resource | AWS::ApiGatewayV2::Stage | Verify access logging enabled in API Gateway V2 | checker/cloudformation/rules/logging/verify_access_logging_enabled_in_api_gateway_v2.rego |
+| CB_CFT_075 | resource | AWS::Serverless::HttpApi | Verify access logging enabled in API Gateway V2 | checker/cloudformation/rules/logging/verify_api_logging_enabled.rego |
+| CB_CFT_76 | resource | AWS::RDS::DBCluster | Verify data stored in Aurora is securely encrypted | checker/cloudformation/rules/encryption/verify_aurora_encryption_enabled.rego |
+| CB_CFT_77 | resource | AWS::ECS::TaskDefinition | Verify ECS encryption on volumes is enabled | checker/cloudformation/rules/encryption/verify_ecs_encryption_enabled.rego |
+| CB_CFT_78 | resource | AWS::Glue::SecurityConfiguration | Verify Glue Security Configuration encryption is enabled | checker/cloudformation/rules/logging/verify_glue_security_encryption_enabled.rego |
+| CB_CFT_79 | resource | AWS::EKS::Nodegroup | Verify EKS node group has no implicit SSH access from 0.0.0.0/0 | checker/cloudformation/rules/kubernetes/verify_eks_node_no_implicit_ssh.rego |
+| CB_CFT_80 | resource | AWS::Neptune::DBCluster | Verify Neptune logging is enabled | checker/cloudformation/rules/logging/verify_neptune_logging_enabled.rego |
+| CB_CFT_81 | resource | AWS::ElasticLoadBalancingV2::Listener | Verify Load Balancer Listener using at least TLS v1.2 | checker/cloudformation/rules/general-security/verify_load_balancer_tls.rego |
+| CB_CFT_82 | resource | AWS::DocDB::DBClusterParameterGroup | Verify DocDB has audit logs enabled | checker/cloudformation/rules/logging/verify_audit_logs_enabled.rego |
+| CB_CFT_83 | resource | AWS::Redshift::ClusterParameterGroup | Verify Redshift is using SSL | checker/cloudformation/rules/encryption/verify_redshift_use_ssl.rego |
+| CB_CFT_84 | resource | AWS::IAM::Group | Verify credentials for IAM policies are not exposed | checker/cloudformation/rules/iam/verify_policy_not_allow_credential_exposure.rego |
+| CB_CFT_84 | resource | AWS::IAM::ManagedPolicy | Verify credentials for IAM policies are not exposed | checker/cloudformation/rules/iam/verify_policy_not_allow_credential_exposure.rego |
+| CB_CFT_84 | resource | AWS::IAM::Policy | Verify credentials for IAM policies are not exposed | checker/cloudformation/rules/iam/verify_policy_not_allow_credential_exposure.rego |
+| CB_CFT_84 | resource | AWS::IAM::Role | Verify credentials for IAM policies are not exposed | checker/cloudformation/rules/iam/verify_policy_not_allow_credential_exposure.rego |
+| CB_CFT_84 | resource | AWS::IAM::User | Verify credentials for IAM policies are not exposed | checker/cloudformation/rules/iam/verify_policy_not_allow_credential_exposure.rego |
+| CB_CFT_085 | resource | AWS::IAM::Group | Verify no data exfiltration for IAM policies | checker/cloudformation/rules/iam/verify_policy_not_allow_data_exfiltration.rego |
+| CB_CFT_085 | resource | AWS::IAM::ManagedPolicy | Verify no data exfiltration for IAM policies | checker/cloudformation/rules/iam/verify_policy_not_allow_data_exfiltration.rego |
+| CB_CFT_085 | resource | AWS::IAM::Policy | Verify no data exfiltration for IAM policies | checker/cloudformation/rules/iam/verify_policy_not_allow_data_exfiltration.rego |
+| CB_CFT_085 | resource | AWS::IAM::Role | Verify no data exfiltration for IAM policies | checker/cloudformation/rules/iam/verify_policy_not_allow_data_exfiltration.rego |
+| CB_CFT_085 | resource | AWS::IAM::User | Verify no data exfiltration for IAM policies | checker/cloudformation/rules/iam/verify_policy_not_allow_data_exfiltration.rego |
+| CB_CFT_086 | resource | AWS::IAM::Group | Verify permissions for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_without_constraints.rego |
+| CB_CFT_086 | resource | AWS::IAM::ManagedPolicy | Verify permissions for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_without_constraints.rego |
+| CB_CFT_086 | resource | AWS::IAM::Policy | Verify permissions for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_without_constraints.rego |
+| CB_CFT_086 | resource | AWS::IAM::Role | Verify permissions for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_without_constraints.rego |
+| CB_CFT_086 | resource | AWS::IAM::User | Verify permissions for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_without_constraints.rego |
+| CB_CFT_087 | resource | AWS::IAM::Group | Verify privilege escalation for IAM policies is not allowed | checker/cloudformation/rules/iam/verify_policy_not_allow_privilege_escalation.rego |
+| CB_CFT_087 | resource | AWS::IAM::ManagedPolicy | Verify privilege escalation for IAM policies is not allowed | checker/cloudformation/rules/iam/verify_policy_not_allow_privilege_escalation.rego |
+| CB_CFT_087 | resource | AWS::IAM::Policy | Verify privilege escalation for IAM policies is not allowed | checker/cloudformation/rules/iam/verify_policy_not_allow_privilege_escalation.rego |
+| CB_CFT_087 | resource | AWS::IAM::Role | Verify privilege escalation for IAM policies is not allowed | checker/cloudformation/rules/iam/verify_policy_not_allow_privilege_escalation.rego |
+| CB_CFT_087 | resource | AWS::IAM::User | Verify privilege escalation for IAM policies is not allowed | checker/cloudformation/rules/iam/verify_policy_not_allow_privilege_escalation.rego |
+| CB_CFT_088 | resource | AWS::IAM::Group | Verify write access for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_write_without_constraints.rego |
+| CB_CFT_088 | resource | AWS::IAM::ManagedPolicy | Verify write access for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_write_without_constraints.rego |
+| CB_CFT_088 | resource | AWS::IAM::Policy | Verify write access for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_write_without_constraints.rego |
+| CB_CFT_088 | resource | AWS::IAM::Role | Verify write access for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_write_without_constraints.rego |
+| CB_CFT_088 | resource | AWS::IAM::User | Verify write access for IAM policies is not allowed without constraints | checker/cloudformation/rules/iam/verify_iam_policy_not_allow_write_without_constraints.rego |
+| CB_CFT_089 | resource | AWS::Lambda::Function | Verify that AWS Lambda function is configured for function-level concurrent execution limit | checker/cloudformation/rules/general-security/verify_aws_lambda_function_concurrent_execution.rego |
+| CB_CFT_089 | resource | AWS::Serverless::Function | Verify that AWS Lambda function is configured for function-level concurrent execution limit | checker/cloudformation/rules/general-security/verify_aws_lambda_function_concurrent_execution.rego |
+| CB_CFT_090 | resource | AWS::Lambda::Function | Verify that AWS Lambda function is configured for a Dead Letter Queue(DLQ) | checker/cloudformation/rules/general-security/verify_aws_lambda_function_dead_letter_queue.rego |
+| CB_CFT_090 | resource | AWS::Serverless::Function | Verify that AWS Lambda function is configured for a Dead Letter Queue(DLQ) | checker/cloudformation/rules/general-security/verify_aws_lambda_function_dead_letter_queue.rego |
+| CB_CFT_091 | resource | AWS::Lambda::Function | Verify that AWS Lambda function is configured inside a VPC | checker/cloudformation/rules/general-security/verify_aws_lambda_function_vpc.rego |
+| CB_CFT_091 | resource | AWS::Serverless::Function | Verify that AWS Lambda function is configured inside a VPC | checker/cloudformation/rules/general-security/verify_aws_lambda_function_vpc.rego |
+| CB_CFT_092 | resource | AWS::RDS::DBInstance | Verify enhanced monitoring is enabled for Amazon RDS instances | checker/cloudformation/rules/logging/verify_amazon_rdb_enhanced_monitoring.rego |
+| CB_CFT_093 | resource | AWS::DynamoDB::Table | Verify DynamoDB Tables are encrypted using a KMS Customer Managed CMK | checker/cloudformation/rules/encryption/verify_dynamo_db_encrypted_kms.rego |
+| CB_CFT_094 | resource | AWS::ApiGateway::Stage | Verify that API Gateway caching is enabled | checker/cloudformation/rules/backup-and-recovery/verify_api_gateway_cache_enabled.rego |
+| CB_CFT_094 | resource | AWS::Serverless::Api | Verify that API Gateway caching is enabled | checker/cloudformation/rules/backup-and-recovery/verify_api_gateway_cache_enabled.rego |
+| CB_CFT_095 | resource | AWS::EC2::VPCEndpointService | Verify Manual Acceptance Configuration for VPC Endpoint Service | checker/cloudformation/rules/networking/verify_manual_acceptance_configuration_for_vpc_endpoint_service.rego |
+| CB_CFT_096 | resource | AWS::ElasticLoadBalancingV2::LoadBalancer | Verify the ALB's Exclusion of HTTP Headers | checker/cloudformation/rules/networking/verify_alb_exclusion_of_http_headers.rego |
+| CB_CFT_097 | resource | AWS::ECR::Repository | Verify KMS encryption in ECR repositories | checker/cloudformation/rules/encryption/verify_kms_encryption_in_ecr_repositories.rego |
+| CB_CFT_098 | resource | AWS::SecretsManager::Secret | Verify secret encrypted using KMS CMK in Secret Manager | checker/cloudformation/rules/encryption/verify_secret_encrypted_using_kms_cmk_in_secret_manager.rego |
+| CB_CFT_099 | resource | AWS::Redshift::Cluster | Verify that Redshift is deployed exclusively within a VPC | checker/cloudformation/rules/networking/verify_redshift_exclusive_in_vpc.rego |
+| CB_CFT_100 | resource | AWS::WorkSpaces::Workspace | Verify workspace user volume encryption | checker/cloudformation/rules/encryption/verify_workspace_user_volume_encryption.rego |
+| CB_CFT_101 | resource | AWS::WorkSpaces::Workspace | Verify workspace root volume encryption | checker/cloudformation/rules/encryption/verify_workspace_root_volume_encryption.rego |
+| CB_CFT_102 | resource | AWS::RDS::DBInstance | Verify Multi-AZ enabled in RDS instances | checker/cloudformation/rules/networking/verify_multi_az_enabled_in_rds_instances.rego |
+| CB_CFT_103 | resource | AWS::Logs::LogGroup | Verify KMS encryption in Cloudwatch log group | checker/cloudformation/rules/encryption/verify_kms_encryption_in_cloudwatch_log_group.rego |
+| CB_CFT_104 | resource | AWS::Timestream::Database | Verify Timestream DB are encrypted with KMS CMK | checker/cloudformation/rules/encryption/verify_timestream_db_encrypted.rego |
+| CB_CFT_105 | resource | AWS::RDS::DBInstance | Verify RDS DB authentication are enabled | checker/cloudformation/rules/iam/verify_rds_db_auth_enabled.rego |
+| CB_CFT_106 | resource | AWS::RDS::DBCluster | Verify RDS Cluster authentication are enabled | checker/cloudformation/rules/iam/verify_rds_cluster_auth_enabled.rego |
+| CB_CFT_107 | resource | AWS::ECR::Repository | Verify ECR image scan on push are enabled | checker/cloudformation/rules/general-security/verify_ecr_image_scan_push_enabled.rego |
+| CB_CFT_108 | resource | AWS::Transfer::Server | Verify Transfer Server are not exposed to public | checker/cloudformation/rules/general-security/verify_transfer_server_not_public.rego |
+| CB_CFT_109 | resource | AWS::DynamoDB::GlobalTable | Verify that point-in-time recovery (backup) is enabled for the DynamoDB global table | internal\checker\cloudformation\rules\backup-and-recovery\verify_dynamo_time_recovery_enabled.rego |
+| CB_CFT_110 | resource | AWS::Backup::BackupVault | Verify Backup Vault is encrypted using KMS CMK | checker/cloudformation/rules/logging/verify_backup_vault_encrypted.rego |
+| CB_CFT_111 | resource | AWS::QLDB::Ledger | Verify permissions mode for QLDB ledger is set to STANDARD | checker/cloudformation/rules/iam/verify_qldb_permission_standard.rego |
+| CB_CFT_112 | resource | AWS::QLDB::Ledger | Verify deletion protection for QLDB ledger is enabled | checker/cloudformation/rules/general-security/verify_qldb_deletion_enabled.rego |
+| CB_CFT_113 | resource | AWS::Lambda::Function | Verify the encryption settings for the Lambda environment variable | checker/cloudformation/rules/encryption/verify_lambda_encryption_variable.rego |
+| CB_CFT_113 | resource | AWS::Serverless::Function | Verify the encryption settings for the Lambda environment variable | checker/cloudformation/rules/encryption/verify_lambda_encryption_variable.rego |
+| CB_CFT_114 | resource | AWS::CloudFront::Distribution | Verify CloudFront Distribution Viewer Certificate is using TLS v1.2 | checker/cloudformation/rules/encryption/verify_cloudfront_distribution_viewer_certificate.rego |
+| CB_CFT_115 | resource | AWS::WAFv2::WebACL | Verify if WAF Prevents Message Lookup in Log4j2 | checker/cloudformation/rules/application-security/verify_waf_message_lookup_log4j2.rego |
+| CB_CFT_116 | resource | AWS::AppSync::GraphQLApi | Verify AWS AppSync has Logging enabled | checker/cloudformation/rules/logging/verify_appsync_logging_enabled.rego |
+| CB_CFT_117 | resource | AWS::AppSync::GraphQLApi | Verify AWS AppSync has Field-Level logs enabled | checker/cloudformation/rules/logging/verify_appsync_field_level_logs_enabled.rego |
+| CB_CFT_118 | resource | AWS::Glue::Crawler | Verify Glue component has a security configuration associated | checker/cloudformation/rules/encryption/verify_glue_component_security_configuration.rego |
+| CB_CFT_118 | resource | AWS::Glue::DevEndpoint | Verify Glue component has a security configuration associated | checker/cloudformation/rules/encryption/verify_glue_component_security_configuration.rego |
+| CB_CFT_118 | resource | AWS::Glue::Job | Verify Glue component has a security configuration associated | checker/cloudformation/rules/encryption/verify_glue_component_security_configuration.rego |
+| CB_CFT_119 | resource | AWS::AmazonMQ::Broker | Verify AWS MQ Broker Audit logging is enabled | checker/cloudformation/rules/logging/verify_aws_mq_broker_audit_logging_enabled.rego |
+| CB_CFT_120 | resource | AWS::Lambda::Url | Verify Lambda function URLs AuthType is not None | checker/cloudformation/rules/general-security/verify_lambda_function_url_auth_type.rego |
+| CB_CFT_121 | resource | AWS::EC2::SecurityGroup | Verify Security Groups allowing ingress from 0.0.0.0/0 to port 80 | checker/cloudformation/rules/networking/verify_security_group_port_80.rego |
+| CB_CFT_121 | resource | AWS::EC2::SecurityGroupIngress | Verify Security Groups allowing ingress from 0.0.0.0/0 to port 80 | checker/cloudformation/rules/networking/verify_security_group_port_80.rego |
+| CB_CFT_122 | resource | AWS::Elasticsearch::Domain | Verify Elasticsearch Domain Audit Logging is enabled | checker/cloudformation/rules/logging/verify_elasticsearch_domain_audit_logging_enabled.rego |
+| CB_CFT_122 | resource | AWS::OpenSearchService::Domain | Verify Elasticsearch Domain Audit Logging is enabled | checker/cloudformation/rules/logging/verify_elasticsearch_domain_audit_logging_enabled.rego |
+| CB_CFT_123 | resource | AWS::DocDB::DBCluster | Verify DocumentDB has an adequate backup retention period | checker/cloudformation/rules/encryption/verify_documentdb_backup_retention_period.rego |
+| CB_CFT_124 | resource | AWS::Neptune::DBCluster | Verify Neptune DB cluster has automated backups enabled | checker/cloudformation/rules/backup-and-recovery/verify_neptune_db_backup_enabled.rego |
+| CB_CFT_125 | resource | AWS::Lambda::Function | Verify runtime for Lambda is not deprecated | checker/cloudformation/rules/general-security/verify_lambda_runtime_not_deprecated.rego |
+| CB_CFT_125 | resource | AWS::Serverless::Function | Verify runtime for Lambda is not deprecated | checker/cloudformation/rules/general-security/verify_lambda_runtime_not_deprecated.rego |
+| CB_CFT_126 | resource | AWS::Lambda::Permission | Verify AWS Lambda function are delegated to AWS services | checker/cloudformation/rules/iam/verify_lambda_delegated_aws.rego |
