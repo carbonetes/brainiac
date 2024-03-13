@@ -7,7 +7,6 @@
 #   id: CB_CFT_38
 #   severity: HIGH
 package lib.cloudformation.CB_CFT_38
-
 import future.keywords.in
 
 resource := "AWS::DAX::Cluster"
