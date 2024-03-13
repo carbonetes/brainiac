@@ -6,9 +6,8 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
 # custom:
 #   id: CB_CFT_44
-#   severity: High
+#   severity: HIGH
 package lib.cloudformation.CB_CFT_44
-
 import future.keywords.in
 
 resource := "AWS::S3::Bucket"
