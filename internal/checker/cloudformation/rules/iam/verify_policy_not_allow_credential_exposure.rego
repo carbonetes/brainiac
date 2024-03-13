@@ -9,7 +9,7 @@
 #   severity: LOW
 package lib.cloudformation.CB_CFT_84
 
-import data.lib.cloudformation 
+import data.lib.cloudformation
 import future.keywords.in
 
 is_valid {
@@ -39,7 +39,6 @@ fail[properties] {
     some statement in policy.Statement
     statement.Effect == "Allow"
     some actions in statement.Action
-    actions == "*"
     actions in cloudformation.exposed
 }
 
@@ -51,7 +50,6 @@ fail[properties] {
     some deny in statement.Statement
     deny.Effect == "Allow"
     some actions in deny.Action
-    actions == "*"
     actions in cloudformation.exposed
 }
 
