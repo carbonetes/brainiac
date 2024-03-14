@@ -5,22 +5,34 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html
 # custom:
-#   id: CB_CFT_070
+#   id: CB_CFT_075
 #   severity: LOW
-package lib.cloudformation.CB_CFT_070
+package lib.cloudformation.CB_CFT_075
 import future.keywords.in
 
-resource := "AWS::ApiGatewayV2::Stage"
-
 is_valid {
+	supported_resources := ["AWS::Serverless::HttpApi", "AWS::ApiGatewayV2::Stage" ]
 	some resources in input.Resources
-	resources.Type == resource
+	resources.Type in supported_resources
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(fail) > 0
+	type := resource.Type
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(pass) > 0
+	type := resource.Type
 }
 
 pass[log_settings] {
 	is_valid
 	some resources in input.Resources
-	resources.Type == resource
 	log_settings := resources.Properties.AccessLogSettings
 	log_settings.DestinationArn != ""
 }
