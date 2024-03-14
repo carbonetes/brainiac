@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify DocumentDB is encrypted at rest (default is unencrypted)"
-# description: "By default, DocumentDB clusters are not encrypted at rest. Enabling encryption adds an additional layer of security by scrambling your data at rest, making it unreadable to anyone who shouldn't see it, even if they gain access to the underlying storage."
+# title: "Verify encryption for DocumentDB is at rest"
+# description: "This policy ensures that Amazon DocumentDB clusters benefit from encryption, providing an added layer of data security against unauthorized access to the underlying storage. Encryption utilizes keys managed through the AWS Key Management Service (KMS), securing data at rest including backups, snapshots, and replicas within the cluster."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbcluster.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify IAM role allows only to specific sevices or principal assumed"
-# description: "This policy outlines the function of an IAM role, akin to an IAM user, possessing specific permissions within AWS. When a user assumes this role, they obtain temporary security credentials for a set session. It's essential to restrict the list of entities authorized to assume this role, excluding * which allows any authenticated entity across AWS to do so. We recommend creating precise roles tailored to individual services or entities. For example, when configuring an AWS service role, grant only the necessary permissions for accessing required AWS resources. Alternatively, using a principal as an entity capable of action and resource access helps minimize wildcard usage in policy documents, bolstering security."
+# description: "This policy establishes IAM roles with defined permissions, similar to IAM users. It restricts the list of principals able to assume a role, discouraging the use of *. We recommend crafting precise roles for specific services or principles, minimizing wildcard usage in policy documents."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html

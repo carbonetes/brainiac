@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify all data on SNS Topic are encrypted"
-# description: "Checks if encryption is specified for all data stored in AWS SNS Topic. AWS SNS Topic, part of Amazon Simple Notification Service (SNS), supports encryption, ensuring the secure transmission of sensitive data when messages are published to encrypted topics using customer master keys (CMK) powered by AWS KMS."
+# description: "This policy ensures that in Amazon SNS, messages published to encrypted topics can be encrypted using customer master keys (CMK) provided by AWS KMS. In regulated markets like healthcare (HIPAA), finance (PCI DSS), or government (FedRAMP), encrypting sensitive data messages transmitted through this service is imperative to maintain data security at rest."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html

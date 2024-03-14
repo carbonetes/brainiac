@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify CloudTrail log validation are enabled"
-# description: "AWS CloudTrail documents AWS API calls, accessible per IAM policies. AWS KMS manages encryption keys with HSMs. CloudTrail logs use SSE and KMS CMKs for security. Configure CloudTrail with SSE-KMS for added confidentiality. Users need S3 read permission and CMK decryption rights for log access."
+# title: "Verify validation for Cloudtrail log are enabled"
+# description: "This policy to ensure CloudTrail log file validation is implemented, generating digitally signed digest files containing hashes for each log written to S3 by CloudTrail. These files help detect any changes, deletions, or unchanged states of log files after delivery by CloudTrail. Enabling file validation for all CloudTrails is recommended to bolster integrity checks for CloudTrail logs."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudtrail-trail.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Immutability for ECR Image Tags."
-# description: "This directive mandates the immutability of image tags within the Elastic Container Registry (ECR), fostering stability and reliability in container image management."
+# description: "This policy introduces immutable tags in Amazon ECR, preventing tag overwrites. It allows users to rely on descriptive tags to uniquely identify images, aiding in version tracking and correlation with builds."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html

@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify the secure encryption status of data stored in the RDS at rest."
+# title: "Verify all data stored in RDS is encrypted at rest"
 # description: "This policy ensures enhanced security and compliance with data-at-rest encryption regulations for your cloud databases, providing robust protection and regulatory adherence."
 # scope: package
 # related_resources:

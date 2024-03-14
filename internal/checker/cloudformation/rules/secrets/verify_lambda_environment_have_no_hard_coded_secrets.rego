@@ -11,17 +11,24 @@
 package lib.cloudformation.CB_CFT_031
 import future.keywords.in
 
-resource := ["AWS::Lambda::Function", "AWS::Serverless::Function"]
-
 is_valid {
+	supported_resources := ["AWS::Lambda::Function", "AWS::Serverless::Function"]
 	some resources in input.Resources
-	resources.Type in resource
+	resources.Type in supported_resources
 }
 
-pass[resources] {
+resource[type] {
+	some resource in input.Resources
 	is_valid
-	resources := input.Resources
-	count(fail) == 0
+	count(fail) > 0
+	type := resource.Type
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(pass) > 0
+	type := resource.Type
 }
 
 fail[block] {
@@ -31,6 +38,12 @@ fail[block] {
 	regex_pattern = `^arn:aws:secretsmanager:[a-z0-9-]+:[0-9]+:secret:[a-zA-Z0-9-_]+$`
 	regex.match(regex_pattern, environment_variables)
 	block := resources.Properties.Environment.Variables
+}
+
+pass[resources] {
+	is_valid
+	resources := input.Resources
+	count(fail) == 0
 }
 
 passed[result] {

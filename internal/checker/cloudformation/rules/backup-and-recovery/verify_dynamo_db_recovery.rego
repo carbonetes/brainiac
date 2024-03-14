@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify point-in-time recovery (backup) for DynamoDB is enabled"
-# description: "DynamoDB Point-in-Time Recovery acts as a safety net for your tables. It automatically creates backups of your data, allowing you to restore your table to a specific point in time in case of accidental deletions or edits."
+# description: "This policy entails DynamoDB Point-In-Time Recovery (PITR), an automatic backup service for DynamoDB tables. It guards against accidental write or delete operations by providing continuous backups and allowing restoration of table data from any point within the last 35 days, including incremental backups."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html

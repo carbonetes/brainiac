@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify IAM policies attached only to groups or roles"
-# description: "IAM users, groups, and roles lack access to AWS resources by default. Privileges are granted through IAM policies, which streamline access management by assigning privileges at the group or role level. This approach minimizes complexity, especially with a growing user base, and helps prevent unintended privilege escalation. We advise applying IAM policies directly to groups and roles rather than individual users."
+# description: "This policy dictates that IAM users, groups, and roles have no default access to AWS resources. Access privileges are granted through IAM policies. Assigning privileges at the group or role level simplifies access management, reducing the risk of inadvertent privilege escalation. It is recommended to apply IAM policies directly to groups and roles, not individual users."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify ALB protocol is HTTPS"
-# description: "Verifying ALB protocol is HTTPS in AWS CloudFormation involves confirming that the specified Application Load Balancer (ALB) is configured to use the secure HTTPS protocol."
+# description: "This policy exposes an AWS ELB/ALB to the internet, providing a publicly accessible DNS name for accepting HTTP(S) requests. However, without HTTPS listeners, it opens vulnerabilities to man-in-the-middle attacks and traffic interception between web clients and the load balancer."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html

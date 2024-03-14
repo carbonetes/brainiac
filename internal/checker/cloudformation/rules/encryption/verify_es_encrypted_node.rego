@@ -1,6 +1,6 @@
  # METADATA
-# title: "Verify that all information stored within Elasticsearch has node-to-node encryption enabled."
-# description: "This policy enables secure hosting of sensitive workloads by implementing encryption at rest. This feature safeguards data stored on instances within a cluster using encryption protocols, ensuring protection against unauthorized access." 
+# title: "Verify node-to-node encryption for Elasticsearch are enabled."
+# description: "This policy ensures that sensitive workloads hosted on the AWS Elasticsearch Service benefit from node-to-node encryption using Transport Layer Security (TLS). It guarantees that data transmitted over HTTPS to your Amazon Elasticsearch Service domain remains encrypted during distribution and replication across nodes." 
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html
