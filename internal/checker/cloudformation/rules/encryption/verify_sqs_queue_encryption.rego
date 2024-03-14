@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify all data on SQS Queue are encrypted"
-# description: "Checks if encryption is specified for all data stored in AWS SQS Queue. Amazon Simple Queue Service (SQS) offers encryption capabilities for queues, ensuring the secure transmission of sensitive data."
+# description: "This policy ensures that Amazon Simple Queue Service (SQS) encrypts queues for secure transmission of sensitive data using server-side encryption (SSE). It supports both AWS managed keys and Customer managed CMKs. However, only the message body is encrypted, not the queue or message metadata, and backlogged messages remain unencrypted. Compliance with regulations like HIPAA, PCI DSS, or FedRAMP requires encrypting sensitive data messages. It's recommended to encrypt data queued using SQS."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queue.html

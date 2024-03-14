@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that all data stored in the launch configurations for EBS instances is properly encrypted to guarantee security."
+# title: "Verify all data stored in EBS instances is properly encrypted"
 # description: "This policy outlines the setup of an Auto Scaling group responsible for configuring Amazon EC2 instances, particularly focusing on those utilizing Elastic Block Store (EBS). It emphasizes the importance of verifying that all data stored within the launch configurations for EBS instances is adequately encrypted to maintain security standards. Furthermore, it recommends utilizing the UpdatePolicy attribute, along with provided sample policies, to ensure that updates to the configuration affect existing instances while preserving their integrity."
 # scope: package
 # related_resources:

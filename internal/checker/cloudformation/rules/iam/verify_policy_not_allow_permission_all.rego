@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify IAM policy does not allow assumed role permission"
-# description: "This policy defines permissions for an IAM role, functioning similarly to an IAM user. When a user assumes this role, it receives temporary credentials for a limited session. It's recommended to create specialized roles for specific services or principles. For example, when configuring an AWS service role, include only essential permissions for accessing required resources. Alternatively, using a Principal entity allows actions and resource access, limiting wildcard usage within policy documents."
+# description: "This policy establishes IAM roles, similar to IAM users, with specific permissions and AWS identity. Users assuming roles receive temporary credentials. We recommend creating precise roles for services, minimizing wildcard usage in policy documents. Alternatively, use Principal entities in AWS for actions and resource access."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
