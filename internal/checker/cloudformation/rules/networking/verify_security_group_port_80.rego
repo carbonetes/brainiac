@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroup.html
 # custom:
-#   id: CB_CFT_121
+#   id: CB_CFT_116
 #   severity: LOW
-package lib.cloudformation.CB_CFT_121
+package lib.cloudformation.CB_CFT_116
 
 import future.keywords.in
 

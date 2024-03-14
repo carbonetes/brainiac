@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_108
+package lib.cloudformation.CB_CFT_103
 
 test_verify_transfer_server_not_public_pass {
     result := passed with input as {

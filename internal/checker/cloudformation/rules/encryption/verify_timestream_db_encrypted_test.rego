@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_104
+package lib.cloudformation.CB_CFT_099
 
 test_timestream_db_encrypted_pass {
 	result := passed with input as {

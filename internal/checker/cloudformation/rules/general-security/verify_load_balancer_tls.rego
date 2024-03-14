@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
 # custom:
-#   id: CB_CFT_81
+#   id: CB_CFT_076
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_81
+package lib.cloudformation.CB_CFT_076
 import future.keywords.in
 
 resource := "AWS::ElasticLoadBalancingV2::Listener"

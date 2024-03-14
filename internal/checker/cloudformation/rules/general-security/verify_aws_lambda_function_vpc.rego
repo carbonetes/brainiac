@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify AWS Lambda Function VPC Configuration"
+# title: "Verify that AWS Lambda function is configured inside a VPC"
 # description: "Lambda securely runs functions within its isolated VPC, separate from the account's default VPC, and to grant internet access from a private subnet, you need to route outbound traffic to a NAT gateway in a public subnet."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # custom:
-#   id: CB_CFT_091
+#   id: CB_CFT_086
 #   severity: LOW
-package lib.cloudformation.CB_CFT_091
+package lib.cloudformation.CB_CFT_086
 
 import future.keywords.in
 

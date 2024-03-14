@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_82
+package lib.cloudformation.CB_CFT_077
 
 test_documentdb_audit_logs_enabled_pass {
     result := passed with input as {

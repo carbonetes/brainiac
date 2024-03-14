@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html
 # custom:
-#   id: CB_CFT_122
+#   id: CB_CFT_117
 #   severity: LOW
-package lib.cloudformation.CB_CFT_122
+package lib.cloudformation.CB_CFT_117
 
 import future.keywords.in
 

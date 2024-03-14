@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-httpapi.html
 # custom:
-#   id: CB_CFT_75
+#   id: CB_CFT_70
 #   severity: LOW
-package lib.cloudformation.CB_CFT_75    
+package lib.cloudformation.CB_CFT_70
 import future.keywords.in
 
 resource := "AWS::Serverless::HttpApi"

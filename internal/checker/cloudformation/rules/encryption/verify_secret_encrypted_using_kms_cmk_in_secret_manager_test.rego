@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_098
+package lib.cloudformation.CB_CFT_093
 
 test_secret_manager_encrypted_kms_cmk {
 	result := passed with input as {"Resources": {"MySecret": {

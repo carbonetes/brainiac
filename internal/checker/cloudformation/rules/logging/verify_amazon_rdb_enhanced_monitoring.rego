@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html
 # custom:
-#   id: CB_CFT_092
+#   id: CB_CFT_087
 #   severity: LOW
-package lib.cloudformation.CB_CFT_092
+package lib.cloudformation.CB_CFT_087
 
 import future.keywords.in
 

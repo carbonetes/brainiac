@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_87
+package lib.cloudformation.CB_CFT_082
 
 test_verify_policy_not_allow_privilege_escalation_pass {
     result := passed with input as {

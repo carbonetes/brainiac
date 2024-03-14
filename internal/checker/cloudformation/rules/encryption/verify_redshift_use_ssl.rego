@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-clusterparametergroup.html
 # custom:
-#   id: CB_CFT_83
+#   id: CB_CFT_078
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_83
+package lib.cloudformation.CB_CFT_078
 import future.keywords.in
 
 resource := "AWS::Redshift::ClusterParameterGroup"

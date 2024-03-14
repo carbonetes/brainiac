@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_84
+package lib.cloudformation.CB_CFT_079
 
 test_verify_policy_not_allow_credential_exposed_pass {
     result := passed with input as {

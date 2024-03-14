@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-backup-backupvault.html
 # custom:
-#   id: CB_CFT_110
+#   id: CB_CFT_105
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_110
+package lib.cloudformation.CB_CFT_105
 import future.keywords.in
 
 resource := "AWS::Backup::BackupVault"

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_091
+package lib.cloudformation.CB_CFT_086
 
 test_aws_lambda_function_vpc_configured {
 	result := passed with input as {"Resources": {

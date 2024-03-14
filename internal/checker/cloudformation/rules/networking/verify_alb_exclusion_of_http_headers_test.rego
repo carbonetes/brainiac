@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_096
+package lib.cloudformation.CB_CFT_091
 
 test_alb_drop_http_header {
 	result := passed with input as {"Resources": {"MyLoadBalancer": {

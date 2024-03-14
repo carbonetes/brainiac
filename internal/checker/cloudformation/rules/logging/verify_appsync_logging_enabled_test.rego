@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_116
+package lib.cloudformation.CB_CFT_111
 
 test_verify_appsync_logging_enabled {
     result := passed with input as {"Resources": {

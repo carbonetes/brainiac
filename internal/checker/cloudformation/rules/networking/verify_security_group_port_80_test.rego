@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_121
+package lib.cloudformation.CB_CFT_116
 
 test_verify_security_group_port_80_allowed {
     result := passed with input as {"Resources": {

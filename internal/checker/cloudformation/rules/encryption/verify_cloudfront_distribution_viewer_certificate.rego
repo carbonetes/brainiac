@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html
 # custom:
-#   id: CB_CFT_114
+#   id: CB_CFT_109
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_114
+package lib.cloudformation.CB_CFT_109
 
 import future.keywords.in
 

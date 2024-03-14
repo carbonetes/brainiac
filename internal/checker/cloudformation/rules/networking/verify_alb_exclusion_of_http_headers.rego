@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify the ALB's Exclusion of HTTP Headers."
+# title: "Verify the ALB's Exclusion of HTTP Headers"
 # description: "Validate that the Application Load Balancer (ALB) is configured to discard specific HTTP headers."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
 # custom:
-#   id: CB_CFT_096
+#   id: CB_CFT_091
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_096
+package lib.cloudformation.CB_CFT_091
 import future.keywords.in
 
 resource := "AWS::ElasticLoadBalancingV2::LoadBalancer"

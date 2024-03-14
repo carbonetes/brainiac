@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_125
+package lib.cloudformation.CB_CFT_120
 
 test_verify_lambda_runtime_not_deprecated_pass {
     result := passed with input as {

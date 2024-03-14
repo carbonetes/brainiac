@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_102
+package lib.cloudformation.CB_CFT_097
 
 test_multi_az_enabled_rds_instance {
 	result := passed with input as {"Resources": {"MyDBInstance":{

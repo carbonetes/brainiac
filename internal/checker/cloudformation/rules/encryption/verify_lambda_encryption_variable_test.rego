@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_113
+package lib.cloudformation.CB_CFT_108
 
 test_lambda_function_encryption_settings_pass {
     result := passed with input as {

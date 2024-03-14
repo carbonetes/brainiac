@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-qldb-ledger.html
 # custom:
-#   id: CB_CFT_112
+#   id: CB_CFT_107
 #   severity: LOW
-package lib.cloudformation.CB_CFT_112
+package lib.cloudformation.CB_CFT_107
 import future.keywords.in
 
 resource := "AWS::QLDB::Ledger"

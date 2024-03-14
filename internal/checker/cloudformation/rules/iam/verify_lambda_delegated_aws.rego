@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html
 # custom:
-#   id: CB_CFT_126
+#   id: CB_CFT_121
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_126
+package lib.cloudformation.CB_CFT_121
 import future.keywords.in
 
 resource := "AWS::Lambda::Permission"

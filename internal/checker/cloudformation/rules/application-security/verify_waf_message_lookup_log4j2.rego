@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify if WAF Prevents Message Lookup in Log4j2. See CVE-2021-44228, aka log4jshell, for more information."
-# description: "Using an outdated Apache Log4j library could allow attackers to exploit a Lookup mechanism, enabling requests with special syntax in a format string and posing risks like code execution and data leakage."
+# title: "Verify if WAF Prevents Message Lookup in Log4j2."
+# description: "Using an outdated Apache Log4j library could allow attackers to exploit a Lookup mechanism, enabling requests with special syntax in a format string and posing risks like code execution and data leakage. See CVE-2021-44228, aka log4jshell, for more information."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-webacl.html
 # custom:
-#   id: CB_CFT_115
+#   id: CB_CFT_110
 #   severity: CRITICAL
-package lib.cloudformation.CB_CFT_115
+package lib.cloudformation.CB_CFT_110
 
 import future.keywords.in
 

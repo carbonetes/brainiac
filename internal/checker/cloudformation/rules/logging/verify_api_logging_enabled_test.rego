@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_75
+package lib.cloudformation.CB_CFT_70
 
 test_httpapi_access_log_pass {
     result := passed with input as {

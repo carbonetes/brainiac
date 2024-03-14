@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-neptune-dbcluster.html
 # custom:
-#   id: CB_CFT_124
+#   id: CB_CFT_119
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_124
+package lib.cloudformation.CB_CFT_119
 import future.keywords.in
 
 resource := "AWS::Neptune::DBCluster"

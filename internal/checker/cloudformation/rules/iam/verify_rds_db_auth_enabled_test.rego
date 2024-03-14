@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_105
+package lib.cloudformation.CB_CFT_100
 
 test_verify_rds_db_auth_enabled_pass {
     result := passed with input as {
