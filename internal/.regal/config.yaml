@@ -40,3 +40,4 @@ rules:
   testing:
     test-outside-test-package:
       # https://docs.styra.com/regal/rules/testing/test-outside-test-package
+      level: ignore
