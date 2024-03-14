@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify if WAF Prevents Message Lookup in Log4j2."
-# description: "Using an outdated Apache Log4j library could allow attackers to exploit a Lookup mechanism, enabling requests with special syntax in a format string and posing risks like code execution and data leakage. See CVE-2021-44228, aka log4jshell, for more information."
+# description: "This policy advises against using vulnerable versions of the Apache Log4j library, which could enable attackers to exploit a Lookup mechanism. By setting your Web Application Firewall (WAF) to block the execution of such mechanisms, you can mitigate risks such as code execution and data leakage."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafv2-webacl.html

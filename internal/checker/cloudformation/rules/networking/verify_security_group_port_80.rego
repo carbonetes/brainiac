@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Security Groups allowing ingress from 0.0.0.0/0 to port 80"
-# description: "Exposing port 80 (HTTP) to all IP addresses (0.0.0.0/0) on your AWS resources poses a security risk, as it facilitates potential unauthorized access and increases vulnerability to external threats."
+# description: "This policy discourages allowing ingress from 0.0.0.0/0 to port 80, as it exposes AWS resources to potential security threats. To mitigate risks, specify allowed IP addresses or ranges and restrict traffic accordingly."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroup.html

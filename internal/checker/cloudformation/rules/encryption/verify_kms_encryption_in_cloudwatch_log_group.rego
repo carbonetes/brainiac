@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify KMS encryption in Cloudwatch log group"
-# description: "Ensure KMS encryption in CloudWatch Log Group by confirming the Log Group's KmsKeyId property is set to the desired KMS key ARN."
+# title: "Verify KMS encryption for Cloudwatch log group"
+# description: "This policy requires encryption settings for log group data in CloudWatch Logs. While developers can use AWS Key Management Service for encryption, there are limitations: revoking access to CloudWatch Logs or deleting an associated KMS key will prevent retrieval of encrypted data. Additionally, associating a KMS key with a log group isn't supported through the CloudWatch console."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify that API Gateway caching is enabled"
-# description: "Checks if all methods in your API Gateway stage have caching enabled. Caching reduces the number of calls to your backend service and improves API response times for your users."
+# description: "This policy ensures caching is enabled for all methods in an Amazon API Gateway stage, aiming to reduce endpoint calls and improve request latency, as stated by AWS."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html

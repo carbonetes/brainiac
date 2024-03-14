@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify that Redshift is deployed exclusively within a VPC"
-# description: "Ensure thorough validation by verifying that the deployment of Amazon Redshift is exclusively contained within a Virtual Private Cloud (VPC)."
+# description: "This policy involves deploying Redshift within a VPC to regulate inbound and outbound network traffic using security groups and NACLs, enhancing cluster security and protecting against unauthorized access or attacks."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html

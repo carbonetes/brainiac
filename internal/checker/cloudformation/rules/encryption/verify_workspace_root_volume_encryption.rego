@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify workspace root volume encryption"
-# description: "Confirm the encryption status of Workspace root volumes to ensure data security."
+# title: "Verify encryption for Workspace root volumes"
+# description: "This policy advises encrypting Workspace root volumes to restrict unauthorized access or tampering, safeguarding against external threats like hackers or malware, as well as internal risks such as accidental or unauthorized access."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html

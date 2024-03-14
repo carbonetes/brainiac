@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify workspace user volume encryption"
-# description: "Confirm the encryption status of Workspace user volumes to ensure data security."
+# title: "Verify encryption for Workspace user volumes"
+# description: "This policy advocates encrypting Workspace user volumes to restrict unauthorized access or tampering, thereby guarding against both external threats like hackers or malware and internal risks such as accidental or unauthorized access."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html

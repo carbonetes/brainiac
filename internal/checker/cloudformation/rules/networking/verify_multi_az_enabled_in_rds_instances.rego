@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Multi-AZ enabled in RDS instances"
-# description: "Ensure the Multi-AZ feature is enabled for RDS instances to enhance database availability and fault tolerance."
+# description: "This policy ensures enhanced availability for databases in a region through Amazon RDS Multi-AZ deployments. In case of an outage, if Multi-AZ is enabled, Amazon RDS automatically switches to a standby replica in another Availability Zone."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html

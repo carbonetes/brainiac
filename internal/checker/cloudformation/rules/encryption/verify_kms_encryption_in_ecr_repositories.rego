@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify KMS encryption in  ECR repositories"
-# description: "Ensure the implementation of Key Management Service (KMS) encryption is validated within Amazon Elastic Container Registry (ECR) repositories."
+# title: "Verify KMS encryption in ECR repositories"
+# description: "This policy recommends encrypting ECR repositories to prevent unauthorized access or tampering, protecting against external threats like hackers or malware, as well as internal risks such as accidental or unauthorized access."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
