@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify AWS Lambda function is configured for function-level concurrent execution limit"
+# title: "Verify that AWS Lambda function is configured for function-level concurrent execution limit"
 # description: "Enabling concurrency in Lambda for handling multiple requests at once may raise costs and pose a risk of misuse; setting concurrency limits helps manage usage and costs effectively."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # custom:
-#   id: CB_CFT_089
+#   id: CB_CFT_084
 #   severity: LOW
-package lib.cloudformation.CB_CFT_089
+package lib.cloudformation.CB_CFT_084
 
 import future.keywords.in
 

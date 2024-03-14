@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_78
+package lib.cloudformation.CB_CFT_073
 
 test_glue_security_configuration_pass {
     result := passed with input as {

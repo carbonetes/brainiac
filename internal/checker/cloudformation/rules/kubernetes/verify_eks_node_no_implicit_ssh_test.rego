@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_79
+package lib.cloudformation.CB_CFT_074
 
 test_verify_eks_node_no_implicit_ssh_pass {
     result := passed with input as {

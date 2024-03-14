@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_075
+package lib.cloudformation.CB_CFT_070
 
 test_access_logging_enabled_api_gateway_v2 {
 	result := passed with input as {"Resources": {"MyApiGatewayStage": {

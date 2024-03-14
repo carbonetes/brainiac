@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_097
+package lib.cloudformation.CB_CFT_092
 
 test_kms_encryption_ecr_repositories {
 	result := passed with input as {"Resources": { "MyECRRepository": {

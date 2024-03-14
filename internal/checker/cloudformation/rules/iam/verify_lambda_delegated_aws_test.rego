@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_126
+package lib.cloudformation.CB_CFT_121
 
 test_verify_lambda_function_delegeated_to_aws_pass {
     result := passed with input as {

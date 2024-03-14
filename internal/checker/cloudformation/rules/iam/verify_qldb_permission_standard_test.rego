@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_111
+package lib.cloudformation.CB_CFT_106
 
 test_verify_qldb_ledger_permission_standard_pass {
     result := passed with input as {

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_112
+package lib.cloudformation.CB_CFT_107
 
 test_verify_qldb_deletion_enabled_pass {
     result := passed with input as {

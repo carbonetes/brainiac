@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify AWS Lambda function is configured for a Dead Letter Queue(DLQ)"
+# title: "Verify that AWS Lambda function is configured for a Dead Letter Queue(DLQ)"
 # description: "Establishing a Dead Letter Queue (DLQ) provides an opportunity to investigate errors or unsuccessful requests related to the connected Lambda function."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # custom:
-#   id: CB_CFT_090
+#   id: CB_CFT_085
 #   severity: LOW
-package lib.cloudformation.CB_CFT_090
+package lib.cloudformation.CB_CFT_085
 
 import future.keywords.in
 

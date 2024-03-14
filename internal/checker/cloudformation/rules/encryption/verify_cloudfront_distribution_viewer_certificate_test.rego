@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_114
+package lib.cloudformation.CB_CFT_109
 
 test_verify_cloudfront_distribution_viewer_certificate_tlsv1_2 {
     result := passed with input as {"Resources": {

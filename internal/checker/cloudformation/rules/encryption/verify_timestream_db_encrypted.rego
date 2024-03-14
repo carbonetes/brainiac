@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-timestream-database.html
 # custom:
-#   id: CB_CFT_104
+#   id: CB_CFT_099
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_104
+package lib.cloudformation.CB_CFT_099
 import future.keywords.in
 
 resource := "AWS::Timestream::Database"

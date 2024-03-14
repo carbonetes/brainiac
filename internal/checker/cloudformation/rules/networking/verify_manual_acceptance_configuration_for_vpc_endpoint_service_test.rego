@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_095
+package lib.cloudformation.CB_CFT_090
 
 test_vpc_endpoint_service_manual_acceptance {
 	result := passed with input as {"Resources": {"MyVPCEndpointService": {

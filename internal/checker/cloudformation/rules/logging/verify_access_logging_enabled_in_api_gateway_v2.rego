@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html
 # custom:
-#   id: CB_CFT_075
+#   id: CB_CFT_070
 #   severity: LOW
-package lib.cloudformation.CB_CFT_075
+package lib.cloudformation.CB_CFT_070
 import future.keywords.in
 
 resource := "AWS::ApiGatewayV2::Stage"

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbclusterparametergroup.html
 # custom:
-#   id: CB_CFT_82
+#   id: CB_CFT_077
 #   severity: LOW
-package lib.cloudformation.CB_CFT_82
+package lib.cloudformation.CB_CFT_077
 import future.keywords.in
 
 resource := "AWS::DocDB::DBClusterParameterGroup"

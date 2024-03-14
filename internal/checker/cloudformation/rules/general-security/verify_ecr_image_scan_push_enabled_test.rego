@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_107
+package lib.cloudformation.CB_CFT_102
 
 test_verify_ecr_image_scan_push_enabled_pass {
     result := passed with input as {

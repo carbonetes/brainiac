@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_100
+package lib.cloudformation.CB_CFT_095
 
 test_workspace_user_volume_encrypted {
 	result := passed with input as {
