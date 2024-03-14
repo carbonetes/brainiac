@@ -21,7 +21,7 @@ const (
 	FileTypeYAML           string = "yaml"
 	FileTypeJSON           string = "json"
 	FileTypeHelm           string = "helm"
-	FileTypeAzureARM       string = "azure-arm"
+	FileTypeAzureARM       string = "azurearm"
 
 	TypeSlice  string = "!!seq"
 	TypeMap    string = "!!map"
@@ -58,6 +58,9 @@ func ConfigType(file string) string {
 
 	if isTerraform(file) {
 		return FileTypeTerraform
+	}
+	if isAzureARM(file) {
+		return FileTypeAzureARM
 	}
 	return ""
 }
@@ -107,6 +110,32 @@ func isDockerfile(configFile string) bool {
 	}
 	return false
 
+}
+
+func isAzureARM(configFile string) bool {
+	fileExtension := filepath.Ext(configFile)
+	if fileExtension != ".json" {
+		return false
+	}
+
+	file, err := os.ReadFile(configFile)
+	if err != nil {
+		return false
+	}
+
+	var templateResult map[string]interface{}
+	if err := json.Unmarshal(file, &templateResult); err != nil {
+		return false
+	}
+
+	requiredSections := []string{"$schema", "contentVersion", "resources"}
+	for _, section := range requiredSections {
+		if _, ok := templateResult[section]; !ok {
+			return false
+		}
+	}
+
+	return true
 }
 
 // check if the config is kubernetes
