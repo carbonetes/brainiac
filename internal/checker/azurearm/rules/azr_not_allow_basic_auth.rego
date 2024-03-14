@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Azure Instance does not use basic authentication(Use SSH Key Instead)"
-# description: ""
+# description: "Ensuring Azure instances do not use basic authentication but rather SSH keys enhances security and simplifies authentication management."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines?pivots=deployment-language-arm-template
