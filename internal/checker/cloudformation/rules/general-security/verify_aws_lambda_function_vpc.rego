@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify AWS Lambda Function VPC Configuration"
-# description: "Lambda securely runs functions within its isolated VPC, separate from the account's default VPC, and to grant internet access from a private subnet, you need to route outbound traffic to a NAT gateway in a public subnet."
+# title: "Verify that AWS Lambda function is configured inside a VPC"
+# description: "This policy ensures that Lambda functions operate within a secure VPC, isolated from the account's default VPC. To provide internet access from private subnets, Network Address Translation (NAT) is required. Route outbound traffic to a NAT gateway in a public subnet to grant internet access to your function."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html

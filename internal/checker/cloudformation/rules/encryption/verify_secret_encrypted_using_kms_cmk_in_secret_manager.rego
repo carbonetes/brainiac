@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify secret encrypted using KMS CMK in Secret Manager"
-# description: "This CloudFormation template ensures encryption of the MySecretName in AWS Secrets Manager using a specified KMS Customer Master Key."
+# description: "This policy suggests using a customer-managed key instead of the default AWS-managed key aws/secretsmanager for encrypting secrets in Secrets Manager."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html

@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify DynamoDB Tables are encrypted using a KMS Customer Managed CMK"
-# description: "Securing your Amazon DynamoDB through encryption safeguards your data, preventing unauthorized access or tampering."
+# title: "Verify encryption for DynamoDB Tables using KMS CMK"
+# description: "This policy encrypts Amazon DynamoDB to prevent unauthorized access or tampering, protecting against external threats like hackers or malware, as well as internal risks such as accidental or unauthorized access."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html

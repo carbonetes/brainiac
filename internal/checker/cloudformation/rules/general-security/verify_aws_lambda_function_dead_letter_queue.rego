@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify AWS Lambda function is configured for a Dead Letter Queue(DLQ)"
-# description: "Establishing a Dead Letter Queue (DLQ) provides an opportunity to investigate errors or unsuccessful requests related to the connected Lambda function."
+# title: "Verify that AWS Lambda function is configured for a Dead Letter Queue(DLQ)"
+# description: "This policy allows investigation of errors or failed requests to the connected Lambda function through a DLQ or an on-failure destination target. Understanding failure reasons is vital to prevent data loss or compromise, especially with Lambda functions processing security-related data like CloudTrail events."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html

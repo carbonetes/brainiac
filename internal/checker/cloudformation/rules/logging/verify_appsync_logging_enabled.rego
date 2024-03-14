@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify AWS AppSync has Logging enabled"
-# description: "Implementing a robust logging process for AWS AppSync is essential for tracking both manual and programmatic configuration changes and tracing unauthorized modifications."
+# title: "Verify Logging for AWS AppSync is enabled"
+# description: "This policy suggests implementing a comprehensive logging process for AWS AppSync. Doing so helps monitor both manual and programmatic configuration changes, facilitating the identification and tracing of unauthorized modifications."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html

@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that point-in-time recovery (backup) is enabled for the DynamoDB global table."
+# title: "Verify point-in-time recovery (backup) is enabled for the DynamoDB global table."
 # description: "This policy enables point-in-time recovery (PITR) for Amazon DynamoDB global tables, safeguarding against data loss from accidental operations or corruption. It allows restoration to any point within a 35-day recovery window, aiding in undoing unintended changes or recovering from corruption."
 # scope: package
 # related_resources:

@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify the encryption settings for the Lambda environment variable."
+# title: "Verify encryption settings for the Lambda environment variable"
 # description: "This policy allows you to adjust your function's behavior using environment variables, stored in version-specific configuration. The Lambda runtime provides access to these variables and sets additional ones containing function and invocation request details. It's important to note that environment variables are not evaluated before function invocation; they are treated as literal strings. Therefore, variable evaluation should be performed within your function code."
 # scope: package
 # related_resources:
