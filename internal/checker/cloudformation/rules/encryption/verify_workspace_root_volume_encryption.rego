@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html
 # custom:
-#   id: CB_CFT_101
+#   id: CB_CFT_096
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_101
+package lib.cloudformation.CB_CFT_096
 import future.keywords.in
 
 resource := "AWS::WorkSpaces::Workspace"

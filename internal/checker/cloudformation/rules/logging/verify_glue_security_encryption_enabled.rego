@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-securityconfiguration.html
 # custom:
-#   id: CB_CFT_78
+#   id: CB_CFT_073
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_78
+package lib.cloudformation.CB_CFT_073
 import future.keywords.in
 
 resource := "AWS::Glue::SecurityConfiguration"

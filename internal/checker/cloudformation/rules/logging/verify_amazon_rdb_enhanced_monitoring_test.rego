@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_092
+package lib.cloudformation.CB_CFT_087
 
 test_aws_rdb_enhanced_monitoring_enhanced {
 	result := passed with input as {"Resources": {

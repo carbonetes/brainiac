@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html
 # custom:
-#   id: CB_CFT_106
+#   id: CB_CFT_101
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_106
+package lib.cloudformation.CB_CFT_101
 import future.keywords.in
 
 resource := "AWS::RDS::DBCluster"

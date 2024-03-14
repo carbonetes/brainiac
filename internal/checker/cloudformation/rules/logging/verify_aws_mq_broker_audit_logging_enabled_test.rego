@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_119
+package lib.cloudformation.CB_CFT_114
 
 test_verify_aws_mq_broker_audit_logs_enabled {
     result := passed with input as {"Resources": {

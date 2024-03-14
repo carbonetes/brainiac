@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_124
+package lib.cloudformation.CB_CFT_119
 
 test_neptune_backup_retention_passed {
     result := passed with input as {

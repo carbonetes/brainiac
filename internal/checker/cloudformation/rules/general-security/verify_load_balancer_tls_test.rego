@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_81
+package lib.cloudformation.CB_CFT_076
 
 test_verify_load_balancer_tls_pass {
     result := passed with input as {

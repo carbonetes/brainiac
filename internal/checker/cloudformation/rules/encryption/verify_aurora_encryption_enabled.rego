@@ -1,12 +1,12 @@
 # METADATA
 # title: "Verify data stored in Aurora are securely encrypted"
-# description: "This policy evaluates the AWS resource aws-rds-cluster to verify the configuration of encryption. It assesses the property storage-encrypted"
+# description: "This policy evaluates the AWS resource aws-rds-cluster to verify the configuration of encryption. It assesses the property storage-encrypted."
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html
 # custom:
-#   id: CB_CFT_76
+#   id: CB_CFT_071
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_76
+package lib.cloudformation.CB_CFT_071
 import future.keywords.in
 
 resource := "AWS::RDS::DBCluster"

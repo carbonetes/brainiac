@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_103
+package lib.cloudformation.CB_CFT_098
 
 test_kms_encrypted_in_cloudwatch_log_group{
     result := passed with input as {

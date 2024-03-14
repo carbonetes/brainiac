@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_089
+package lib.cloudformation.CB_CFT_084
 
 test_aws_lambda_function_concurrent_execution_configured {
 	result := passed with input as {"Resources": {

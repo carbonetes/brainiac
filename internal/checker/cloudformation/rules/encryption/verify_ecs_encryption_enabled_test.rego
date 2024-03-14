@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_77
+package lib.cloudformation.CB_CFT_072
 
 test_ecs_volume_is_encrypted_securely_pass {
     result := passed with input as {

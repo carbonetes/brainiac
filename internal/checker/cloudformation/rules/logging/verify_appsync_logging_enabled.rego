@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html
 # custom:
-#   id: CB_CFT_116
+#   id: CB_CFT_111
 #   severity: LOW
-package lib.cloudformation.CB_CFT_116
+package lib.cloudformation.CB_CFT_111
 
 import future.keywords.in
 

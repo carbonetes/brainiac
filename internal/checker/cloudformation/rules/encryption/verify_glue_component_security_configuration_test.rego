@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_118
+package lib.cloudformation.CB_CFT_113
 
 test_verify_glue_component_security_configuration_exist {
     result := passed with input as {"Resources": {

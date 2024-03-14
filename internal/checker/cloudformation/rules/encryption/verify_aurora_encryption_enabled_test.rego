@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_76
+package lib.cloudformation.CB_CFT_071
 
 test_aurora_has_encryption_enabled {
     result := passed with input as {

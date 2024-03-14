@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
 # custom:
-#   id: CB_CFT_093
+#   id: CB_CFT_088
 #   severity: LOW
-package lib.cloudformation.CB_CFT_093
+package lib.cloudformation.CB_CFT_088
 
 import future.keywords.in
 

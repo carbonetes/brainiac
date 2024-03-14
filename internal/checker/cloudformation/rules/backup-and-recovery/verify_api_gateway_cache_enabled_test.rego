@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_094
+package lib.cloudformation.CB_CFT_089
 
 test_verify_api_gateway_cache_enabled {
     result := passed with input as {"Resources": {

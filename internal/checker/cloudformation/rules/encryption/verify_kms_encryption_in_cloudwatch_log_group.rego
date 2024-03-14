@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
 # custom:
-#   id: CB_CFT_103
+#   id: CB_CFT_098
 #   severity: LOW
-package lib.cloudformation.CB_CFT_103
+package lib.cloudformation.CB_CFT_098
 import future.keywords.in
 
 resource := "AWS::Logs::LogGroup"

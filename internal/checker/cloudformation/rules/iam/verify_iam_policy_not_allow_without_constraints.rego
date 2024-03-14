@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html
 # custom:
-#   id: CB_CFT_86
+#   id: CB_CFT_081
 #   severity: LOW
-package lib.cloudformation.CB_CFT_86
+package lib.cloudformation.CB_CFT_081
 
 import data.lib.cloudformation
 import future.keywords.in

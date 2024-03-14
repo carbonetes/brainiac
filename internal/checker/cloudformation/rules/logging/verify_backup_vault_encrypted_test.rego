@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_110
+package lib.cloudformation.CB_CFT_105
 
 test_backup_vault_encrypted_pass {
     result := passed with input as {

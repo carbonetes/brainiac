@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
 # custom:
-#   id: CB_CFT_77
+#   id: CB_CFT_072
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_77
+package lib.cloudformation.CB_CFT_072
 import future.keywords.in
 
 resource := "AWS::ECS::TaskDefinition"

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-nodegroup.html
 # custom:
-#   id: CB_CFT_79
+#   id: CB_CFT_074
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_79
+package lib.cloudformation.CB_CFT_074
 import future.keywords.in
 
 resource := "AWS::EKS::Nodegroup"

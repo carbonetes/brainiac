@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # custom:
-#   id: CB_CFT_089
+#   id: CB_CFT_084
 #   severity: LOW
-package lib.cloudformation.CB_CFT_089
+package lib.cloudformation.CB_CFT_084
 
 import future.keywords.in
 

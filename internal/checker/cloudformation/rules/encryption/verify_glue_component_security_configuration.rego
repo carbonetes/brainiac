@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html
 # custom:
-#   id: CB_CFT_118
+#   id: CB_CFT_113
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_118
+package lib.cloudformation.CB_CFT_113
 
 import future.keywords.in
 

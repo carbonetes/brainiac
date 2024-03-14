@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_85
+package lib.cloudformation.CB_CFT_080
 
 test_verify_policy_not_allow_data_exfiltration_pass {
     result := passed with input as {

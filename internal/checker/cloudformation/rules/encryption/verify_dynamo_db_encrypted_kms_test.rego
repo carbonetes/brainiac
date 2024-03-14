@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_093
+package lib.cloudformation.CB_CFT_088
 test_verify_dynamo_db_encrypted_with_kms {
     result := passed with input as {"Resources": {
     "MyDynamoDBTab11le": {

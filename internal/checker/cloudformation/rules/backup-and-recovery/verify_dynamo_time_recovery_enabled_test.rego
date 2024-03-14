@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_109
+package lib.cloudformation.CB_CFT_104
 
 test_dynamodb_globaltable_pitr_enabled_passed {
     result := passed with input as {

@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Security Groups description"
-# description: "Checks if the security groups have a description"
+# description: "This policy suggests adding descriptive text to each Security Group Rule to clarify its intended goals, thereby mitigating potential developer errors."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-securitygroup.html

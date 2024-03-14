@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-globaltable.html
 # custom:
-#   id: CB_CFT_109
+#   id: CB_CFT_104
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_109
+package lib.cloudformation.CB_CFT_104
 import future.keywords.in
 
 resource := "AWS::DynamoDB::GlobalTable"

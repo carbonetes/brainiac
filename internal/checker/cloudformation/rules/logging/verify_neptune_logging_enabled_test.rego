@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_80
+package lib.cloudformation.CB_CFT_075
 
 test_neptune_db_cluster_logs_enabled_pass {
     result := passed with input as {

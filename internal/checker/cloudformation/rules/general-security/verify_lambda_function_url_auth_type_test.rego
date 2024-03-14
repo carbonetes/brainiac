@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_120
+package lib.cloudformation.CB_CFT_115
 
 test_verify_lambda_function_url_auth_type_configured {
     result := passed with input as {"Resources": {

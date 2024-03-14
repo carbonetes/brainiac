@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-broker.html
 # custom:
-#   id: CB_CFT_119
+#   id: CB_CFT_114
 #   severity: LOW
-package lib.cloudformation.CB_CFT_119
+package lib.cloudformation.CB_CFT_114
 
 import future.keywords.in
 

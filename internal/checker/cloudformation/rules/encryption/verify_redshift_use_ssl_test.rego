@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_83
+package lib.cloudformation.CB_CFT_078
 
 test_redshift_use_ssl_pass {
     result := passed with input as {
