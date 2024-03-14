@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_065
+package lib.cloudformation.CB_CFT_060
 
 test_verify_elasticsearch_domain_logging_enabled {
     result := passed with input as {"Resources": {

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
 # custom:
-#   id: CB_CFT_52
+#   id: CB_CFT_047
 #   severity: LOW
-package lib.cloudformation.CB_CFT_52
+package lib.cloudformation.CB_CFT_047
 import future.keywords.in
 
 resource := "AWS::ECS::Cluster"

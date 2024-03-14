@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_32
+package lib.cloudformation.CB_CFT_028
 
 test_efs_is_encrypted_securely {
     result := passed with input as {

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_062
+package lib.cloudformation.CB_CFT_057
 
 test_verify_imdsv1_disabled {
     result := passed with input as {"Resources": {

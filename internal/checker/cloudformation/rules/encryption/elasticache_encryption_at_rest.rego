@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify all data stored in the ElastiCache Group is encrypted at rest"
+# title: "Verify all data stored in ElastiCache Group are encrypted at rest"
 # description: "ElastiCache for Redis offers encryption at rest to protect your data against unauthorized access even if the underlying storage is compromised. Enabling encryption at rest is highly recommended for enhanced security."
 # scope: package
 # related_resources:

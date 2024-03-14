@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
 # custom:
-#   id: CB_CFT_26
+#   id: CB_CFT_022
 #   severity: INFO
-package lib.cloudformation.CB_CFT_26
+package lib.cloudformation.CB_CFT_022
 import future.keywords.in
 
 resource := "AWS::ECR::Repository"

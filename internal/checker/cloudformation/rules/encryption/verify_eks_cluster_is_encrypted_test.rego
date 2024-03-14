@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_45
+package lib.cloudformation.CB_CFT_040
 
 test_eks_cluster_is_encrypted {
 	result := passed with input as {"Resources": { "EnableSecretsEncryption": {

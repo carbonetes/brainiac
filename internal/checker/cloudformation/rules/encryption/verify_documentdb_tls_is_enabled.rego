@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify DocumentDB TLS is enabled."
-# description: "Conducting Verification: Ensuring that Amazon DocumentDB TLS is Enabled for Secure Data Communication."
+# description: "This policy ensures that TLS encrypts the connection between an application and a DocDB cluster. Encryption in transit is enabled by default for newly created clusters but can be disabled if needed during or after cluster creation. When enabled, TLS requires secure connections to access the cluster."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
 # custom:
-#   id: CB_CFT_071
+#   id: CB_CFT_066
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_071
+package lib.cloudformation.CB_CFT_066
 import future.keywords.in
 
 resource := "AWS::DocDB::DBClusterParameterGroup"

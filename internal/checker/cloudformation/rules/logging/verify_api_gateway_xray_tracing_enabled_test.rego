@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_058
+package lib.cloudformation.CB_CFT_053
 
 test_api_gateway_stage_tracing_enabled {
     result := passed with input as {"Resources": {

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_51
+package lib.cloudformation.CB_CFT_046
 
 test_verify_redshift_cluster_encryption_pass {
     result := passed with input as {

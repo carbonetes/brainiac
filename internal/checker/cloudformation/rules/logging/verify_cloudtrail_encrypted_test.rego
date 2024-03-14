@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_29
+package lib.cloudformation.CB_CFT_025
 
 test_cloudtrail_encryption_pass {
     result := passed with input as {

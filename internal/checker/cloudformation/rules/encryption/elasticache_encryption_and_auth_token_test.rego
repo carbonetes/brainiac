@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_25
+package lib.cloudformation.CB_CFT_021
 
 test_elasticache_encryption_and_auth_token_passed {
     result := passed with input as {

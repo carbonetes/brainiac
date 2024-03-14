@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_061
+package lib.cloudformation.CB_CFT_056
 
 test_verify_codebuild_project_with_encryption {
     result := passed with input as {"Resources": {

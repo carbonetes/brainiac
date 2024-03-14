@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify API Gateway has X-Ray Tracing enabled"
-# description: "Enabled tracing in X-Ray offers an end-to-end view of HTTP requests, allowing you to analyze latency in both APIs and their backend services."
+# description: "This policy, when active tracing is enabled for an API Gateway stage, automatically samples API invocation requests using the AWS X-Ray sampling algorithm. With tracing enabled, X-Ray provides an end-to-end view of HTTP requests, facilitating analysis of latencies in APIs and backend services."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html
 # custom:
-#   id: CB_CFT_058
+#   id: CB_CFT_053
 #   severity: LOW
-package lib.cloudformation.CB_CFT_058
+package lib.cloudformation.CB_CFT_053
 
 import future.keywords.in
 

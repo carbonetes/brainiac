@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify Athena Workgroup should enforce configuration to prevent client disabling encryption"
-# description: "Checks if the EnforceWorkGroupConfiguration property of an Athena Workgroup is set to true. This setting prevents users from disabling encryption at the client level"
+# title: "Verify prevention of Athena workgroup for disabling encryption"
+# description: "This policy allows configuration settings at the workgroup level, affecting queries executed within that workgroup. If a query runs within a workgroup and the workgroup overrides client-side settings, Athena will use the workgroup's encryption settings, overriding any other settings specified for the query."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-workgroup.html
 # custom:
-#   id: CB_CFT_063
+#   id: CB_CFT_058
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_063
+package lib.cloudformation.CB_CFT_058
 
 import future.keywords.in
 

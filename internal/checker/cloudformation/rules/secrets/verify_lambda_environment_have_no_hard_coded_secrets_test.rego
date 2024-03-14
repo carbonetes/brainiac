@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_35
+package lib.cloudformation.CB_CFT_031
 
 test_no_hard_coded_lambda_environment {
     passed := {

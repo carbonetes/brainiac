@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify API Gateway Stage has Access Logging enabled"
-# description: "Enabling custom access logging in API Gateway unlocks detailed request insights through CloudWatch Logs analysis with CloudWatch Logs Insights."
+# description: "This policy, when activated, enables custom access logging in API Gateway, delivering logs to CloudWatch Logs for analysis with CloudWatch Logs Insights. Additionally, utilizing custom domain names in Amazon API Gateway provides insight into requests per domain, aiding in understanding request patterns, especially when multiple custom domains are mapped to a single API."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html
 # custom:
-#   id: CB_CFT_060
+#   id: CB_CFT_055
 #   severity: LOW
-package lib.cloudformation.CB_CFT_060
+package lib.cloudformation.CB_CFT_055
 
 import future.keywords.in
 

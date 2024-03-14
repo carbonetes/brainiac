@@ -1,12 +1,13 @@
 # METADATA
-# title: "Verify at rest DAX is encrypted"
-# description: "Automate verification to ensure AWS DAX clusters maintain encryption for data at rest."
+# title: "Verify DAX are encrypted at rest"
+# description: "This policy enhances data security by encrypting data stored by Amazon DynamoDB Accelerator (DAX) on disk using AES-256 encryption. It automatically integrates with AWS KMS to manage encryption keys for clusters."
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
 # custom:
-#   id: CB_CFT_38
+#   id: CB_CFT_033
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_38
+package lib.cloudformation.CB_CFT_033
+
 import future.keywords.in
 
 resource := "AWS::DAX::Cluster"

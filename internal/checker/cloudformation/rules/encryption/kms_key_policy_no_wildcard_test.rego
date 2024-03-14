@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_27
+package lib.cloudformation.CB_CFT_023
 
 test_kms_key_policy_no_wildcard_passed {
     result := passed with input as {

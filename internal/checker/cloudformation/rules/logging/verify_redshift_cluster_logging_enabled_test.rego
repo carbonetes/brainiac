@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_057
+package lib.cloudformation.CB_CFT_052
 
 test_redshift_cluster_logging_is_enabled {
     result := passed with input as {"Resources": {

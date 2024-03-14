@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_072
+package lib.cloudformation.CB_CFT_067
 
 test_access_logging_enabled_elbv2 {
 	result := passed with input as {"Resources": {"MyLoadBalancer": {

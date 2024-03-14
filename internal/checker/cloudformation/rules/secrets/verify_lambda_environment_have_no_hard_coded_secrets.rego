@@ -6,10 +6,9 @@
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html
 # - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
 # custom:
-#   id: CB_CFT_35
+#   id: CB_CFT_031
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_35
-
+package lib.cloudformation.CB_CFT_031
 import future.keywords.in
 
 resource := ["AWS::Lambda::Function", "AWS::Serverless::Function"]

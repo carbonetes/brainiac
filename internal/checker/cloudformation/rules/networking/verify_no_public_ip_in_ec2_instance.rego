@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify no public IP in EC2 instance."
-# description: "Confirm that an EC2 instance has no public IP address assigned for enhanced security."
+# description: "This policy advises carefully controlling the assignment of public IP addresses to instances based on specific needs and requirements. By evaluating the necessity of public IP addresses for each instance, you can optimize resource allocation and enhance security by limiting exposure to the Internet only where necessary."
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-instance.html
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html
 # custom:
-#   id: CB_CFT_069
+#   id: CB_CFT_064
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_069
+package lib.cloudformation.CB_CFT_064
 import future.keywords.in
 
 is_valid {

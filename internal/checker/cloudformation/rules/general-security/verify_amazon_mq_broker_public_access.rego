@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify Amazon MQ Broker does not have public access."
-# description: "Checks the Amazon MQ Broker if configured with the PubliclyAccessible property set to false, preventing public access."
+# description: "This policy restricts access to brokers without public accessibility to within your VPC, reducing vulnerability to DDoS attacks. Conversely, public Amazon MQ brokers are directly accessible outside VPCs, potentially exposing them to malicious activity."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-broker.html
 # custom:
-#   id: CB_CFT_056
+#   id: CB_CFT_051
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_056
+package lib.cloudformation.CB_CFT_051
 
 import future.keywords.in
 

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html
 # custom:
-#   id: CB_CFT_46
+#   id: CB_CFT_041
 #   severity: LOW
-package lib.cloudformation.CB_CFT_46
+package lib.cloudformation.CB_CFT_041
 import future.keywords.in
 
 resource := "AWS::ApiGateway::Method"

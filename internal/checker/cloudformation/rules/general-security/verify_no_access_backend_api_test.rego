@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_46
+package lib.cloudformation.CB_CFT_041
 
 test_verify_no_access_backend_api_pass {
     result := passed with input as {

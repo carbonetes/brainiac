@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify Redshift cluster is private."
-# description: "Ensure Redshift cluster privacy by verifying the 'PubliclyAccessible' property is set to 'false' in its configuration."
+# description: "This policy outlines access options for Redshift clusters within a VPC, including internet access, VPN-connected EC2 Instances, bastion hosts, and enabling the Publicly Accessible option. Enabling public access increases the risk of malicious activities such as SQL injections or DDoS attacks."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html
 # custom:
-#   id: CB_CFT_068
+#   id: CB_CFT_063
 #   severity: HIGH
-package lib.cloudformation.CB_CFT_068
+package lib.cloudformation.CB_CFT_063
 import future.keywords.in
 
 resource := "AWS::Redshift::Cluster"

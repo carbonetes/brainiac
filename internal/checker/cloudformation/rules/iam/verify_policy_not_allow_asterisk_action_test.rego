@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_50
+package lib.cloudformation.CB_CFT_045
 
 test_verify_policy_not_allow_asterisk_statement_action_pass {
     result := passed with input as {

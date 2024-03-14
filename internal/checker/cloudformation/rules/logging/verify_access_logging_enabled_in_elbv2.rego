@@ -1,13 +1,13 @@
 # METADATA
 # title: "Verify access logging enabled in ELBv2"
-# description: "Verification Process: Ensuring Access Logging is Enabled for an Amazon Elastic Load Balancer (ELBv2) to Monitor and Record Traffic Activity for Enhanced Visibility and Analysis."
+# description: "This policy enables ELBv2 access logs, capturing TLS request details for NLBs. Access logging, an optional feature, incurs no additional charges beyond standard Amazon S3 storage costs. Once enabled, ELBv2 compresses and stores logs in the specified S3 bucket."
 # scope: package
 # related_resources:
-# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
+# - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide aws-resource-elasticloadbalancingv2-loadbalancer.html
 # custom:
-#   id: CB_CFT_072
+#   id: CB_CFT_067
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_072
+package lib.cloudformation.CB_CFT_067
 import future.keywords.in
 
 resource := "AWS::ElasticLoadBalancingV2::LoadBalancer"

@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_38
+package lib.cloudformation.CB_CFT_033
 
 test_s3_dax_at_rest_encrypted {
 	result := passed with input as {"Resources": {"MyDAXCluster": {

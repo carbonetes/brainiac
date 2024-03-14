@@ -1,13 +1,13 @@
 # METADATA
-# title: "Verify logging enabled in DocumentDB."
-# description: "Ensure logging is enabled for AWS DocumentDB clusters by verifying the presence of relevant log types such as audit and profiler."
+# title: "Verify logging are enabled in DocumentDB"
+# description: "This policy states that AWS DocumentDB audit logs track authentication attempts and database actions. AWS CloudWatch logs gather this data, including authentication, authorization, and user management events, for analysis, monitoring, and compliance purposes."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbcluster.html
 # custom:
-#   id: CB_CFT_066
+#   id: CB_CFT_061
 #   severity: MEDIUM
-package lib.cloudformation.CB_CFT_066
+package lib.cloudformation.CB_CFT_061
 import future.keywords.in
 
 resource := "AWS::DocDB::DBCluster"

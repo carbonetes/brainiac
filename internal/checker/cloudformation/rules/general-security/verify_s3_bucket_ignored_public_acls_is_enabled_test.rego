@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_42
+package lib.cloudformation.CB_CFT_037
 
 test_s3_bucket_public_acls_blocked {
 	result := passed with input as {"Resources": {"MyS3Bucket": {

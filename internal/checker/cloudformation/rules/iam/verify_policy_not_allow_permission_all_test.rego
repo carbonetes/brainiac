@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_48
+package lib.cloudformation.CB_CFT_043
 
 test_verify_policy_not_allow_permission_all_pass {
     result := passed with input as {

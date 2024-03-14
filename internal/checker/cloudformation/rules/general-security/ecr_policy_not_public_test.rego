@@ -1,4 +1,4 @@
-package lib.cloudformation.CB_CFT_26
+package lib.cloudformation.CB_CFT_022
 
 test_ecr_policy_not_public {
 	result := passed with input as {
