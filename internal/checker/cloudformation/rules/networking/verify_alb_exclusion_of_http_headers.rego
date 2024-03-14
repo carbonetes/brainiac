@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify the ALB's Exclusion of HTTP Headers."
-# description: "Validate that the Application Load Balancer (ALB) is configured to discard specific HTTP headers."
+# title: "Verify the ALB's Exclusion of HTTP Headers"
+# description: "This policy advises enabling the Drop Invalid Header Fields feature for Amazon Application Load Balancers (ALBs). It ensures that invalid HTTP headers are removed by the ALB instead of being sent to associated targets, enhancing security and compliance."
 # scope: package
 # related_resources:
 # - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
