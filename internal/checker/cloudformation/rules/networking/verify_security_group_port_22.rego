@@ -11,12 +11,24 @@ package lib.cloudformation.CB_CFT_014
 
 import future.keywords.in
 
-resource := ["AWS::EC2::SecurityGroup", "AWS::EC2::SecurityGroupIngress"]
-
 is_valid {
+	supported_resources := ["AWS::EC2::SecurityGroup", "AWS::EC2::SecurityGroupIngress"]
 	some resources in input.Resources
-	some resource_type in resource
-	resources.Type == resource_type
+	resources.Type in supported_resources
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(fail) > 0
+	type := resource.Type
+}
+
+resource[type] {
+	some resource in input.Resources
+	is_valid
+	count(pass) > 0
+	type := resource.Type
 }
 
 fail[ingress] {
@@ -27,7 +39,6 @@ fail[ingress] {
 	ingress.ToPort == 22
 	ingress.CidrIp == "0.0.0.0/0"
 }
-
 
 pass[resources] {
 	some resources in input.Resources
