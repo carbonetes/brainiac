@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Private clusters are verified to be enabled for AKS."
+        "message": "Private clusters are verified to be enabled for AKS.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Private clusters are not enabled for AKS as required."
+        "message": "Private clusters are not enabled for AKS as required.",
+		"snippet": block,
     }
 }

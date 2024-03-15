@@ -40,12 +40,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "An expiration date has been specified for all keys",
-                "snippet": block }
+	result := { 
+        "message": "An expiration date has been specified for all keys",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "An expiration date must be specified for all keys",
-                "snippet": block }
+	result := { 
+        "message": "An expiration date must be specified for all keys",
+        "snippet": block, 
+    }
 } 

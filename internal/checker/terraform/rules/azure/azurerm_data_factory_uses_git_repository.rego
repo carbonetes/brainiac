@@ -54,13 +54,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Azure Data Factory is verified to use a Git repository for source control."
+        "message": "Azure Data Factory is verified to use a Git repository for source control.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Azure Data Factory does not use a Git repository for source control as required."
+        "message": "Azure Data Factory does not use a Git repository for source control as required.",
+		"snippet": block,
     }
 }

@@ -49,13 +49,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Your web app is successfully using the latest TLS encryption version, ensuring optimal security for data transmission."
+        "message": "Your web app is successfully using the latest TLS encryption version, ensuring optimal security for data transmission.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Your web app is not using the latest TLS encryption version. Please update it to ensure optimal security for data transmission."
+        "message": "Your web app is not using the latest TLS encryption version. Please update it to ensure optimal security for data transmission.",
+		"snippet": block,
     }
 }

@@ -43,12 +43,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "The Function app is utilizing the recent TLS encryption version if it is in use.",
-                "snippet": block }
+	result := { 
+        "message": "The Function app is utilizing the recent TLS encryption version if it is in use.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "The Function app must utilize the recent TLS encryption version if it is in use.",
-                "snippet": block }
+	result := { 
+        "message": "The Function app must utilize the recent TLS encryption version if it is in use.",
+        "snippet": block, 
+    }
 } 

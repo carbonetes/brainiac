@@ -49,15 +49,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "The App Service is configured to be 'always on,' ensuring continuous availability.",
-	"snippet": block 
+		"message": "The App Service is configured to be 'always on,' ensuring continuous availability.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "The App Service is not set to 'always on.' It is recommended to enable this setting to maintain application availability.",
-	"snippet": block 
+		"message": "The App Service is not set to 'always on.' It is recommended to enable this setting to maintain application availability.",
+		"snippet": block, 
     }
 }

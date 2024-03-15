@@ -48,10 +48,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "SSH key-based authentication is enabled for secure communication on Linux VMs."}
+	result := {
+		"message": "SSH key-based authentication is enabled for secure communication on Linux VMs.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "SSH key-based authentication must be enabled for secure communication on Linux VMs."}
+	result := {
+		"message": "SSH key-based authentication must be enabled for secure communication on Linux VMs.",
+		"snippet": block,
+	}
 }

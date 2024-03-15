@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Content type is verified to be configured for Key Vault secrets."}
+	result := {
+		"message": "Content type is verified to be configured for Key Vault secrets.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Content type is not configured for Key Vault secrets as required."}
+	result := {
+		"message": "Content type is not configured for Key Vault secrets as required.",
+		"snippet": block,
+	}
 }

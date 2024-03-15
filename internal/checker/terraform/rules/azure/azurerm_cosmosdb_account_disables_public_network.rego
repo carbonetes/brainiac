@@ -47,13 +47,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Public network access is verified to be disabled for Azure Cosmos DB."
+        "message": "Public network access is verified to be disabled for Azure Cosmos DB.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Public network access is not disabled for Azure Cosmos DB."
+        "message": "Public network access is not disabled for Azure Cosmos DB.",
+		"snippet": block,
     }
 }

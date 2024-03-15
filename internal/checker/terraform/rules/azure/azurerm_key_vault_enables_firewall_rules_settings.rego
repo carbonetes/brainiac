@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Key Vault allows firewall rules configuration."}
+	result := {
+		"message": "Key Vault allows firewall rules configuration.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Key Vault does not permit firewall rules configuration as required."}
+	result := {
+		"message": "Key Vault does not permit firewall rules configuration as required.",
+		"snippet": block,
+	}
 }

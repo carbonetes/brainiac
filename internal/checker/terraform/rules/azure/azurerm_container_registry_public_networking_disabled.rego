@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "ACR is configured to deactivate public networking."}
+	result := {
+		"message": "ACR is configured to deactivate public networking.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "ACR must be configured to deactivate public networking."}
+	result := {
+		"message": "ACR must be configured to deactivate public networking.",
+		"snippet": block,
+	}
 }

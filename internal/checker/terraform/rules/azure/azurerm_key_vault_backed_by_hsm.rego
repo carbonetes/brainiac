@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The Key Vault key is verified to be supported by a Hardware Security Module (HSM)."}
+	result := {
+		"message": "The Key Vault key is verified to be supported by a Hardware Security Module (HSM).",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The Key Vault key is not supported by a Hardware Security Module (HSM) as required."}
+	result := {
+		"message": "The Key Vault key is not supported by a Hardware Security Module (HSM) as required.",
+		"snippet": block,
+	}
 }

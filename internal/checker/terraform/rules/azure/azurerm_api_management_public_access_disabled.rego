@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "API management has public access disabled."}
+	result := {
+		"message": "API management has public access disabled.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "API management should disable public access for enhanced security."}
+	result := {
+		"message": "API management should disable public access for enhanced security.",
+		"snippet": block,
+	}
 }

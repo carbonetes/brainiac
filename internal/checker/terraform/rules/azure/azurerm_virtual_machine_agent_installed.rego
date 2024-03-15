@@ -48,10 +48,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "VM Agent is installed and configured correctly."}
+	result := {
+		"message": "VM Agent is installed and configured correctly.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "VM Agent is not installed. Please ensure that the VM Agent is installed on your virtual machines for effective management and monitoring."}
+	result := {
+		"message": "VM Agent is not installed. Please ensure that the VM Agent is installed on your virtual machines for effective management and monitoring.",
+		"snippet": block,
+	}
 }

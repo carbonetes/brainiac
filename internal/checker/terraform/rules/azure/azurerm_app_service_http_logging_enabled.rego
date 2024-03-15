@@ -46,12 +46,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "HTTP logging is activated for the App service.",
-                "snippet": block }
+	result := {
+        "message": "HTTP logging is activated for the App service.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "HTTP logging must be activated for the App service.",
-                "snippet": block }
+	result := { 
+        "message": "HTTP logging must be activated for the App service.",
+        "snippet": block, 
+    }
 } 

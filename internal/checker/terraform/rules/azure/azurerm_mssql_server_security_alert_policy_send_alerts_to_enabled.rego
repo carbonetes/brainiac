@@ -41,12 +41,16 @@ fail[block] {
 
 passed[result] {
 	some block in pass
-	result := { "message": "MSSQL servers have the 'Send Alerts To' feature activated.",
-                "snippet": block }
+	result := { 
+        "message": "MSSQL servers have the 'Send Alerts To' feature activated.",
+        "snippet": block, 
+    }
 }
 
 failed[result] {
     some block in fail
-	result := { "message": "MSSQL servers must have the 'Send Alerts To' feature activated.",
-                "snippet": block }
+	result := { 
+        "message": "MSSQL servers must have the 'Send Alerts To' feature activated.",
+        "snippet": block, 
+    }
 } 

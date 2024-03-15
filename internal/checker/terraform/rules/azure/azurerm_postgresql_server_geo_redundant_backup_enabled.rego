@@ -44,13 +44,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Geo-redundant backups are enabled for the PostgreSQL server."
+        "message": "Geo-redundant backups are enabled for the PostgreSQL server.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Geo-redundant backups are not enabled for the PostgreSQL server."
+        "message": "Geo-redundant backups are not enabled for the PostgreSQL server.",
+		"snippet": block,
     }
 }

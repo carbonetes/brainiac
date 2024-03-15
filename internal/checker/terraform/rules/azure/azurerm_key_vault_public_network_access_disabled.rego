@@ -51,15 +51,15 @@ isPublicNetEnabled(resource) if {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Azure Key Vault has public network access disabled, enhancing security.",
-	"snippet": block 
+		"message": "Azure Key Vault has public network access disabled, enhancing security.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Azure Key Vault should have public network access disabled to enhance security by restricting access to trusted networks.",
-	"snippet": block 
+		"message": "Azure Key Vault should have public network access disabled to enhance security by restricting access to trusted networks.",
+		"snippet": block, 
     }
 }

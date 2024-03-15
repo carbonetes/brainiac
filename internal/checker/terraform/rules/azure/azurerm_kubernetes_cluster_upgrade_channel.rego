@@ -41,13 +41,15 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "An upgrade channel has been selected for the AKS cluster."
+        "message": "An upgrade channel has been selected for the AKS cluster.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "An upgrade channel must be selected for the AKS cluster."
+        "message": "An upgrade channel must be selected for the AKS cluster.",
+		"snippet": block,
     }
 }

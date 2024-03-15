@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Azure Data Explorer (ADX) or Azure Kusto is using managed identities to access Azure resources securely, enhancing access control and security."}
+	result := {
+		"message": "Azure Data Explorer (ADX) or Azure Kusto is using managed identities to access Azure resources securely, enhancing access control and security.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Azure Data Explorer (ADX) or Azure Kusto should use managed identities to access Azure resources securely, enhancing access control and security."}
+	result := {
+		"message": "Azure Data Explorer (ADX) or Azure Kusto should use managed identities to access Azure resources securely, enhancing access control and security.",
+		"snippet": block,
+	}
 }

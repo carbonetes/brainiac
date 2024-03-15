@@ -2,9 +2,9 @@ name: "Validation Tests"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] 
   pull_request:
-    branches: [ "main"]
+    branches: [ "main" ] 
 
 env:
   GO_CURRENT_VERSION: "1.20.x"
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v3 
   Unit-Test:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version: ${{ env.GO_CURRENT_VERSION }}
+          go-version: ${{ env.GO_CURRENT_VERSION }} 
           stable: ${{ env.GO_STABLE_VERSION }}
           cache: true
         

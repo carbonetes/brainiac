@@ -41,14 +41,16 @@ fail[resource] {
 passed[result] {
     some block in pass
     result := {
-        "message": "Public network access is verified to be deactivated for Azure Event Grid Domains."
+        "message": "Public network access is verified to be deactivated for Azure Event Grid Domains.",
+		"snippet": block,
     }
 }
 
 failed[result] {
     some block in fail
     result := {
-        "message": "Public network access is not deactivated for Azure Event Grid Domains as required."
+        "message": "Public network access is not deactivated for Azure Event Grid Domains as required.",
+		"snippet": block,
     }
 }
 

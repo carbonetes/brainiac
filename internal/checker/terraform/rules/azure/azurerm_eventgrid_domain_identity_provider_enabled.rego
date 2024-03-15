@@ -43,15 +43,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Managed identity provider is enabled for Azure Event Grid Domain, enhancing security and access control.",
-	"snippet": block 
+		"message": "Managed identity provider is enabled for Azure Event Grid Domain, enhancing security and access control.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Enable the managed identity provider for Azure Event Grid Domain to enhance security and access control for the domain.",
-	"snippet": block 
+		"message": "Enable the managed identity provider for Azure Event Grid Domain to enhance security and access control for the domain.",
+		"snippet": block, 
     }
 }

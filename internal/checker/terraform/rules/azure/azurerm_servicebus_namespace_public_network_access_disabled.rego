@@ -41,15 +41,15 @@ fail[resource] {
 passed[result] {
 	some block in pass
 	result := {
-	"message": "Azure Service Bus restricts public network access, enhancing security.",
-	"snippet": block 
+		"message": "Azure Service Bus restricts public network access, enhancing security.",
+		"snippet": block, 
     }
 }
 
 failed[result] {
 	some block in fail
 	result := {
-	"message": "Azure Service Bus should have 'public network access enabled' set to 'False' to restrict access from public networks and enhance security.",
-	"snippet": block 
+		"message": "Azure Service Bus should have 'public network access enabled' set to 'False' to restrict access from public networks and enhance security.",
+		"snippet": block, 
     }
 }

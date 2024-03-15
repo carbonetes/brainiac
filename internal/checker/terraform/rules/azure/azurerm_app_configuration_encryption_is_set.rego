@@ -42,10 +42,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "The encryption block is configured in App Configuration, enhancing data security."}
+	result := {
+		"message": "The encryption block is configured in App Configuration, enhancing data security.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "The encryption block must be configured in App Configuration to ensure data security."}
+	result := {
+		"message": "The encryption block must be configured in App Configuration to ensure data security.",
+		"snippet": block,
+	}
 }

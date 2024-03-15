@@ -40,10 +40,16 @@ fail[resource] {
 
 passed[result] {
 	some block in pass
-	result := {"message": "Public access is not enabled for App Configuration, ensuring restricted access."}
+	result := {
+		"message": "Public access is not enabled for App Configuration, ensuring restricted access.",
+		"snippet": block,
+	}
 }
 
 failed[result] {
 	some block in fail
-	result := {"message": "Public access should not be enabled for App Configuration to prevent unauthorized access."}
+	result := {
+		"message": "Public access should not be enabled for App Configuration to prevent unauthorized access.",
+		"snippet": block,
+	}
 }
