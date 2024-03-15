@@ -3,8 +3,6 @@ package checker
 import (
 	"context"
 	"embed"
-	"encoding/json"
-	"fmt"
 	"strings"
 
 	"github.com/carbonetes/brainiac/internal/file"
@@ -82,8 +80,6 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 			return model.Result{}, err
 		}
 		input, rawContent := file.ParseCloudformationFile(configFile)
-		res, _ := json.MarshalIndent(input, "", " ") // remove wheh merging to main
-		fmt.Print(string(res))                       // remove wheh merging to main
 		return proccessInput(input, rawContent, modules, file.FileTypeCloudFormation, configFile)
 	}
 	return model.Result{}, nil
