@@ -59,6 +59,11 @@ func ConfigType(file string) string {
 	if isTerraform(file) {
 		return FileTypeTerraform
 	}
+
+	if isCloudFormation(file) {
+		return FileTypeCloudFormation
+	}
+
 	if isAzureARM(file) {
 		return FileTypeAzureARM
 	}
@@ -187,6 +192,39 @@ func isKubernetes(configFile string) bool {
 		if match {
 			return true
 		}
+	}
+
+	return false
+
+}
+
+func isCloudFormation(configFile string) bool {
+	fileExtension := filepath.Ext(filepath.Base(configFile))
+	file, _ := os.ReadFile(configFile)
+
+	if !isYAML(fileExtension) && !isJSON(fileExtension) && fileExtension != ".template" {
+		return false
+	}
+
+	if isJSON(fileExtension) || fileExtension == ".template" {
+		var templateResult map[string]interface{}
+		if err := json.Unmarshal(file, &templateResult); err != nil {
+			return false
+		}
+
+		if _, ok := templateResult["Resources"]; ok {
+			return true
+		}
+		return false
+	}
+
+	//if yaml
+	var result map[string]interface{}
+	if err := yaml.Unmarshal(file, &result); err != nil {
+		return false
+	}
+	if _, ok := result["Resources"]; ok {
+		return true
 	}
 
 	return false
