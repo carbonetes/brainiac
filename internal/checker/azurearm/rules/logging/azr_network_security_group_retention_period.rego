@@ -3,7 +3,7 @@
 # description: "This policy ensures Network Security Group flow logs retain data for at least 90 days, aiding in monitoring and breach detection."
 # scope: package
 # related_resources:
-# - https://learn.microsoft.com/en-us/azure/templates/microsoft.network/networkwatchers/flowlogs?pivots=deployment-language-bicep
+# - https://learn.microsoft.com/en-us/azure/templates/microsoft.network/networkwatchers/flowlogs?pivots=deployment-language-arm-template
 # custom:
 #   id: CB_AZR_012
 #   severity: MEDIUM
