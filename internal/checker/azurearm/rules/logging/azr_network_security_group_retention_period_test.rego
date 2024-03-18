@@ -7,6 +7,7 @@ test_azr_network_security_group_retention_greater_than_90 {
                 "type": "Microsoft.Network/networkWatchers/FlowLogs",
                 "properties": {
                     "retentionPolicy": {
+                        "enabled": true,
                         "days": 120
                     }
                 }
@@ -23,6 +24,7 @@ test_azr_network_security_group_retention_not_greater_than_90 {
                 "type": "Microsoft.Network/networkWatchers/FlowLogs",
                 "properties": {
                     "retentionPolicy": {
+                        "enabled": false,
                         "days": 80
                     }
                 }

@@ -35,6 +35,7 @@ pass[properties] {
 	is_valid
 	some resource in input.resources
 	properties := resource.properties.retentionPolicy
+	properties.enabled == true
 	properties.days >= 90
 }
 
