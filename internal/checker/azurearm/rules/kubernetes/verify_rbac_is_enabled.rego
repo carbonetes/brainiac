@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify RBAC on AKS clusters are enabled"
-# description: "This policy enables Azure Kubernetes Service (AKS) to integrate with Azure Active Directory (AD) and utilize Kubernetes Role-based Access Control (RBAC). With RBAC, roles define permissions within AKS clusters, allowing assignment to users or groups within specified scopes. By logging in to AKS with Azure AD tokens and configuring Kubernetes RBAC, access to cluster resources is restricted based on user identity or group membership."
+# description: "This policy enables Azure Kubernetes Service (AKS) to integrate with Azure Active Directory (AD) and utilize Kubernetes Role-based Access Control (RBAC). With RBAC roles define permissions within AKS clusters allowing assignment to users or groups within specified scopes. By logging in to AKS with Azure AD tokens and configuring Kubernetes RBAC access to cluster resources is restricted based on user identity or group membership."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.containerservice/managedclusters?pivots=deployment-language-arm-template
