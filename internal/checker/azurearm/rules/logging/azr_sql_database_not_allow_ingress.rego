@@ -3,7 +3,7 @@
 # description: "This policy ensures Azure SQL Databases restrict ingress from 0.0.0.0/0, enhancing security by preventing unauthorized access."
 # scope: package
 # related_resources:
-# - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
+# - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-arm-template
 # custom:
 #   id: CB_AZR_011
 #   severity: CRITICAL
