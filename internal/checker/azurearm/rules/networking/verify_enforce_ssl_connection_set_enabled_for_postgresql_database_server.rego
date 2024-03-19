@@ -10,7 +10,7 @@
 package lib.azurearm.CB_AZR_029
 import future.keywords.in
 
-resource := "Microsoft.DBforPostgreSQL/servers/configurations"
+resource := "Microsoft.DBforPostgreSQL/servers"
 
 is_valid {
 	some resources in input.resources
