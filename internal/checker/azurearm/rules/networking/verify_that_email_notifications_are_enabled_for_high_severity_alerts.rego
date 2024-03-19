@@ -21,7 +21,7 @@ fail[properties]{
     is_valid
 	some resource in input.resources
     properties := resource.properties
-    properties.alertsToAdmins != "On"
+    lower(properties.alertsToAdmins) != "on"
 }
 
 pass[resources] {
