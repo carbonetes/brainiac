@@ -18,13 +18,26 @@ is_valid {
 }
 
 pass[properties] {
- 	is_valid
+    is_valid
+    some resource in input.resources
+     properties := resource.properties
+    "encryption" in object.keys(properties)
+}
+
+pass[properties] {
+	is_valid
 	some resource in input.resources
     properties := resource.properties
-    "encryption" in object.keys(properties)
-	encrypt := properties.encryptionSettingsCollection
-	encrypt.enabled == true
-    "encryptionSettings" in object.keys(encrypt)
+   	encrypt := properties.encryptionSettingsCollection
+   	lower(encrypt.enabled) == "true"
+}
+
+pass[properties] {
+    is_valid
+    some resource in input.resources
+    properties := resource.properties
+    encrypt := properties.encryptionSettings
+    lower(encrypt.enabled) == "true"
 }
 
 fail[resources] {
