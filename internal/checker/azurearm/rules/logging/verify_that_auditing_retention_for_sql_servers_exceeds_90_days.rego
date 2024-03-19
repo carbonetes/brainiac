@@ -20,8 +20,9 @@ is_valid{
 pass[properties] {
     is_valid
     some resource in input.resources
-    properties := resource.properties.retentionDays
-    properties >= 90
+    properties := resource.properties
+    lower(properties.state) == "enabled"
+    properties.retentionDays >= 90
 }
 
 fail[resources] {
