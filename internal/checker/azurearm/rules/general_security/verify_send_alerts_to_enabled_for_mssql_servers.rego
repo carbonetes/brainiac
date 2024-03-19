@@ -21,7 +21,7 @@ pass[properties] {
     is_valid
 	some resource in input.resources
     properties := resource.properties
-    properties.state == "Enabled"
+    lower(properties.state) == "enabled"
     properties.emailAddresses != ""
 }
 
