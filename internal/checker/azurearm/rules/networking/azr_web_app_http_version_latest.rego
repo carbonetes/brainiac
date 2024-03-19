@@ -25,6 +25,13 @@ pass[properties] {
 	properties.http20Enabled == true
 }
 
+pass[properties] {
+	is_valid
+	some resource in input.resources
+	properties := resource.properties
+	lower(properties.http20Enabled) == "true"
+}
+
 fail[resources] {
 	resources := input.resources
 	is_valid
