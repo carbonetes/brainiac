@@ -7,9 +7,7 @@ test_azr_web_app_redirects_http_traffic_to_https {
             "type": "Microsoft.Web/sites",
             "name": "exampleWebApp",
             "properties": {
-                "siteConfig": {
-                    "httpsOnly": true
-                }
+                "httpsOnly": true
             }
         }
     ]
@@ -24,9 +22,7 @@ test_azr_web_app_does_not_redirect_http_traffic_to_https {
             "type": "Microsoft.Web/sites",
             "name": "exampleWebApp",
             "properties": {
-                "siteConfig": {
-                    "httpsOnly": false
-                }
+                "httpsOnly": false
             }
         }
     ]
