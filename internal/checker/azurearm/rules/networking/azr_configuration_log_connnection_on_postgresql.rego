@@ -34,6 +34,7 @@ resource[type] {
 pass[properties] {
 	is_valid
 	some resource in input.resources
+	resource.name == "log_connections"
 	properties := resource.properties
 	lower(properties.value) == "on"
 }

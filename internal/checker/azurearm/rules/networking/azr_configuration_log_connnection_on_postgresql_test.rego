@@ -6,7 +6,7 @@ test_azr_configuration_log_connection_on_postgresql_enabled {
             {
                 "type": "Microsoft.DBforPostgreSQL/servers/configurations",
                 "apiVersion": "2021-05-01",
-                "name": "[concat(parameters('serverName'), '/log_connections')]",
+                "name": "log_connections",
                 "properties": {
                     "value": "on"
                 }
@@ -22,7 +22,7 @@ test_azr_configuration_log_connection_on_postgresql_not_enabled  {
             {
                 "type": "Microsoft.DBforPostgreSQL/servers/configurations",
                 "apiVersion": "2021-05-01",
-                "name": "[concat(parameters('serverName'), '/log_connections')]",
+                "name": "log_connections",
                 "properties": {
                     "value": "off"
                 }
