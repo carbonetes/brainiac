@@ -28,18 +28,6 @@ pass[properties] {
 	camelcase.omsagent.enabled == true
 }
 
-pass[properties] {
- 	is_valid
-	some resource in input.resources
-    resource.apiVersion != "2017-08-31"
-    "apiVersion" in object.keys(resource)
-    properties := resource.properties
-    "addonProfiles" in object.keys(properties)
-    camelcase := properties.addonProfiles
-	camelcase.omsAgent.enabled == true
-}
-
-
 fail[resources] {
 	resources := input.resources
 	is_valid

@@ -7,7 +7,7 @@ test_azure_monitoring_configured_pass {
             "apiVersion": "2018-05-21",
             "properties": {
                 "addonProfiles": {
-                "omsAgent": {
+                "omsagent": {
                     "enabled": true
                 }
                 }
@@ -24,7 +24,7 @@ test_azure_monitoring_configured_fail {
             "apiVersion": "2017-08-31",
             "properties": {
                 "addonProfiles": {
-                "omsAgent": {
+                "omsagent": {
                     "enabled": false
                 }
                 }
