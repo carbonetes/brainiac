@@ -24,7 +24,7 @@ pass[properties] {
     "apiVersion" in object.keys(resource)
     properties := resource.properties
    	rbac := properties.enableRBAC
-    rbac == true
+  	lower(rbac) == "true"
 }
 
 

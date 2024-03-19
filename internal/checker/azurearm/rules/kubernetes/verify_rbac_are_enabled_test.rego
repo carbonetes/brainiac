@@ -6,7 +6,7 @@ test_rbac_is_enabled_aks_cluster_pass {
             "type": "Microsoft.ContainerService/managedClusters",
             "apiVersion": "2018-05-21",
             "properties": {
-                "enableRBAC": true
+                "enableRBAC": "true"
             }
         }]
 	}
@@ -19,7 +19,7 @@ test_rbac_is_enabled_aks_cluster_fail {
             "type": "Microsoft.ContainerService/managedClusters",
             "apiVersion": "2017-08-31",
             "properties": {
-                "enableRBAC": false
+                "enableRBAC": "false"
             }
         }]
 	}
