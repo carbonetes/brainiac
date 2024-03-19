@@ -21,7 +21,14 @@ pass[properties] {
  	is_valid
 	some resource in input.resources
     properties := resource.properties
-    properties.supportsHttpsTrafficOnly == true
+	lower(properties.supportsHttpsTrafficOnly) == "true"
+}
+
+pass[properties] {
+ 	is_valid
+	some resource in input.resources
+    properties := resource.properties
+    not "supportsHttpsTrafficOnly" in object.keys(properties)
     apiversion := resource.apiVersion
     apiversion >= "2019"
 }

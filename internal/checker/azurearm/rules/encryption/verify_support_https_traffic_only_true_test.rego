@@ -6,7 +6,7 @@ test_support_https_traffic_only_true_pass {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
             "properties": {
-                "supportsHttpsTrafficOnly": true
+                "supportsHttpsTrafficOnly": "true"
             }
         }]
 	}
@@ -19,7 +19,7 @@ test_support_https_traffic_only_true_fail {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-06-01",
             "properties": {
-                "supportsHttpsTrafficOnly": false
+                "supportsHttpsTrafficOnly": "false"
             }
         }]
 	}
