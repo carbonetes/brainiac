@@ -22,7 +22,7 @@ pass[properties] {
 	is_valid
 	some resource in input.resources
 	properties := resource.properties
-	properties.clientCertEnabled == true
+	lower(properties.clientCertEnabled) == "true"
 }
 
 fail[resources] {

@@ -7,7 +7,7 @@ test_azr_web_app_client_cert_enabled {
             "type": "Microsoft.Web/sites",
             "name": "exampleWebApp",
             "properties": {
-                "clientCertEnabled": true
+                "clientCertEnabled": "true"
             }
             }
         ]
@@ -22,7 +22,7 @@ test_azr_web_app_client_cert_not_enabled {
             "type": "Microsoft.Web/sites",
             "name": "exampleWebApp",
             "properties": {
-                "clientCertEnabled": false
+                "clientCertEnabled": "false"
             }
             }
         ]
