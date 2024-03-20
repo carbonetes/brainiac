@@ -22,7 +22,6 @@ test_azr_security_contact_phone_number_not_set {
                 "type": "Microsoft.Security/securityContacts",
                 "name": "exampleSecurityContact",
                 "properties": {
-                    "phone": ""
                 }
             }
         ]

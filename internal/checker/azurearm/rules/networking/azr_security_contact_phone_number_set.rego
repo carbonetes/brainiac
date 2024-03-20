@@ -22,7 +22,7 @@ fail[properties] {
 	is_valid
 	some resource in input.resources
 	properties := resource.properties
-	properties.phone == ""
+	not "phone" in object.keys(properties)
 }
 
 pass[resources] {
