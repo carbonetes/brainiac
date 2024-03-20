@@ -19,10 +19,11 @@ is_valid {
 }
 
 pass[properties] {
+	is_valid
 	some resource in input.resources
 	properties := resource.properties
 	categories := {"Write", "Delete", "Action"}
-	all_categories := {category | category := properties.categories[_]}
+	all_categories := {category | some category in properties.categories}
 	categories == all_categories
 }
 
