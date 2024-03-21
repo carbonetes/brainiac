@@ -1,6 +1,6 @@
 package lib.azurearm.CB_AZR_076
 
-test_high_severity_alerts_send_email_on {
+test_internet_access_restricted {
 	result := passed with input as {"resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -18,7 +18,7 @@ test_high_severity_alerts_send_email_on {
     count(result) == 1
 }
 
-test_high_severity_alerts_send_email_off {
+test_internet_access_not_restricted {
 	result := failed with input as {"resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
