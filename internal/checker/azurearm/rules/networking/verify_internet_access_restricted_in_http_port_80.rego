@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Internet Access Restricted in HTTP port 80"
-# description: "Ensure that internet access is restricted on port 80 (HTTP) within the network security configuration."
+# description: "This policy ensures that internet access is restricted on port 80 (HTTP) within the network security configuration."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.network/networksecuritygroups?pivots=deployment-language-arm-template
