@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify configuration 'log_connections' is set to 'ON' for PostgreSQL Database Server"
+# title: "Verify PostgreSQL Database Server configuration for 'log_connections' is enabled"
 # description: "This policy ensures log_connections in a PostgreSQL Database allows logging attempted connections to the server alongside successful client authentication, providing valuable data for identifying and troubleshooting configuration errors, as well as pinpointing sub-optimal performance issues."
 # scope: package
 # related_resources:

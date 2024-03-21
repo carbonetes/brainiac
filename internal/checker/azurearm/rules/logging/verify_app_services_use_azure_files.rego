@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that app services use Azure Files"
+# title: "Verify app services are configured to use Azure Files"
 # description: "Verification is necessary to confirm that app services within the Azure environment are properly configured to leverage Azure Files storage, enhancing file storage capabilities and facilitating seamless data management within the infrastructure."
 # scope: package
 # related_resources:

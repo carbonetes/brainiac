@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify Azure Cache for Redis disables public network access"
-# description: "Confirming that Azure Cache for Redis has been configured to disable public network access is essential for bolstering security measures within the system."
+# title: "Verify Redis public network access is disabled for Azure Cache"
+# description: "This policy ensures that your Azure Cache for Redis is kept private to prevent unauthorized access or tampering. Public caches are susceptible to external threats like hackers or malware, so making it private ensures only authorized users can access the data."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.cache/redis?pivots=deployment-language-arm-template

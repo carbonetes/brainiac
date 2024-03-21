@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify send alerts to enabled for MSSQL servers"
-# description: "Verify that the 'Send Alerts To' option is enabled for Microsoft SQL (MSSQL) servers to ensure that alerts are appropriately routed and actioned."
+# title: "Verify 'Send Alerts To' feature is activated for MSSQL servers"
+# description: "This policy requires specifying an email address for receiving alerts when anomalous activities are detected on SQL servers. Adding this email address ensures prompt reporting of anomalies, facilitating early risk mitigation. We recommend including an email address in the 'Send Alerts To' field for MSSQL servers."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-arm-template

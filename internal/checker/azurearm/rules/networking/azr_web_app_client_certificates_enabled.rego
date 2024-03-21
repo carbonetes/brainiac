@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify the web app has 'Client Certificates (Incoming client certificates)' set"
+# title: "Verify Web App has Incoming client certificates configured"
 # description: "This policy ensures the usage of client certificates for incoming requests on the Web App, thereby ensuring that only clients with valid certificates can access the application."
 # scope: package
 # related_resources:

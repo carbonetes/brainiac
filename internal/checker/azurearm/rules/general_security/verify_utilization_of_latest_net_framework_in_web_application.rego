@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Utilization of Latest Net Framework in Web Application"
-# description: "Ensure verification of the utilization of the latest version of the .NET Framework within the web application."
+# description: "This policy recommends that Azure App Service web applications developed with the .NET software stack utilize the most recent version of .NET available to incorporate the latest security patches."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.web/sites/config-web?pivots=deployment-language-arm-template

@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that Activity Log Retention is set 365 days or greater"
+# title: "Verify Activity Log Retention is configured for 365 days or longer"
 # description: "This policy advises setting the activity log retention period to 365 days or longer. By retaining the activity log for this duration, organizations have ample time to detect and respond to any security breaches, considering that the average time to detect a breach is 210 days."
 # scope: package
 # related_resources:

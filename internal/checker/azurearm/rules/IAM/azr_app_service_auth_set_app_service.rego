@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify App Service Authentication is set on Azure App Service"
+# title: "Verify Azure App Service has App Service Authentication configured"
 # description: "This policy ensures that App Service Authentication prenvents anonymous HTTP requests and enhancing security by requiring token-based authentication for users accessing the API app."
 # scope: package
 # related_resources:

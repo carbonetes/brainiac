@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify log_checkpoints Parameter is ON for PostgreSQL Server"
-# description: "Ensure that the log_checkpoints parameter is set to ON in your PostgreSQL server configuration for effective checkpoint logging."
+# description: "This policy suggests enabling log_checkpoints for PostgreSQL Server Databases to log each checkpoint and generate query and error logs. These logs help identify, troubleshoot, and resolve configuration errors and performance issues."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.dbforpostgresql/servers/configurations?pivots=deployment-language-arm-template

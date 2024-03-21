@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that security contact 'Phone number' is set"
+# title: "Verify security contact's 'Phone number' is configured"
 # description: "This policy ensures that Microsoft can contact the designated security contact if its security team detects any compromise to the organization's resources."
 # scope: package
 # related_resources:

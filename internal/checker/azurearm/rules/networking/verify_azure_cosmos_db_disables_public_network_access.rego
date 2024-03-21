@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify Azure Cosmos DB disables public network access"
-# description: Verify that Azure Cosmos DB is set up in a manner that restricts public network access, safeguarding the database against unauthorized external connections."
+# title: "Verify public network access is disabled for Azure Cosmos DB"
+# description: "This policy ensures Azure Cosmos DB is kept private to prevent unauthorized access or tampering. Public access exposes it to internet-based threats like hackers or malware, whereas keeping it private restricts access to authorized users only."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.documentdb/databaseaccounts?pivots=deployment-language-arm-template

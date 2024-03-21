@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that Register with Azure Active Directory is enabled on App Service"
+# title: "Verify App Service has Register with Azure Active Directory feature enabled"
 # description: "This policy ensures the security benefits of utilizing Managed Service Identity (MSI) in App Service, which enhances security by removing the need for storing sensitive credentials, such as connection strings, within the application."
 # scope: package
 # related_resources:

@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify that the Email service and co-administrators are enabled for MSSQL servers"
-# description: "Ensure that the email service and co-administrators are properly enabled and functioning on MSSQL servers by conducting thorough verification checks."
+# title: "Verify 'Email service and co-administrators' is activated for MSSQL servers"
+# description: "This policy enables Service and Co-administrators to receive security alerts from the SQL server. Providing an email address for alert reception ensures swift reporting of any detected anomalous activities, enabling early mitigation of potential risks."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-arm-template

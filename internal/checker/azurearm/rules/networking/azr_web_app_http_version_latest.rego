@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that 'HTTP Version' is the latest if used to run the web app"
+# title: "Verify Web App utilizes the latest version of the HTTP protocol"
 # description: "This policy ensures that the web app utilizes the latest version of HTTP, HTTP/2.0, which offers enhanced performance improvements over previous versions, including mitigating the head-of-line blocking issue, header compression, and prioritization of requests."
 # scope: package
 # related_resources:

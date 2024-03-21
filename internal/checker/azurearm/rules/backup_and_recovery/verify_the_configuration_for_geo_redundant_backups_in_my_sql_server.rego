@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify the Configuration for Geo-Redundant Backups in My SQL Server"
-# description: "Validate and ensure the configuration of the MySQL server supports the implementation of geo-redundant backup solutions, safeguarding data integrity and availability across diverse geographic locations."
+# title: "Verify geo-redundant backups is enabled for My SQL server"
+# description: "This policy mandates enabling geo-redundant backups for Microsoft Azure MySQL database servers. It allows for restoration to a different Azure region in case of regional outages or disasters. During geo-restore, configuration changes such as compute generation, vCore, backup retention period, and redundancy options can be adjusted."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.dbformysql/flexibleservers?pivots=deployment-language-arm-template

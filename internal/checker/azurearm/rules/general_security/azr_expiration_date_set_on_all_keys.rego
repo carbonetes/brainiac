@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that the expiration date is set on all keys"
+# title: "Verify all keys have an expiration date set"
 # description: "This policy allows users to store and utilize cryptographic keys within the Microsoft Azure environment. The exp (expiration time) attribute specifies the time after which the key should not be used for cryptographic operations. By default, keys are not configured to expire."
 # scope: package
 # related_resources:

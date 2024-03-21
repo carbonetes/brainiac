@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify audit profile captures all the activities"
+# title: "Verify audit profile is set to capture all activities"
 # description: "This policy recommends configuring the log profile to export logs for the categories Write, Delete, and Action. By doing so, it ensures that all activities related to the control/management plane, such as resource creation, deletion, and modifications, are captured and exported. This comprehensive logging approach provides visibility into all control/management plane activities performed on the subscription."
 # scope: package
 # related_resources:

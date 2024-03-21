@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify 'Trusted Microsoft Services' is enabled for Storage Account access"
+# title: "Verify access to Storage Accounts is enabled for 'Trusted Microsoft Services'"
 # description: "This policy allows certain Microsoft services to bypass network rules when accessing storage accounts. These services operate from networks that cannot be granted access through typical network rules. By enabling this feature, trusted Microsoft services, such as Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor, and Azure SQL Data Warehouse (when registered in the subscription), can access the storage account using strong authentication methods."
 # scope: package
 # related_resources:

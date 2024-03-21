@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify MySQL Server Infrastructure Encryption Activation"
-# description: "Validate the activation of infrastructure encryption within the MySQL server environment to bolster security measures and safeguard sensitive data."
+# title: "Verify infrastructure encryption are enabled for MySQL Server"
+# description: "This policy mandates enabling infrastructure encryption for Azure Database for MySQL servers to ensure higher data security assurance. It involves double encryption of data at rest using FIPS 140-2 compliant Microsoft managed keys."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.dbformysql/flexibleservers?pivots=deployment-language-arm-template

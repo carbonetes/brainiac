@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify server parameter 'connection_throttling' is set to 'ON' for PostgreSQL Database Server"
-# description: "This policy ensures that enabling connection_throttling in a PostgreSQL Database generates query and error logs for concurrent connections, mitigating potential Denial of Service (DoS) attacks by preventing resource exhaustion."
+# title: "Verify server parameter 'connection_throttling' is enabled for PostgreSQL Database Server"
+# description: "This policy recommends enabling connection_throttling for PostgreSQL Server Databases to adjust message verbosity regarding concurrent connections. This helps prevent potential Denial of Service (DoS) attacks and system overload issues, while facilitating identification and resolution of configuration errors and performance issues."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.dbforpostgresql/servers/configurations
