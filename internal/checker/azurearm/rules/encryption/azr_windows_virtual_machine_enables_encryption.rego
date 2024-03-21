@@ -22,7 +22,14 @@ pass[properties] {
 	is_valid
 	some resource in input.resources
 	properties := resource.properties.securityProfile
-	properties.encryptionAtHost = true
+	properties.encryptionAtHost == true
+}
+
+pass[properties] {
+	is_valid
+	some resource in input.resources
+	properties := resource.properties.securityProfile
+	lower(properties.encryptionAtHost) == "true"
 }
 
 fail[resources] {
