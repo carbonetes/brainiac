@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Azure SQL Azure AD authentication is enabled"
-# description: "Confirm that Azure SQL has Azure Active Directory authentication enabled to ensure secure access control through centralized identity management."
+# description: "This policy ensures that the Azure SQL has Azure Active Directory authentication enabled to ensure secure access control through centralized identity management."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-arm-template
