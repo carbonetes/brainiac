@@ -38,6 +38,13 @@ pass[properties] {
 	properties.disablePasswordAuthentication == true
 }
 
+pass[properties] {
+	is_valid
+	some resource in input.resources
+	properties := resource.properties.virtualMachineProfile.osProfile.linuxConfiguration
+	lower(properties.disablePasswordAuthentication) == "true"
+}
+
 fail[resources] {
 	resources := input.resources
 	is_valid
