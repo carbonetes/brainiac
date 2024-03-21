@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify cosmosdb does not allow privileged escalation by restricting management plane changes"
+# title: "Verify CosmosDB does not allow privileged escalation by restricting management plane changes"
 # description: "This policy aims to mitigate risk by restricting management plane alterations for clients employing key-based authentication. Typically, CosmosDB access keys are utilized by applications to access data within CosmosDB containers. Instances where these keys are employed to execute management changes are infrequent in organizational use cases."
 # scope: package
 # related_resources:
