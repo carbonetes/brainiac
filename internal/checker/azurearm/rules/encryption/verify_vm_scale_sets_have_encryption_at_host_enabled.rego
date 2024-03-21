@@ -38,6 +38,13 @@ pass[properties] {
     lower(properties.encryptionAtHost) == "true"
 }
 
+pass[properties] {
+     is_valid
+     some resource in input.resources
+     properties := resource.properties.virtualMachineProfile.securityProfile
+     lower(properties.encryptionAtHost) == "true"
+}
+
 fail[resources] {
 	resources := input.resources
 	is_valid
