@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Azure Firewalls DenyIntelMode set to Deny"
-# description: "The DenyIntelMode of Azure Firewalls is configured to Deny, restricting traffic based on intelligence-based threat detections."
+# description: "This policy ensures that the DenyIntelMode of Azure Firewalls is configured to Deny, restricting traffic based on intelligence-based threat detections."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.network/azurefirewalls?pivots=deployment-language-arm-template
