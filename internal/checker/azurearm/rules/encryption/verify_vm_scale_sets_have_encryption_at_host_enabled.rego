@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify VM Scale Sets have encryption-at-host enabled"
-# description: "Ensure that Virtual Machine Scale Sets are configured with encryption-at-host enabled, bolstering security measures within the system."
+# description: "This policy ensures that Virtual Machine Scale Sets are configured with encryption-at-host enabled, bolstering security measures within the system."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachinescalesets?pivots=deployment-language-arm-template
