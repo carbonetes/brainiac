@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify latest version TLS encryption used in Storage Account"
-# description: "The description entails ensuring that the latest version of TLS encryption protocol is employed within the configuration of a Storage Account in Azure."
+# description: "This policy ensures that the latest version of TLS encryption protocol is employed within the configuration of a Storage Account in Azure."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.security/securitycontacts?pivots=deployment-language-arm-template
