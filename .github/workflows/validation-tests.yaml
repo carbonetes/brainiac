@@ -2,9 +2,9 @@ name: "Validation Tests"
 
 on:
   push:
-    branches: [ "main", "feature/azure-development"] 
+    branches: [ "main", "improvement/aws-policy"] 
   pull_request:
-    branches: [ "main", "feature/azure-development"] 
+    branches: [ "main", "improvement/aws-policy"] 
 
 env:
   GO_CURRENT_VERSION: "1.20.x"
