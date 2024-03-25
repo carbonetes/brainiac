@@ -9,47 +9,55 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_253
 
-supportedResource := ["aws_security_group", "aws_security_group_rule", "aws_vpc_security_group_ingress_rule"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supported_resources := ["aws_security_group", "aws_security_group_rule", "aws_vpc_security_group_ingress_rule"]
+	label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "ingress"
-    fromPort := to_number(resource.Blocks[_].Attributes.from_port)
-    toPort := to_number(resource.Blocks[_].Attributes.to_port)
-    fromPort == -1
-    toPort == -1
+	resource.Blocks[_].Type == "ingress"
+	some fromport in resource.Blocks.Attributes.from_port
+	from_port := to_number(fromport)
+	some toport in resource.Blocks.Attributes.to_port
+	to_port := to_number(toport)
+	from_port == -1
+	to_port == -1
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Security groups do not permit incoming connections from 0.0.0.0:0 to port -1.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Security groups do not permit incoming connections from 0.0.0.0:0 to port -1.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Security groups must not permit incoming connections from 0.0.0.0:0 to port -1.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Security groups must not permit incoming connections from 0.0.0.0:0 to port -1.",
+		"snippet": block,
+	}
+}

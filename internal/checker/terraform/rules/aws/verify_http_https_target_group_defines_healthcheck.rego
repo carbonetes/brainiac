@@ -9,46 +9,52 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_254
 
-supportedResources := ["aws_alb_target_group", "aws_lb_target_groupaws_lb_target_group"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := ["aws_alb_target_group", "aws_lb_target_groupaws_lb_target_group"]
+	label in supported_resources
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[block]{
-    block := input[_]
-    isvalid(block)
-    protocols := ["HTTP", "HTTPS"]
-    block.Attributes.protocol == protocols[_]
-    block.Blocks[_].Type == "health_check"
-    block.Blocks[_].Attributes.path != ""
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	protocols := ["HTTP", "HTTPS"]
+	block.Attributes.protocol in protocols
+	block.Blocks[_].Type == "health_check"
+	not block.Blocks.Attributes.path
 }
 
-
-passed[result] {
-	block := pass[_]
-	result := { "message": "HTTP HTTPS Target group defines Healthcheck.",
-                "snippet": block}
+fail contains block if {
+	some block in input
+	isvalid(block)
+	not pass[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "HTTP HTTPS Target group Healthcheck must be define",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "HTTP HTTPS Target group defines Healthcheck.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "HTTP HTTPS Target group Healthcheck must be define",
+		"snippet": block,
+	}
 }

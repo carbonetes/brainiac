@@ -9,25 +9,30 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_249
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_iam_user"
+	some label in block.Labels
+	label == "aws_iam_user"
 }
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource] {
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
 }
 
 passed := []
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Access is granted to AWS IAM defined users.",
-                "snippet": block }
-} 
+failed contains resource if {
+	some block in fail
+	result := {
+		"message": "Access is granted to AWS IAM defined users.",
+		"snippet": block,
+	}
+}
