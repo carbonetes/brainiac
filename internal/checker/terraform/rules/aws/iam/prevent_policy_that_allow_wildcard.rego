@@ -9,51 +9,54 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_001
 
-import future.keywords.in 
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "aws_iam_policy_document"
+	some label in block.Labels
+	label == "aws_iam_policy_document"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[blockStatements] {
-    block := input[_]
+fail contains blockstatements if {
+	some block in input
 	isvalid(block)
-    blockStatements := block.Blocks[_]
-    blockStatements.Type == "statement"
-    blockStatements.Attributes.effect  == "Allow"
-    action := blockStatements.Attributes.actions[_]
-    action == "*"
-    resource := blockStatements.Attributes.resources[_]
-    resource == "*"
+	some blockstatements in block.Blocks
+	blockstatements.Type == "statement"
+	blockstatements.Attributes.effect == "Allow"
+	some action in blockstatements.Attributes.actions
+	action == "*"
+	some resource in blockstatements.Attributes.resources
+	resource == "*"
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	not fail[block]
 }
 
-
-
-passed[result] {
-	blockStatements := pass[_]
-	result := { "message": "The attribute statement for actions and resources does not contain wildcard",
-                "snippet": blockStatements}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The attribute statement for actions and resources does not contain wildcard",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    blockStatements := fail[_]
-	result := { "message": "The attribute for actions and resources should not contain wildcard",
-                "snippet": blockStatements }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The attribute for actions and resources should not contain wildcard",
+		"snippet": block,
+	}
 }

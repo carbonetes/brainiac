@@ -9,46 +9,47 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_005
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
+    some block in resource.Blocks
     block.Type == "node_to_node_encryption_options"
     block.Attributes.enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "node-to-node encryption is enabled.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+	some block in fail
 	result := { "message": "node-to-node encryption is disabled.",
                 "snippet": block }
 }

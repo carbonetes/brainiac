@@ -9,46 +9,47 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_007
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_instance", "aws_launch_configuration"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_instance", "aws_launch_configuration"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
+    some block in resource.Blocks
     block.Type == "root_block_device"
     block.Attributes.encrypted == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "'root_block_device' should is set properly.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+	some block in fail
 	result := { "message": "'root_block_device' should be set to true.",
                 "snippet": block }
 }
