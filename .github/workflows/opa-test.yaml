@@ -19,7 +19,7 @@ jobs:
       run: opa test internal/checker/terraform/rules/aws -v
 
     - name: Setup Regal
-      uses: StyraInc/setup-regal@v0.18.0
+      uses: StyraInc/setup-regal@v1
       with:
         version: v0.18.0
     - run: regal lint --format=github internal/checker/terraform/rules/aws
