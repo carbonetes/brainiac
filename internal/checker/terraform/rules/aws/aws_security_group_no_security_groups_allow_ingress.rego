@@ -37,11 +37,10 @@ pass contains block if {
 fail contains resource if {
 	some resource in input
 	isvalid(resource)
-	resource.Blocks[_].Type == "ingress"
-	some fromport in resource.Blocks.Attributes.from_port
-	from_port := to_number(fromport)
-	some toport in resource.Blocks.Attributes.to_port
-	to_port := to_number(toport)
+	some block in resource.Blocks
+	block.Type == "ingress"
+	from_port := to_number(block.Attributes.from_port)
+	to_port := to_number(block.Attributes.to_port)
 	from_port == -1
 	to_port == -1
 }

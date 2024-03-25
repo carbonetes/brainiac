@@ -30,8 +30,9 @@ resource contains resource if {
 pass contains resource if {
 	some resource in input
 	isvalid(resource)
-	resource.Blocks[_].Type == "server_side_encryption_configuration"
-	not resource.Blocks.Attributes.kms_key_id
+	some encryption in resource.Blocks
+	encryption.Type == "server_side_encryption_configuration"
+	encryption.Attributes.kms_key_id != ""
 }
 
 fail contains block if {

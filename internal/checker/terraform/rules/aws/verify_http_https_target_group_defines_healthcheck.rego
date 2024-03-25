@@ -33,8 +33,9 @@ pass contains block if {
 	isvalid(block)
 	protocols := ["HTTP", "HTTPS"]
 	block.Attributes.protocol in protocols
-	block.Blocks[_].Type == "health_check"
-	not block.Blocks.Attributes.path
+	some health in block.Blocks
+	health.Type == "health_check"
+	health.Attributes.path != ""
 }
 
 fail contains block if {
