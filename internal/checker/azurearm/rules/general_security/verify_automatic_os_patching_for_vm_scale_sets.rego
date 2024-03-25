@@ -17,11 +17,15 @@ is_valid {
 	res.type == resource
 }
 
-pass[properties] {
- 	is_valid
+pass[extension_properties] {
+	is_valid
 	some resource in input.resources
-  	properties := resource.properties
-    properties.enableAutomaticUpgrade == true
+	properties := resource.properties
+	properties.orchestrationMode != "Flexible"
+	extension_profile := properties.virtualMachineProfile.extensionProfile
+	some extension in extension_profile.extensions
+	extension_properties := extension.properties
+	extension_properties.enableAutomaticUpgrade == true
 }
 
 fail[resources] {
