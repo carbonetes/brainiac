@@ -1,12 +1,12 @@
 # METADATA
-# title: "Verify that email notifications are enabled for high severity alerts"
-# description: "Ensure that the system is configured to verify and enable email notifications for high severity alerts, ensuring timely awareness and response to critical incidents."
+# title: "Verify email notifications is enabled for high severity alerts to administrators"
+# description: "This policy ensures that subscription owners receive security alert emails from Microsoft, ensuring timely awareness and risk mitigation. We recommend configuring security alert emails to be sent to subscription owners."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.security/securitycontacts?pivots=deployment-language-arm-template
 # custom:
 #   id: CB_AZR_022
-#   severity: LOW
+#   severity: MEDIUM
 package lib.azurearm.CB_AZR_022
 import future.keywords.in
 

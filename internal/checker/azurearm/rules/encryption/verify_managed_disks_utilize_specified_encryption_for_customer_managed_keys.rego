@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify managed disks utilize specified encryption for customer-managed keys"
-# description: "Verify that the managed disks within the system are configured to utilize specific encryption methodologies tailored for the encryption of data using customer-managed keys, ensuring robust security measures are in place."
+# description: "This policy ensures that you have control over the keys used for encryption at rest by requiring a specific set of disk encryption sets for managed disks. Only the permitted encrypted sets can be selected, while all others are rejected when attached to a disk."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/disks?pivots=deployment-language-arm-template

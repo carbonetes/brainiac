@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify default network access rule for Storage Accounts is set to deny"
+# title: "Verify Storage Accounts default network access rule is configured to deny"
 # description: "This policy enhances security measures by configuring default network access restrictions for storage accounts. By default, storage accounts accept connections from clients on any network. However, with this policy, the default action is modified to limit access exclusively to selected networks. This additional layer of security helps fortify resources against unauthorized access."
 # scope: package
 # related_resources:

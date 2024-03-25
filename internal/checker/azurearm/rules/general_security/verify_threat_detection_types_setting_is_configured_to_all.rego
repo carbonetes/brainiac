@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify that the Threat Detection types setting is configured to All"
-# description: "Confirm that all available threat detection types are selected within the system settings to ensure comprehensive security coverage and protection against potential threats."
+# title: "Verify Threat Detection types setting is configured to All"
+# description: "This policy suggests that activating all Threat Detection Types safeguards against SQL injection, database vulnerabilities, and any other unusual activities. We advise enabling all types of threat detection on SQL servers."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-arm-template

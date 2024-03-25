@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that 'Public access level' is set to Private for blob containers"
+# title: "Verify 'Public access level' is configured as Private for blob containers."
 # description: "This policy enables anonymous, public read access to both a container and its blobs within Azure Blob storage. It allows read-only access to these resources without the need for sharing the account key or requiring a shared access signature."
 # scope: package
 # related_resources:

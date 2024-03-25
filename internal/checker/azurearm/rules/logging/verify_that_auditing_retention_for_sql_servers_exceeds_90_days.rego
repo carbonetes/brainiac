@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify that the Auditing Retention for SQL servers exceeds 90 days"
-# description: "Verify that the duration set for retaining auditing logs on SQL servers surpasses the threshold of 90 days."
+# description: "This policy advises utilizing Audit Logs for anomaly detection and insights into potential breaches or misuse of information and access. We recommend setting SQL server audit retention to over 90 days."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-arm-template

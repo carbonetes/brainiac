@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify Web App is using the latest version of TLS encryption"
+# title: "Verify Web App utilizes the most recent version of TLS encryption"
 # description: "This policy ensures that the Transport Layer Security (TLS) protocol secures transmission of data over the internet using standard encryption technology."
 # scope: package
 # related_resources:

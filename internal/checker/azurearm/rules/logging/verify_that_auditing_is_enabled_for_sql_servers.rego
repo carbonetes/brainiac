@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify that Auditing is enabled for SQL servers"
-# description: Verify that auditing functionality is activated for SQL servers to ensure comprehensive monitoring and compliance adherence.
+# description: "This policy suggests activating auditing at the server level on the Azure platform for comprehensive tracking of database events, aiding in regulatory compliance, understanding database activity, and detecting anomalies that may indicate business concerns or potential security breaches."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-arm-template

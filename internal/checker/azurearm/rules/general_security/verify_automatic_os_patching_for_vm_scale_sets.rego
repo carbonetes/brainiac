@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Automatic OS Patching for VM Scale Sets"
-# description: "Ensure that automatic operating system patching is enabled and functional for Virtual Machine Scale Sets to maintain security and reliability."
+# description: "This policy requires enabling automatic OS image patching on Virtual Machine Scale Sets to consistently maintain the security of Virtual Machines. It ensures the timely application of the latest security patches every month to keep the system secure."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachinescalesets?pivots=deployment-language-arm-template

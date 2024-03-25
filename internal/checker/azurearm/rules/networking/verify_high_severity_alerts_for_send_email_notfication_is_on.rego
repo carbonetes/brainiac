@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify high severity alerts for send email notfication is on"
-# description: "Validate that the email notification system is configured to send alerts for high-severity incidents, ensuring timely awareness and response to critical issues."
+# title: "Verify send email notifications is enabled for high severity alerts"
+# description: "This policy ensures that your organization's security team receives automatic email alerts for potential security issues, enabling swift risk mitigation. Activating Send email notification for high severity alerts ensures prompt emails from Microsoft in case of a potential breach."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.security/securitycontacts?pivots=deployment-language-arm-template

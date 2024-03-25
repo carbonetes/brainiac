@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify that no custom subscription owner roles are created"
+# title: "Verify that there are no custom subscription owner roles created"
 # description: "This policy emphasizes that subscription ownership should not grant permissions to create custom owner roles. It advocates for adhering to the principle of least privilege, advocating for assigning only necessary privileges rather than providing full administrative access."
 # scope: package
 # related_resources:

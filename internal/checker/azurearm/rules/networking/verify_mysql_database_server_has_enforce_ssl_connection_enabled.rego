@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify that the MySQL Database Server has Enforce SSL connection set to ENABLED"
-# description: "Ensure that the MySQL database server enforces SSL connections by verifying that the Enforce SSL connection setting is set to ENABLED."
+# title: "Verify 'Enforce SSL connection' setting is enabled for MySQL Database Server"
+# description: "This policy recommends enabling SSL connections on MySQL Server databases to enhance security against potential threats, such as man-in-the-middle attacks, by encrypting data transmissions."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.dbformysql/servers?pivots=deployment-language-arm-template

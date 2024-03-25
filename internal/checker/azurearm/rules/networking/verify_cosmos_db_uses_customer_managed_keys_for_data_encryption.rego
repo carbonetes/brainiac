@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify Cosmos DB uses customer-managed keys for data encryption"
-# description: "Ensure that Cosmos DB utilizes customer-managed keys for encrypting data, enhancing security measures for data at rest."
+# description: "This policy ensures data encryption in Azure Cosmos accounts, utilizing either service-managed keys or customer-managed keys (CMKs). CMKs offer users full control over encryption keys stored in Azure Key Vault, providing an additional layer of encryption on top of the default encryption with service-managed keys."
 # scope: package
 # related_resources:
 # - https://learn.microsoft.com/en-us/azure/templates/microsoft.documentdb/databaseaccounts?pivots=deployment-language-arm-template
