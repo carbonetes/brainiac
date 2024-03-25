@@ -9,46 +9,50 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_002
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_alb_listener", "aws_lb_listener"]
-seccuredProtocol := ["HTTPS", "TLS", "TCP", "UDP" ,"TCP_UDP"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_alb_listener", "aws_lb_listener"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := failedChecks[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in failedchecks
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.protocol == seccuredProtocol[_]
+	seccuredprotocol := ["HTTPS", "TLS", "TCP", "UDP", "TCP_UDP"]
+	resource.Attributes.protocol in seccuredprotocol
 }
 
-failedChecks[block] {
-    block := input[_]
+failedchecks contains block if {
+	some block in input
 	isvalid(block)
-    passed := pass
-    count(passed) == 0
+	count(pass) == 0
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The ALB protocol should is set properly.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The ALB protocol should is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := failedChecks[_]
-	result := { "message": "The ALB protocol should is set to secure.",
-                "snippet": block }
+failed contains result if {
+	some block in failedchecks
+	result := {
+		"message": "The ALB protocol should is set to secure.",
+		"snippet": block,
+	}
 }
