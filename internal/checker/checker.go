@@ -81,6 +81,16 @@ func CheckIACFile(config, configFile string) (model.Result, error) {
 		}
 		input, rawContent := file.ParseCloudformationFile(configFile)
 		return proccessInput(input, rawContent, modules, file.FileTypeCloudFormation, configFile)
+
+	case file.FileTypeAzureARM:
+		modules, err := module.ModuleParser(config, EmbededRules)
+		if err != nil && modules == nil {
+			log.Printf("Failed to parse rego modules")
+			Errors = append(Errors, &err)
+			return model.Result{}, err
+		}
+		input, rawContent := file.ParseAzureTemplateFile(configFile)
+		return proccessInput(input, rawContent, modules, file.FileTypeAzureARM, configFile)
 	}
 	return model.Result{}, nil
 
