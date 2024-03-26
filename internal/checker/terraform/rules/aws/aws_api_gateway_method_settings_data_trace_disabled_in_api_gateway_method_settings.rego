@@ -1,5 +1,5 @@
 # METADATA
-# title: "Make certain that Data Trace is disabled in API Gateway Method Settings"
+# title: "Check to make sure that there is no open API access to back-end resources"
 # description: "Verify that Data Trace is disabled in API Gateway Method Settings to prevent sensitive data leakage and ensure better security."
 # scope: package
 # related_resources:
@@ -9,46 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_251
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_api_gateway_method_settings"
+	some label in block.Labels
+	label == "aws_api_gateway_method_settings"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "settings"
-    resource.Blocks[_].Attributes.data_trace_enabled == true
+	resource.Blocks[_].Type == "settings"
+	resource.Blocks[_].Attributes.data_trace_enabled == true
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "CData Trace is disabled in API Gateway Method Settings.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "CData Trace is disabled in API Gateway Method Settings.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Data Trace must be disabled in API Gateway Method Settings.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Data Trace must be disabled in API Gateway Method Settings.",
+		"snippet": block,
+	}
+}
