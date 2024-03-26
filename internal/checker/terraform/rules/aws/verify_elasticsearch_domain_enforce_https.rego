@@ -9,43 +9,51 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_068
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[block] {
-    block := input[_]
-	isvalid(block)
-   	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "domain_endpoint_options"
-    resource.Blocks[_].Attributes.enforce_https == false
+	some blocks in resource.Blocks
+	blocks.Type == "domain_endpoint_options"
+	blocks.Attributes.enforce_https == false
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'enforce_https' is set properly.",
-                "snippet": block }
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_elasticsearch_domain' 'aws_opensearch_domain' for 'enforce_https' should be set.",
-                "snippet": block }
-} 
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'enforce_https' is set properly.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_elasticsearch_domain' 'aws_opensearch_domain' for 'enforce_https' should be set.",
+		"snippet": block,
+	}
+}

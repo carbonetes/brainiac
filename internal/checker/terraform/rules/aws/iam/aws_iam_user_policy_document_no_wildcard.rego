@@ -9,49 +9,54 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_063
 
-supportedResource := ["aws_iam_group_policy", "aws_iam_policy", "aws_iam_role_policy", "aws_iam_user_policy", "aws_ssoadmin_permission_set_inline_policy"]
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_iam_group_policy", "aws_iam_policy", "aws_iam_role_policy", "aws_iam_user_policy", "aws_ssoadmin_permission_set_inline_policy"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    policyStr := block.Attributes.policy
-    policyParsed := json.unmarshal(policyStr)
-    statement := policyParsed.Statement[0]
-    statement.Effect == "Allow"
-    contains(statement.Action, "*")
-    contains(statement.Resource, "*")
 }
 
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
 
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	policystr := block.Attributes.policy
+	policyparsed := json.unmarshal(policystr)
+	statement := policyparsed.Statement[0]
+	statement.Effect == "Allow"
+	contains(statement.Action, "*")
+	contains(statement.Resource, "*")
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Using asterisk on policy documents are denied.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Using asterisk on policy documents should be denied.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Using asterisk on policy documents are denied.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Using asterisk on policy documents should be denied.",
+		"snippet": block,
+	}
 }
