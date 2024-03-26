@@ -9,46 +9,53 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_261
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_neptune_cluster_snapshot"
+	some label in block.Labels
+	label == "aws_neptune_cluster_snapshot"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "storage_encrypted")
-    resource.Attributes.storage_encrypted == true
+	has_attribute(resource.Attributes, "storage_encrypted")
+	resource.Attributes.storage_encrypted == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Neptune snapshots is encrypted in a way that meets security standards.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Neptune snapshots is encrypted in a way that meets security standards.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Neptune snapshots must be encrypted in a way that meets security standards.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Neptune snapshots must be encrypted in a way that meets security standards.",
+		"snippet": block,
+	}
+}
