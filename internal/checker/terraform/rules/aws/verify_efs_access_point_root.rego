@@ -9,44 +9,48 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_303
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_efs_access_point"
+	some label in block.Labels
+	label == "aws_efs_access_point"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-	block.Blocks[_].Type == "root_directory"
-	block.Blocks[_].Attributes.path != "/"
+	some root_dir in block.Blocks
+	root_dir.Type == "root_directory"
+	root_dir.Attributes.path != "/"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "EFS access points have been configured to enforce a root directory.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "EFS access points are not configured to enforce a root directory.",
 		"snippet": block,

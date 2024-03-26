@@ -9,46 +9,50 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_304
 
-import future.keywords.if
+import rego.v1
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supported_resources := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+	some resource in input
 	resource.Blocks[_].Type == "log_publishing_options"
-    resource.Blocks[_].Attributes.log_type == "AUDIT_LOGS"
-    resource.Blocks[_].Attributes.enabled == true
+	resource.Blocks[_].Attributes.log_type == "AUDIT_LOGS"
+	resource.Blocks[_].Attributes.enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Elasticsearch Domain Audit Logging is enabled.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Elasticsearch Domain Audit Logging is enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Elasticsearch Domain Audit Logging should be enabled.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Elasticsearch Domain Audit Logging should be enabled.",
+		"snippet": block,
+	}
+}

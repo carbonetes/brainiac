@@ -9,45 +9,48 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_298
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_rds_cluster"
+	some label in block.Labels
+	label == "aws_rds_cluster"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-	supportedEngines := ["aurora", "aurora-mysql"]
-	block.Attributes.engine == supportedEngines[_]
+	supported_engines := ["aurora", "aurora-mysql"]
+	block.Attributes.engine in supported_engines
 	to_number(block.Attributes.backtrack_window) != 0
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "RDS Aurora Clusters have backtracking enabled.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "RDS Aurora Clusters' backtracking must be enabled.",
 		"snippet": block,

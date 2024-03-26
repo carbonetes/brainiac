@@ -9,45 +9,52 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_296
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_rds_cluster"
+	some label in block.Labels
+	label == "aws_rds_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.copy_tags_to_snapshot == true
+	resource.Attributes.copy_tags_to_snapshot == true
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    not pass[resource]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	not pass[resource]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "RDS cluster configured to copy tags to snapshots.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "RDS cluster configured to copy tags to snapshots.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "RDS cluster must be configured to copy tags to snapshots.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "RDS cluster must be configured to copy tags to snapshots.",
+		"snippet": block,
+	}
+}
