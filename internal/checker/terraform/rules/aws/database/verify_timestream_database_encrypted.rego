@@ -8,45 +8,48 @@
 #   id: CB_TFAWS_138
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_138
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_timestreamwrite_database"
+    some label in block.Labels 
+    label == "aws_timestreamwrite_database"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+    some block in pass
+	resource := concat(".", block.Labels)
+} 
+
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+} 
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "kms_key_id")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_timestreamwrite_database' encryption is set properly.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_timestreamwrite_database' should be ecnrypted.",
                 "snippet": block }
 }
