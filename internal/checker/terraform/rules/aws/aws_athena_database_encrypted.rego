@@ -9,45 +9,50 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_059
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_athena_database"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_athena_database"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    encryption_configuration := resource.Blocks[_]
-    encryption_configuration.Type == "encryption_configuration"
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some encryption_configuration in resource.Blocks
+	encryption_configuration.Type == "encryption_configuration"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_athena_database encryption is encrypted.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_athena_database encryption is encrypted.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_athena_database encryption should be encrypted.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_athena_database encryption should be encrypted.",
+		"snippet": block,
+	}
 }
+

@@ -9,60 +9,59 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_054
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "provider"
-    block.Labels[_] == "aws"
+	some label in block.Labels
+	label == "aws"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-}
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-checkRegex(block){
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+checkRegex(block) if {
 	regex.match(`[A-Z0-9]{20}`, block.Attributes.access_key)
-
 }
 
-checkRegex(block){
+checkRegex(block) if {
 	regex.match(`[a-zA-Z0-9/+]{40}`, block.Attributes.secret_key)
 }
 
-fail[resource] {
-	resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    checkRegex(resource)
+	checkRegex(resource)
 }
 
-pass[resource] {
-	resource := input[_]
-	isvalid(resource)
-	not fail[resource]
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Hard-coded AWS access keys or secret keys not found.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Hard-coded AWS access keys or secret keys not found.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Do not include hard-coded AWS access keys or secret keys.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Do not include hard-coded AWS access keys or secret keys.",
+		"snippet": block,
+	}
 }
-
-
-
-
-
-
-
-
 
 
 
