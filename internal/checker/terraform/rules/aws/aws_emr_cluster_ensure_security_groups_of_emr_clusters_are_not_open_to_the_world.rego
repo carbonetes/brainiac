@@ -9,49 +9,56 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_329
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_emr_cluster"
+	some label in block.Labels
+	label == "aws_emr_cluster"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_security_group"
-    resource.Blocks[_].Type == "ingress"
-    resource.Blocks[_].Attributes.cidr_blocks[_] == "0.0.0.0/0"
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_security_group" in resource.Labels
+	resource.Blocks[_].Type == "ingress"
+	"0.0.0.0/0" in resource.Blocks.Attributes.cidr_blocks
 }
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The security groups for Amazon EMR clusters are closed to the world.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The security groups for Amazon EMR clusters are closed to the world.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The security groups for Amazon EMR clusters must not be open to the world.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The security groups for Amazon EMR clusters must not be open to the world.",
+		"snippet": block,
+	}
+}

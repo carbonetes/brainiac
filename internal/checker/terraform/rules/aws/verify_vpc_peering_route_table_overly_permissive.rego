@@ -9,52 +9,52 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_333
 
-import future.keywords.if
-
-supportedResource := ["aws_route", "aws_route_table"]
+import rego.v1
 
 isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supported_resources := ["aws_route", "aws_route_table"]
+	label in supported_resources
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "route"
-	innerBlock.Attributes.vpc_peering_connection_id != ""
-	checkCidrIfFail(innerBlock.Attributes.cidr_block)
+	some inner in block.Blocks
+	inner.Type == "route"
+	inner.Attributes.vpc_peering_connection_id != ""
+	checkCidrIfFail(inner.Attributes.cidr_block)
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "route"
-	innerBlock.Attributes.vpc_peering_connection_id != ""
-	checkV6CidrIfFail(innerBlock.Attributes.ipv6_cidr_block)
+	some inner in block.Blocks
+	inner.Type == "route"
+	inner.Attributes.vpc_peering_connection_id != ""
+	checkV6CidrIfFail(inner.Attributes.ipv6_cidr_block)
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.vpc_peering_connection_id != ""
 	checkCidrIfFail(block.Attributes.destination_cidr_block)
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.vpc_peering_connection_id != ""
 	checkV6CidrIfFail(block.Attributes.destination_ipv6_cidr_block)
@@ -80,22 +80,22 @@ checkV6CidrIfFail(attribute) := result if {
 	result := false
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
 	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "AWS route table with VPC peering does not contain routes overly permissive to all traffic.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "AWS route table with VPC peering contains routes overly permissive to all traffic.",
 		"snippet": block,

@@ -9,46 +9,52 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_327
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_s3_bucket_acl"
+    some label in block.Labels
+    label == "aws_s3_bucket_acl"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	block := input[_]
-	isvalid(block)
-	block.Blocks[_].Type == "access_control_policy"
-	block.Blocks[_].Blocks[_].Type == "grant"
-	block.Blocks[_].Blocks[_].Blocks[_].Type == "grantee"
-	block.Blocks[_].Blocks[_].Blocks[_].Attributes.uri != "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"
+pass contains block if {
+    some block in input
+    isvalid(block)
+    some access_control_policy in block.Blocks
+    access_control_policy.Type == "access_control_policy"
+    some grant in access_control_policy.Blocks
+    grant.Type == "grant"
+    some grantee in grant.Blocks
+    grantee.Type == "grantee"
+    grantee.Attributes.uri != "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "S3 Bucket does not allow access to all Authenticated users.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "S3 Bucket allows access to all Authenticated users.",
 		"snippet": block,
