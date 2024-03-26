@@ -9,45 +9,46 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_037
 
-import future.keywords.in 
+import rego.v1
 
-
-supportedResource := ["aws_s3_bucket", "aws_s3_bucket_acl"]
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_s3_bucket", "aws_s3_bucket_acl"]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource]{
-    resource := input[_]
+
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.acl == "public-read"
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "'aws_s3_bucket' 'acl' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+	some block in fail
 	result := { "message": "'aws_s3_bucket' 'acl' should be set to private",
                 "snippet": block }
 } 

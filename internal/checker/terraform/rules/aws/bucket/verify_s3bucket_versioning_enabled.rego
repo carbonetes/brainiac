@@ -9,56 +9,60 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_038
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_s3_bucket", "aws_s3_bucket_versioning"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_s3_bucket", "aws_s3_bucket_versioning"]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "versioning"
-    block.Attributes.enabled == true
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "versioning_configuration"
-    block.Attributes.status == "Enabled"
+	some block in resource.Blocks
+	block.Type == "versioning"
+	block.Attributes.enabled == true
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "versioning_configuration"
+	block.Attributes.status == "Enabled"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	passCount := pass
-    count(passCount) == 0
+	passcount := pass
+	count(passcount) == 0
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_s3_bucket_versioning' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_s3_bucket_versioning' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_s3_bucket_versioning' should be enabled",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_s3_bucket_versioning' should be enabled",
+		"snippet": block,
+	}
+}

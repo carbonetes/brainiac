@@ -9,60 +9,66 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_040
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_lambda_function"
-}
-has_attribute(key, value) {
-  _ = key[value]
+	some label in block.Labels
+	label == "aws_lambda_function"
 }
 
-checkRegex(value){
+has_attribute(key, value) if {
+	value in object.keys(key)
+}
+
+checkRegex(value) if {
 	regex.match(`[A-Z0-9]{20}`, value)
-
 }
 
-checkRegex(value){
+checkRegex(value) if {
 	regex.match(`[a-zA-Z0-9/+]{40}`, value)
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-}
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-fail[block] {
-  block := input[_]
-  isvalid(block)
-  envBlock := block.Blocks[_]
-  envBlock.Type == "environment"
-  variables := envBlock.Attributes.variables[_]
-  checkRegex(variables)
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
-
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	some envblock in block.Blocks
+	envblock.Type == "environment"
+	some variables in envblock.Attributes.variables
+	checkRegex(variables)
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Hard-coded AWS access keys or secret keys not found.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Do not include hard-coded AWS access keys or secret keys.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Hard-coded AWS access keys or secret keys not found.",
+		"snippet": block,
+	}
 }
 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Do not include hard-coded AWS access keys or secret keys.",
+		"snippet": block,
+	}
+}
 
 
 
