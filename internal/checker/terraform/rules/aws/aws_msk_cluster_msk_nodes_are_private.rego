@@ -9,28 +9,32 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_270
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_msk_cluster"
+	some label in block.Labels
+	label == "aws_msk_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
 	resource.Blocks[_].Type == "broker_node_group_info"
 	resource.Blocks[_].Blocks[_].Type == "connectivity_info"
@@ -38,16 +42,18 @@ fail[resource]{
 	resource.Blocks[_].Blocks[_].Blocks[_].Attributes.type == "SERVICE_PROVIDED_EIPS"
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "MSK nodes are configured as private.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "MSK nodes are configured as private.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "MSK nodes must be configured as private.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "MSK nodes must be configured as private.",
+		"snippet": block,
+	}
 }
-
-
