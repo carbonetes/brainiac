@@ -9,45 +9,52 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_297
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_autoscaling_group"
+	some label in block.Labels
+	label == "aws_autoscaling_group"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "launch_template"
+	resource.Blocks[_].Type == "launch_template"
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    not pass[resource]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	not pass[resource]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "EC2 Auto Scaling groups is using EC2 launch templates.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "EC2 Auto Scaling groups is using EC2 launch templates.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "EC2 Auto Scaling groups should use EC2 launch templates.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "EC2 Auto Scaling groups should use EC2 launch templates.",
+		"snippet": block,
+	}
+}

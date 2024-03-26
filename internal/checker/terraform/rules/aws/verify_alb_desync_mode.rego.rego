@@ -9,45 +9,47 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_300
 
-supportedResource := ["aws_alb", "aws_elb", "aws_lb"]
+import rego.v1
 
-isvalid(block) {
-	block.Type == "resource"
-	block.Labels[_] == supportedResource[_]
+isvalid(block) if {
+    block.Type == "resource"
+    supported_resources := ["aws_alb", "aws_elb", "aws_lb"]
+    some label in block.Labels
+    label in supported_resources
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.routing_http_desync_mitigation_mode != "monitor"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "ALB is configured with defensive or strictest desync mitigation mode.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "ALB must be configured with defensive or strictest desync mitigation mode.",
 		"snippet": block,
