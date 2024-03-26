@@ -7,43 +7,45 @@
 #   id: CB_TFAWS_128
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_128
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_subnet"
+    some label in block.Labels 
+    label == "aws_subnet"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-fail[resource] {
-    resource := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+} 
+
+fail contains resource if{
+    some resource in input
     isvalid(resource)
     resource.Attributes.map_public_ip_on_launch == true
 
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "VPC subnets is not assign public IP by default",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "VPC subnets should not assign public IP by default",
                 "snippet": block}
 }
