@@ -9,60 +9,69 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_326
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_api_gateway_method_settings"
+	some label in block.Labels
+	label == "aws_api_gateway_method_settings"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getApiGatewayStageLabel[label] {
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_api_gateway_stage"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_api_gateway_method_settings"
-    gatewayStageLabel := getApiGatewayStageLabel[_]
-    startswith(resource.Attributes.stage_name, gatewayStageLabel)
+getapigatewaystagelabel contains label if {
+	some resource in input
+	resource.Type == "resource"
+	some label_resource in resource.Labels
+	label_resource == "aws_api_gateway_stage"
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    expectedValues := ["ERROR", "INFO"]
-    isValidResourceAttached
-    resource.Blocks[_].Type == "settings"
-    resource.Blocks[_].Attributes.logging_level == expectedValues[_]
-    resource.Blocks[_].Attributes.metrics_enabled == true
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	some label_resource in resource.Labels
+	label_resource == "aws_api_gateway_method_settings"
+	some gateway_stage_label in getapigatewaystagelabel
+	startswith(resource.Attributes.stage_name, gateway_stage_label)
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	expected_values := ["ERROR", "INFO"]
+	some block in resource.Blocks
+	block.Type == "settings"
+	block.Attributes.logging_level in expected_values
+	block.Attributes.metrics_enabled == true
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "API Gateway stage has the appropriate logging level specified.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "API Gateway stage has the appropriate logging level specified.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "API Gateway stage must have the appropriate logging level specified.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "API Gateway stage must have the appropriate logging level specified.",
+		"snippet": block,
+	}
+}

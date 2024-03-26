@@ -9,55 +9,63 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_335
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_appsync_graphql_api"
+	some label in block.Labels
+	label == "aws_appsync_graphql_api"
 }
 
-getAppsyncLabel[label]{
-    resource := input[_]
+getappsynclabel contains label if {
+	some resource in input
 	resource.Type == "resource"
-    resource.Labels[_] == "aws_appsync_graphql_api"
-    label := concat(".", resource.Labels)
+	"aws_appsync_graphql_api" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-isAttachementValid{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_wafv2_web_acl_association"
-    contains(resource.Attributes.resource_arn, getAppsyncLabel[_])
 }
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+is_attachement_valid if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_wafv2_web_acl_association" in resource.Labels
+	some label in getappsynclabel
+	contains(resource.Attributes.resource_arn, label)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isAttachementValid
+	is_attachement_valid
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "AppSync is protected by WAF.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "AppSync is protected by WAF.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "AppSync should be protected by WAF.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "AppSync should be protected by WAF.",
+		"snippet": block,
+	}
+}
