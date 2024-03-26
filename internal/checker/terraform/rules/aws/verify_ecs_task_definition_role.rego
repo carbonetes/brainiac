@@ -9,57 +9,64 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_281
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_ecs_task_definition"
+	some label in block.Labels
+	label == "aws_ecs_task_definition"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Attributes.execution_role_arn != resource.Attributes.task_role_arn
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    not has_attribute(resource.Attributes, "execution_role_arn")
+	resource.Attributes.execution_role_arn != resource.Attributes.task_role_arn
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    not has_attribute(resource.Attributes, "task_role_arn")
+	not has_attribute(resource.Attributes, "execution_role_arn")
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	not has_attribute(resource.Attributes, "task_role_arn")
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Execution Role ARN and the Task Role ARN are different in ECS Task definitions.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Execution Role ARN and the Task Role ARN are different in ECS Task definitions.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Execution Role ARN and the Task Role ARN must not be the same in ECS Task definitions.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Execution Role ARN and the Task Role ARN must not be the same in ECS Task definitions.",
+		"snippet": block,
+	}
+}
