@@ -9,41 +9,48 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_264
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_dms_s3_endpoint"
+	some label in block.Labels
+	label == "aws_dms_s3_endpoint"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.ssl_mode != "none"
+	resource.Attributes.ssl_mode != "none"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "DMS S3 defines in-transit encryption.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "DMS S3 defines in-transit encryption.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "DMS S3 must define in-transit encryption.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "DMS S3 must define in-transit encryption.",
+		"snippet": block,
+	}
+}
