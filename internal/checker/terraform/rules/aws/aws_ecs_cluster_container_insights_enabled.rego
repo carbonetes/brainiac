@@ -9,45 +9,51 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_060
 
-supportedResource := ["aws_ecs_cluster"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_ecs_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    setting := resource.Blocks[_]
-    setting.Type == "setting"
-    setting.Attributes.name == "containerInsights"
-    setting.Attributes.value == "enabled"
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some setting in resource.Blocks
+	setting.Type == "setting"
+	setting.Attributes.name == "containerInsights"
+	setting.Attributes.value == "enabled"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_ecs_cluster container insights are enabled.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_ecs_cluster container insights are enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_ecs_cluster container insights should be enabled.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_ecs_cluster container insights should be enabled.",
+		"snippet": block,
+	}
 }

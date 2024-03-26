@@ -9,45 +9,51 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_056
 
-supportedResource := ["aws_eks_cluster"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_eks_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    encryption_config := resource.Blocks[_]
-    encryption_config.Type == "encryption_config"
-    secrets_block := encryption_config.Blocks[_]
-    secrets_block.Type == "secrets"
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some encryption_config in resource.Blocks
+	encryption_config.Type == "encryption_config"
+	some secrets_block in encryption_config.Blocks
+	secrets_block.Type == "secrets"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_eks_cluster encryption is set to true.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_eks_cluster encryption is set to true.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_eks_cluster encryption should be set to true.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_eks_cluster encryption should be set to true.",
+		"snippet": block,
+	}
 }
