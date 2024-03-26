@@ -9,47 +9,52 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_048
 
-import future.keywords.in 
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_instance"
+	some label in block.Labels
+	label == "aws_instance"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    block.Type == "resource"
-    user_data := block.Attributes.user_data
-    key := ["access_key", "secret_key"]
-    contains(user_data, key[_])
 }
 
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
 
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	block.Type == "resource"
+	user_data := block.Attributes.user_data
+	key := ["access_key", "secret_key"]
+	some k in key
+	contains(user_data, k)
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "No secrets found in EC2 user data.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Secrets should not exist in an EC2 user data.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "No secrets found in EC2 user data.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Secrets should not exist in an EC2 user data.",
+		"snippet": block,
+	}
 }
