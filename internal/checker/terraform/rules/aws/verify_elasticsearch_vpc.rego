@@ -8,44 +8,45 @@
 #   id: CB_TFAWS_140
 #   severity: LOW
 package lib.terraform.CB_TFAWS_140
+import rego.v1
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+    some label in block.Labels 
+    supported_resource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+    label in supported_resource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}  
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+    some resource in input
     isvalid(resource)
     resource.Blocks[_].Type == "vpc_options"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'vpc_options' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'vpc_options' should be set.",
                 "snippet": block }
-} 
+}

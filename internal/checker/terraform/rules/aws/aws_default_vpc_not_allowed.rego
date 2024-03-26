@@ -8,28 +8,45 @@
 #   id: CB_TFAWS_133
 #   severity: LOW
 package lib.terraform.CB_TFAWS_133
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_default_vpc"
+    some label in block.Labels 
+    label == "aws_default_vpc"
 }
 
-
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
-passed := []
+pass contains resource if {
+    some resource in input
+	isvalid(resource)
+	tags := resource.Attributes.tags
+    tags.Name == "Default VPC"
+}
 
-failed[result] {
-    block := fail[_]
+fail contains block if {
+	some block in input
+	isvalid(block)
+   	not pass[block]
+}
+
+passed contains result if {
+    some block in pass
+	result := { "message": "'aws_default_vpc' not provisioned.",
+                "snippet": block }
+}
+
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_default_vpc' should not be provisioned.",
                 "snippet": block }
 }
