@@ -8,58 +8,60 @@
 #   id: CB_TFAWS_150
 #   severity: LOW
 package lib.terraform.CB_TFAWS_150
+import rego.v1
 
-supportedResource := ["aws_s3_bucket", "aws_s3_bucket_server_side_encryption_configuration"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+    some label in block.Labels 
+    supported_resources := ["aws_s3_bucket", "aws_s3_bucket_server_side_encryption_configuration"]
+    label in supported_resources
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+    some resource in input
     isvalid(resource)
-
-    server_side_encryption_configuration    := block_check(resource.Blocks[_], "server_side_encryption_configuration")
-    rule                                    := block_check(server_side_encryption_configuration.Blocks[_], "rule")
-    apply_server_side_encryption_by_default := block_check(rule.Blocks[_], "apply_server_side_encryption_by_default")
-    
+    some server_side_encrypt in resource.Blocks
+    server_side_encryption_configuration    := block_check(server_side_encrypt, "server_side_encryption_configuration")
+    some r in server_side_encrypt.Blocks
+    rule                                    := block_check(r, "rule")
+    some apply_server in r.Blocks
+    apply_server_side_encryption_by_default := block_check(apply_server, "apply_server_side_encryption_by_default")
     apply_server_side_encryption_by_default.Attributes.sse_algorithm == "aws:kms"
 }
 
-block_check(block, key) := result {
+block_check(block, key) := result if {
     block.Type == key
     result := block
-}
+} 
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_s3_bucket' or 'aws_s3_bucket_server_side_encryption_configuration' for 'server_side_encryption_configuration' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_s3_bucket' or 'aws_s3_bucket_server_side_encryption_configuration' for 'server_side_encryption_configuration' should be set.",
                 "snippet": block }
 } 
