@@ -9,46 +9,45 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_021
 
-import future.keywords.in 
+import rego.v1
 
-
-supportedResource := ["aws_db_instance", "aws_rds_cluster_instance"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_db_instance", "aws_rds_cluster_instance"]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.publicly_accessible == true
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "'aws_db_instance' 'publicly_accessible' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+	some block in fail
 	result := { "message": "'aws_db_instance' 'publicly_accessible' should be set to false",
                 "snippet": block }
 } 

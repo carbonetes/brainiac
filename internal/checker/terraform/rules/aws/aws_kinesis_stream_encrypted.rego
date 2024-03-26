@@ -9,46 +9,49 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_027
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_kinesis_stream"]
-valid_encryption_types = ["KMS", "NONE"]
-
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_kinesis_stream"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	valid_encryption_types = ["KMS", "NONE"]
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.encryption_type == valid_encryption_types[_]
+	resource.Attributes.encryption_type in valid_encryption_types
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_kinesis_stream is encrypted.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_kinesis_stream is encrypted.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_kinesis_stream should be encrypted.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_kinesis_stream should be encrypted.",
+		"snippet": block,
+	}
 }
