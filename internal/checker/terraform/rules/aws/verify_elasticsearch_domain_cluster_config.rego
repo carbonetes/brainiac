@@ -9,46 +9,51 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_306
 
-import future.keywords.if
+import rego.v1
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	supported_resources := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	some label in block.Labels
+	label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-	resource.Blocks[_].Type == "cluster_config"
-    to_number(resource.Blocks[_].Attributes.dedicated_master_count) >= 3
-    resource.Blocks[_].Attributes.zone_awareness_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	some cluster in resource.Blocks
+	cluster.Type == "cluster_config"
+	to_number(cluster.Attributes.dedicated_master_count) >= 3
+	cluster.Attributes.zone_awareness_enabled == true
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Elasticsearch domains are configured with at least three dedicated master nodes for HA.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Elasticsearch domains are configured with at least three dedicated master nodes for HA.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Elasticsearch domains should be configured with at least three dedicated master nodes for HA.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Elasticsearch domains should be configured with at least three dedicated master nodes for HA.",
+		"snippet": block,
+	}
+}

@@ -9,42 +9,47 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_307
 
-import future.keywords.if
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudwatch_metric_alarm"
+	some label in block.Labels
+	label == "aws_cloudwatch_metric_alarm"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource] {
-	resource := input[_]
+fail contains resource if {
+	some resource in input
 	resource.Attributes.actions_enabled == false
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "CloudWatch alarm actions are enabled.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "CloudWatch alarm actions are enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "ElasticCloudWatch alarm actions should be enabled.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "ElasticCloudWatch alarm actions should be enabled.",
+		"snippet": block,
+	}
+}

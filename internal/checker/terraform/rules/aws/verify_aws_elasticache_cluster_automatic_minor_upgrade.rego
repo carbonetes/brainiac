@@ -9,40 +9,47 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_310
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_elasticache_cluster"
+	some label in block.Labels
+	label == "aws_elasticache_cluster"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource] {
-	resource := input[_]
+fail contains resource if {
+	some resource in input
 	resource.Attributes.auto_minor_version_upgrade == false
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "ElastiCache for Redis cache clusters have auto minor version upgrades enabled.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "ElastiCache for Redis cache clusters have auto minor version upgrades enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "ElastiCache for Redis cache clusters does not have auto minor version upgrades enabled.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "ElastiCache for Redis cache clusters does not have auto minor version upgrades enabled.",
+		"snippet": block,
+	}
+}

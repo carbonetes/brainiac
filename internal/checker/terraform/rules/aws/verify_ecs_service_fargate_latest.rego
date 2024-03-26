@@ -9,44 +9,47 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_315
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_ecs_service"
+	some label in block.Labels
+	label == "aws_ecs_service"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.launch_type == "FARGATE"
 	block.Attributes.platform_version == "LATEST"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "ECS Fargate services run on the latest Fargate platform version.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "ECS Fargate services does not run on the latest Fargate platform version.",
 		"snippet": block,
