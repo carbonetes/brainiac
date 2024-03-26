@@ -9,54 +9,62 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_289
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_dms_endpoint"
+	some label in block.Labels
+	label == "aws_dms_endpoint"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Attributes.engine_name == "s3"
-    resource.Blocks[_].Type == "s3_settings"
-    has_attribute(resource.Blocks[_].Attributes, "server_side_encryption_kms_key_id")
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.engine_name != "s3"
-    resource.Blocks[_].Type == "kms_key_arn"
+	resource.Attributes.engine_name == "s3"
+	resource.Blocks[_].Type == "s3_settings"
+	some block in resource.Blocks
+	has_attribute(block.Attributes, "server_side_encryption_kms_key_id")
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.engine_name != "s3"
+	resource.Blocks[_].Type == "kms_key_arn"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "A Customer Managed Key (CMK) is utilized by the DMS endpoint for encryption.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "A Customer Managed Key (CMK) is utilized by the DMS endpoint for encryption.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "A Customer Managed Key (CMK) must be utilized by the DMS endpoint for encryption.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "A Customer Managed Key (CMK) must be utilized by the DMS endpoint for encryption.",
+		"snippet": block,
+	}
+}
