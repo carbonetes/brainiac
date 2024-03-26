@@ -9,40 +9,48 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_062
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_redshift_cluster"
+	some label in block.Labels
+	label == "aws_redshift_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.encrypted == true
+	resource.Attributes.encrypted == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Data that is saved within the Redshift cluster is encrypted.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Data that is saved within the Redshift cluster is encrypted.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Data that is saved within the Redshift cluster should be encrypted.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Data that is saved within the Redshift cluster should be encrypted.",
+		"snippet": block,
+	}
 }

@@ -9,45 +9,53 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_064
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_iam_role"
+	some label in block.Labels
+	label == "aws_iam_role"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    policyStr := block.Attributes.assume_role_policy
-    policyParsed := json.unmarshal(policyStr)
-    statement := policyParsed.Statement[0]
-    statement.Effect == "Allow"
-    accountPattern := "^(\\d{12}|arn:aws:iam::\\d{12}:root)$"
-    re_match(accountPattern, statement.Principal.AWS)
 }
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	policystr := block.Attributes.assume_role_policy
+	policyparsed := json.unmarshal(policystr)
+	statement := policyparsed.Statement[0]
+	statement.Effect == "Allow"
+	accountpattern := "^(\\d{12}|arn:aws:iam::\\d{12}:root)$"
+	regex.match(accountpattern, statement.Principal.AWS)
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Role permission on all services is denied.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Role permission on all services should be denied.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Role permission on all services is denied.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Role permission on all services should be denied.",
+		"snippet": block,
+	}
 }

@@ -9,54 +9,61 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_065
 
-supportedResource := ["aws_lb", "aws_lb_listener", "aws_alb_listener"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_lb", "aws_lb_listener", "aws_alb_listener"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[block] {
-  protocolCheck := ["TCP", "UDP", "TCP_UDP"]
-  block := input[_]
-  isvalid(block)
-  block.Attributes.protocol == protocolCheck[_]
 }
 
-pass[block] {
-  protocolCheck := ["HTTPS", "TLS"]
-  sslPolicyCheck := ["ELBSecurityPolicy-FS-1-2", "ELBSecurityPolicy-TLS-1-2", "ELBSecurityPolicy-TLS13"]
-  block := input[_]
-  isvalid(block)
-  block.Attributes.protocol == protocolCheck[_]
-  sslPolicy := block.Attributes.ssl_policy
-  startswith(sslPolicy, sslPolicyCheck[_])
-}
-
-
-fail[block] {
-    block := input[_]
+pass contains block if {
+	protocolcheck := ["TCP", "UDP", "TCP_UDP"]
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	block.Attributes.protocol in protocolcheck
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "TLS 1.2 is being utilized by load balancer.",
-                "snippet": block}
+pass contains block if {
+	protocolcheck := ["HTTPS", "TLS"]
+	sslpolicycheck := ["ELBSecurityPolicy-FS-1-2", "ELBSecurityPolicy-TLS-1-2", "ELBSecurityPolicy-TLS13"]
+	some block in input
+	isvalid(block)
+	block.Attributes.protocol in protocolcheck
+	sslpolicy := block.Attributes.ssl_policy
+    some policyvalue in sslpolicycheck
+	startswith(sslpolicy, policyvalue)
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "TLS 1.2 should be utilized by load balancer.",
-                "snippet": block}
+fail contains block if {
+	some block in input
+	isvalid(block)
+	not pass[block]
+}
+
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "TLS 1.2 is being utilized by load balancer.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "TLS 1.2 should be utilized by load balancer.",
+		"snippet": block,
+	}
 }
