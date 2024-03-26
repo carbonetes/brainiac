@@ -9,48 +9,55 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_280
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_db_snapshot"
+	some label in block.Labels
+	label == "aws_db_snapshot"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-fail[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Attributes.shared_accounts == "all"
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    test := resource.Attributes.shared_accounts[_]
-    test == "all"
+	resource.Attributes.shared_accounts == "all"
 }
 
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some test in resource.Attributes.shared_accounts
+	test == "all"
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_db_snapshot' shared_accounts is set properly.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_db_snapshot' shared_accounts is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_db_snapshot' shared_accounts should not be set to 'all'.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_db_snapshot' shared_accounts should not be set to 'all'.",
+		"snippet": block,
+	}
 }
