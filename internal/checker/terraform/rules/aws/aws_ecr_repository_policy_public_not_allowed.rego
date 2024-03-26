@@ -9,47 +9,54 @@
 #   severity: INFO
 package lib.terraform.CB_TFAWS_029
 
-supportedResource := ["aws_ecr_repository_policy"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_ecr_repository_policy"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    policyStr := block.Attributes.policy
-    policyParsed := json.unmarshal(policyStr)
-    statement := policyParsed.Statement[0]
-    statement.Effect == "Allow"
-    principal := statement.Principal
-    principal == "*"
 }
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	policystr := block.Attributes.policy
+	policyparsed := json.unmarshal(policystr)
+	statement := policyparsed.Statement[0]
+	statement.Effect == "Allow"
+	principal := statement.Principal
+	principal == "*"
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "ECS repositories are configured to disallow public access.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "ECS repositories should be configured to disallow public access.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "ECS repositories are configured to disallow public access.",
+		"snippet": block,
+	}
 }
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "ECS repositories should be configured to disallow public access.",
+		"snippet": block,
+	}
+}
+

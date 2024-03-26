@@ -9,46 +9,48 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_025
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_neptune_cluster"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_neptune_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    resource.Attributes.storage_encrypted == true
-   
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.storage_encrypted == true
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "storage_encrypted is set to true.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "storage_encrypted is set to true.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "storage_encrypted should be set to true.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "storage_encrypted should be set to true.",
+		"snippet": block,
+	}
 }

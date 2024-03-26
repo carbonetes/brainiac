@@ -9,57 +9,64 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_030
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_kms_key"
+	some label in block.Labels
+	label == "aws_kms_key"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "policy")
-    statement := json.unmarshal(resource.Attributes.policy).Statement[0]
-    statement.Effect == "Allow"
-    statement.Principal.AWS == "*"
+	has_attribute(resource.Attributes, "policy")
+	statement := json.unmarshal(resource.Attributes.policy).Statement[0]
+	statement.Effect == "Allow"
+	statement.Principal.AWS == "*"
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "policy")
-    statement := json.unmarshal(resource.Attributes.policy).Statement[0]
-    statement.Effect == "Allow"
-    statement.Principal.AWS[_] == "*"
+	has_attribute(resource.Attributes, "policy")
+	statement := json.unmarshal(resource.Attributes.policy).Statement[0]
+	statement.Effect == "Allow"
+	"*" in statement.Principal.AWS
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_kms_key' 'policy' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_kms_key' 'policy' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_kms_key' 'policy' is not set properly.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_kms_key' 'policy' is not set properly.",
+		"snippet": block,
+	}
+}
