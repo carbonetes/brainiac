@@ -9,44 +9,50 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_041
 
-supportedResource := ["aws_dax_cluster"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_dax_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "server_side_encryption"
-    block.Attributes.enabled == true
+	some block in resource.Blocks
+	block.Type == "server_side_encryption"
+	block.Attributes.enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_dax_cluster_encrypted is set to true.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_dax_cluster_encrypted is set to true.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_dax_cluster_encrypted should be set to true.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_dax_cluster_encrypted should be set to true.",
+		"snippet": block,
+	}
 }

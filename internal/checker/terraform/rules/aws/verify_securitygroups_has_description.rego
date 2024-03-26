@@ -9,64 +9,69 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_043
 
+import rego.v1
 
-supportedResource := [
-        "aws_db_security_group", 
-        "aws_elasticache_security_group", 
-        "aws_redshift_security_group", 
-        "aws_security_group", 
-        "aws_security_group_rule", 
-        "aws_vpc_security_group_egress_rule", 
-        "aws_vpc_security_group_ingress_rule"]
-
-validGroups := ["ingress", "egress"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := [
+		"aws_db_security_group",
+		"aws_elasticache_security_group",
+		"aws_redshift_security_group",
+		"aws_security_group",
+		"aws_security_group_rule",
+		"aws_vpc_security_group_egress_rule",
+		"aws_vpc_security_group_ingress_rule",
+	]
+	label in supportedresource
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "description")
+	has_attribute(resource.Attributes, "description")
 }
 
-fail[block] {
-    block := pass[_]
-    childBlock := block.Blocks[_]
-    childBlock.Type == validGroups[_]
-    not has_attribute(childBlock.Attributes, "description")
+fail contains block if {
+	some block in pass
+	some childblock in block.Blocks
+	validgroups := ["ingress", "egress"]
+	childblock.Type in validgroups
+	not has_attribute(childblock.Attributes, "description")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "security groups rule has a description.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "security groups rule has a description.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "security groups rule should have a description.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "security groups rule should have a description.",
+		"snippet": block,
+	}
+}
