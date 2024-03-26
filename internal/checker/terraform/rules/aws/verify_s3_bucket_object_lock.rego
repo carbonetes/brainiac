@@ -8,48 +8,51 @@
 #   id: CB_TFAWS_147
 #   severity: LOW
 package lib.terraform.CB_TFAWS_147
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_s3_bucket"
-    block.Blocks[_].Type == "object_lock_configuration"
-    has_attribute(block.Blocks[_].Attributes, "object_lock_enabled")
+    some label in block.Labels 
+    label == "aws_s3_bucket"
+    some res in block.Blocks
+    res.Type == "object_lock_configuration"
+    has_attribute(res.Attributes, "object_lock_enabled")
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+    some resource in input
     isvalid(resource)
     resource.Blocks[_].Attributes.object_lock_enabled == "Enabled"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_s3_bucket' for 'object_lock_configuration' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_s3_bucket' for 'object_lock_configuration' should be set.",
                 "snippet": block }
-} 
+}
