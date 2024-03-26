@@ -9,54 +9,56 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_324
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_cloudfront_distribution"
+	some label in block.Labels
+	label == "aws_cloudfront_distribution"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "viewer_certificate"
-	innerBlock.Attributes.iam_certificate_id != ""
+	some inner in block.Blocks
+	inner.Type == "viewer_certificate"
+	inner.Attributes.iam_certificate_id != ""
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "viewer_certificate"
-	innerBlock.Attributes.acm_certificate_arn != ""
+	some inner in block.Blocks
+	inner.Type == "viewer_certificate"
+	inner.Attributes.acm_certificate_arn != ""
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "AWS CloudFront distribution uses custom SSL certificate.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "AWS CloudFront distribution does not use custom SSL certificate.",
 		"snippet": block,

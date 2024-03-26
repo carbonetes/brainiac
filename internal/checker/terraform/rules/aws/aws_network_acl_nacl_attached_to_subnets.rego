@@ -9,67 +9,75 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_320
 
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_network_acl"
+	some label in block.Labels
+	label == "aws_network_acl"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-isAWSvpcExist{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_vpc"
 }
 
-isAWSSubnetExist{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_subnet"
+isawsvpcexist if {
+	some resource in input
+	resource.Type == "resource"
+	some label in resource.Labels
+	label == "aws_vpc"
 }
 
-pass[resource]{
-    resource := input[_]
+isawssubnetexist if {
+	some resource in input
+	resource.Type == "resource"
+	some label in resource.Labels
+	label == "aws_subnet"
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isAWSvpcExist
-    isAWSSubnetExist
-    has_attribute(resource.Attributes, "subnet_ids")
+	isawsvpcexist
+	isawssubnetexist
+	has_attribute(resource.Attributes, "subnet_ids")
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isAWSSubnetExist
-    has_attribute(resource.Attributes, "subnet_ids")
+	isawssubnetexist
+	has_attribute(resource.Attributes, "subnet_ids")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "All NACL are connected to subnets.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "All NACL are connected to subnets.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "All NACL must be connected to subnets.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "All NACL must be connected to subnets.",
+		"snippet": block,
+	}
+}

@@ -9,58 +9,66 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_323
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_security_group"
+	some label in block.Labels
+	label == "aws_security_group"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getAwsSecurityGroupLabel[label] {
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_security_group"
-    label := concat(".", resource.Labels)
 }
 
-validConnectedResource := ["aws_network_interface", "aws_instance"]
-
-isValidResourceAttached{
-resource := input[_]
-resource.Type == "resource"
-resource.Labels[_] == validConnectedResource[_]
-label := getAwsSecurityGroupLabel[_]
-startswith(resource.Attributes.security_groups, label)
+getawssecuritygrouplabel contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_security_group" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-resource := input[_]
-isvalid(resource)
-isValidResourceAttached
+valid_connected_resources := ["aws_network_interface", "aws_instance"]
+
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	some label_resource in resource.Labels
+	label_resource in valid_connected_resources
+	some label in getawssecuritygrouplabel
+	startswith(resource.Attributes.security_groups, label)
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Security Groups are linked to another resource.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Security Groups are linked to another resource.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Security Groups must be linked to another resource.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Security Groups must be linked to another resource.",
+		"snippet": block,
+	}
+}

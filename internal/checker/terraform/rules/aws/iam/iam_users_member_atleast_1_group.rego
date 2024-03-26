@@ -9,60 +9,69 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_317
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_iam_group_membership"
+	some label in block.Labels
+	label == "aws_iam_group_membership"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-isIAMUserExist{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_iam_user"
 }
 
-isIAMGroupExist{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_iam_group"
+is_iam_user_exist if {
+	some resource in input
+	resource.Type == "resource"
+	some label in resource.Labels
+	label == "aws_iam_user"
 }
 
-pass[resource]{
-    resource := input[_]
+is_iam_group_exist if {
+	some resource in input
+	resource.Type == "resource"
+	some label in resource.Labels
+	label == "aws_iam_group"
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isIAMUserExist
-    isIAMGroupExist
-    has_attribute(resource.Attributes, "users")
-    has_attribute(resource.Attributes, "group")
+	is_iam_user_exist
+	is_iam_group_exist
+	has_attribute(resource.Attributes, "users")
+	has_attribute(resource.Attributes, "group")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "All IAM users are members of at least one IAM group.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "All IAM users are members of at least one IAM group.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "All IAM users must be member of at least one IAM group.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "All IAM users must be member of at least one IAM group.",
+		"snippet": block,
+	}
+}
