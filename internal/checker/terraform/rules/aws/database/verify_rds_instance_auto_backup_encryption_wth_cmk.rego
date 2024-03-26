@@ -9,41 +9,48 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_274
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_db_instance_automated_backups_replication"
+	some label in block.Labels
+	label == "aws_db_instance_automated_backups_replication"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.kms_key_id != ""
+	resource.Attributes.kms_key_id != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Replicated backups are encrypted at rest using KMS CMKs.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Replicated backups are encrypted at rest using KMS CMKs.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Replicated backups is not encrypted at rest using KMS CMKs.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Replicated backups is not encrypted at rest using KMS CMKs.",
+		"snippet": block,
+	}
+}
