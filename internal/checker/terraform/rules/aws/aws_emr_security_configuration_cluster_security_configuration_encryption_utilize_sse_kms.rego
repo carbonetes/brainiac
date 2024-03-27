@@ -8,55 +8,58 @@
 #   id: CB_TFAWS_164
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_164
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_emr_security_configuration"
+    some label in block.Labels 
+    label == "aws_emr_security_configuration"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    configStr := block.Attributes.configuration
-    configParsed := json.unmarshal(configStr)
-    configParsed.EncryptionConfiguration.AtRestEncryptionConfiguration.S3EncryptionConfiguration.EncryptionMode != "SSE-KMS"
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    configStr := block.Attributes.configuration
-    configParsed := json.unmarshal(configStr)
-    configParsed.EncryptionConfiguration.AtRestEncryptionConfiguration.S3EncryptionConfiguration == {}
+fail contains resource if {
+    some resource in input
+	isvalid(resource)
+    config_str := resource.Attributes.configuration
+    config_parsed := json.unmarshal(config_str)
+    config_parsed.EncryptionConfiguration.AtRestEncryptionConfiguration.S3EncryptionConfiguration.EncryptionMode != "SSE-KMS"
 }
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+    some resource in input
+	isvalid(resource)
+    config_str := resource.Attributes.configuration
+    config_parsed := json.unmarshal(config_str)
+    config_parsed.EncryptionConfiguration.AtRestEncryptionConfiguration.S3EncryptionConfiguration == {}
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
     not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "SSE-KMS is utilized for the encryption in the Cluster security setup.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "SSE-KMS must be utilized for the encryption in the Cluster security setup.",
                 "snippet": block}
 }

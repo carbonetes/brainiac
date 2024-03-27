@@ -8,51 +8,52 @@
 #   id: CB_TFAWS_166
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_166
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+    some label in block.Labels 
+    label == "aws_cloudfront_distribution"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    minimumProtocolVersion := ["TLSv1.2_2018", "TLSv1.2_2019", "TLSv1.2_2021"]
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    viewerCertificate := resource.Blocks[_]
-    viewerCertificate.Type == "viewer_certificate"
-    has_attribute(resource.Blocks[_].Attributes, "minimum_protocol_version")
-    resource.Blocks[_].Attributes.minimum_protocol_version == minimumProtocolVersion[_]
+    min_protocol_ver := ["TLSv1.2_2018", "TLSv1.2_2019", "TLSv1.2_2021"]
+    some block in resource.Blocks
+    block.Type == "viewer_certificate"
+    has_attribute(block.Attributes, "minimum_protocol_version")
+    block.Attributes.minimum_protocol_version in min_protocol_ver
 }
 
-
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "CloudFront Distribution Viewer Certificate is compliant to TLS v1.2.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "CloudFront Distribution Viewer Certificate must be compliant to TLS v1.2.",
                 "snippet": block }
 } 

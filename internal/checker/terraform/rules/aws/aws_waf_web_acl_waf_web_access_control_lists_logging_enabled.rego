@@ -8,50 +8,52 @@
 #   id: CB_TFAWS_167
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_167
+import rego.v1
 
-supportedResources := ["aws_waf_web_acl","aws_wafregional_web_acl"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels 
+    supported_resource := ["aws_waf_web_acl","aws_wafregional_web_acl"]
+    label in supported_resource
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    contains(resource.Blocks[_].Type, "logging_configuration")
-    has_attribute(resource.Blocks[_].Attributes, "log_destination")
-    resource.Blocks[_].Attributes.log_destination != ""
+    some block in resource.Blocks
+    contains(block.Type, "logging_configuration")
+    has_attribute(block.Attributes, "log_destination")
+    block.Attributes.log_destination != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "WAF Web Access Control Lists are configured with logging enabled.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "WAF Web Access Control Lists must be configured with logging enabled.",
                 "snippet": block }
 } 

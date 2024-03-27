@@ -8,49 +8,52 @@
 #   id: CB_TFAWS_165
 #   severity: LOW
 package lib.terraform.CB_TFAWS_165
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_lambda_function"
+    some label in block.Labels 
+    label == "aws_lambda_function"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "kms_key_arn")
     resource.Attributes.kms_key_arn != ""
-    contains(resource.Blocks[_].Type, "environment")
+    some block in resource.Blocks
+    contains(block.Type, "environment")
 }
 
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Encryption settings are enforced for the lambda environmental variable.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Encryption settings must be enforced for the lambda environmental variable.",
                 "snippet": block }
 } 
