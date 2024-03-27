@@ -8,49 +8,53 @@
 #   id: CB_TFAWS_190
 #   severity: LOW
 package lib.terraform.CB_TFAWS_190
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_imagebuilder_distribution_configuration"
+    some label in block.Labels 
+    label == "aws_imagebuilder_distribution_configuration"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}  
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "distribution"
-    resource.Blocks[_].Blocks[_].Type == "ami_distribution_configuration"
-    has_attribute(resource.Blocks[_].Blocks[_].Attributes, "kms_key_id")
-    resource.Blocks[_].Blocks[_].Attributes.kms_key_id != ""
+    some block_one in resource.Blocks
+    block_one.Type == "distribution"
+    some block_two in block_one.Blocks
+    block_two.Type == "ami_distribution_configuration"
+    has_attribute(block_two.Attributes, "kms_key_id")
+    block_two.Attributes.kms_key_id != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Image Builder Distribution Configuration is utilizing KMS.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Image Builder Distribution Configuration must utilize KMS.",
                 "snippet": block }
 } 
