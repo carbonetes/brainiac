@@ -8,50 +8,53 @@
 #   id: CB_TFAWS_191
 #   severity: LOW
 package lib.terraform.CB_TFAWS_191
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_imagebuilder_image_recipe"
+    some label in block.Labels 
+    label == "aws_imagebuilder_image_recipe"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+	some resource in input
+    isvalid(resource)
+    expectedValues := ["encrypted", "kms_key_id"]
+    some expectedValue in expectedValues
+    some block in resource.Blocks
+    some nestedBlocks in block.Blocks
+    not has_attribute(nestedBlocks.Attributes, expectedValue) 
+   
+}
+
+pass contains block if {
+    some block in input
 	isvalid(block)
    	not fail[block]
 }
 
-fail[resource] {
-    expectedValues := ["encrypted", "kms_key_id"]
-    expectedValue = expectedValues[_]
-    resource := input[_]
-    isvalid(resource)  
-    blocks := resource.Blocks[_]
-    nestedBlocks := blocks.Blocks[_]
-    not has_attribute(nestedBlocks.Attributes, expectedValue)    
-}
-
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Image Recipe EBS Disks are CMK encrypted.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Image Recipe EBS Disks must be CMK encrypted.",
                 "snippet": block }
 } 

@@ -8,48 +8,50 @@
 #   id: CB_TFAWS_186
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_186
-supportedResources := ["aws_glue_crawler", "aws_glue_dev_endpoint", "aws_glue_job"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    supported_resources := ["aws_glue_crawler", "aws_glue_dev_endpoint", "aws_glue_job"]
+    some label in block.Labels 
+    label in supported_resources
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "security_configuration")
     resource.Attributes.security_configuration != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Glue component is attached to a security configuration.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Glue component must be attached to a security configuration.",
                 "snippet": block }
 } 

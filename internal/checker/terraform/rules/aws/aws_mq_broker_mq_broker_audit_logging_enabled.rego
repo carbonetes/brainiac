@@ -8,43 +8,46 @@
 #   id: CB_TFAWS_188
 #   severity: LOW
 package lib.terraform.CB_TFAWS_188
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_mq_broker"
+    some label in block.Labels 
+    label == "aws_mq_broker"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "logs"
-    resource.Blocks[_].Attributes.audit == true
+    some block in resource.Blocks
+    block.Type == "logs"
+    block.Attributes.audit == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "MQ Broker Audit logging is enabled.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "MQ Broker Audit logging must be enabled.",
                 "snippet": block }
-} 
+}

@@ -8,49 +8,52 @@
 #   id: CB_TFAWS_185
 #   severity: LOW
 package lib.terraform.CB_TFAWS_185
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_appsync_graphql_api"
+    some label in block.Labels 
+    label == "aws_appsync_graphql_api"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    expectedValue := ["ALL", "ERROR"]
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "log_config"
-    has_attribute(resource.Blocks[_].Attributes, "field_log_level")
-    resource.Blocks[_].Attributes.field_log_level == expectedValue[_]
+    expected_value := ["ALL", "ERROR"]
+    some log_config in resource.Blocks
+    log_config.Type == "log_config"
+    has_attribute(log_config.Attributes, "field_log_level")
+    log_config.Attributes.field_log_level in expected_value
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "AppSync Field-Level logs are enabled.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "AppSync Field-Level logs must be enabled.",
                 "snippet": block }
 } 
