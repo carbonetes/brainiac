@@ -9,92 +9,99 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_348
 
-import future.keywords.if
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_autoscaling_attachment"
+	some label in block.Labels
+	label == "aws_autoscaling_attachment"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelForAwsAutoscalingGroup[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_autoscaling_group"
-    resource.Attributes.health_check_type == "ELB"
-    label := concat(".", resource.Labels)
 }
 
-getTheLabelForAwsElb[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_elb"
-    label := concat(".", resource.Labels)
+getthelabelforawsautoscalinggroup contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_autoscaling_group" in resource.Labels
+	resource.Attributes.health_check_type == "ELB"
+	label := concat(".", resource.Labels)
 }
 
-getTheAttributeForAwsElb{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_elb"
-    resource.Blocks[_].Type == "health_check"
+getthelabelforawselb contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_elb" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-
-isAwsAutoscalingAttachedForAG{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_autoscaling_attachment"
-    contains(resource.Attributes.autoscaling_group_name, getTheLabelForAwsAutoscalingGroup[_])
+gettheattributeforawselb if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_elb" in resource.Labels
+	some block in resource.Blocks
+	block.Type == "health_check"
 }
 
-isAwsAutoscalingGroupAttachedForElb{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_autoscaling_attachment"
-    contains(resource.Attributes.elb, getTheLabelForAwsElb[_])
+isawsautoscalingattachedforag if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_autoscaling_attachment" in resource.Labels
+	some label in getthelabelforawsautoscalinggroup
+	contains(resource.Attributes.autoscaling_group_name, label)
 }
 
-isValidAttachments := false if{
-    isAwsAutoscalingGroupAttachedForElb 
- 	isAwsAutoscalingAttachedForAG
-    not getTheAttributeForAwsElb
-}else := true if {
-    not isAwsAutoscalingGroupAttachedForElb
- 	isAwsAutoscalingAttachedForAG
-}else := true if {
- 	isAwsAutoscalingGroupAttachedForElb 
- 	isAwsAutoscalingAttachedForAG
-}
- 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidAttachments
+isawsautoscalinggroupattachedforelb if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_autoscaling_attachment" in resource.Labels
+	some label in getthelabelforawselb
+	contains(resource.Attributes.elb, label)
 }
 
-fail[block] {
-    block := input[_]
+isvalidattachments := false if {
+	isawsautoscalinggroupattachedforelb
+	isawsautoscalingattachedforag
+	not gettheattributeforawselb
+} else if {
+	not isawsautoscalinggroupattachedforelb
+	isawsautoscalingattachedforag
+} else if {
+	isawsautoscalinggroupattachedforelb
+	isawsautoscalingattachedforag
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	isvalidattachments
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The Elastic Load Balancing health checks are being utilized by auto scaling groups connected to load balancers.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The Elastic Load Balancing health checks are being utilized by auto scaling groups connected to load balancers.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The Elastic Load Balancing health checks must be utilized by auto scaling groups connected to load balancers.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The Elastic Load Balancing health checks must be utilized by auto scaling groups connected to load balancers.",
+		"snippet": block,
+	}
+}

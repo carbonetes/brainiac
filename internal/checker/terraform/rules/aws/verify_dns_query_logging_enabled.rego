@@ -9,55 +9,63 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_349
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_route53_zone"
+	some label in block.Labels
+	label == "aws_route53_zone"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getRouteZoneLabel[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_route53_zone"
-    label := concat(".", resource.Labels)
 }
 
-isRouteQueryLogValid{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_route53_query_log"
-    contains(resource.Attributes.zone_id, getRouteZoneLabel[_])
+getroutezonelabel contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_route53_zone" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
+is_route_query_log_valid if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_route53_query_log" in resource.Labels
+	some label in getroutezonelabel
+	contains(resource.Attributes.zone_id, label)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isRouteQueryLogValid
+	is_route_query_log_valid
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Domain Name System (DNS) query logging is enabled for Amazon Route 53 hosted zones.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Domain Name System (DNS) query logging is enabled for Amazon Route 53 hosted zones.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Domain Name System (DNS) query logging should be enable for Amazon Route 53 hosted zones.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Domain Name System (DNS) query logging should be enable for Amazon Route 53 hosted zones.",
+		"snippet": block,
+	}
+}

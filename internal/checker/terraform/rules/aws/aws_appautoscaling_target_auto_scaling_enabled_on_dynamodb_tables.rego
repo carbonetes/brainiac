@@ -9,90 +9,99 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_350
 
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_dynamodb_table"
+	some label in block.Labels
+	label == "aws_dynamodb_table"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-has_attribute(key, value) {
-  _ = key[value]
 }
 
-getTheLabelForAwsDynamodbTable[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_dynamodb_table"
-    resource.Attributes.billing_mode == "PROVISIONED"
-    label := concat(".", resource.Labels)
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-getTheLabelForAwsDynamodbTable[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_dynamodb_table"
-    not has_attribute(resource.Attributes, "billing_mode")
-    label := concat(".", resource.Labels)
+getthelabelforawsdynamodbtable contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_dynamodb_table" in resource.Labels
+	resource.Attributes.billing_mode == "PROVISIONED"
+	label := concat(".", resource.Labels)
 }
 
-isAwsAppAutoscalingTargetAndPolicyAttachedForDynamodb{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_appautoscaling_target"
-    contains(resource.Attributes.resource_id, getTheLabelForAwsDynamodbTable[_])
-    policyIsAttached
-}
-getLabelForScalingTarget[label]{
-	resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_appautoscaling_target"
-    resource.Attributes.service_namespace == "dynamodb"
-    label := concat(".", resource.Labels)
+getthelabelforawsdynamodbtable contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_dynamodb_table" in resource.Labels
+	not has_attribute(resource.Attributes, "billing_mode")
+	label := concat(".", resource.Labels)
 }
 
-policyIsAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_appautoscaling_policy"
-    contains(resource.Attributes.resource_id, getLabelForScalingTarget[_])
-}
- 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isAwsAppAutoscalingTargetAndPolicyAttachedForDynamodb
+isawsappautoscalingtargetandpolicyattachedfordynamodb if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_appautoscaling_target" in resource.Labels
+	some label in getthelabelforawsdynamodbtable
+	contains(resource.Attributes.resource_id, label)
+	policyisattached
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    resource.Attributes.billing_mode == "PAY_PER_REQUEST"
+getlabelforscalingtarget contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_appautoscaling_target" in resource.Labels
+	resource.Attributes.service_namespace == "dynamodb"
+	label := concat(".", resource.Labels)
 }
 
-fail[block] {
-    block := input[_]
+policyisattached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_appautoscaling_policy" in resource.Labels
+	some label in getlabelforscalingtarget
+	contains(resource.Attributes.resource_id, label)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	isawsappautoscalingtargetandpolicyattachedfordynamodb
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.billing_mode == "PAY_PER_REQUEST"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The Auto Scaling is activated for your DynamoDB tables.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The Auto Scaling is activated for your DynamoDB tables.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The Auto Scaling must be activated for your DynamoDB tables.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The Auto Scaling must be activated for your DynamoDB tables.",
+		"snippet": block,
+	}
+}

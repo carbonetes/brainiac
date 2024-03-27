@@ -9,78 +9,86 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_354
 
-supportedResources := ["aws_iam_role", 
-                       "aws_iam_group_policy_attachment", 
-                       "aws_iam_policy_attachment", 
-                       "aws_iam_role_policy_attachment", 
-                       "aws_iam_user_policy_attachment", 
-                       "aws_ssoadmin_managed_policy_attachment"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := [
+		"aws_iam_role",
+		"aws_iam_group_policy_attachment",
+		"aws_iam_policy_attachment",
+		"aws_iam_role_policy_attachment",
+		"aws_iam_user_policy_attachment",
+		"aws_ssoadmin_managed_policy_attachment",
+	]
+	label in supported_resources
 }
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "aws_iam_policy"
+	"aws_iam_policy" in block.Labels
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    resource.Attributes.name == "IAMFullAccess"
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    contains(resource.Attributes.arn, "IAMFullAccess")
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.name == "IAMFullAccess"
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    contains(resource.Attributes.policy_arn, "IAMFullAccess")
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	contains(resource.Attributes.arn, "IAMFullAccess")
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    contains(resource.Attributes.managed_policy_arn, "IAMFullAccess")
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	contains(resource.Attributes.policy_arn, "IAMFullAccess")
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    arnPolicies := resource.Attributes.managed_policy_arn[_]
-    contains(arnPolicies, "IAMFullAccess")
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	contains(resource.Attributes.managed_policy_arn, "IAMFullAccess")
 }
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some arn in resource.Attributes.managed_policy_arn
+	contains(arn, "IAMFullAccess")
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "AWS Managed IAMFullAccess IAM policy is not used.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "AWS Managed IAMFullAccess IAM policy is not used.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "AWS Managed IAMFullAccess IAM policy should not be used.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "AWS Managed IAMFullAccess IAM policy should not be used.",
+		"snippet": block,
+	}
+}

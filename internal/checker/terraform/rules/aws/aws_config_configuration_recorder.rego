@@ -9,43 +9,50 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_346
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_config_configuration_recorder"
+	some label in block.Labels
+	label == "aws_config_configuration_recorder"
 }
 
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    innerBlock := resource.Blocks[_]
-    innerBlock.Type == "recording_group"
-    innerBlock.Attributes.include_global_resource_types == true
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some inner in resource.Blocks
+	inner.Type == "recording_group"
+	inner.Attributes.include_global_resource_types == true
 }
 
-fail[resource] {
-	resource := input[_]
-    isvalid(resource)
-    not pass[resource]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	not pass[resource]
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-passed[result] {
-	block := pass[_]
-	result := { "message": "Customer Managed Key (CMK) is used to encrypt the Comprehend Entity Recognizer's volume.",
-                "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Customer Managed Key (CMK) must be used to encrypt the Comprehend Entity Recognizer's volume.",
-                "snippet": block }
-} 
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Customer Managed Key (CMK) is used to encrypt the Comprehend Entity Recognizer's volume.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Customer Managed Key (CMK) must be used to encrypt the Comprehend Entity Recognizer's volume.",
+		"snippet": block,
+	}
+}
