@@ -9,46 +9,54 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_103
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_emr_cluster"
+	some label in block.Labels
+	label == "aws_emr_cluster"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-has_attribute(key, value) {
-  _ = key[value]
 }
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+has_attribute(key, value) if {
+	value in object.keys(key)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "kerberos_attributes"
-    has_attribute(resource.Blocks[_].Attributes, "realm")
+	some blocks in resource.Blocks
+	blocks.Type == "kerberos_attributes"
+	has_attribute(blocks.Attributes, "realm")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_emr_cluster' 'kerberos_attributes' realm is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_emr_cluster' 'kerberos_attributes' realm is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_emr_cluster' 'kerberos_attributes' realm should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_emr_cluster' 'kerberos_attributes' realm should be set.",
+		"snippet": block,
+	}
+}
