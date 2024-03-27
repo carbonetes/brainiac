@@ -8,46 +8,47 @@
 #   id: CB_TFAWS_163
 #   severity: LOW
 package lib.terraform.CB_TFAWS_163
+import rego.v1
 
-
-
-supportedResources := ["aws_waf_web_acl", "aws_wafregional_web_acl", "aws_wafv2_web_acl"]
-validTypes := ["rule", "rules"]
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels 
+    supported_resources := ["aws_waf_web_acl", "aws_wafregional_web_acl", "aws_wafv2_web_acl"]
+    label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == validTypes[_]
+    valid_types := ["rule", "rules"]
+    some block in resource.Blocks
+    block.Type in valid_types
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "WAF is in compliance with all applicable rules.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "WAF must be in compliance with all applicable rules.",
                 "snippet": block }
-} 
+}
