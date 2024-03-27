@@ -8,46 +8,47 @@
 #   id: CB_TFAWS_158
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_158
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_glacier_vault"
+    some label in block.Labels 
+    label == "aws_glacier_vault"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[block] {
-    block := input[_]
-	isvalid(block)
-   	not fail[block]
-}
-
-fail[resource] {
-	resource := input[_]
+fail contains resource if {
+	some resource in input
     isvalid(resource)
-
     access_policy := json.unmarshal(resource.Attributes.access_policy).Statement[_]
     access_policy.Principal == "*"
     access_policy.Effect == "Allow"
 }
 
+pass contains block if {
+    some block in input
+	isvalid(block)
+   	not fail[block]
+}
 
-passed[result] {
-	block := pass[_]
+
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_glacier_vault' for 'access_policy' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_glacier_vault' for 'access_policy' should be set.",
                 "snippet": block }
 } 
