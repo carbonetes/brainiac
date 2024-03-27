@@ -9,46 +9,52 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_074
 
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+	some label in block.Labels
+	label == "aws_cloudfront_distribution"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "web_acl_id")
+	has_attribute(resource.Attributes, "web_acl_id")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_cloudfront_distribution' 'web_acl_id' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_cloudfront_distribution' 'web_acl_id' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_cloudfront_distribution' 'web_acl_id' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_cloudfront_distribution' 'web_acl_id' should be set.",
+		"snippet": block,
+	}
+}

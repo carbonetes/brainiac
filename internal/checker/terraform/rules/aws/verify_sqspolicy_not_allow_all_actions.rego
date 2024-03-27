@@ -9,53 +9,61 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_079
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_sqs_queue_policy"
+	some label in block.Labels
+	label == "aws_sqs_queue_policy"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-
-allowAllAction(statement){
-   statement.Action[_] == "*"
 }
 
-allowAllAction(statement){
-    statement.Action == "*"
+allowAllAction(statement) if {
+	some actions in statement.Action
+	actions == "*"
 }
 
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    policyStr := block.Attributes.policy
-    policyParsed := json.unmarshal(policyStr)
-    statement := policyParsed.Statement[0]
-    statement.Effect == "Allow"
-    allowAllAction(statement)
+allowAllAction(statement) if {
+	statement.Action == "*"
 }
 
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	policystr := block.Attributes.policy
+	policyparsed := json.unmarshal(policystr)
+	statement := policyparsed.Statement[0]
+	statement.Effect == "Allow"
+	allowAllAction(statement)
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "SQS policy does not allow ALL (*) actions.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "SQS policy should not allow ALL (*) actions.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "SQS policy does not allow ALL (*) actions.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "SQS policy should not allow ALL (*) actions.",
+		"snippet": block,
+	}
 }
