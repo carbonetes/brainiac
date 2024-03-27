@@ -9,48 +9,56 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_090
 
-log_types := ["profiler", "audit"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_docdb_cluster"
+	some label in block.Labels
+	label == "aws_docdb_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-    isvalid(resource)
-    has_attribute(resource.Attributes, "enabled_cloudwatch_logs_exports")
-    resource.Attributes.enabled_cloudwatch_logs_exports[_] == log_types[_]
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	log_types := ["profiler", "audit"]
+	some resource in input
+	isvalid(resource)
+	attribute := resource.Attributes
+	has_attribute(attribute, "enabled_cloudwatch_logs_exports")
+	some cloud in attribute.enabled_cloudwatch_logs_exports
+	cloud in log_types
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_docdb_cluster' for 'enabled_cloudwatch_logs_exports' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_docdb_cluster' for 'enabled_cloudwatch_logs_exports' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_docdb_cluster' for 'enabled_cloudwatch_logs_exports' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_docdb_cluster' for 'enabled_cloudwatch_logs_exports' should be set.",
+		"snippet": block,
+	}
+}

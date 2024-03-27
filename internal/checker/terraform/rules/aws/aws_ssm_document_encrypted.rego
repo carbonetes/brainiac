@@ -9,49 +9,54 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_087
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_ssm_document"
+	some label in block.Labels
+	label == "aws_ssm_document"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    contentStr := block.Attributes.content
-    contentParsed := json.unmarshal(contentStr)
-    not has_attribute(contentParsed.inputs, "kmsKeyId")
 }
 
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
 
-
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	contentstr := block.Attributes.content
+	contentparsed := json.unmarshal(contentstr)
+	not has_attribute(contentparsed.inputs, "kmsKeyId")
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Session Manager data is transmitted securely.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Session Manager data should be transmitted securely.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Session Manager data is transmitted securely.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Session Manager data should be transmitted securely.",
+		"snippet": block,
+	}
 }
