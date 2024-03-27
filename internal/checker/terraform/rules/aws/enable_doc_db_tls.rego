@@ -9,49 +9,57 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_097
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_docdb_cluster_parameter_group"
+	some label in block.Labels
+	label == "aws_docdb_cluster_parameter_group"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource] {
-	resource := input[_]
-    isvalid(resource)
-    resource.Blocks[_].Type == "parameter"
-    has_attribute(resource.Blocks[_].Attributes, "name")
-    resource.Blocks[_].Attributes.name == "tls"
-    has_attribute(resource.Blocks[_].Attributes, "value")
-    resource.Blocks[_].Attributes.value == "disabled"
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some blocks in resource.Blocks
+	blocks.Type == "parameter"
+	has_attribute(blocks.Attributes, "name")
+	blocks.Attributes.name == "tls"
+	has_attribute(blocks.Attributes, "value")
+	blocks.Attributes.value == "disabled"
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_docdb_cluster_parameter_group' for 'parameter' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_docdb_cluster_parameter_group' for 'parameter' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_docdb_cluster_parameter_group' for 'parameter' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_docdb_cluster_parameter_group' for 'parameter' should be set.",
+		"snippet": block,
+	}
+}
