@@ -7,42 +7,50 @@
 # custom:
 #   id: CB_TFAWS_114
 #   severity: LOW
-package lib.terraform.CB_TFAWS_114 
+package lib.terraform.CB_TFAWS_114
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_api_gateway_stage"
+	some label in block.Labels
+	label == "aws_api_gateway_stage"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.cache_cluster_enabled == true
+	resource.Attributes.cache_cluster_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_api_gateway_stage' cache_cluster_enabled is set.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_api_gateway_stage' cache_cluster_enabled is set.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_api_gateway_stage'cache_cluster_enabled should be set to true.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_api_gateway_stage'cache_cluster_enabled should be set to true.",
+		"snippet": block,
+	}
 }

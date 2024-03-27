@@ -9,56 +9,64 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_118
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_ssm_document"
+	some label in block.Labels
+	label == "aws_ssm_document"
 }
 
-has_attribute(key, value){
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[block] {
-    block := input[_]
-    isvalid(block)
-    contentStr := block.Attributes.content
-    contentParsed := json.unmarshal(contentStr)
-    has_attribute(contentParsed.inputs, "s3BucketName")
-    contentParsed.inputs.s3EncryptionEnabled == true
 }
 
-pass[block] {
-    block := input[_]
-    isvalid(block)
-    contentStr := block.Attributes.content
-    contentParsed := json.unmarshal(contentStr)
-    has_attribute(contentParsed.inputs, "cloudWatchLogGroupName")
-    contentParsed.inputs.cloudWatchEncryptionEnabled == true
-}
-
-fail[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-    not pass[block]
+	contentstr := block.Attributes.content
+	contentparsed := json.unmarshal(contentstr)
+	has_attribute(contentparsed.inputs, "s3BucketName")
+	contentparsed.inputs.s3EncryptionEnabled == true
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Session Manager logs are active and encrypted.",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	contentstr := block.Attributes.content
+	contentparsed := json.unmarshal(contentstr)
+	has_attribute(contentparsed.inputs, "cloudWatchLogGroupName")
+	contentparsed.inputs.cloudWatchEncryptionEnabled == true
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Session Manager logs should be active and encrypted.",
-                "snippet": block}
+fail contains block if {
+	some block in input
+	isvalid(block)
+	not pass[block]
+}
+
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Session Manager logs are active and encrypted.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Session Manager logs should be active and encrypted.",
+		"snippet": block,
+	}
 }

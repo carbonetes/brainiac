@@ -9,41 +9,48 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_121
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_instance"
+	some label in block.Labels
+	label == "aws_instance"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-    isvalid(resource)
-    resource.Attributes.ebs_optimized == true
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.ebs_optimized == true
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_instance' for 'ebs_optimized' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_instance' for 'ebs_optimized' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_instance' for 'ebs_optimized' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_instance' for 'ebs_optimized' should be set.",
+		"snippet": block,
+	}
+}
