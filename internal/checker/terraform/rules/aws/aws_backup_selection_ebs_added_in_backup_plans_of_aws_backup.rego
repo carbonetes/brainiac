@@ -9,56 +9,64 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_338
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_backup_selection"
+	some label in block.Labels
+	label == "aws_backup_selection"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelforAwsEBS_volume[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_ebs_volume"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_backup_selection"
-    resources := resource.Attributes.resources[_]
-    contains(resources, getTheLabelforAwsEBS_volume[_])
+getthelabelforawsebs_volume contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_ebs_volume" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_backup_selection" in resource.Labels
+	some resources in resource.Attributes.resources
+	some label in getthelabelforawsebs_volume
+	contains(resources, label)
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The AWS Backup includes Elastic Block Store (EBS) volumes within its backup plans.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The AWS Backup includes Elastic Block Store (EBS) volumes within its backup plans.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The AWS Backup must include Elastic Block Store (EBS) volumes within its backup plans.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The AWS Backup must include Elastic Block Store (EBS) volumes within its backup plans.",
+		"snippet": block,
+	}
+}

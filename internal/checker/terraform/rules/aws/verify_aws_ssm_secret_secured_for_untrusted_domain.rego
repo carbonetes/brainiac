@@ -9,62 +9,71 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_343
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_ssm_parameter"
+	some label in block.Labels
+	label == "aws_ssm_parameter"
 }
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "http"
+	some label in block.Labels
+	label == "http"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getssmLabel[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_ssm_parameter"
-    label := concat(".", resource.Labels)
 }
 
-isHTTPAttachedValid{
-    resource := input[_]
-    resource.Type == "data"
-    resource.Labels[_] == "http"
-    contains(resource.Attributes.url, getssmLabel[_])
-}
-
-fail[resource]{
-    resource := input[_]
+getssmlabel contains label if {
+	some resource in input
 	resource.Type == "resource"
-    resource.Labels[_] == "aws_ssm_parameter"
-    resource.Attributes.type == "SecureString"
-    isHTTPAttachedValid
+	"aws_ssm_parameter" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[block] {
-    block := input[_]
+is_http_attached_valid if {
+	some resource in input
+	resource.Type == "data"
+	"http" in resource.Labels
+	some label in getssmlabel
+	contains(resource.Attributes.url, label)
+}
+
+fail contains resource if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_ssm_parameter" in resource.Labels
+	resource.Attributes.type == "SecureString"
+	is_http_attached_valid
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Terraform is not sending SSM secrets to untrusted domains over HTTP.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Terraform is not sending SSM secrets to untrusted domains over HTTP.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Terraform should not sending SSM secrets to untrusted domains over HTTP.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Terraform should not sending SSM secrets to untrusted domains over HTTP.",
+		"snippet": block,
+	}
+}

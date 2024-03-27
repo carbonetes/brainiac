@@ -9,61 +9,65 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_341
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_config_configuration_recorder"
+	some label in block.Labels
+	label == "aws_config_configuration_recorder"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-getConfigRecorderLabel[label] {
-	block := input[_]
+getconfigrecorderlabel contains label if {
+	some block in input
 	block.Type == "resource"
-	block.Labels[_] == "aws_config_configuration_recorder"
+	"aws_config_configuration_recorder" in block.Labels
 	label := concat(".", block.Labels)
 }
 
-isConfigRecorderStatusTrue {
-	block := input[_]
+is_config_recorder_status_true if {
+	some block in input
 	block.Type == "resource"
-	block.Labels[_] == "aws_config_configuration_recorder_status"
-	contains(block.Attributes.name, getConfigRecorderLabel[_])
+	"aws_config_configuration_recorder_status" in block.Labels
+	some label in getconfigrecorderlabel
+	contains(block.Attributes.name, label)
 	block.Attributes.is_enabled == true
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-	innerBlock := block.Blocks[_]
-	innerBlock.Type == "recording_group"
-	innerBlock.Attributes.include_global_resource_types != false
-	isConfigRecorderStatusTrue
+	some inner in block.Blocks
+	inner.Type == "recording_group"
+	inner.Attributes.include_global_resource_types != false
+	is_config_recorder_status_true
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "AWS Config recorder is enabled.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "AWS Config recorder is disabled.",
 		"snippet": block,

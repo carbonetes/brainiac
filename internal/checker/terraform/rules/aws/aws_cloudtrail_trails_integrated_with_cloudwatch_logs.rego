@@ -9,55 +9,63 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_339
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudtrail"
+	some label in block.Labels
+	label == "aws_cloudtrail"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelforAwsCloudwatchLogGroup[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_cloudwatch_log_group"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_cloudtrail"
-    contains(resource.Attributes.cloud_watch_logs_group_arn, getTheLabelforAwsCloudwatchLogGroup[_])
+getthelabelforawscloudwatchloggroup contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_cloudwatch_log_group" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_cloudtrail" in resource.Labels
+	some label in getthelabelforawscloudwatchloggroup
+	contains(resource.Attributes.cloud_watch_logs_group_arn, label)
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The CloudWatch Logs are connected with CloudTrail trails.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The CloudWatch Logs are connected with CloudTrail trails.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The CloudWatch Logs must be connected with CloudTrail trails.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The CloudWatch Logs must be connected with CloudTrail trails.",
+		"snippet": block,
+	}
+}

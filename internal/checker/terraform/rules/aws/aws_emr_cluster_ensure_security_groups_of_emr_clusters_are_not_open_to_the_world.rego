@@ -31,8 +31,9 @@ is_valid_resource_attached if {
 	some resource in input
 	resource.Type == "resource"
 	"aws_security_group" in resource.Labels
-	resource.Blocks[_].Type == "ingress"
-	"0.0.0.0/0" in resource.Blocks.Attributes.cidr_blocks
+	some block in resource.Blocks
+	block.Type == "ingress"
+	"0.0.0.0/0" in block.Attributes.cidr_blocks
 }
 
 fail contains resource if {
