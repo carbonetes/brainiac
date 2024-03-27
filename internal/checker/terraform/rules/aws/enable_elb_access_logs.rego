@@ -9,64 +9,70 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_099
 
-import future.keywords.if
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_elb"
+	some label in block.Labels
+	label == "aws_elb"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource] {
-	resource := input[_]
-    isvalid(resource)
-    has_access_logs(resource.Blocks)
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	has_access_logs(resource.Blocks)
 }
 
 has_access_logs(blocks) := result if {
-    blocks[_].Type == "access_logs"
-    result := is_enabled(blocks[_].Attributes, "enabled")
+	some block in blocks
+	block.Type == "access_logs"
+	result := is_enabled(block.Attributes, "enabled")
 } else := result if {
-    result := false
+	result := false
 }
 
 is_enabled(key, value) := result if {
-    key[value] == true
-    result := true
+	key[value] == true
+	result := true
 } else := result if {
-    key[value] == false
-    result := false
+	key[value] == false
+	result := false
 } else := result if {
-    result := true
+	result := true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_elb' for 'access_logs' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_elb' for 'access_logs' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_elb' for 'access_logs' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_elb' for 'access_logs' should be set.",
+		"snippet": block,
+	}
+}
