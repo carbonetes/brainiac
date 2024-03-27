@@ -9,69 +9,72 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_364
 
-isvalid(block) {
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-	block.Labels[_] == "aws_dms_endpoint"
+	some label in block.Labels
+	label == "aws_dms_endpoint"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-isEngineValidForTypeSource(resource) {
-	validEngine := ["s3", "azuredb"]
-	resource.Attributes.engine_name == validEngine[_]
+isEngineValidForTypeSource(resource) if {
+	valid_engines := ["s3", "azuredb"]
+	resource.Attributes.engine_name in valid_engines
 }
 
-isEngineValidForTypeSource(resource) {
+isEngineValidForTypeSource(resource) if {
 	resource.Attributes.ssl_mode != "none"
 }
 
-isEngineValidForTypeTarget(resource) {
-	validEngine := ["dynamodb", "kinesis", "neptune", "redshift", "s3", "elasticsearch", "kafka"]
-	resource.Attributes.engine_name == validEngine[_]
+isEngineValidForTypeTarget(resource) if {
+	valid_engines := ["dynamodb", "kinesis", "neptune", "redshift", "s3", "elasticsearch", "kafka"]
+	resource.Attributes.engine_name in valid_engines
 }
 
-isEngineValidForTypeTarget(resource) {
+isEngineValidForTypeTarget(resource) if {
 	resource.Attributes.ssl_mode != "none"
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.endpoint_type == "source"
 	isEngineValidForTypeSource(block)
 }
 
-pass[block] {
-	block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.endpoint_type == "target"
 	isEngineValidForTypeTarget(block)
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := {
 		"message": "AWS Database Migration Service endpoints have SSL configured.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+	some block in fail
 	result := {
 		"message": "AWS Database Migration Service endpoints must have SSL configured.",
 		"snippet": block,
