@@ -9,64 +9,70 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_080
 
-import future.keywords.if
+import rego.v1
 
-supportedResource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-	resource.Blocks[_].Type == "log_publishing_options"
-    has_cloudwatch_log_group_arn(resource.Blocks[_].Attributes, "cloudwatch_log_group_arn")
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "log_publishing_options"
+	has_cloudwatch_log_group_arn(block.Attributes, "cloudwatch_log_group_arn")
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
 has_cloudwatch_log_group_arn(key, value) := result if {
-    _ = key[value]
-    result := is_enabled(key, "enabled")
+	_ = key[value]
+	result := is_enabled(key, "enabled")
 } else := result if {
-    result := true
+	result := true
 }
 
 is_enabled(key, value) := result if {
-    enabled := key[value]
-    enabled == true
-    result := true
+	enabled := key[value]
+	enabled == true
+	result := true
 } else := result if {
-    enabled := key[value]
-    enabled == false
-    result := false
+	enabled := key[value]
+	enabled == false
+	result := false
 } else := result if {
-    result := true
+	result := true
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'cloudwatch_log_group_arn' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_elasticsearch_domain' or 'aws_opensearch_domain' for 'cloudwatch_log_group_arn' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_elasticsearch_domain' 'aws_opensearch_domain' for 'cloudwatch_log_group_arn' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_elasticsearch_domain' 'aws_opensearch_domain' for 'cloudwatch_log_group_arn' should be set.",
+		"snippet": block,
+	}
+}
