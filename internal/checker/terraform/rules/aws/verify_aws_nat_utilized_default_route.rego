@@ -9,52 +9,59 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_337
 
-validResources := ["aws_route", "aws_route_table"]
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == validResources[_]
+	some label in block.Labels
+	valid_resources := ["aws_route", "aws_route_table"]
+	label in valid_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    innerBlock := block.Blocks[_]
-    innerBlock.Type == "route"
-	innerBlock.Attributes.instance_id != ""
-    innerBlock.Attributes.cidr_block == "0.0.0.0/0"
+	some inner in block.Blocks
+	inner.Type == "route"
+	inner.Attributes.instance_id != ""
+	inner.Attributes.cidr_block == "0.0.0.0/0"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	block.Attributes.instance_id != ""
 	block.Attributes.destination_cidr_block == "0.0.0.0/0"
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "AWS NAT Gateways are utilized for the default route",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "AWS NAT Gateways are utilized for the default route",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "AWS NAT Gateways should be utilized for the default route.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "AWS NAT Gateways should be utilized for the default route.",
+		"snippet": block,
+	}
+}

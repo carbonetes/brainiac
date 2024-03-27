@@ -9,56 +9,63 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_340
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_vpc"
+	some label in block.Labels
+	label == "aws_vpc"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelforAwsVpc[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_vpc"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_flow_log"
-    label := getTheLabelforAwsVpc[_]
-    contains(resource.Attributes.vpc_id, label)
+getthelabelforawsvpc contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_vpc" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_flow_log" in resource.Labels
+	some label in getthelabelforawsvpc
+	contains(resource.Attributes.vpc_id, label)
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "The VPC flow logging is activated in every VPC.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "The VPC flow logging is activated in every VPC.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "The VPC flow logging must be activated in every VPC.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "The VPC flow logging must be activated in every VPC.",
+		"snippet": block,
+	}
+}
