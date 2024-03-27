@@ -9,61 +9,69 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_362
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_s3_bucket"
+	some label in block.Labels
+	label == "aws_s3_bucket"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getS3BucketLabel[label] {
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_s3_bucket"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_s3_bucket_lifecycle_configuration"
-    label := getS3BucketLabel[_]
-    contains(resource.Attributes.bucket, label)
+gets3bucketlabel contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_s3_bucket" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_s3_bucket_lifecycle_configuration" in resource.Labels
+	some label in gets3bucketlabel
+	contains(resource.Attributes.bucket, label)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isValidResourceAttached
+	is_valid_resource_attached
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "lifecycle_rule"
+	resource.Blocks[_].Type == "lifecycle_rule"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "S3 bucket has a lifecycle configuration.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "S3 bucket has a lifecycle configuration.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "S3 bucket should have a lifecycle configuration.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "S3 bucket should have a lifecycle configuration.",
+		"snippet": block,
+	}
 }
