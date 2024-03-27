@@ -8,42 +8,44 @@
 #   id: CB_TFAWS_162
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_162
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_qldb_ledger"
+    some label in block.Labels 
+    label == "aws_qldb_ledger"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[block] {
-    block := input[_]
-	isvalid(block)
-   	not fail[block]
-}
-
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.deletion_protection == false
 }
 
-passed[result] {
-	block := pass[_]
+pass contains block if {
+	some block in input
+	isvalid(block)
+   	not fail[block]
+}
+
+passed contains result if {
+    some block in pass
 	result := { "message": "Deletion protection in QLDB ledger is activated.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Deletion protection in QLDB ledger must be activated.",
                 "snippet": block }
 } 

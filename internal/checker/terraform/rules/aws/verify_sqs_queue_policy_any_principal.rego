@@ -8,48 +8,47 @@
 #   id: CB_TFAWS_159
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_159
+import rego.v1
 
-supportedResources := ["aws_sqs_queue_policy", "aws_sqs_queue"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels
+    supported_resources := ["aws_sqs_queue_policy", "aws_sqs_queue"]
+    label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[block] {
-    block := input[_]
-	isvalid(block)
-   	not fail[block]
-}
-
-fail[resource] {
-	resource := input[_]
+fail contains resource if {
+	some resource in input
     isvalid(resource)
-
     access_policy := json.unmarshal(resource.Attributes.policy).Statement[_]
     access_policy.Principal == "*"
     access_policy.Effect == "Allow"
 }
 
+pass contains block if {
+    some block in input
+	isvalid(block)
+   	not fail[block]
+}
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_sqs_queue_policy' or 'aws_sqs_queue' for 'policy' is set properly.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_sqs_queue_policy' or 'aws_sqs_queue' for 'policy' should be set.",
                 "snippet": block }
 } 
