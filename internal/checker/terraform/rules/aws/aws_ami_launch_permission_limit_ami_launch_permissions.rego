@@ -1,5 +1,5 @@
 # METADATA
-# title: "AMI launch permissions should be restricted"
+# title: "Ensures that AMI launch permissions should be restricted"
 # description: "It is advised against enabling the launch of AMIs across many accounts, and if it is, make sure it is used appropriately."
 # scope: package
 # related_resources:
@@ -8,27 +8,45 @@
 #   id: CB_TFAWS_204
 #   severity: LOW
 package lib.terraform.CB_TFAWS_204
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_ami_launch_permission"
+    some label in block.Labels 
+    label == "aws_ami_launch_permission"
 }
 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-fail[resource]{
-    resource := input[_]
-	isvalid(resource)
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
 }
 
+pass contains resource if {
+    some resource in input
+	isvalid(resource)
+    resource.Attributes.account_id != ""
+    resource.Attributes.image_id != ""
+}
 
-passed := []
+fail contains block if {
+	some block in input
+	isvalid(block)
+   	not pass[block]
+}
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "AMI launch permissions are not allowed.",
+passed contains result if {
+    some block in pass
+	result := { "message": "AMI launch permissions are restricted.",
+                "snippet": block }
+}
+
+failed contains result if {
+    some block in fail
+	result := { "message": "AMI launch permissions are not restricted.",
                 "snippet": block }
 }
