@@ -8,44 +8,48 @@
 #   id: CB_TFAWS_214
 #   severity: LOW
 package lib.terraform.CB_TFAWS_214
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_ecs_cluster"
+    some label in block.Labels 
+    label == "aws_ecs_cluster"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}  
 
-pass[blocks]{
-    blocks := input[_]
-	isvalid(blocks)
-    blocks.Blocks[_].Type == "configuration"
-    blocks.Blocks[_].Blocks[_].Type == "execute_command_configuration"
-    blocks.Blocks[_].Blocks[_].Attributes.logging != "NONE"
+pass contains resource if {
+    some resource in input
+	isvalid(resource)
+    some type in resource.Blocks
+    type.Type == "configuration"
+    some block in type.Blocks
+    block.Type == "execute_command_configuration"
+    block.Attributes.logging != "NONE"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "ECS Cluster enables logging of ECS Exec",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "ECS Cluster must enable logging of ECS Exec",
                 "snippet": block }
 } 
