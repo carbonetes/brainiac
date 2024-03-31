@@ -54,13 +54,15 @@ pass contains blocks if {
 	nested_block.Attributes.cloud_watch_encryption_enabled == true
 }
 
-pass contains blocks if {
-	some blocks in input
-	isvalid(blocks)
-	is_log_config_exist(blocks)
-	has_attribute(blocks.Blocks[_].Blocks[_].Attributes, "kms_key_id")
-	blocks.Blocks[_].Blocks[_].Blocks[_].Type == "log_configuration"
-	blocks.Blocks[_].Blocks[_].Blocks[_].Attributes.s3_bucket_encryption_enabled == true
+pass contains resource if {
+        some resource in input
+        isvalid(resource)
+        some res in resource.Blocks
+        some attribute in res.Blocks
+        has_attribute(attribute.Attributes, "kms_key_id")
+        some block in attribute.Blocks
+        block.Type == "log_configuration"
+        block.Attributes.s3_bucket_encryption_enabled == true
 }
 
 fail contains block if {
