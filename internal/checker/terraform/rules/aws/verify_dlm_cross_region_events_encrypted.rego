@@ -8,45 +8,52 @@
 #   id: CB_TFAWS_234
 #   severity: LOW
 package lib.terraform.CB_TFAWS_234
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_dlm_lifecycle_policy"
+    some label in block.Labels 
+    label == "aws_dlm_lifecycle_policy"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+} 
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "policy_details"
-    resource.Blocks[_].Blocks[_].Type == "action"
-    resource.Blocks[_].Blocks[_].Blocks[_].Type == "cross_region_copy"
-    resource.Blocks[_].Blocks[_].Blocks[_].Blocks[_].Type == "encryption_configuration"
-    resource.Blocks[_].Blocks[_].Blocks[_].Blocks[_].Attributes.encryption == true
+    some block in resource.Blocks
+    block.Type == "policy_details"
+    some block_type in block.Blocks
+    block_type.Type == "action"
+    some nested_block_type in block_type.Blocks
+    nested_block_type.Type == "cross_region_copy"
+    some nested_block in nested_block_type.Blocks
+    nested_block.Type == "encryption_configuration"
+    nested_block.Attributes.encryption == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "DLM cross region events are encrypted",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "DLM cross region events must be encrypted",
                 "snippet": block }
 }
