@@ -8,43 +8,46 @@
 #   id: CB_TFAWS_221
 #   severity: LOW
 package lib.terraform.CB_TFAWS_221
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_acm_certificate"
+    some label in block.Labels 
+    label == "aws_acm_certificate"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+}  
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    blocks := resource.Blocks[_]
+    some blocks in resource.Blocks
     blocks.Type == "lifecycle"
     blocks.Attributes.create_before_destroy == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Create before destroy for ACM certificates is enabled",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Create before destroy for ACM certificates should be enabled",
                 "snippet": block }
 }

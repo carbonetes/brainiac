@@ -8,61 +8,59 @@
 #   id: CB_TFAWS_220
 #   severity: LOW
 package lib.terraform.CB_TFAWS_220
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_network_acl_rule"
+    some label in block.Labels 
+    label == "aws_network_acl_rule"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    not has_attribute(resource.Attributes, "rule_action")
-}
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+}  
 
-pass[block] {
-    block := input[_]
-	isvalid(block)
-   	not fail[block]
-}
-
-fail[resource] {
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.rule_action == "allow"
     resource.Attributes.cidr_block == "0.0.0.0/0"
     to_number(resource.Attributes.from_port) == 22
 }
 
-fail[resource] {
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.rule_action == "allow"
     resource.Attributes.cidr_block == "0.0.0.0/0"
     to_number(resource.Attributes.to_port) == 22
 }
 
-passed[result] {
-	block := pass[_]
+pass contains block if {
+    some block in input
+	isvalid(block)
+    not has_attribute(block.Attributes, "rule_action")
+    not fail[block]
+}
+
+passed contains result if {
+    some block in pass
 	result := { "message": "AWS NACL is configured to deny ingress from 0.0.0.0/0 to port 22",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "AWS NACL should not allow ingress from 0.0.0.0/0 to port 22.",
                 "snippet": block }
 }

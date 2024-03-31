@@ -8,43 +8,46 @@
 #   id: CB_TFAWS_224
 #   severity: LOW
 package lib.terraform.CB_TFAWS_224
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_api_gateway_method_settings"
+    some label in block.Labels 
+    label == "aws_api_gateway_method_settings"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}  
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "settings"
-    resource.Blocks[_].Attributes.caching_enabled == true
+    some block in resource.Blocks
+    block.Type == "settings"
+    block.Attributes.caching_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "API Gateway method setting caching is enable",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_api_gateway_method_settings' settings 'caching_enabled' should be set to latest",
                 "snippet": block }
 } 

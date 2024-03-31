@@ -25,7 +25,10 @@ test_cluster_logging_cmk {
 				"Blocks": [{
 					"Type": "log_configuration",
 					"Labels": [],
-					"Attributes": {"s3_bucket_encryption_enabled": true},
+					"Attributes": {
+						"cloud_watch_encryption_enabled": true,
+						"s3_bucket_encryption_enabled": true
+						},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 9,
@@ -75,7 +78,10 @@ test_cluster_logging_not_cmk {
 				"Blocks": [{
 					"Type": "log_configuration",
 					"Labels": [],
-					"Attributes": {"s3_bucket_encryption_enabled": false},
+					"Attributes": {
+						"cloud_watch_encryption_enabled": false,
+						"s3_bucket_encryption_enabled": false
+						},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 9,

@@ -8,68 +8,71 @@
 #   id: CB_TFAWS_222
 #   severity: LOW
 package lib.terraform.CB_TFAWS_222
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_acm_certificate"
+    some label in block.Labels 
+    label == "aws_acm_certificate"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-fail[block] {
-    block := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+} 
+
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     count(resource.Blocks) < 1
 }
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    blocks := resource.Blocks[_]
+    some blocks in resource.Blocks
     blocks.Type != "options"
 }
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    blocks := resource.Blocks[_]
+    some blocks in resource.Blocks
     blocks.Type == "options"
     not has_attribute(blocks.Attributes, "certificate_transparency_logging_preference")
 }
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    blocks := resource.Blocks[_]
+    some blocks in resource.Blocks
     blocks.Type == "options"
     blocks.Attributes.certificate_transparency_logging_preference == "ENABLED"
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Logging preference for ACM certificates is enabled",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Logging preference for ACM certificates should be enabled",
                 "snippet": block }
 }

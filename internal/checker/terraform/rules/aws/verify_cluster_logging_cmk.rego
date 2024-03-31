@@ -8,68 +8,80 @@
 #   id: CB_TFAWS_217
 #   severity: LOW
 package lib.terraform.CB_TFAWS_217
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_ecs_cluster"
+	some label in block.Labels
+	label == "aws_ecs_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-isLogConfigExist(blocks){
-	blocks.Blocks[_].Type == "configuration"
-    blocks.Blocks[_].Blocks[_].Type == "execute_command_configuration"
-    not hasNoneLogging(blocks)
-}
-hasNoneLogging(blocks){
-    blocks.Blocks[_].Blocks[_].Attributes.logging == "NONE"
+is_log_config_exist(blocks) if {
+	some type in blocks.Blocks
+	type.Type == "configuration"
+	some block in type.Blocks
+	block.Type == "execute_command_configuration"
+	not has_none_logging(block)
 }
 
-resource[resource] {
-    block := pass[_]
+has_none_logging(block) if {
+	some block in block.Blocks.Blocks
+	block.Attributes.kms_key_id.logging == "NONE"
+}
+
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[blocks]{
-    blocks := input[_]
-	isvalid(blocks)
-    isLogConfigExist(blocks)
-    has_attribute(blocks.Blocks[_].Blocks[_].Attributes, "kms_key_id")
-    blocks.Blocks[_].Blocks[_].Blocks[_].Type == "log_configuration"
-    blocks.Blocks[_].Blocks[_].Blocks[_].Attributes.cloud_watch_encryption_enabled == true
 }
 
-pass[blocks]{
-    blocks := input[_]
+pass contains blocks if {
+	some blocks in input
 	isvalid(blocks)
-    isLogConfigExist(blocks)
-    has_attribute(blocks.Blocks[_].Blocks[_].Attributes, "kms_key_id")
-    blocks.Blocks[_].Blocks[_].Blocks[_].Type == "log_configuration"
-    blocks.Blocks[_].Blocks[_].Blocks[_].Attributes.s3_bucket_encryption_enabled == true
+	is_log_config_exist(blocks)
+	some block in blocks.Blocks.Blocks
+	has_attribute(block.Attributes, "kms_key_id")
+	some nested_block in block.Blocks
+	nested_block.Type == "log_configuration"
+	nested_block.Attributes.cloud_watch_encryption_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+pass contains blocks if {
+	some blocks in input
+	isvalid(blocks)
+	is_log_config_exist(blocks)
+	has_attribute(blocks.Blocks[_].Blocks[_].Attributes, "kms_key_id")
+	blocks.Blocks[_].Blocks[_].Blocks[_].Type == "log_configuration"
+	blocks.Blocks[_].Blocks[_].Blocks[_].Attributes.s3_bucket_encryption_enabled == true
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-    isLogConfigExist(block)
-   	not pass[block]
+	is_log_config_exist(block)
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "ECS cluster logging with CMK is set properly",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "ECS cluster logging with CMK is set properly",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "ECS cluster logging with CMK should be set",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "ECS cluster logging with CMK should be set",
+		"snippet": block,
+	}
+}
