@@ -8,45 +8,53 @@
 #   id: CB_TFAWS_238
 #   severity: LOW
 package lib.terraform.CB_TFAWS_238
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_dlm_lifecycle_policy"
-    block.Blocks[_].Type == "policy_details"
+    some label in block.Labels 
+    label == "aws_dlm_lifecycle_policy"
+    some type in block.Blocks
+    type.Type == "policy_details"
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+} 
+
+
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Blocks[_].Type == "schedule"
-    resource.Blocks[_].Blocks[_].Blocks[_].Type == "cross_region_copy_rule"
-    resource.Blocks[_].Blocks[_].Blocks[_].Attributes.encrypted == true
-    resource.Blocks[_].Blocks[_].Blocks[_].Attributes.cmk_arn != ""
+    some res in resource.Blocks
+    some block in res.Blocks
+    block.Type == "schedule"
+    some nestec_block in block.Blocks
+    nestec_block.Type == "cross_region_copy_rule"
+    nestec_block.Attributes.encrypted == true
+    nestec_block.Attributes.cmk_arn != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "DLM cross region schedules are encrypted using a Customer Managed Key ",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "DLM cross region schedules must be encrypted using a Customer Managed Key",
                 "snippet": block }
 }

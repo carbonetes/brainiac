@@ -8,50 +8,55 @@
 #   id: CB_TFAWS_245
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_245
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_connect_instance_storage_config"
+    some label in block.Labels 
+    label == "aws_connect_instance_storage_config"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if {
+    some resource in input
     isvalid(resource)
-    resource.Blocks[_].Type == "storage_config"
-    resource.Blocks[_].Blocks[_].Type == "s3_config"
-    resource.Blocks[_].Blocks[_].Blocks[_].Type == "encryption_config"
-    has_attribute(resource.Blocks[_].Blocks[_].Blocks[_].Attributes, "key_id")
-    resource.Blocks[_].Blocks[_].Blocks[_].Attributes.key_id != ""
+    some type in resource.Blocks
+    type.Type == "storage_config"
+    some block in type.Blocks
+    block.Type == "s3_config"
+    some nested_block in block.Blocks
+    nested_block.Type == "encryption_config"
+    has_attribute(nested_block.Attributes, "key_id")
+    nested_block.Attributes.key_id != ""
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "CMK is being utilized by Connect Instance S3 Storage Config.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "CMK must be utilized by Connect Instance S3 Storage Config.",
                 "snippet": block }
 } 
