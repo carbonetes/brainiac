@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_008
+import rego.v1
 
-test_max_password_age_less_90{
+test_max_password_age_less_90 if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -27,7 +28,7 @@ test_max_password_age_less_90{
     count(result) == 1
 }
 
-test_max_password_age_greater_90 {
+test_max_password_age_greater_90 if {
     result := failed with input as[
                             {
                             "Type": "resource",

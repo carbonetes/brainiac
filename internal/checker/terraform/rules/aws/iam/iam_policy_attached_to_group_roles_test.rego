@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_047
+import rego.v1
 
-test_iam_policy_attached_to_group_roles_passed {
+test_iam_policy_attached_to_group_roles_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_iam_policy_attached_to_group_roles_passed {
 	count(result) == 1
 }
 
-test_iam_policy_attached_to_group_roles_failed {
+test_iam_policy_attached_to_group_roles_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

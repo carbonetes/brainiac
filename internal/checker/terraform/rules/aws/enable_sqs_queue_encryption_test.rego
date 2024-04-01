@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_014
+import rego.v1
 
-test_enable_sqs_queue_encryption_passed {
+test_enable_sqs_queue_encryption_passed if {
     result := passed with input as [
                                 {
                                     "Type": "resource",
@@ -29,7 +30,7 @@ test_enable_sqs_queue_encryption_passed {
     count(result) == 1
 }
 
-test_enable_sqs_queue_encryption_failed {
+test_enable_sqs_queue_encryption_failed if {
 result := failed with input as [
                                 {
                                     "Type": "resource",

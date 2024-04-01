@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_035
+import rego.v1
 
-test_eks_public_access_cidr_endpoint_public_access_passed {
+test_eks_public_access_cidr_endpoint_public_access_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +30,7 @@ test_eks_public_access_cidr_endpoint_public_access_passed {
 	count(result) == 1
 }
 
-test_eks_public_access_cidr_endpoint_public_access_failed {
+test_eks_public_access_cidr_endpoint_public_access_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

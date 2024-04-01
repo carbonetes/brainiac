@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_006
+import rego.v1
 
-enable_key_rotation {
+test_key_rotation_not_secured_pass if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ enable_key_rotation {
 	count(result) == 1
 }
 
-key_rotation_not_secured {
+test_key_rotation_not_secured_fail if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

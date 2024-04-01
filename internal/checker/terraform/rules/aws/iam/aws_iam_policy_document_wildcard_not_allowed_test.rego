@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_042
+import rego.v1
 
-test_AWSIAM_no_wild_card {
+test_awsiam_no_wild_card if {
 	result := passed with input as [{
 		"Type": "data",
 		"Labels": [
@@ -29,7 +30,7 @@ test_AWSIAM_no_wild_card {
 	count(result) == 1
 }
 
-test_AWSIAM_have_wild_card {
+test_awsiam_have_wild_card if {
 	result := failed with input as [{
 		"Type": "data",
 		"Labels": [
