@@ -59,7 +59,7 @@ test_eks_public_access_cidr_endpoint_public_access_failed if {
 	count(result) == 1
 }
 
-test_eks_public_access_cidr_public_access_cidrs_passed {
+test_eks_public_access_cidr_public_access_cidrs_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -85,7 +85,7 @@ test_eks_public_access_cidr_public_access_cidrs_passed {
 	count(result) == 1
 }
 
-test_eks_public_access_cidr_public_access_cidrs_failed {
+test_eks_public_access_cidr_public_access_cidrs_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

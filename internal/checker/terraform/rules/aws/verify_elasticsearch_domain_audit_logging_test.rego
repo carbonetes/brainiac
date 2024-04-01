@@ -1,6 +1,6 @@
 package lib.terraform.CB_TFAWS_304
 
-import regov.v1 
+import rego.v1 
 
 test_verify_elasticsearch_domain_audit_logging_passed if {
     result := passed with input as [
