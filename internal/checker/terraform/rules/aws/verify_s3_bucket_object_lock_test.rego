@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_147
+import rego.v1
 
-test_verify_s3_bucket_object_lock_passed {
+test_verify_s3_bucket_object_lock_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -32,7 +33,7 @@ test_verify_s3_bucket_object_lock_passed {
     count(result) == 1
 }
 
-test_verify_s3_bucket_object_lock_failed {
+test_verify_s3_bucket_object_lock_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

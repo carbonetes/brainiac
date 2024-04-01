@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_149
+import rego.v1
 
-test_verifiy_s3_bucket_replication_configuration_passed {
+test_verifiy_s3_bucket_replication_configuration_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -43,7 +44,7 @@ test_verifiy_s3_bucket_replication_configuration_passed {
     count(result) == 1
 }
 
-test_verifiy_s3_bucket_replication_configuration_failed {
+test_verifiy_s3_bucket_replication_configuration_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",
