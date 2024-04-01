@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_167
+import rego.v1
 
-test_aws_waf_web_acl_waf_web_access_control_lists_logging_enabled_passed{
+test_aws_waf_web_acl_waf_web_access_control_lists_logging_enabled_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -69,7 +70,7 @@ test_aws_waf_web_acl_waf_web_access_control_lists_logging_enabled_passed{
     count(result) == 1
 }
 
-test_aws_waf_web_acl_waf_web_access_control_lists_logging_enabled_failed {
+test_aws_waf_web_acl_waf_web_access_control_lists_logging_enabled_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

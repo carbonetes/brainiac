@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_164
+import rego.v1
 
-test_aws_emr_security_configuration_cluster_security_configuration_encryption_utilize_sse_kms_passed {
+test_aws_emr_security_configuration_cluster_security_configuration_encryption_utilize_sse_kms_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_emr_security_configuration_cluster_security_configuration_encryption_ut
     count(result) == 1
 }
 
-test_aws_emr_security_configuration_cluster_security_configuration_encryption_utilize_sse_kms_failed {
+test_aws_emr_security_configuration_cluster_security_configuration_encryption_utilize_sse_kms_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",

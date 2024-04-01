@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_165
+import rego.v1
 
-test_aws_lambda_function_lambda_environmental_variable_encryption_settings_passed{
+test_aws_lambda_function_lambda_environmental_variable_encryption_settings_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -40,7 +41,7 @@ test_aws_lambda_function_lambda_environmental_variable_encryption_settings_passe
     count(result) == 1
 }
 
-test_aws_lambda_function_lambda_environmental_variable_encryption_settings_failed {
+test_aws_lambda_function_lambda_environmental_variable_encryption_settings_failed if {
     result := failed with input as [
                             {
                                 "Type": "resource",
