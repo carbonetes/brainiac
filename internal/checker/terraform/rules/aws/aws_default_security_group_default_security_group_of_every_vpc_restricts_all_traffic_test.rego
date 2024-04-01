@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_342
 
-test_aws_default_security_group_default_security_group_of_every_vpc_restricts_all_traffic_passed {
+import rego.v1 
+
+test_aws_default_security_group_default_security_group_of_every_vpc_restricts_all_traffic_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -53,7 +55,7 @@ test_aws_default_security_group_default_security_group_of_every_vpc_restricts_al
 	count(result) == 1
 }
 
-test_aws_default_security_group_default_security_group_of_every_vpc_restricts_all_traffic_failed {
+test_aws_default_security_group_default_security_group_of_every_vpc_restricts_all_traffic_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

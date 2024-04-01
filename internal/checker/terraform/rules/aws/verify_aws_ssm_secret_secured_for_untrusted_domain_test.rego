@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_343
 
-test_ssm_secret_secured_for_untrusted_domain {
+import rego.v1 
+
+test_ssm_secret_secured_for_untrusted_domain if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -23,7 +25,7 @@ test_ssm_secret_secured_for_untrusted_domain {
 	count(result) == 1
 }
 
-test_ssm_secret_not_secured_for_untrusted_domain {
+test_ssm_secret_not_secured_for_untrusted_domain if {
 	result := failed with input as [
 		{
 			"Type": "resource",
