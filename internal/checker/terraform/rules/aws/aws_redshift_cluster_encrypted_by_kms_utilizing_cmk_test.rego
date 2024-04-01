@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_179
+import rego.v1
 
-test_aws_redshift_cluster_encrypted_by_kms_utilizing_cmk_passed {
+test_aws_redshift_cluster_encrypted_by_kms_utilizing_cmk_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -31,7 +32,7 @@ test_aws_redshift_cluster_encrypted_by_kms_utilizing_cmk_passed {
     count(result) == 1
 }
 
-test_aws_redshift_cluster_encrypted_by_kms_utilizing_cmk_failed {
+test_aws_redshift_cluster_encrypted_by_kms_utilizing_cmk_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",
