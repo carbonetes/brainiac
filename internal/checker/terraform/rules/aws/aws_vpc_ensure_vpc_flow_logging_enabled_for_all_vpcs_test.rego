@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_340
 
-test_aws_vpc_ensure_vpc_flow_logging_enabled_for_all_vpcs_passed{
+import rego.v1 
+
+test_aws_vpc_ensure_vpc_flow_logging_enabled_for_all_vpcs_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -39,7 +41,7 @@ test_aws_vpc_ensure_vpc_flow_logging_enabled_for_all_vpcs_passed{
     count(result) == 1
 }
 
-test_aws_vpc_ensure_vpc_flow_logging_enabled_for_all_vpcs_failed {
+test_aws_vpc_ensure_vpc_flow_logging_enabled_for_all_vpcs_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

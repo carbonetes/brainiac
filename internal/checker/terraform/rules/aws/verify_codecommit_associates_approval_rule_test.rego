@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_344
 
-test_codecommit_associates_approval_rule {
+import rego.v1 
+
+test_codecommit_associates_approval_rule if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -38,7 +40,7 @@ test_codecommit_associates_approval_rule {
 	count(result) == 1
 }
 
-test_codecommit_not_associates_approval_rule {
+test_codecommit_not_associates_approval_rule if {
 	result := failed with input as [
 		{
 			"Type": "resource",

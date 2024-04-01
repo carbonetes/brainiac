@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_336
 
-test_ssm_parameter_encrypted {
+import rego.v1 
+
+test_ssm_parameter_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +28,7 @@ test_ssm_parameter_encrypted {
 	count(result) == 1
 }
 
-test_ssm_parameter_not_encrypted {
+test_ssm_parameter_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
