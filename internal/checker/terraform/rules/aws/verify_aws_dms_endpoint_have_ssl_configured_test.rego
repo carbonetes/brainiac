@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_364
 
-test_aws_dms_endpoint_have_ssl_configured_passed {
+import rego.v1 
+
+test_aws_dms_endpoint_have_ssl_configured_passed if {
 	result := passed with input as [
     {
         "Attributes": {
@@ -32,7 +34,7 @@ test_aws_dms_endpoint_have_ssl_configured_passed {
 	count(result) == 1
 }
 
-test_aws_dms_endpoint_have_ssl_configured_failed {
+test_aws_dms_endpoint_have_ssl_configured_failed if {
 	result := failed with input as [
     {
         "Attributes": {

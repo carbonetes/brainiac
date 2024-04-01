@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_363
 
-test_s3_notification_enabled {
+import rego.v1 
+
+test_s3_notification_enabled if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -45,7 +47,7 @@ test_s3_notification_enabled {
 	count(result) == 1
 }
 
-test_s3_notification_not_enabled {
+test_s3_notification_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
