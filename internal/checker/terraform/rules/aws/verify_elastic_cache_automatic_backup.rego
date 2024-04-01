@@ -9,42 +9,49 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_113
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_elasticache_cluster"
+	some label in block.Labels
+	label == "aws_elasticache_cluster"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-    isvalid(resource)
-    is_number(to_number(resource.Attributes.snapshot_retention_limit))
-    to_number(resource.Attributes.snapshot_retention_limit) > 0
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_number(to_number(resource.Attributes.snapshot_retention_limit))
+	to_number(resource.Attributes.snapshot_retention_limit) > 0
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_elasticache_cluster' for 'snapshot_retention_limit' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_elasticache_cluster' for 'snapshot_retention_limit' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_elasticache_cluster' for 'snapshot_retention_limit' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_elasticache_cluster' for 'snapshot_retention_limit' should be set.",
+		"snippet": block,
+	}
+}
