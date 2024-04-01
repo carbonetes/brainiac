@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_324
 
-test_cloudfront_has_custom_ssl_certificate_passed {
+import rego.v1 
+
+test_cloudfront_has_custom_ssl_certificate_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -153,7 +155,7 @@ test_cloudfront_has_custom_ssl_certificate_passed {
 	count(result) == 1
 }
 
-test_cloudfront_has_custom_ssl_certificate_failed {
+test_cloudfront_has_custom_ssl_certificate_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

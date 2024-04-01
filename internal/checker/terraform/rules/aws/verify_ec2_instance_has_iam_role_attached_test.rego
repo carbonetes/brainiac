@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_321
 
-test_ec2_instance_has_iam_role_attached {
+import rego.v1 
+
+test_ec2_instance_has_iam_role_attached if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -88,7 +90,7 @@ test_ec2_instance_has_iam_role_attached {
 	count(result) == 1
 }
 
-test_ec2_instance_has_no_iam_role_attached {
+test_ec2_instance_has_no_iam_role_attached if {
 	result := failed with input as [
     {
         "Type": "provider",
