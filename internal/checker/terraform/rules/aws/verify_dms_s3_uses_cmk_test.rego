@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_263
 
-test_dms_s3_uses_cmk {
+import rego.v1 
+
+test_dms_s3_uses_cmk if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_dms_s3_uses_cmk {
 	count(result) == 1
 }
 
-test_dms_s3_not_uses_cmk {
+test_dms_s3_not_uses_cmk if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
