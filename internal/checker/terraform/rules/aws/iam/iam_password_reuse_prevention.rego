@@ -30,8 +30,8 @@ resource contains resource if {
 pass contains resource if {
     some resource in input
 	isvalid(resource)
-    reusepasswordInt := to_number(resource.Attributes.password_reuse_prevention)
-    reusepasswordInt <= 24
+    reusepasswordint := to_number(resource.Attributes.password_reuse_prevention)
+    reusepasswordint <= 24
 }
 
 fail contains block if {

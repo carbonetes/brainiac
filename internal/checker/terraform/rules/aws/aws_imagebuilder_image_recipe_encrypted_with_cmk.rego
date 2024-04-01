@@ -33,11 +33,11 @@ resource contains resource if{
 fail contains resource if {
 	some resource in input
     isvalid(resource)
-    expectedValues := ["encrypted", "kms_key_id"]
-    some expectedValue in expectedValues
+    expectedvalues := ["encrypted", "kms_key_id"]
+    some expectedvalue in expectedvalues
     some block in resource.Blocks
-    some nestedBlocks in block.Blocks
-    not has_attribute(nestedBlocks.Attributes, expectedValue) 
+    some nestedblocks in block.Blocks
+    not has_attribute(nestedblocks.Attributes, expectedvalue) 
    
 }
 

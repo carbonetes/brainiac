@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_051
+import rego.v1 
 
-test_s3_bucket_block_public_policy_enabled {
+test_s3_bucket_block_public_policy_enabled if {
     result := passed with input as[
                                 {
                                 "Type": "resource",
@@ -40,7 +41,7 @@ test_s3_bucket_block_public_policy_enabled {
     count(result) == 1
 }
 
-test_s3_bucket_block_public_policy_false {
+test_s3_bucket_block_public_policy_false if {
     result := failed with input as [
                                 {
                                 "Type": "resource",

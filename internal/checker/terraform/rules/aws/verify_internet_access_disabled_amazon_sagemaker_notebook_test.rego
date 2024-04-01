@@ -25,7 +25,7 @@ test_sagemaker_notebook_internet_disabled if {
 	count(result) == 1
 }
 
-test_sagemaker_notebook_internet_Enabled if {
+test_sagemaker_notebook_internet_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
