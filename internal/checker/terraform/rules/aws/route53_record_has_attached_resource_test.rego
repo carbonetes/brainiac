@@ -2,7 +2,7 @@ package lib.terraform.CB_TFAWS_319
 
 import rego.v1
 
-test_route53_A_record_has_attached_resource if {
+test_route53_a_record_has_attached_resource if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -36,7 +36,7 @@ test_route53_A_record_has_attached_resource if {
 	count(result) == 1
 }
 
-test_route53_A_record_has_no_attached_resource if {
+test_route53_a_record_has_no_attached_resource if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
