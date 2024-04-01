@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_131
+import rego.v1
 
-test_mskcluster_logging_enabled {
+test_mskcluster_logging_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_mskcluster_logging_enabled {
 	count(result) == 1
 }
 
-test_mskcluster_logging_enabled_false {
+test_mskcluster_logging_enabled_false if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
