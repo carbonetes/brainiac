@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_130
+import rego.v1
 
-test_alb_http_headers_drops {
+test_alb_http_headers_drops if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -23,7 +24,7 @@ test_alb_http_headers_drops {
 	count(result) == 1
 }
 
-test_alb_http_headers_not_drop {
+test_alb_http_headers_not_drop if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

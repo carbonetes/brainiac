@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_128
+import rego.v1
 
-test_vpc_subnets_not_assign_public_ip_default {
+test_vpc_subnets_not_assign_public_ip_default if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_vpc_subnets_not_assign_public_ip_default {
 	count(result) == 1
 }
 
-test_vpc_subnets_assign_public_ip_default {
+test_vpc_subnets_assign_public_ip_default if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
