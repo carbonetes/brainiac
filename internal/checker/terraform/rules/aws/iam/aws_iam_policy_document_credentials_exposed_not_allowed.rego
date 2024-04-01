@@ -9,46 +9,54 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_100
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "aws_iam_policy_document"
+	some label in block.Labels
+	label == "aws_iam_policy_document"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[blockStatements]{
-    credentialExposure := ["iam:CreateAccessKey", "iam:UpdateAccessKey", "sts:AssumeRole", "*"]
-    block := input[_]
+fail contains blockstatements if {
+	credentialexposure := ["iam:CreateAccessKey", "iam:UpdateAccessKey", "sts:AssumeRole", "*"]
+	some block in input
 	isvalid(block)
-    blockStatements := block.Blocks[_]
-    blockStatements.Type == "statement"
-    blockStatements.Attributes.effect  == "Allow"
-    blockStatements.Attributes.actions[_]  == credentialExposure[_]
+	some blockstatements in block.Blocks
+	blockstatements.Type == "statement"
+    attribute := blockstatements.Attributes
+    attribute.effect == "Allow"
+	some action in attribute.actions
+	action in credentialexposure
 }
 
-
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_iam_policy_document' credentials are not exposed.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_iam_policy_document' credentials are not exposed.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_iam_policy_document' credentials should not be exposed.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_iam_policy_document' credentials should not be exposed.",
+		"snippet": block,
+	}
 }

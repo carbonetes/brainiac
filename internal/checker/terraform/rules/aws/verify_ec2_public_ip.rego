@@ -9,69 +9,75 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_095
 
-import future.keywords.if
+import rego.v1
 
-supportedResources := ["aws_instance", "aws_launch_template"]
+supportedresources := ["aws_instance", "aws_launch_template"]
 
-isvalid(block, resource){
+isvalid(block, resource) if {
 	block.Type == "resource"
-    block.Labels[_] == resource
+	some label in block.Labels
+	label == resource
 }
 
-
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-    isvalid(resource, "aws_instance")
-    has_associate_public_ip_address(resource.Attributes, "associate_public_ip_address")
 }
 
-pass[resource] {
-	resource := input[_]
-    isvalid(resource, "aws_launch_template")
-    has_network_interfaces(resource.Blocks)
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource, "aws_instance")
+	has_associate_public_ip_address(resource.Attributes, "associate_public_ip_address")
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource, "aws_launch_template")
+	has_network_interfaces(resource.Blocks)
 }
 
 has_network_interfaces(blocks) := result if {
-    blocks[_].Type == "network_interfaces"
-    result := has_associate_public_ip_address(blocks[_].Attributes, "associate_public_ip_address")
+	some block in blocks
+	block.Type == "network_interfaces"
+	result := has_associate_public_ip_address(block.Attributes, "associate_public_ip_address")
 } else := result if {
-    result := true
+	result := true
 }
 
 has_associate_public_ip_address(key, value) := result if {
-    key[value] == false
-    result := true
+	key[value] == false
+	result := true
 } else := result if {
-    key[value] == true
-    result := false
+	key[value] == true
+	result := false
 } else := result if {
-  result := true
+	result := true
 }
 
-fail[block] {
-    block := input[_]
-	isvalid(block, supportedResources[_])
-   	not pass[block]
+fail contains block if {
+	some block in input
+	some supported in supportedresources
+	isvalid(block, supported)
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_instance' or 'aws_launch_template' for 'associate_public_ip_address' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_instance' or 'aws_launch_template' for 'associate_public_ip_address' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_instance' or 'aws_launch_template' for 'associate_public_ip_address' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_instance' or 'aws_launch_template' for 'associate_public_ip_address' should be set.",
+		"snippet": block,
+	}
+}

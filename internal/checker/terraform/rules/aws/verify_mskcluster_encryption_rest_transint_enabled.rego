@@ -9,51 +9,62 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_093
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_msk_cluster"
+	some label in block.Labels
+	label == "aws_msk_cluster"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-fail[resource]{
-    resource := input[_]
-	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "encryption_info"
-    block.Blocks[_].Type == "encryption_in_transit"
-    block.Blocks[_].Attributes.client_broker != "TLS"
-}
-fail[resource]{
-    resource := input[_]
-	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "encryption_info"
-    block.Blocks[_].Type == "encryption_in_transit"
-    block.Blocks[_].Attributes.in_cluster == false
 }
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "encryption_info"
+	some blocks in block.Blocks
+	blocks.Type == "encryption_in_transit"
+	blocks.Attributes.client_broker != "TLS"
+}
+
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "encryption_info"
+	some blocks in block.Blocks
+	blocks.Type == "encryption_in_transit"
+	blocks.Attributes.in_cluster == false
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_msk_cluster' encryption is set properly",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_msk_cluster' encryption is set properly",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_msk_cluster' encryption should be set properly at rest and transit",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_msk_cluster' encryption should be set properly at rest and transit",
+		"snippet": block,
+	}
 }
