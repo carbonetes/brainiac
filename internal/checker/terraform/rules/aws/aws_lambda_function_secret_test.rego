@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_040
+import rego.v1
 
-test_aws_lambda_function_secret_passed {
+test_aws_lambda_function_secret_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -34,7 +35,7 @@ test_aws_lambda_function_secret_passed {
 	count(result) == 1
 }
 
-test_aws_lambda_function_secret_failed {
+test_aws_lambda_function_secret_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

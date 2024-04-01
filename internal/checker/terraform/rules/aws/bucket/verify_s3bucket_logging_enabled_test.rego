@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_023
+import rego.v1
 
-test_s3_bucket_logging_enabled {
+test_s3_bucket_logging_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +30,7 @@ test_s3_bucket_logging_enabled {
 	count(result) == 1
 }
 
-test_s3_bucket_no_logging {
+test_s3_bucket_no_logging if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

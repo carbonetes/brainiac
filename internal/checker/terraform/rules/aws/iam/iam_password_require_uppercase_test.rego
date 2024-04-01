@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_018
+import rego.v1 
 
-test_require_password_has_uppercase{
+test_require_password_has_uppercase if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -27,7 +28,7 @@ test_require_password_has_uppercase{
     count(result) == 1
 }
 
-test_require_password_no_uppercase{
+test_require_password_no_uppercase if {
     result := failed with input as[
                             {
                             "Type": "resource",

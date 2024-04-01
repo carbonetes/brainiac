@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_002
+import rego.v1
 
-test_with_secured_protocol {
+test_with_secured_protocol if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -18,7 +19,7 @@ test_with_secured_protocol {
 	count(result) == 1
 }
 
-test_with_unsecured_protocol {
+test_with_unsecured_protocol if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

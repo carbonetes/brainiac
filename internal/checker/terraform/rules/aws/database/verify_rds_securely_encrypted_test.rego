@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_019
+import rego.v1
 
-test_enable_rds_encryption_passed {
+test_enable_rds_encryption_passed if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -23,7 +24,7 @@ test_enable_rds_encryption_passed {
     count(result) == 1
 }
 
-test_enable_rds_encryption_faied {
+test_enable_rds_encryption_faied if {
 result := failed with input as [
                             {
                             "Type": "resource",

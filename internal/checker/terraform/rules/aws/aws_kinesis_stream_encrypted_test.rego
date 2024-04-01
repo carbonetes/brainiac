@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_027
+import rego.v1
 
-test_aws_kinesis_stream_encrypted {
+test_aws_kinesis_stream_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ test_aws_kinesis_stream_encrypted {
 	count(result) == 1
 }
 
-test_aws_kinesis_stream_not_encrypted {
+test_aws_kinesis_stream_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

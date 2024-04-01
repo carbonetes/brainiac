@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_043
+import rego.v1
 
-test_securitygroup_has_description {
+test_securitygroup_has_description if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -31,7 +32,7 @@ test_securitygroup_has_description {
 	}]
 }
 
-test_securitygroup_no_description {
+test_securitygroup_no_description if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

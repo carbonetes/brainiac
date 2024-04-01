@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_015
+import rego.v1 
 
-test_require_password_has_symbol{
+test_require_password_has_symbol if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -27,7 +28,7 @@ test_require_password_has_symbol{
     count(result) == 1
 }
 
-test_require_password_no_symbol{
+test_require_password_no_symbol if {
     result := failed with input as[
                             {
                             "Type": "resource",

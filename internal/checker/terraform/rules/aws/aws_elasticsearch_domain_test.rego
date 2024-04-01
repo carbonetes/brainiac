@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_005
+import rego.v1
 
-test_elasticsearch_node_enabled {
+test_elasticsearch_node_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +30,7 @@ test_elasticsearch_node_enabled {
 	count(result) == 1
 }
 
-test_elasticsearch_node_disabled {
+test_elasticsearch_node_disabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

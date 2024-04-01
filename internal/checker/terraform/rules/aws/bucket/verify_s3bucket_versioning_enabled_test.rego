@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_038
+import rego.v1
 
-test_s3_bucket_versioning_enabled {
+test_s3_bucket_versioning_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +27,7 @@ test_s3_bucket_versioning_enabled {
 	count(result) == 1
 }
 
-test_s3_bucket_versioning_disabled {
+test_s3_bucket_versioning_disabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

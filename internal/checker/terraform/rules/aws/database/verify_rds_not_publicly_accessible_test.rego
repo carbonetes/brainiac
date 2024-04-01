@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_021
+import rego.v1 
 
-test_rds_publicly_available {
+test_rds_publicly_available if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_rds_publicly_available {
 	count(result) == 1
 }
 
-test_rds_publicly_not_available {
+test_rds_publicly_not_available if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

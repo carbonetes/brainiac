@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_048
+import rego.v1
 
-test_aws_instance_secrets_passed {
+test_aws_instance_secrets_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ test_aws_instance_secrets_passed {
 	count(result) == 1
 }
 
-test_aws_instance_secrets_failed {
+test_aws_instance_secrets_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

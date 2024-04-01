@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_022
+import rego.v1
 
-test_elasticache_replication_group_at_transit_encryption_auth_passed {
+test_elasticache_replication_group_at_transit_encryption_auth_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -27,7 +28,7 @@ test_elasticache_replication_group_at_transit_encryption_auth_passed {
 	count(result) == 1
 }
 
-test_elasticache_replication_group_at_transit_encryption_auth_failed {
+test_elasticache_replication_group_at_transit_encryption_auth_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
