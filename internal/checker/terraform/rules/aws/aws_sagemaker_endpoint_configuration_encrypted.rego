@@ -9,46 +9,52 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_082
 
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_sagemaker_endpoint_configuration"
+	some label in block.Labels
+	label == "aws_sagemaker_endpoint_configuration"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    has_attribute(resource.Attributes, "kms_key_arn")
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	has_attribute(resource.Attributes, "kms_key_arn")
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Data contained in Sagemaker Endpoint is encrypted.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Data contained in Sagemaker Endpoint is encrypted.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Data contained in Sagemaker Endpoint should be is encrypted.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Data contained in Sagemaker Endpoint should be is encrypted.",
+		"snippet": block,
+	}
 }

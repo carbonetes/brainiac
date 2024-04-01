@@ -9,52 +9,59 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_089
 
+import rego.v1
 
-supportedResources := ["aws_instance", "aws_launch_configuration", "aws_launch_template"]
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supportedresource := ["aws_instance", "aws_launch_configuration", "aws_launch_template"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "metadata_options"
-    block.Attributes.http_tokens == "required"
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "metadata_options"
-    block.Attributes.http_endpoint = "disabled"
+	some block in resource.Blocks
+	block.Type == "metadata_options"
+	block.Attributes.http_tokens == "required"
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "metadata_options"
+	block.Attributes.http_endpoint = "disabled"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Instance Metadata Service Version 1 is not enabled",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Instance Metadata Service Version 1 is not enabled",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Instance Metadata Service Version 1 should not be enabled",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Instance Metadata Service Version 1 should not be enabled",
+		"snippet": block,
+	}
 }

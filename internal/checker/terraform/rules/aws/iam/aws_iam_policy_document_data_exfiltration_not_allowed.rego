@@ -9,46 +9,54 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_088
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "aws_iam_policy_document"
+	some label in block.Labels
+	label == "aws_iam_policy_document"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[blockStatements]{
-    dataExfiltration := ["s3:GetObject", "ssm:GetParameter",  "ssm:GetParameters", "ssm:GetParametersByPath", "ssm:GetParameter*", "secretsmanager:GetSecretValue", "*"]
-    block := input[_]
+fail contains blockstatements if {
+	dataexfiltration := ["s3:GetObject", "ssm:GetParameter", "ssm:GetParameters", "ssm:GetParametersByPath", "ssm:GetParameter*", "secretsmanager:GetSecretValue", "*"]
+	some block in input
 	isvalid(block)
-    blockStatements := block.Blocks[_]
-    blockStatements.Type == "statement"
-    blockStatements.Attributes.effect  == "Allow"
-    blockStatements.Attributes.actions[_]  == dataExfiltration[_]
+	some blockstatements in block.Blocks
+	blockstatements.Type == "statement"
+	attributes := blockstatements.Attributes
+	attributes.effect == "Allow"
+	some action in attributes.actions
+	action in dataexfiltration
 }
 
-
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_iam_policy_document' no data exfiltration found.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_iam_policy_document' no data exfiltration found.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_iam_policy_document' data exfiltration should not be allowed.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_iam_policy_document' data exfiltration should not be allowed.",
+		"snippet": block,
+	}
 }
