@@ -8,47 +8,49 @@
 #   id: CB_TFAWS_161
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_161
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_qldb_ledger"
+    some label in block.Labels 
+    label == "aws_qldb_ledger"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "permissions_mode")
     resource.Attributes.permissions_mode == "STANDARD"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "QLDB ledger permissions mode is set to STANDARD.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "QLDB ledger permissions mode must be set to STANDARD.",
                 "snippet": block }
 } 
