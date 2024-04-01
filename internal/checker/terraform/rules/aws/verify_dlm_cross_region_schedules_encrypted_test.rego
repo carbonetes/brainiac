@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_237
+import rego.v1
 
-test_dlm_cross_region_shedule_encrypted {
+test_dlm_cross_region_shedule_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -99,7 +100,7 @@ test_dlm_cross_region_shedule_encrypted {
 	count(result) == 1
 }
 
-test_dlm_cross_region_schedules_encrypted {
+test_dlm_cross_region_schedules_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
