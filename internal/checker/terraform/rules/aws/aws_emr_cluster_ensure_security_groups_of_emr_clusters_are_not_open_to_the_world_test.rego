@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_329
 
-test_aws_emr_cluster_ensure_security_groups_of_emr_clusters_are_not_open_to_the_world_passed {
+import rego.v1 
+
+test_aws_emr_cluster_ensure_security_groups_of_emr_clusters_are_not_open_to_the_world_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -83,7 +85,7 @@ test_aws_emr_cluster_ensure_security_groups_of_emr_clusters_are_not_open_to_the_
 	count(result) == 1
 }
 
-test_aws_emr_cluster_ensure_security_groups_of_emr_clusters_are_not_open_to_the_world_failed {
+test_aws_emr_cluster_ensure_security_groups_of_emr_clusters_are_not_open_to_the_world_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

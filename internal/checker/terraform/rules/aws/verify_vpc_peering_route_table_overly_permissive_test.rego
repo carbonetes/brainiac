@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_333
 
-test_vpc_peering_route_table_overly_permissive_passed {
+import rego.v1
+
+test_vpc_peering_route_table_overly_permissive_passed if {
 	result := passed with input as [
     {
         "Attributes": {
@@ -37,7 +39,7 @@ test_vpc_peering_route_table_overly_permissive_passed {
 	count(result) == 1
 }
 
-test_vpc_peering_route_table_overly_permissive_failed {
+test_vpc_peering_route_table_overly_permissive_failed if {
 	result := failed with input as [
     {
         "Attributes": {

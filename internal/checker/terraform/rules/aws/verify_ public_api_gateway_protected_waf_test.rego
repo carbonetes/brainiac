@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_331
 
-test_public_gateway_protected_by_waf {
+import rego.v1 
+
+test_public_gateway_protected_by_waf if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -47,7 +49,7 @@ test_public_gateway_protected_by_waf {
 	count(result) == 1
 }
 
-test_public_gateway_not_protected_by_waf {
+test_public_gateway_not_protected_by_waf if {
 	result := failed with input as [
 		{
 			"Type": "resource",

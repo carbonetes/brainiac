@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_335
 
-test_appsync_waf_protected {
+import rego.v1 
+
+test_appsync_waf_protected if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -38,7 +40,7 @@ test_appsync_waf_protected {
 	count(result) == 1
 }
 
-test_appsync_not_waf_protected {
+test_appsync_not_waf_protected if {
 	result := failed with input as [
 		{
 			"Type": "resource",
