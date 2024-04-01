@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_347
 
-test_aws_iam_group_ensure_iam_groups_includes_at_least_one_iam_user_passed {
+import rego.v1 
+
+test_aws_iam_group_ensure_iam_groups_includes_at_least_one_iam_user_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -49,7 +51,7 @@ test_aws_iam_group_ensure_iam_groups_includes_at_least_one_iam_user_passed {
 	count(result) == 1
 }
 
-test_aws_iam_group_ensure_iam_groups_includes_at_least_one_iam_user_failed {
+test_aws_iam_group_ensure_iam_groups_includes_at_least_one_iam_user_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

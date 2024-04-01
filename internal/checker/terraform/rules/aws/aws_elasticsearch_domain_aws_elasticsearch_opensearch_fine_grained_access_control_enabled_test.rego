@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_353
 
-test_aws_elasticsearch_domain_aws_elasticsearch_opensearch_fine_grained_access_control_enabled_enabled {
+import rego.v1 
+
+test_aws_elasticsearch_domain_aws_elasticsearch_opensearch_fine_grained_access_control_enabled_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -32,7 +34,7 @@ test_aws_elasticsearch_domain_aws_elasticsearch_opensearch_fine_grained_access_c
 	count(result) == 1
 }
 
-test_aws_elasticsearch_domain_aws_elasticsearch_opensearch_fine_grained_access_control_enabled_disabled {
+test_aws_elasticsearch_domain_aws_elasticsearch_opensearch_fine_grained_access_control_enabled_disabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

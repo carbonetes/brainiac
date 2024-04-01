@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_354
 
-test_aws_managed_iamfullaccess_policy_is_not_used {
+import rego.v1 
+
+test_aws_managed_iamfullaccess_policy_is_not_used if {
 	result := passed with input as [{
 		"Type": "data",
 		"Labels": [
@@ -17,7 +19,7 @@ test_aws_managed_iamfullaccess_policy_is_not_used {
 	count(result) == 1
 }
 
-test_aws_managed_iamfullaccess_policy_is_used {
+test_aws_managed_iamfullaccess_policy_is_used if {
 	result := failed with input as [{
 		"Type": "data",
 		"Labels": [
