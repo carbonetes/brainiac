@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_138
+import rego.v1
 
-test_timestream_database_encrypted {
+test_timestream_database_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_timestream_database_encrypted {
 	count(result) == 1
 }
 
-test_timestream_database_not_encrypted {
+test_timestream_database_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

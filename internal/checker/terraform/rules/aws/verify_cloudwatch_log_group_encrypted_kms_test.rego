@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_134
+import rego.v1
 
-test_cloudwatch_log_group_encrypted {
+test_cloudwatch_log_group_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ test_cloudwatch_log_group_encrypted {
 	count(result) == 1
 }
 
-test_cloudwatch_log_group_not_encrypted {
+test_cloudwatch_log_group_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
