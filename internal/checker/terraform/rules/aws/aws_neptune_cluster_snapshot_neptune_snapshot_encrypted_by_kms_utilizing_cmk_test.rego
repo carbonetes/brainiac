@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_262
 
-test_aws_neptune_cluster_snapshot_neptune_snapshot_encrypted_by_kms_utilizing_cmk_passed {
+import rego.v1 
+
+test_aws_neptune_cluster_snapshot_neptune_snapshot_encrypted_by_kms_utilizing_cmk_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_aws_neptune_cluster_snapshot_neptune_snapshot_encrypted_by_kms_utilizing_cm
 	count(result) == 1
 }
 
-test_aws_neptune_cluster_snapshot_neptune_snapshot_encrypted_by_kms_utilizing_cmk_failed {
+test_aws_neptune_cluster_snapshot_neptune_snapshot_encrypted_by_kms_utilizing_cmk_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

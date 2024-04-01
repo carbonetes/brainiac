@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_258
 
-test_app_flow_connector_profile_uses_cmk {
+import rego.v1
+
+test_app_flow_connector_profile_uses_cmk if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_app_flow_connector_profile_uses_cmk {
 	count(result) == 1
 }
 
-test_app_flow_connector_profile_not_uses_cmk {
+test_app_flow_connector_profile_not_uses_cmk if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

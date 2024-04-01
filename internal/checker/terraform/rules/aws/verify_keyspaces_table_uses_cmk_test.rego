@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_260
 
-test_keyspaces_table_uses_cmk {
+import rego.v1
+
+test_keyspaces_table_uses_cmk if {
 	result := passed with input as [
  {
   "Type": "resource",
@@ -35,7 +37,7 @@ test_keyspaces_table_uses_cmk {
 	count(result) == 1
 }
 
-test_keyspaces_table_not_uses_cmk {
+test_keyspaces_table_not_uses_cmk if {
 	result := failed with input as [
  {
   "Type": "resource",
