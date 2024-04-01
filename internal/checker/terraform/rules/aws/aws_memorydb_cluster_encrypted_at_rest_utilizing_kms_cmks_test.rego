@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_192
+import rego.v1
 
-test_aws_memorydb_cluster_encrypted_at_rest_utilizing_kms_cmks_passed {
+test_aws_memorydb_cluster_encrypted_at_rest_utilizing_kms_cmks_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -28,7 +29,7 @@ test_aws_memorydb_cluster_encrypted_at_rest_utilizing_kms_cmks_passed {
     count(result) == 1
 }
 
-test_aws_memorydb_cluster_encrypted_at_rest_utilizing_kms_cmks_failed {
+test_aws_memorydb_cluster_encrypted_at_rest_utilizing_kms_cmks_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",
