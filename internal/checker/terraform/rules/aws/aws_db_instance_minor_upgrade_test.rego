@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_198
+import rego.v1
 
-test_aws_db_instance_minor_upgrade_passed {
+test_aws_db_instance_minor_upgrade_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_db_instance_minor_upgrade_passed {
     count(result) == 1
 }
 
-test_aws_db_instance_minor_upgrade_failed {
+test_aws_db_instance_minor_upgrade_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

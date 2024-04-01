@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_202
+import rego.v1
 
-test_cloudfront_distribution_enabled {
+test_cloudfront_distribution_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_cloudfront_distribution_enabled {
 	count(result) == 1
 }
 
-test_cloudfront_distribution_not_enabled {
+test_cloudfront_distribution_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

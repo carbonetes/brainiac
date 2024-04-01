@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_197
+import rego.v1
 
-test_elb_policy_uses_secure_protocol {
+test_elb_policy_uses_secure_protocol if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -33,7 +34,7 @@ test_elb_policy_uses_secure_protocol {
 	count(result) == 1
 }
 
-test_elb_policy_not_uses_secure_protocol {
+test_elb_policy_not_uses_secure_protocol if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
