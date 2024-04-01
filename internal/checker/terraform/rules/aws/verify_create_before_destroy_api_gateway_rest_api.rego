@@ -8,43 +8,46 @@
 #   id: CB_TFAWS_226
 #   severity: LOW
 package lib.terraform.CB_TFAWS_226
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_api_gateway_rest_api"
+    some label in block.Labels 
+    label == "aws_api_gateway_rest_api"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "lifecycle"
-    resource.Blocks[_].Attributes.create_before_destroy == true
+    some block in resource.Blocks
+    block.Type == "lifecycle"
+    block.Attributes.create_before_destroy == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_api_gateway_rest_api' lifecycle is set properly",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_api_gateway_rest_api' lifecycle 'create_before_destroy' should be set to true",
                 "snippet": block }
 } 
