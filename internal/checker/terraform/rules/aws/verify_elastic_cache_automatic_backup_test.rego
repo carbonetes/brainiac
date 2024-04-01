@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_113
+import rego.v1
 
-test_verify_elastic_cache_automatic_backup_passed {
+test_verify_elastic_cache_automatic_backup_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_verify_elastic_cache_automatic_backup_passed {
     count(result) == 1
 }
 
-test_verify_elastic_cache_automatic_backup_failed {
+test_verify_elastic_cache_automatic_backup_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

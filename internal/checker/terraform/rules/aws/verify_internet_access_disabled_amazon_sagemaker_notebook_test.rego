@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_117
+import rego.v1
 
-test_sagemaker_notebook_internet_disabled {
+test_sagemaker_notebook_internet_disabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +25,7 @@ test_sagemaker_notebook_internet_disabled {
 	count(result) == 1
 }
 
-test_sagemaker_notebook_internet_Enabled {
+test_sagemaker_notebook_internet_Enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

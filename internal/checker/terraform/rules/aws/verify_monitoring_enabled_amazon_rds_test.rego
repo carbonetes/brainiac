@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_109
+import rego.v1
 
-test_amazon_rds_monitoring_enabled {
+test_amazon_rds_monitoring_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_amazon_rds_monitoring_enabled {
 	count(result) == 1
 }
 
-test_amazon_rds_monitoring_not_enabled {
+test_amazon_rds_monitoring_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

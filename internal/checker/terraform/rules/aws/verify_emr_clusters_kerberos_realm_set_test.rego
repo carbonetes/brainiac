@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_103
+import rego.v1
 
-test_emr_cluster_kerberos_realm_set {
+test_emr_cluster_kerberos_realm_set if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -30,7 +31,7 @@ test_emr_cluster_kerberos_realm_set {
 	count(result) == 1
 }
 
-test_emr_cluster_kerberos_realm_not_set {
+test_emr_cluster_kerberos_realm_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

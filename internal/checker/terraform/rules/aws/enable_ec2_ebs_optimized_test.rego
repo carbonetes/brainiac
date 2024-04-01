@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_121
+import rego.v1
 
-test_enable_ec2_ebs_optimized_passed {
+test_enable_ec2_ebs_optimized_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_enable_ec2_ebs_optimized_passed {
     count(result) == 1
 }
 
-test_enable_ec2_ebs_optimized_failed {
+test_enable_ec2_ebs_optimized_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",
