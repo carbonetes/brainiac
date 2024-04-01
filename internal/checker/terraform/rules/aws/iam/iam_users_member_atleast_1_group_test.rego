@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_317
 
-test_iam_user_member_have_user_groups {
+import rego.v1 
+
+test_iam_user_member_have_user_groups if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -49,7 +51,7 @@ test_iam_user_member_have_user_groups {
 	count(result) == 1
 }
 
-test_iam_user_member_dont_have_user_groups {
+test_iam_user_member_dont_have_user_groups if {
 	result := failed with input as [
 		{
 			"Type": "resource",

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_318
 
-test_iam_user_does_not_have_access_to_console {
+import rego.v1
+
+test_iam_user_does_not_have_access_to_console if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -32,7 +34,7 @@ test_iam_user_does_not_have_access_to_console {
 	count(result) == 1
 }
 
-test_iam_user_have_access_to_console {
+test_iam_user_have_access_to_console if {
 	result := failed with input as [
 		{
 			"Type": "resource",

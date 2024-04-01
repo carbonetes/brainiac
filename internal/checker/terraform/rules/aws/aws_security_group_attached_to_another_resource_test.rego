@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_323
 
-test_aws_security_group_attached_to_another_resource_passed {
+import rego.v1
+
+test_aws_security_group_attached_to_another_resource_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -68,7 +70,7 @@ test_aws_security_group_attached_to_another_resource_passed {
 	count(result) == 1
 }
 
-test_aws_security_group_attached_to_another_resource_failed {
+test_aws_security_group_attached_to_another_resource_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
