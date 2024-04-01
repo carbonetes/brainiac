@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_310
 
-test_verify_aws_elasticache_cluster_automatic_minor_upgrade_passed {
+import rego.v1 
+
+test_verify_aws_elasticache_cluster_automatic_minor_upgrade_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -22,7 +24,7 @@ test_verify_aws_elasticache_cluster_automatic_minor_upgrade_passed {
     count(result) == 1
 }
 
-test_verify_aws_elasticache_cluster_automatic_minor_upgrade_failed {
+test_verify_aws_elasticache_cluster_automatic_minor_upgrade_failed if {
     result := failed with input as [
         {
             "Type": "resource",
