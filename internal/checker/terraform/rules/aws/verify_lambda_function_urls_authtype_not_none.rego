@@ -8,44 +8,46 @@
 #   id: CB_TFAWS_240
 #   severity: LOW
 package lib.terraform.CB_TFAWS_240
+import rego.v1
 
-isvalid(block) {
+isvalid(block) if{
 	block.Type == "resource"
-	block.Labels[_] == "aws_lambda_function_url"
+    some label in block.Labels 
+    label == "aws_lambda_function_url"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
-}
+} 
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-}
+} 
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
 	resource.Attributes.authorization_type != "NONE"
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := {
 		"message": "AWS Lambda function URLs AuthType is not None.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+    some block in fail
 	result := {
 		"message": "AWS Lambda function URLs AuthType must be set.",
 		"snippet": block,
