@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_200
+import rego.v1
 
-test_appsync_api_cache_encrypted {
+test_appsync_api_cache_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_appsync_api_cache_encrypted {
 	count(result) == 1
 }
 
-test_appsync_api_cache_not_encrypted {
+test_appsync_api_cache_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
