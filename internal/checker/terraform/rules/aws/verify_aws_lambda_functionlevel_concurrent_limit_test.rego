@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_104
+import rego.v1
 
-test_aws_lamda_function_leven_concurrent_exec_limit_set {
+test_aws_lamda_function_leven_concurrent_exec_limit_set if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -18,7 +19,7 @@ test_aws_lamda_function_leven_concurrent_exec_limit_set {
 	count(result) == 1
 }
 
-test_aws_lamda_function_leven_concurrent_exec_not_set {
+test_aws_lamda_function_leven_concurrent_exec_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
