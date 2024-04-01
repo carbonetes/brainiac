@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_281
 
-test_verify_ecs_task_definition_role_passed {
+import rego.v1 
+
+test_verify_ecs_task_definition_role_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -22,7 +24,7 @@ test_verify_ecs_task_definition_role_passed {
 	count(result) == 1
 }
 
-test_verify_ecs_task_definition_role_failed {
+test_verify_ecs_task_definition_role_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
