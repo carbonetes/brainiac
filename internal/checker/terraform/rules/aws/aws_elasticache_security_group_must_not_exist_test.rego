@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_187
+import rego.v1
 
-test_aws_elasticache_security_group_must_not_exist_passed{
+test_aws_elasticache_security_group_must_not_exist_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -37,7 +38,7 @@ test_aws_elasticache_security_group_must_not_exist_passed{
     count(result) == 0
 }
 
-test_aws_elasticache_security_group_must_not_exist_failed{
+test_aws_elasticache_security_group_must_not_exist_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",
