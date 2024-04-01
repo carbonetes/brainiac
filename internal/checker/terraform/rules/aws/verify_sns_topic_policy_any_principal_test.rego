@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_160
+import rego.v1
 
-test_verify_sns_topic_policy_any_principal_passed {
+test_verify_sns_topic_policy_any_principal_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -22,7 +23,7 @@ test_verify_sns_topic_policy_any_principal_passed {
     count(result) == 1
 }
 
-test_verify_sns_topic_policy_any_principal_failed {
+test_verify_sns_topic_policy_any_principal_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

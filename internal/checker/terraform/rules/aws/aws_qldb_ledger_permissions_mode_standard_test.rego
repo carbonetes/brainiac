@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_161
+import rego.v1
 
-test_aws_qldb_ledger_permissions_mode_standard_passed{
+test_aws_qldb_ledger_permissions_mode_standard_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_qldb_ledger_permissions_mode_standard_passed{
     count(result) == 1
 }
 
-test_aws_qldb_ledger_permissions_mode_standard_failed {
+test_aws_qldb_ledger_permissions_mode_standard_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

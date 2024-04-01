@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_153
+import rego.v1
 
-test_rds_cluster_iam_authentication_enabled_passed {
+test_rds_cluster_iam_authentication_enabled_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -21,7 +22,7 @@ test_rds_cluster_iam_authentication_enabled_passed {
     count(result) == 1
 }
 
-test_rds_cluster_iam_authentication_enabled_failed {
+test_rds_cluster_iam_authentication_enabled_failed if {
 result := failed with input as [
                                 {
                                 "Type": "resource",
