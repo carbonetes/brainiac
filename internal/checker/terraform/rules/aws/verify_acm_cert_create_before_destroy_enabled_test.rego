@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_221
+import rego.v1
 
-test_verify_acm_cert_create_before_destroy_enabled_passed {
+test_verify_acm_cert_create_before_destroy_enabled_passed if {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -32,7 +33,7 @@ test_verify_acm_cert_create_before_destroy_enabled_passed {
 	count(result) == 1
 }
 
-test_verify_acm_cert_create_before_destroy_enabled_failed {
+test_verify_acm_cert_create_before_destroy_enabled_failed if {
 	result := failed with input as [
 									{
 									"Type": "resource",

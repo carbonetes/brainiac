@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_213
+import rego.v1
 
-test_dms_instance_minor_upgrade_automatically {
+test_dms_instance_minor_upgrade_automatically if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_dms_instance_minor_upgrade_automatically {
 	count(result) == 1
 }
 
-test_dms_instance_minor_upgrade_automatically_false {
+test_dms_instance_minor_upgrade_automatically_false if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_214
+import rego.v1
 
-test_ecs_cluster_enable_logging_ecs_exec {
+test_ecs_cluster_enable_logging_ecs_exec if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -38,7 +39,7 @@ test_ecs_cluster_enable_logging_ecs_exec {
 	count(result) == 1
 }
 
-test_ecs_cluster_enable_logging_ecs_exec_not_set {
+test_ecs_cluster_enable_logging_ecs_exec_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
