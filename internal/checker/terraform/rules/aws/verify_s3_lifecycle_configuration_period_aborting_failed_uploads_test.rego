@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_275
 
-test_s3_lifecycle_cofig_set_period_aborting_uploads {
+import rego.v1 
+
+test_s3_lifecycle_cofig_set_period_aborting_uploads if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -41,7 +43,7 @@ test_s3_lifecycle_cofig_set_period_aborting_uploads {
 	count(result) == 1
 }
 
-test_s3_lifecycle_cofig_not_set_period_aborting_uploads {
+test_s3_lifecycle_cofig_not_set_period_aborting_uploads if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_270
 
-test_aws_msk_cluster_msk_nodes_are_private_passed {
+import rego.v1 
+
+test_aws_msk_cluster_msk_nodes_are_private_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -88,7 +90,7 @@ test_aws_msk_cluster_msk_nodes_are_private_passed {
 	count(result) == 1
 }
 
-test_aws_msk_cluster_msk_nodes_are_private_failed {
+test_aws_msk_cluster_msk_nodes_are_private_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
