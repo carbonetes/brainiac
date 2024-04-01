@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_327
 
-test_s3_not_allow_access_to_all_authenticated_users_passed {
+import rego.v1 
+
+test_s3_not_allow_access_to_all_authenticated_users_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -111,7 +113,7 @@ test_s3_not_allow_access_to_all_authenticated_users_passed {
 	count(result) == 1
 }
 
-test_s3_not_allow_access_to_all_authenticated_users_failed {
+test_s3_not_allow_access_to_all_authenticated_users_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

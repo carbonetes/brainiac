@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_330
 
-test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_passed {
+import rego.v1
+
+test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -75,7 +77,7 @@ test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_passed {
 	count(result) == 1
 }
 
-test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_failed {
+test_aws_rds_cluster_rds_clusters_has_backup_plan_of_aws_backup_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
