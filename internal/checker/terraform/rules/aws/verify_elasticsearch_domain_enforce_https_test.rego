@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_068
+import rego.v1
 
-test_verify_elasticsearch_domain_enforce_https_passed {
+test_verify_elasticsearch_domain_enforce_https_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -33,7 +34,7 @@ test_verify_elasticsearch_domain_enforce_https_passed {
     count(result) == 1
 }
 
-test_verify_elasticsearch_domain_enforce_https_failed {
+test_verify_elasticsearch_domain_enforce_https_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

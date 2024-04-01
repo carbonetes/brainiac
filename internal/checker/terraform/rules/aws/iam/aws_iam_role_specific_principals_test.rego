@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_058
+import rego.v1
 
-test_aws_iam_role_test_specific_principals_passed{
+test_aws_iam_role_test_specific_principals_passed if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -22,7 +23,7 @@ test_aws_iam_role_test_specific_principals_passed{
     count(result) == 1
 }
 
-test_aws_iam_role_test_specific_principals_failed{
+test_aws_iam_role_test_specific_principals_failed if {
     result := failed with input as[
                             {
                             "Type": "resource",

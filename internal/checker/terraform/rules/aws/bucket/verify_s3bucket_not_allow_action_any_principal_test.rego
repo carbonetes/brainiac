@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_077
+import rego.v1
 
-test_s3_bucket_not_allow_action_any {
+test_s3_bucket_not_allow_action_any if {
     result := passed with input as[
                                 {
                                 "Type": "resource",
@@ -22,7 +23,7 @@ test_s3_bucket_not_allow_action_any {
     count(result) == 1
 }
 
-test_s3_bucket_allow_action_any {
+test_s3_bucket_allow_action_any if {
     result := failed with input as [
                                 {
                                 "Type": "resource",

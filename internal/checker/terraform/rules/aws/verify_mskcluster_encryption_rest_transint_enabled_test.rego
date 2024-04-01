@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_093
+import rego.v1
 
-test_mskcluster_enrypted {
+test_mskcluster_enrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -38,7 +39,7 @@ test_mskcluster_enrypted {
 	count(result) == 1
 }
 
-test_mskcluster_not_enrypted {
+test_mskcluster_not_enrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

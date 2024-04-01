@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_066
+import rego.v1
 
-test_cloudwatch_log_group_has_retention {
+test_cloudwatch_log_group_has_retention if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -22,7 +23,7 @@ test_cloudwatch_log_group_has_retention {
     count(result) == 1
 }
 
-test_cloudwatch_log_group_no_retention {
+test_cloudwatch_log_group_no_retention if {
     result := failed with input as [
                             {
                             "Type": "resource",

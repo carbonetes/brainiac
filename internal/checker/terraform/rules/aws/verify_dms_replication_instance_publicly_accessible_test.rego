@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_096
+import rego.v1
 
-test_verify_dms_replication_instance_publicly_accessible_passed {
+test_verify_dms_replication_instance_publicly_accessible_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_verify_dms_replication_instance_publicly_accessible_passed {
     count(result) == 1
 }
 
-test_verify_dms_replication_instance_publicly_accessible_failed {
+test_verify_dms_replication_instance_publicly_accessible_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

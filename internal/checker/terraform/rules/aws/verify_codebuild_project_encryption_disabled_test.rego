@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_086
+import rego.v1
 
-test_codebuild_project_enryption_enabled {
+test_codebuild_project_enryption_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +27,7 @@ test_codebuild_project_enryption_enabled {
 	count(result) == 1
 }
 
-test_codebuild_project_enryption_disabled {
+test_codebuild_project_enryption_disabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

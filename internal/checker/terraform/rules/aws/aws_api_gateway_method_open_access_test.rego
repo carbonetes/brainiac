@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_057
+import rego.v1
 
-test_aws_api_gateway_method_open_access_passed {
+test_aws_api_gateway_method_open_access_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -38,7 +39,7 @@ test_aws_api_gateway_method_open_access_passed {
     count(result) == 1
 }
 
-test_aws_api_gateway_method_open_access_failed {
+test_aws_api_gateway_method_open_access_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

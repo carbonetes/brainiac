@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_084
+import rego.v1
 
-test_global_accelerator_flow_logs_enabled {
+test_global_accelerator_flow_logs_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -35,7 +36,7 @@ test_global_accelerator_flow_logs_enabled {
 	count(result) == 1
 }
 
-test_global_accelerator_flow_logs_not_enabled {
+test_global_accelerator_flow_logs_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

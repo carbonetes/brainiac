@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_061
+import rego.v1
 
-test_aws_iam_role_policy_privileges_not_allowed_passed{
+test_aws_iam_role_policy_privileges_not_allowed_passed if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -23,7 +24,7 @@ test_aws_iam_role_policy_privileges_not_allowed_passed{
     count(result) == 1
 }
 
-test_aws_iam_role_policy_privileges_not_allowed_failed{
+test_aws_iam_role_policy_privileges_not_allowed_failed if {
     result := failed with input as[
                              {
                             "Type": "resource",
