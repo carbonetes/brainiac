@@ -5,7 +5,7 @@ test_aws_ami_launch_permission_limit_ami_launch_permissions_passed {
                         {
                         "Type": "resource",
                         "Labels": [
-                        "aws_other_resource",
+                        "aws_ami_launch_permission",
                         "remove_equivalent_block"
                         ],
                         "Attributes": {
@@ -31,8 +31,8 @@ test_aws_ami_launch_permission_limit_ami_launch_permissions_failed {
                         "remove_equivalent_block"
                         ],
                         "Attributes": {
-                        "account_id": "987654321",
-                        "image_id": "ami-2345678"
+                        "account_id": "",
+                        "image_id": ""
                         },
                         "Blocks": [],
                         "line_range": {

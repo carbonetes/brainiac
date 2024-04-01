@@ -8,43 +8,45 @@
 #   id: CB_TFAWS_198
 #   severity: LOW
 package lib.terraform.CB_TFAWS_198
+import rego.v1
 
-supportedResource := ["aws_db_instance", "aws_rds_cluster_instance"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+    some label in block.Labels 
+    supported_resource := ["aws_db_instance", "aws_rds_cluster_instance"]
+    label in supported_resource
 }
 
-resource [resource]{
-    block := pass[_]
-	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+resource contains resource if{
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+    some resource in input
     isvalid(resource)
     resource.Attributes.auto_minor_version_upgrade == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_db_instance' or 'aws_rds_cluster_instance' for 'auto_minor_version_upgrade' is set properly.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_db_instance' or 'aws_rds_cluster_instance' for 'auto_minor_version_upgrade' should be set.",
                 "snippet": block}
 }

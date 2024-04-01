@@ -8,29 +8,31 @@
 #   id: CB_TFAWS_197
 #   severity: LOW
 package lib.terraform.CB_TFAWS_197
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_load_balancer_policy"
+    some label in block.Labels 
+    label == "aws_load_balancer_policy"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
-}
-resource [resource]{
-    block := fail[_]
+} 
+
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
+    some block in resource.Blocks
     block.Type == "policy_attribute"
     protocols := ["Protocol-SSLv3", "Protocol-TLSv1", "Protocol-TLSv1.1"]
-    block.Attributes.name == protocols[_]
+    block.Attributes.name in protocols
     not is_false(block.Attributes.value)
 }
 
@@ -38,30 +40,30 @@ is_false(false)
 
 is_false("false")
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
+    some block in resource.Blocks
     block.Type == "policy_attribute"
     policies := ["ELBSecurityPolicy-2016-08", "ELBSecurityPolicy-TLS-1-1-2017-01", "ELBSecurityPolicy-2015-05", "ELBSecurityPolicy-2015-03", "ELBSecurityPolicy-2015-02"]
     block.Attributes.name == "Reference-Security-Policy"
-    block.Attributes.value == policies[_]
+    block.Attributes.value in policies
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
    	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "ELB Policy uses only secure protocols",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "ELB Policy must uses only secure protocols",
                 "snippet": block }
 }
