@@ -9,43 +9,52 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_361
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+	some label in block.Labels
+	label == "aws_cloudfront_distribution"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    resource.Blocks[_].Type == "origin"
-    resource.Blocks[_].Blocks[_].Type == "custom_origin_config"
-    resource.Blocks[_].Blocks[_].Attributes.origin_ssl_protocols[_] == "SSLv3"
 }
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	some origin in resource.Blocks
+	origin.Type == "origin"
+	some custom_origin_config in origin.Blocks
+	custom_origin_config.Type == "custom_origin_config"
+	"SSLv3" in custom_origin_config.Attributes.origin_ssl_protocols
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "SSL protocols for HTTPS communication is utilized within the AWS CloudFront distribution.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "SSL protocols for HTTPS communication is utilized within the AWS CloudFront distribution.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "SSL protocols for HTTPS communication must be utilized within the AWS CloudFront distribution.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "SSL protocols for HTTPS communication must be utilized within the AWS CloudFront distribution.",
+		"snippet": block,
+	}
+}

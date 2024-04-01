@@ -9,44 +9,51 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_359
 
+import rego.v1
 
-supportedResources := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := ["aws_elasticsearch_domain", "aws_opensearch_domain"]
+	label in supported_resources
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "cluster_config"
-    block.Attributes.dedicated_master_enabled == true
+	some block in resource.Blocks
+	block.Type == "cluster_config"
+	block.Attributes.dedicated_master_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "ElasticSearch/OpenSearch has dedicated master node enabled.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "ElasticSearch/OpenSearch has dedicated master node enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": " ElasticSearch/OpenSearch should have dedicated master node enabled.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": " ElasticSearch/OpenSearch should have dedicated master node enabled.",
+		"snippet": block,
+	}
 }
