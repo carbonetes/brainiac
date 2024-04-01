@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_295
 
-test_elastic_beanstalk_env_health_reporting_enabled {
+import rego.v1 
+
+test_elastic_beanstalk_env_health_reporting_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -64,7 +66,7 @@ test_elastic_beanstalk_env_health_reporting_enabled {
 	count(result) == 1
 }
 
-test_elastic_beanstalk_env_health_reporting_not_enabled {
+test_elastic_beanstalk_env_health_reporting_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

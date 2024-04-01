@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_292
 
-test_apigatewayv2_routes_specify_auth_type {
+import rego.v1 
+
+test_apigatewayv2_routes_specify_auth_type if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_apigatewayv2_routes_specify_auth_type {
 	count(result) == 1
 }
 
-test_apigatewayv2_routes_not_specify_auth_type {
+test_apigatewayv2_routes_not_specify_auth_type if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
