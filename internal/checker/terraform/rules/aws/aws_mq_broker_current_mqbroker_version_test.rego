@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_209
+import rego.v1
 
-test_aws_mq_broker_current_mqbroker_version_passed {
+test_aws_mq_broker_current_mqbroker_version_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -25,7 +26,7 @@ test_aws_mq_broker_current_mqbroker_version_passed {
     count(result) == 1
 }
 
-test_aws_mq_broker_current_mqbroker_version_failed {
+test_aws_mq_broker_current_mqbroker_version_failed if {
 result := failed with input as [
                                 {
                                 "Type": "resource",

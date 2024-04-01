@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_211
+import rego.v1
 
-test_cloudsearch_using_https {
+test_cloudsearch_using_https if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +27,7 @@ test_cloudsearch_using_https {
 	count(result) == 1
 }
 
-test_cloudsearch_not_using_https {
+test_cloudsearch_not_using_https if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

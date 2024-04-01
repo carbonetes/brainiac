@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_210
+import rego.v1
 
-test_code_pipeline_artifact_store_using_kms {
+test_code_pipeline_artifact_store_using_kms if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -44,7 +45,7 @@ test_code_pipeline_artifact_store_using_kms {
 	count(result) == 1
 }
 
-test_code_pipeline_artifact_store_not_using_kms {
+test_code_pipeline_artifact_store_not_using_kms if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
