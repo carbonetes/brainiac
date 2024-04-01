@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_269
 
-test_aws_docdb_global_cluster_encrypted_passed {
+import rego.v1 
+
+test_aws_docdb_global_cluster_encrypted_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -22,7 +24,7 @@ test_aws_docdb_global_cluster_encrypted_passed {
 	count(result) == 1
 }
 
-test_aws_docdb_global_cluster_encrypted_failed {
+test_aws_docdb_global_cluster_encrypted_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

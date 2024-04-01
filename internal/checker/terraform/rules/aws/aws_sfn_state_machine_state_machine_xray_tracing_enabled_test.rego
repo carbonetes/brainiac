@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_267
 
-test_aws_sfn_state_machine_state_machine_xray_tracing_enabled_passed {
+import rego.v1 
+
+test_aws_sfn_state_machine_state_machine_xray_tracing_enabled_passed if {
 	result := passed with input as [{
   "Type": "resource",
   "Labels": [
@@ -32,7 +34,7 @@ test_aws_sfn_state_machine_state_machine_xray_tracing_enabled_passed {
 	count(result) == 1
 }
 
-test_aws_sfn_state_machine_state_machine_xray_tracing_enabled_failed {
+test_aws_sfn_state_machine_state_machine_xray_tracing_enabled_failed if {
 	result := failed with input as [{
   "Type": "resource",
   "Labels": [
