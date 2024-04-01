@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_166
+import rego.v1
 
-test_aws_cloudfront_distribution_cloudfront_distribution_viewer_certificate_utilizing_tls_passed {
+test_aws_cloudfront_distribution_cloudfront_distribution_viewer_certificate_utilizing_tls_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -33,7 +34,7 @@ test_aws_cloudfront_distribution_cloudfront_distribution_viewer_certificate_util
     count(result) == 1
 }
 
-test_aws_cloudfront_distribution_cloudfront_distribution_viewer_certificate_utilizing_tls_failed {
+test_aws_cloudfront_distribution_cloudfront_distribution_viewer_certificate_utilizing_tls_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",
