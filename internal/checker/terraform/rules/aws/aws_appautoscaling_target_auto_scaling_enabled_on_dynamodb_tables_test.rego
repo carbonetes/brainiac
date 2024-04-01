@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_350
 
-test_aws_appautoscaling_target_auto_scaling_enabled_on_dynamodb_tables_passed {
+import rego.v1 
+
+test_aws_appautoscaling_target_auto_scaling_enabled_on_dynamodb_tables_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -93,7 +95,7 @@ test_aws_appautoscaling_target_auto_scaling_enabled_on_dynamodb_tables_passed {
 	count(result) == 1
 }
 
-test_aws_appautoscaling_target_auto_scaling_enabled_on_dynamodb_tables_failed {
+test_aws_appautoscaling_target_auto_scaling_enabled_on_dynamodb_tables_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

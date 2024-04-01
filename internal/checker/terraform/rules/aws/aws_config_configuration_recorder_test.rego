@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_346
 
-test_aws_config_configuration_recorder_passed {
+import rego.v1 
+
+test_aws_config_configuration_recorder_passed if {
 	result := passed with input as [
 	{
 		"Type": "resource",
@@ -35,7 +37,7 @@ test_aws_config_configuration_recorder_passed {
 	count(result) == 1
 }
 
-test_aws_config_configuration_recorder_failed {
+test_aws_config_configuration_recorder_failed if {
 	result := failed with input as [
 	{
 		"Type": "resource",

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_352
 
-test_aws_eip_eip_addresses_allocated_to_vpc_attached_to_ec2_instances_passed {
+import rego.v1 
+
+test_aws_eip_eip_addresses_allocated_to_vpc_attached_to_ec2_instances_passed if {
 	result := passed with input as [
 		{
         "Type": "resource",
@@ -42,7 +44,7 @@ test_aws_eip_eip_addresses_allocated_to_vpc_attached_to_ec2_instances_passed {
 	count(result) == 1
 }
 
-test_aws_eip_eip_addresses_allocated_to_vpc_attached_to_ec2_instances_failed {
+test_aws_eip_eip_addresses_allocated_to_vpc_attached_to_ec2_instances_failed if {
 	result := failed with input as [
 		{
         "Type": "resource",

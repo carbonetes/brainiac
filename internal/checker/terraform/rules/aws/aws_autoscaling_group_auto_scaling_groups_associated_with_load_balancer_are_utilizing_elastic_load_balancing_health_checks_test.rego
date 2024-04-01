@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_348
 
-test_aws_autoscaling_group_auto_scaling_groups_associated_with_load_balancer_are_utilizing_elastic_load_balancing_health_checks_passed {
+import rego.v1 
+
+test_aws_autoscaling_group_auto_scaling_groups_associated_with_load_balancer_are_utilizing_elastic_load_balancing_health_checks_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -139,7 +141,7 @@ test_aws_autoscaling_group_auto_scaling_groups_associated_with_load_balancer_are
 	count(result) == 1
 }
 
-test_aws_autoscaling_group_auto_scaling_groups_associated_with_load_balancer_are_utilizing_elastic_load_balancing_health_checks_failed {
+test_aws_autoscaling_group_auto_scaling_groups_associated_with_load_balancer_are_utilizing_elastic_load_balancing_health_checks_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

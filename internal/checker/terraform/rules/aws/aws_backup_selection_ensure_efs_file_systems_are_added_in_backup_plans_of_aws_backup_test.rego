@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_351
 
-test_aws_backup_selection_ensure_efs_file_systems_are_added_in_backup_plans_of_aws_backup_passed {
+import rego.v1 
+
+test_aws_backup_selection_ensure_efs_file_systems_are_added_in_backup_plans_of_aws_backup_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -81,7 +83,7 @@ test_aws_backup_selection_ensure_efs_file_systems_are_added_in_backup_plans_of_a
 	count(result) == 1
 }
 
-test_aws_backup_selection_ensure_efs_file_systems_are_added_in_backup_plans_of_aws_backup_failed {
+test_aws_backup_selection_ensure_efs_file_systems_are_added_in_backup_plans_of_aws_backup_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
