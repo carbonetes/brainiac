@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_368
 
-test_aws_api_gateway_endpoints_uses_certificate_for_authentication_passed {
+import rego.v1 
+
+test_aws_api_gateway_endpoints_uses_certificate_for_authentication_passed if {
 	result := passed with input as [
     {
         "Type": "resource",
@@ -23,7 +25,7 @@ test_aws_api_gateway_endpoints_uses_certificate_for_authentication_passed {
 	count(result) == 1
 }
 
-test_aws_api_gateway_endpoints_uses_certificate_for_authentication_failed {
+test_aws_api_gateway_endpoints_uses_certificate_for_authentication_failed if {
 	result := failed with input as [
     {
         "Type": "resource",

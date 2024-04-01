@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_366
 
-test_aws_lb_listener_alb_redirects_http_requests_into_https_passed {
+import rego.v1 
+
+test_aws_lb_listener_alb_redirects_http_requests_into_https_passed if {
 	result := passed with input as [{
   "Type": "resource",
   "Labels": [
@@ -62,7 +64,7 @@ test_aws_lb_listener_alb_redirects_http_requests_into_https_passed {
 	count(result) == 1
 }
 
-test_aws_lb_listener_alb_redirects_http_requests_into_https_failed {
+test_aws_lb_listener_alb_redirects_http_requests_into_https_failed if {
 	result := failed with input as [{
   "Type": "resource",
   "Labels": [
