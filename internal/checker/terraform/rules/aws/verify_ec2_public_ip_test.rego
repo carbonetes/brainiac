@@ -43,7 +43,7 @@ test_verify_ec2_public_ip_aws_instance_failed if {
     count(result) == 1
 }
 
-test_verify_ec2_public_ip_aws_launch_template_passed {
+test_verify_ec2_public_ip_aws_launch_template_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -75,7 +75,7 @@ test_verify_ec2_public_ip_aws_launch_template_passed {
     count(result) == 1
 }
 
-test_verify_ec2_public_ip_aws_launch_template_failed {
+test_verify_ec2_public_ip_aws_launch_template_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

@@ -121,7 +121,7 @@ test_cloudfront_distribution_encryption_default_cache_behavior_failed if {
 	count(result) == 1
 }
 
-test_cloudfront_distribution_encryption_ordered_cache_behavior_passed {
+test_cloudfront_distribution_encryption_ordered_cache_behavior_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -181,7 +181,7 @@ test_cloudfront_distribution_encryption_ordered_cache_behavior_passed {
 	count(result) == 1
 }
 
-test_cloudfront_distribution_encryption_ordered_cache_behavior_failed {
+test_cloudfront_distribution_encryption_ordered_cache_behavior_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
