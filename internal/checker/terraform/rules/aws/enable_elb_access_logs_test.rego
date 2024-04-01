@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_099
+import rego.v1
 
-test_enable_elb_access_logs_passed {
+test_enable_elb_access_logs_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -32,7 +33,7 @@ test_enable_elb_access_logs_passed {
     count(result) == 1
 }
 
-test_enable_elb_access_logs_failed {
+test_enable_elb_access_logs_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

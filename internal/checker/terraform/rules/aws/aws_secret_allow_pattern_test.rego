@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_054
+import rego.v1
 
-test_aws_harcode_secrets_passed{
+test_aws_harcode_secrets_passed if {
     result := passed with input as [
                                 {
                                 "Type": "provider",
@@ -22,7 +23,7 @@ test_aws_harcode_secrets_passed{
     count(result) == 1
 }
 
-test_aws_no_harcode_secrets_passed {
+test_aws_no_harcode_secrets_passed if {
     result := failed with input as [
                                 {
                                 "Type": "provider",

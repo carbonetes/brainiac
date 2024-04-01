@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_067
+import rego.v1
 
-test_cloudtrail_enabeld_is_set {
+test_cloudtrail_enabeld_is_set if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -25,7 +26,7 @@ test_cloudtrail_enabeld_is_set {
     count(result) == 1
 }
 
-test_cloudwatch_log_group_no_retention {
+test_cloudwatch_log_group_no_retention if {
     result := failed with input as [
                             {
                             "Type": "resource",

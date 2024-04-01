@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_055
+import rego.v1
 
-test_s3_bucket_acl_no_allows_public_write {
+test_s3_bucket_acl_no_allows_public_write if {
     result := passed with input as[
                         {
                         "Type": "resource",
@@ -22,7 +23,7 @@ test_s3_bucket_acl_no_allows_public_write {
     count(result) == 1
 }
 
-test_s3_bucket_acl_allows_public_write {
+test_s3_bucket_acl_allows_public_write if {
     result := failed with input as [
                         {
                         "Type": "resource",
