@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_208
+import rego.v1
 
-test_cloudsearch_using_latest_tls {
+test_cloudsearch_using_latest_tls if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +30,7 @@ test_cloudsearch_using_latest_tls {
 	count(result) == 1
 }
 
-test_cloudsearch_not_using_latest_tls {
+test_cloudsearch_not_using_latest_tls if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

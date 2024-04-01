@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_204
+import rego.v1
 
-test_aws_ami_launch_permission_limit_ami_launch_permissions_passed {
+test_aws_ami_launch_permission_limit_ami_launch_permissions_passed if {
     result := passed with input as[
                         {
                         "Type": "resource",
@@ -22,7 +23,7 @@ test_aws_ami_launch_permission_limit_ami_launch_permissions_passed {
     count(result) == 0
 }
 
-test_aws_ami_launch_permission_limit_ami_launch_permissions_failed {
+test_aws_ami_launch_permission_limit_ami_launch_permissions_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",
