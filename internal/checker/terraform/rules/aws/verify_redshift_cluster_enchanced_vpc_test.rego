@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_309
 
-test_verify_redshift_cluster_enchanced_vpc_passed {
+import rego.v1
+
+test_verify_redshift_cluster_enchanced_vpc_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -22,7 +24,7 @@ test_verify_redshift_cluster_enchanced_vpc_passed {
     count(result) == 1
 }
 
-test_verify_redshift_cluster_enchanced_vpc_failed {
+test_verify_redshift_cluster_enchanced_vpc_failed if {
     result := failed with input as [
         {
             "Type": "resource",

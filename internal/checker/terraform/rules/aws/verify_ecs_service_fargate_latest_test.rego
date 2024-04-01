@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_315
 
-test_ecs_service_fargate_latest_passed {
+import rego.v1
+
+test_ecs_service_fargate_latest_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -105,7 +107,7 @@ test_ecs_service_fargate_latest_passed {
 	count(result) == 1
 }
 
-test_ecs_service_fargate_latest_failed {
+test_ecs_service_fargate_latest_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

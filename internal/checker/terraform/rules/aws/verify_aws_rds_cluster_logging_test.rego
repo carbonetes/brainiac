@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_312
 
-test_verify_aws_elasticache_cluster_custom_subnet_passed {
+import rego.v1
+
+test_verify_aws_elasticache_cluster_custom_subnet_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -27,7 +29,7 @@ test_verify_aws_elasticache_cluster_custom_subnet_passed {
     count(result) == 1
 }
 
-test_verify_aws_elasticache_cluster_custom_subnet_failed {
+test_verify_aws_elasticache_cluster_custom_subnet_failed if {
     result := failed with input as [
         {
             "Type": "resource",
