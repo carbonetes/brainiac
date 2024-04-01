@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_232
+import rego.v1
 
-test_verify_kinesis_firehost_delivery_stream_uses_cmk_passed {
+test_verify_kinesis_firehost_delivery_stream_uses_cmk_passed if {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -34,7 +35,7 @@ test_verify_kinesis_firehost_delivery_stream_uses_cmk_passed {
 	count(result) == 1
 }
 
-test_verify_kinesis_firehost_delivery_stream_uses_cmk_failed {
+test_verify_kinesis_firehost_delivery_stream_uses_cmk_failed if {
 	result := failed with input as [
 									{
 									"Type": "resource",
