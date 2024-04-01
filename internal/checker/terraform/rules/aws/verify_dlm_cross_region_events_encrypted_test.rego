@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_234
+import rego.v1
 
-test_dlm_cross_region_events_encrypted {
+test_dlm_cross_region_events_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -74,7 +75,7 @@ test_dlm_cross_region_events_encrypted {
 	count(result) == 1
 }
 
-test_dlm_cross_region_events_not_encrypted {
+test_dlm_cross_region_events_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

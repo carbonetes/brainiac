@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_240
+import rego.v1
 
-test_lamda_function_urls_authtype_not_none {
+test_lamda_function_urls_authtype_not_none if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ test_lamda_function_urls_authtype_not_none {
 	count(result) == 1
 }
 
-test_lamda_function_urls_authtype_none {
+test_lamda_function_urls_authtype_none if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
