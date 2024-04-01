@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_251
 
-test_aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings_passed {
+import rego.v1
+
+test_aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -32,7 +34,7 @@ test_aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_s
 	count(result) == 1
 }
 
-test_aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings_failed {
+test_aws_api_gateway_method_settings_data_trace_disabled_in_api_gateway_method_settings_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

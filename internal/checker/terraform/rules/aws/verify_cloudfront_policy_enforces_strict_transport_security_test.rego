@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_247
 
-test_cloudfront_policy_enforces_strict_transport_security {
+import rego.v1
+
+test_cloudfront_policy_enforces_strict_transport_security if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -40,7 +42,7 @@ test_cloudfront_policy_enforces_strict_transport_security {
 	count(result) == 1
 }
 
-test_cloudfront_policy_not_enforces_strict_transport_security {
+test_cloudfront_policy_not_enforces_strict_transport_security if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

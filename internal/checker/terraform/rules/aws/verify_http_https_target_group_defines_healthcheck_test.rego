@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_254
 
-test_target_group_http_https_defines_healthcheck {
+import rego.v1
+
+test_target_group_http_https_defines_healthcheck if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -33,7 +35,7 @@ test_target_group_http_https_defines_healthcheck {
 	count(result) == 1
 }
 
-test_target_group_http_https_not_defines_healthcheck {
+test_target_group_http_https_not_defines_healthcheck if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

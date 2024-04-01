@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_253
 
-test_aws_security_group_no_security_groups_allow_ingress_passed {
+import rego.v1
+
+test_aws_security_group_no_security_groups_allow_ingress_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -31,7 +33,7 @@ test_aws_security_group_no_security_groups_allow_ingress_passed {
 	count(result) == 1
 }
 
-test_aws_security_group_no_security_groups_allow_ingress_failed {
+test_aws_security_group_no_security_groups_allow_ingress_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
