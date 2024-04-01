@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_305
 
-test_efs_access_user_identity_passed {
+import rego.v1 
+
+test_efs_access_user_identity_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -94,7 +96,7 @@ test_efs_access_user_identity_passed {
 	count(result) == 1
 }
 
-test_efs_access_user_identity_failed {
+test_efs_access_user_identity_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

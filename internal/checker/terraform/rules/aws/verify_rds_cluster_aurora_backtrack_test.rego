@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_298
 
-test_rds_cluster_aurora_backtrack_passed {
+import rego.v1
+
+test_rds_cluster_aurora_backtrack_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -42,7 +44,7 @@ test_rds_cluster_aurora_backtrack_passed {
 	count(result) == 1
 }
 
-test_rds_cluster_aurora_backtrack_failed {
+test_rds_cluster_aurora_backtrack_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_302
 
-test_verify_aws_codebuild_project_privileged_mode_disabled{
+import rego.v1 
+
+test_verify_aws_codebuild_project_privileged_mode_disabled if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -32,7 +34,7 @@ test_verify_aws_codebuild_project_privileged_mode_disabled{
     count(result) == 1
 }
 
-test_verify_aws_codebuild_project_privileged_mode_enabled {
+test_verify_aws_codebuild_project_privileged_mode_enabled if {
     result := failed with input as [
         {
             "Type": "resource",
