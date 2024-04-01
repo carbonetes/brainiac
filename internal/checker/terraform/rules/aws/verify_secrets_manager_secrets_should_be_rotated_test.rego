@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_285
 
-test_secrets_manager_rotations_set_within_90_days {
+import rego.v1
+
+test_secrets_manager_rotations_set_within_90_days if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +31,7 @@ test_secrets_manager_rotations_set_within_90_days {
 	count(result) == 1
 }
 
-test_secrets_manager_rotations_set_more_than_90_days {
+test_secrets_manager_rotations_set_more_than_90_days if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

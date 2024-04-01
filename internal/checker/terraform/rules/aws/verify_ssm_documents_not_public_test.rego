@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_282
 
-test_ssm_documents_not_public {
+import rego.v1 
+
+test_ssm_documents_not_public if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +23,7 @@ test_ssm_documents_not_public {
 	count(result) == 1
 }
 
-test_ssm_documents_public {
+test_ssm_documents_public if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

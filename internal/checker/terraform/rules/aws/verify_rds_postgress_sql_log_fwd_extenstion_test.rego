@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_283
 
-test_verify_rds_postgress_sql_log_fwd_extenstion_passed {
+import rego.v1 
+
+test_verify_rds_postgress_sql_log_fwd_extenstion_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -24,7 +26,7 @@ test_verify_rds_postgress_sql_log_fwd_extenstion_passed {
 	count(result) == 1
 }
 
-test_verify_rds_postgress_sql_log_fwd_extenstion_failed {
+test_verify_rds_postgress_sql_log_fwd_extenstion_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",
