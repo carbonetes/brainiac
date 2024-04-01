@@ -8,27 +8,29 @@
 #   id: CB_TFAWS_187
 #   severity: LOW
 package lib.terraform.CB_TFAWS_187
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_elasticache_security_group"
+	"aws_elasticache_security_group" in block.Labels
 }
 
-resource [resource]{
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
 }
 
-
 passed := []
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_elasticache_security_group' does not exist.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_elasticache_security_group' does not exist.",
+		"snippet": block,
+	}
 }
