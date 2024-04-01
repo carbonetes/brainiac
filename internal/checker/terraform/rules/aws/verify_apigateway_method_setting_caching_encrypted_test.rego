@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_291
 
-test_apigateway_method_setting_caching_encrypted {
+import rego.v1 
+
+test_apigateway_method_setting_caching_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -35,7 +37,7 @@ test_apigateway_method_setting_caching_encrypted {
 	count(result) == 1
 }
 
-test_apigateway_method_setting_caching_not_encrypted {
+test_apigateway_method_setting_caching_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

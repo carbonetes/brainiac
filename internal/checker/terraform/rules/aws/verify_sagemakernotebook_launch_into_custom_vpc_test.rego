@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_288
 
-test_sagemakernotebook_launch_custom_vpc {
+import rego.v1
+
+test_sagemakernotebook_launch_custom_vpc if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +26,7 @@ test_sagemakernotebook_launch_custom_vpc {
 	count(result) == 1
 }
 
-test_sagemakernotebook_not_launch_custom_vpc {
+test_sagemakernotebook_not_launch_custom_vpc if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

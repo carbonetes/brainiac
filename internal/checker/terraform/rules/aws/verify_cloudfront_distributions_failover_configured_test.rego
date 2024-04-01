@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_293
 
-test_cloudfront_distribution_failover_configured {
+import rego.v1 
+
+test_cloudfront_distribution_failover_configured if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -62,7 +64,7 @@ test_cloudfront_distribution_failover_configured {
 	count(result) == 1
 }
 
-test_cloudfront_distribution_failover_not_configured {
+test_cloudfront_distribution_failover_not_configured if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
