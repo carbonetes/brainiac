@@ -39,11 +39,12 @@ pass contains block if {
 }
 
 fail contains resource if {
-    some resource in input
-    isvalid(resource)
-    resource.Blocks[_].Type == "ingress"
-    "0.0.0.0/0" in resource.Blocks[_].Attributes.cidr_blocks
-    to_number(resource.Blocks[_].Attributes.from_port) == 80
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "ingress"
+	"0.0.0.0/0" in block.Attributes.cidr_blocks
+	to_number(resource.Blocks[_].Attributes.from_port) == 80
 }
 
 passed contains result if {
