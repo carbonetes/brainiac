@@ -9,43 +9,51 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_073
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_docdb_cluster_parameter_group"
+	some label in block.Labels
+	label == "aws_docdb_cluster_parameter_group"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    parameter := resource.Blocks[_]
-    parameter.Type == "parameter"
-    parameter.Attributes.name == "audit_logs"
-    parameter.Attributes.value == "enabled"
+	some parameter in resource.Blocks
+	parameter.Type == "parameter"
+	parameter.Attributes.name == "audit_logs"
+	parameter.Attributes.value == "enabled"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Audit logs are active in DocDB.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Audit logs are active in DocDB.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Audit logs should be active in DocDB.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Audit logs should be active in DocDB.",
+		"snippet": block,
+	}
 }
