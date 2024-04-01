@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_248
 
-test_aws_lambda_function_configured_to_validate_code_signing_passed {
+import rego.v1 
+
+test_aws_lambda_function_configured_to_validate_code_signing_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_aws_lambda_function_configured_to_validate_code_signing_passed {
 	count(result) == 1
 }
 
-test_aws_lambda_function_configured_to_validate_code_signing_failed {
+test_aws_lambda_function_configured_to_validate_code_signing_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

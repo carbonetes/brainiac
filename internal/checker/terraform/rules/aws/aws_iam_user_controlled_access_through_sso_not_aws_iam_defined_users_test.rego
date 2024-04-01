@@ -1,5 +1,7 @@
 package lib.terraform.CB_TFAWS_249
 
+import rego.v1
+
 # test_aws_iam_user_controlled_access_through_sso_not_aws_iam_defined_users_passed {
 #     result := passed with input as [
 #                                     {
@@ -19,7 +21,7 @@ package lib.terraform.CB_TFAWS_249
 #     count(result) == 0
 # }
 
-test_aws_iam_user_controlled_access_through_sso_not_aws_iam_defined_users_failed {
+test_aws_iam_user_controlled_access_through_sso_not_aws_iam_defined_users_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",
