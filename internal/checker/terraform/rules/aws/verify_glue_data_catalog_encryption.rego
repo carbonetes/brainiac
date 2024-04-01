@@ -47,7 +47,7 @@ pass contains resource if {
     has_attribute(connection_password_encryption.Attributes, "aws_kms_key_id")
 }
 
-block_check(blocks, key) = result if {
+block_check(blocks, key) := result if {
     some block in blocks
     block.Type == key
     result := block

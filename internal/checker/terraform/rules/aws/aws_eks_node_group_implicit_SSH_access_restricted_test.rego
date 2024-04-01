@@ -1,7 +1,7 @@
 package lib.terraform.CB_TFAWS_112
 import rego.v1
 
-test_eks_node_group_implicit_SSH_access_restricted_passed if {
+test_eks_node_group_implicit_ssh_access_restricted_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -36,7 +36,7 @@ test_eks_node_group_implicit_SSH_access_restricted_passed if {
     count(result) == 1
 }
 
-test_eks_node_group_implicit_SSH_access_restricted_failed if {
+test_eks_node_group_implicit_ssh_access_restricted_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",
