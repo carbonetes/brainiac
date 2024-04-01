@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_361
 
-test_aws_cloudfront_distribution_utilizing_secure_ssl_protocols_for_https_communication_passed {
+import rego.v1 
+
+test_aws_cloudfront_distribution_utilizing_secure_ssl_protocols_for_https_communication_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -43,7 +45,7 @@ test_aws_cloudfront_distribution_utilizing_secure_ssl_protocols_for_https_commun
 	count(result) == 1
 }
 
-test_aws_cloudfront_distribution_utilizing_secure_ssl_protocols_for_https_communication_failed {
+test_aws_cloudfront_distribution_utilizing_secure_ssl_protocols_for_https_communication_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

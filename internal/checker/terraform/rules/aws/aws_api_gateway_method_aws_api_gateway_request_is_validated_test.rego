@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_356
 
-test_aws_api_gateway_method_aws_api_gateway_request_is_validated_passed {
+import rego.v1 
+
+test_aws_api_gateway_method_aws_api_gateway_request_is_validated_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -37,7 +39,7 @@ test_aws_api_gateway_method_aws_api_gateway_request_is_validated_passed {
 	count(result) == 1
 }
 
-test_aws_api_gateway_method_aws_api_gateway_request_is_validated_failed {
+test_aws_api_gateway_method_aws_api_gateway_request_is_validated_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
