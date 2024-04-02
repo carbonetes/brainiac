@@ -59,3 +59,6 @@ rules:
     with-outside-test-context:
       # https://docs.styra.com/regal/rules/testing/test-outside-test-package
       level: ignore
+  performance:
+    with-outside-test-context:
+      level: ignore
