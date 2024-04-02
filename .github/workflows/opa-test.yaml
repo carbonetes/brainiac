@@ -1,9 +1,9 @@
 name: Run OPA Tests
 on:
   push:
-    branches: [ "main", "improvement/aws-policy" ] 
+    branches: [ "main" ] 
   pull_request:
-    branches: [ "main", "improvement/aws-policy" ]
+    branches: [ "main" ]
 jobs:
   Run-OPA-Tests:
     runs-on: ubuntu-latest
@@ -16,10 +16,10 @@ jobs:
         version: latest
 
     - name: Run OPA Tests
-      run: opa test internal/checker/terraform/rules/aws -v
+      run: opa test internal/checker
 
     - name: Setup Regal
       uses: StyraInc/setup-regal@v1
       with:
         version: v0.18.0
-    - run: regal lint --format=github internal/checker/terraform/rules/aws
+    - run: regal lint --format=github internal/checker
