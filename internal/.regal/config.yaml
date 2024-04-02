@@ -30,6 +30,8 @@ rules:
       # This is a good practice, but safe to ignore
       # https://docs.styra.com/regal/rules/idiomatic/use-if
       level: ignore
+    non-raw-regex-pattern:
+      level: ignore
   style:
     # Style category safe to ignore, but good to follow modern conventions
     # Address these as you see fit
@@ -52,5 +54,8 @@ rules:
       level: ignore
   testing:
     test-outside-test-package:
+      # https://docs.styra.com/regal/rules/testing/test-outside-test-package
+      level: ignore
+    with-outside-test-context:
       # https://docs.styra.com/regal/rules/testing/test-outside-test-package
       level: ignore
