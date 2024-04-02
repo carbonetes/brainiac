@@ -19,6 +19,14 @@ rules:
       # This is a good practice, but safe to ignore
       # https://docs.styra.com/regal/rules/idiomatic/no-defined-entrypoint
       level: ignore
+    use-contains:
+      # This is a good practice, but safe to ignore
+      # https://docs.styra.com/regal/rules/idiomatic/use-contains
+      level: ignore
+    use-if:
+      # This is a good practice, but safe to ignore
+      # https://docs.styra.com/regal/rules/idiomatic/use-if
+      level: ignore
   style:
     # Style category safe to ignore, but good to follow modern conventions
     # Address these as you see fit
