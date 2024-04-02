@@ -1,6 +1,7 @@
 package file
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -190,5 +191,7 @@ func ParseTerraformFile(filename string) (interface{}, string) {
 	}
 
 	var interfaceResult interface{} = terraformFile
+	res, _ := json.MarshalIndent(interfaceResult, "", " ") // remove wheh merging to main
+	fmt.Print(string(res))                                 // remove wheh merging to main
 	return interfaceResult, rawContent
 }
