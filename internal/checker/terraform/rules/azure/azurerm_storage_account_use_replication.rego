@@ -14,7 +14,7 @@ import future.keywords.in
 
 isvalid(block) if {
 	block.Type == "resource"
-	some "azurerm_storage_account" in block.Labels
+	"azurerm_storage_account" in block.Labels
 }
 
 resource[resource] {

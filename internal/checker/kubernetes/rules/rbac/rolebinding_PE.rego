@@ -28,9 +28,6 @@ noActiveServiceAccounts{
 	not check[subjects]
 }
 
-
-resource = kubernetes.resource
-
 passed[result] {
     noActiveServiceAccounts
     result := {"message" : sprintf("%s '%s' is granted", [kubernetes.kind, kubernetes.name]),"snippet" : {}}

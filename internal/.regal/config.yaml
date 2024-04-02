@@ -1,4 +1,7 @@
 rules:
+  imports:
+    use-rego-v1:
+      level: ignore
   bugs:
     not-equals-in-loop:
       # This is actually fine the way it's used here.
