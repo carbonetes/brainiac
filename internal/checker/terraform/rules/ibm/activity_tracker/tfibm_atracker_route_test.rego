@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFIBM_013
 
-test_tfibm_atracker_route_name_is_properly_set_passed {
+import rego.v1 
+
+test_tfibm_atracker_route_name_is_properly_set_passed if {
 	result := passed with input as [
     {
         "Type": "resource",
@@ -65,7 +67,7 @@ test_tfibm_atracker_route_name_is_properly_set_passed {
 	count(result) == 1
 }
 
-test_tfibm_atracker_route_name_is_not_properly_set_failed {
+test_tfibm_atracker_route_name_is_not_properly_set_failed if {
 	result := failed with input as [
     {
         "Type": "resource",
