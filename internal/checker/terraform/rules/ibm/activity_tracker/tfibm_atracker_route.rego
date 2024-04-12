@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_route
 # custom:
 #   id: CB_TFIBM_013
-#   severity: LOW
+#   severity: MEDIUM
 package lib.terraform.CB_TFIBM_013
 
 import rego.v1
