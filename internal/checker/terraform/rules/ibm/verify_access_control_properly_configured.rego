@@ -26,18 +26,29 @@ resource contains resource if {
 	resource := concat(".", block.Labels)
 }
 
-pass contains resource if {
-	some resource in input
-	isvalid(resource)
-    not fail[resource]
+fail contains block if {
+	some block in input
+	isvalid(block)
+    attribute := block.Attributes
+    "app_version" in object.keys(attribute)
+  	version := attribute.app_version
+	version != "1.0"
+
 }
 
 fail contains block if {
 	some block in input
 	isvalid(block)
-	block.Attributes.app_version == "1.0"
-    some tags in block.tags
-    tags != ""
+    attribute := block.Attributes
+    "tags" in object.keys(attribute)
+    some tag in attribute.tags
+    tag == ""
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+    not fail[resource]
 }
 
 passed contains result if {
