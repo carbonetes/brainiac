@@ -54,7 +54,7 @@ pass contains resource if {
 passed contains result if {
 	some block in pass
 	result := {
-		"message": "The API key and project ID exist and not null",
+		"message": "Access control is properly configured.",
 		"snippet": block,
 	}
 }
@@ -62,7 +62,7 @@ passed contains result if {
 failed contains result if {
 	some block in fail
 	result := {
-		"message": "The API key and project ID should be exist and not null",
+		"message": "Access control is not properly configured.",
 		"snippet": block,
 	}
 }
