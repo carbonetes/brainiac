@@ -9,7 +9,7 @@ test_app_path_encrypted_passed if {
 			"app",
 		],
 		"Attributes": {
-			"app_path": "hello.zip",
+			"app_path": "terraform.zip",
 			"app_version": "1.0",
 			"buildpack": "sdk-for-nodejs",
 			"command": "node app.js",
@@ -57,7 +57,7 @@ test_app_path_encrypted_failed if {
 			"app",
 		],
 		"Attributes": {
-			"app_path": "",
+			"app_path": "terraform.exe",
 			"app_version": "1.0",
 			"buildpack": "sdk-for-nodejs",
 			"command": "node app.js",

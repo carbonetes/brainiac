@@ -29,7 +29,9 @@ resource contains resource if {
 pass contains block if {
     some block in input
     isvalid(block)
-    block.Attributes.app_path != ""
+	path := block.Attributes.app_path
+	path != ""
+    endswith(path, ".zip")
 }
 
 fail contains resource if {
