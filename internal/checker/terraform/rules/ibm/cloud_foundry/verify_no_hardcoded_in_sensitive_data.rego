@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/app_domain_shared
 # custom:
 #   id: CB_TFIBM_027
-#   severity: MEDIUM
+#   severity: HIGH
 package lib.terraform.CB_TFIBM_027
 import rego.v1
 
