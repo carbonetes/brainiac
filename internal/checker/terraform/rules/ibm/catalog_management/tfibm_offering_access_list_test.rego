@@ -2,7 +2,7 @@ package lib.terraform.CB_TFIBM_016
 
 import rego.v1
 
-test_offering_is_using_https_pass if {
+test_offering_access_list_pass if {
 	result := passed with input as [{
         "Type": "resource",
         "Labels": [
@@ -25,7 +25,7 @@ test_offering_is_using_https_pass if {
 	count(result) == 1
 }
 
-test_offering_is_using_https_fail if {
+test_offering_access_list_fail if {
 	result := failed with input as [{
         "Type": "resource",
         "Labels": [
