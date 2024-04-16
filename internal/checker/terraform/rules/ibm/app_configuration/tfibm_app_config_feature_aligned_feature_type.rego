@@ -55,7 +55,7 @@ hasMisalignedFeatureType(block) if {
 passed contains result if {
     some block in pass
     result := {
-        "message": "The 'ibm_app_config_feature' resource's feature types and enabled/disabled values are aligned, preventing operational issues.",
+        "message": "IBM App Config Feauture resource feature types and enabled/disabled values are aligned, preventing operational issues.",
         "snippet": block,
     }
 }
@@ -63,7 +63,7 @@ passed contains result if {
 failed contains result if {
     some block in fail
     result := {
-        "message": "The 'ibm_app_config_feature' resource has a misaligned feature type in enabled/disabled values, which could lead to operational issues.",
+        "message": "IBM App Config Feauture resource has a misaligned feature type in enabled/disabled values, which could lead to operational issues.",
         "snippet": block,
     }
 }
