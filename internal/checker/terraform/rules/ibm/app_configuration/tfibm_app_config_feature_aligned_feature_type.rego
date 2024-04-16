@@ -63,7 +63,7 @@ passed contains result if {
 failed contains result if {
     some block in fail
     result := {
-        "message": "The 'ibm_app_config_feature' resource has a misaligned feature type and enabled/disabled values, which could lead to operational issues.",
+        "message": "The 'ibm_app_config_feature' resource has a misaligned feature type in enabled/disabled values, which could lead to operational issues.",
         "snippet": block,
     }
 }
