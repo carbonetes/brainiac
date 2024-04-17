@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify the property type is aligned with value"
-# description: "This policy validates that the 'type' attribute aligns with the 'value' attribute in the 'ibm_app_config_property' resource. Misalignment can lead to potential threats or vulnerabilities."
+# description: "This policy validates that the 'type' attribute aligns with the 'value' attribute in the 'ibm_app_config_property' resource. Misalignment can lead to operational issues."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/app_config_feature
