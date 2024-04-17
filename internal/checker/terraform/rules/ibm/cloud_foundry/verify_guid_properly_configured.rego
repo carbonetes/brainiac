@@ -13,7 +13,8 @@ import rego.v1
 isvalid(block) if {
 	block.Type == "resource"
 	some label in block.Labels
-	label == "ibm_service_instance"
+	supported_resources := ["ibm_service_instance", "ibm_service_key"]
+	label in supported_resources
 }
 
 resource contains resource if {
@@ -32,6 +33,14 @@ pass contains block if {
 	res := block.Attributes
     "space_guid" in object.keys(res)
     res.space_guid != ""
+}
+
+pass contains block if {
+    some block in input
+    isvalid(block)
+	res := block.Attributes
+    "service_instance_guid" in object.keys(res)
+    res.service_instance_guid != ""
 }
 
 fail contains resource if {

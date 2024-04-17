@@ -1,4 +1,5 @@
 package lib.terraform.CB_TFIBM_042
+
 import rego.v1
 
 test_guid_properly_configured_passed if {
@@ -60,5 +61,85 @@ test_guid_properly_configured_failed if {
 			"startLine": 1,
 		},
 	}]
+	count(result) == 1
+}
+
+test_guid_properly_configured_pass if {
+	result := passed with input as [
+		{
+			"Type": "data",
+			"Labels": [
+				"ibm_service_instance",
+				"service_instance",
+			],
+			"Attributes": {"name": "mycloudant"},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 3,
+				"startLine": 1,
+			},
+		},
+		{
+			"Type": "resource",
+			"Labels": [
+				"ibm_service_key",
+				"serviceKey",
+			],
+			"Attributes": {
+				"name": "mycloudantkey",
+				"parameters": {"example_parameter": "value"},
+				"service_instance_guid": "data.ibm_service_instance.service_instance.id",
+				"tags": [
+					"tag1",
+					"tag2",
+				],
+			},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 12,
+				"startLine": 5,
+			},
+		},
+	]
+	count(result) == 1
+}
+
+test_guid_properly_configured_fail if {
+	result := failed with input as [
+		{
+			"Type": "data",
+			"Labels": [
+				"ibm_service_instance",
+				"service_instance",
+			],
+			"Attributes": {"name": "mycloudant"},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 3,
+				"startLine": 1,
+			},
+		},
+		{
+			"Type": "resource",
+			"Labels": [
+				"ibm_service_key",
+				"serviceKey",
+			],
+			"Attributes": {
+				"name": "mycloudantkey",
+				"parameters": {"example_parameter": "value"},
+				"service_instance_guid": "",
+				"tags": [
+					"tag1",
+					"tag2",
+				],
+			},
+			"Blocks": [],
+			"line_range": {
+				"endLine": 12,
+				"startLine": 5,
+			},
+		},
+	]
 	count(result) == 1
 }
