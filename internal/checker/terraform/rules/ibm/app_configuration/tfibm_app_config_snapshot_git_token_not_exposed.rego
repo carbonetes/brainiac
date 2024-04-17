@@ -3,7 +3,7 @@
 # description: "This policy ensures that the 'git_token' attribute within the 'git_config' resource of IBM App Config Snapshot remains concealed. Exposing the 'git_token' can lead to significant security risks, including unauthorized access and sensitive data exposure."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/hashicorp/git/latest/docs/resources/config
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/app_config_snapshot
 # custom:
 #   id: CB_TFIBM_045
 #   severity: HIGH
