@@ -1,9 +1,10 @@
 # METADATA
-# title: "Verify emails for Managers role is assigned"
+# title: "Verify authorization is set in managers role"
 # description: "This policy ensures that email addresses are appropriately assigned to fulfill the Managers role within the IBM Cloud organization, ensuring effective access control and adherence to organizational security measures."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/org
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/space
 # custom:
 #   id: CB_TFIBM_033
 #   severity: MEDIUM
@@ -13,7 +14,8 @@ import rego.v1
 isvalid(block) if {
 	block.Type == "resource"
 	some label in block.Labels
-	label == "ibm_org"
+	supported_resources := ["ibm_org", "ibm_space"]
+	label in supported_resources
 }
 
 resource contains resource if {
