@@ -4,6 +4,7 @@
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/service_instance
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/service_key
 # custom:
 #   id: CB_TFIBM_042
 #   severity: MEDIUM
