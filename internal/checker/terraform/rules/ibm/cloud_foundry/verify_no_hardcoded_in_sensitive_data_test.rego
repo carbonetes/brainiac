@@ -10,7 +10,7 @@ test_no_hardcoded_sensitive_data_passed if {
 		],
 		"Attributes": {
 			"name": "example.com",
-			"router_group_guid": "",
+			"router_group_guid": "groupGuid",
 			"tags": [
 				"tag1",
 				"tag2",
@@ -34,7 +34,7 @@ test_no_hardcoded_sensitive_data_failed if {
 		],
 		"Attributes": {
 			"name": "example.com",
-			"router_group_guid": "3hG5jkjk4k34JH5666",
+			"router_group_guid": "//groupGuid//--",
 			"tags": [
 				"tag1",
 				"tag2",

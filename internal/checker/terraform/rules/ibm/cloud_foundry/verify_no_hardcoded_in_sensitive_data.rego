@@ -35,11 +35,11 @@ pass contains block if {
 fail contains resource if {
 	some resource in input
 	isvalid(resource)
-	pattern := "^[a-zA-z0-9]"
-    res := resource.Attributes
-    "router_group_guid" in object.keys(res)
-    sensitive_data := res.router_group_guid
-    regex.match(pattern, sensitive_data)
+	pattern := ".*[!@#$%^&*()-=+{}\\[\\]:;\"'<>,.?/\\\\|].*"
+	res := resource.Attributes
+	"router_group_guid" in object.keys(res)
+	sensitive_data := res.router_group_guid
+	regex.match(pattern, sensitive_data)
 }
 
 passed contains result if {
