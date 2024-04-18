@@ -31,7 +31,7 @@ fail contains block if {
     isvalid(block)
     some value in block.Attributes.environment_json
     command := block.Attributes.command
-    regex_pattern := "^[a-zA-Z0-9]"
+    regex_pattern := ".*[!@#$%^&*()-=+{}\\[\\]:;\"'<>,.?/\\\\|].*"
     regex.match(regex_pattern, command)
     regex.match(regex_pattern, value)
 }
