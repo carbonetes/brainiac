@@ -20,6 +20,46 @@ test_data_is_not_exposed_pass if {
                 "tag1",
                 "tag2"
             ]
+        },
+        "Blocks": [
+            {
+                "Type": "publish",
+                "Labels": [],
+                "Attributes": {
+                    "ibm_approved": true,
+                    "permit_ibm_public_publish": true,
+                    "portal_approval_record": "portal_approval_123",
+                    "portal_url": "https://example.com/portal",
+                    "public_approved": true,
+                    "rev": "cloudant_revision_123",
+                    "short_description": "This is a short description"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 19,
+                    "startLine": 11
+                }
+            },
+            {
+                "Type": "state",
+                "Labels": [],
+                "Attributes": {
+                    "current": "new",
+                    "current_entered": "2024-04-11T00:00:00Z",
+                    "pending": "validated",
+                    "pending_requested": "2024-04-11T00:00:00Z",
+                    "previous": "new"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 27,
+                    "startLine": 21
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 28,
+            "startLine": 1
         }
     }]
 	count(result) == 1
@@ -44,6 +84,46 @@ test_data_is_not_exposed_fail if {
                 "tag1",
                 "tag2"
             ]
+        },
+        "Blocks": [
+            {
+                "Type": "publish",
+                "Labels": [],
+                "Attributes": {
+                    "ibm_approved": true,
+                    "permit_ibm_public_publish": true,
+                    "portal_approval_record": "portal_approval_123",
+                    "portal_url": "https://example.com/portal",
+                    "public_approved": true,
+                    "rev": "cloudant_revision_123",
+                    "short_description": "This is a short description"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 19,
+                    "startLine": 11
+                }
+            },
+            {
+                "Type": "state",
+                "Labels": [],
+                "Attributes": {
+                    "current": "new",
+                    "current_entered": "2024-04-11T00:00:00Z",
+                    "pending": "validated",
+                    "pending_requested": "2024-04-11T00:00:00Z",
+                    "previous": "new"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 27,
+                    "startLine": 21
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 28,
+            "startLine": 1
         }
     }]
 	count(result) == 1
