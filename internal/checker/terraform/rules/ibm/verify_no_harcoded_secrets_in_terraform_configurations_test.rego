@@ -12,11 +12,11 @@ test_no_hard_coded_secrets_terraform_configuration_passed if {
         "app_path": "hello.zip",
         "app_version": "1.0",
         "buildpack": "sdk-for-nodejs",
-        "command": "startRun",
+        "command": "",
         "disk_quota": "1024",
         "environment_json": {
-            "VAR1": "value1",
-            "VAR2": "value2"
+            "VAR1": "",
+            "VAR2": ""
         },
         "health_check_http_endpoint": "/health",
         "health_check_timeout": "30",
@@ -61,11 +61,11 @@ test_no_hard_coded_secrets_terraform_configuration_failed if {
         "app_path": "hello.zip",
         "app_version": "1.0",
         "buildpack": "sdk-for-nodejs",
-        "command": "input//gowith@--",
+        "command": "node app.js",
         "disk_quota": "1024",
         "environment_json": {
-            "VAR1": "//gowith",
-            "VAR2": "--tf"
+            "VAR1": "value1",
+            "VAR2": "value2"
         },
         "health_check_http_endpoint": "/health",
         "health_check_timeout": "30",
