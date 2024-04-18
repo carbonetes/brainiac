@@ -3,7 +3,7 @@
 # description: "This policy verifies that the 'managed' attribute is set to true for the 'ibm_api_gateway_endpoint' resource, ensuring the endpoint is online. Endpoint subscriptions can only be added if the endpoint is online. Misconfiguration of the 'managed' attribute can lead to endpoint unavailability, subscription failure, increased debugging time, and potential security risks."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/api_gateway_endpoint_subscription
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/api_gateway_endpoint
 # custom:
 #   id: CB_TFIBM_002
 #   severity: LOW
