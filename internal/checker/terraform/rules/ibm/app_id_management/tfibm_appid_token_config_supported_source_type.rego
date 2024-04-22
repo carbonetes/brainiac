@@ -7,7 +7,6 @@
 # custom:
 #   id: CB_TFIBM_067
 #   severity: MEDIUM
-
 package lib.terraform.CB_TFIBM_067
 
 import rego.v1
