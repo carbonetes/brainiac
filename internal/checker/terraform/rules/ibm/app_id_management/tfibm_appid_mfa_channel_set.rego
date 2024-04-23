@@ -3,7 +3,7 @@
 # description: "This policy verifies the 'active' attribute in the IBM AppID MFA channel resource. It ensures that a specific MFA channel (either email or SMS) is actively configured, thereby enhancing the security of the application."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_idp_mfa_channel
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_mfa_channel
 # custom:
 #   id: CB_TFIBM_079
 #   severity: MEDIUM
