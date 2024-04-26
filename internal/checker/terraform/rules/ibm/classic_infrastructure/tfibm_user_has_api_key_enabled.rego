@@ -28,17 +28,17 @@ resource contains resource if {
 	resource := concat(".", block.Labels)
 }
 
-pass contains resource if {
+fail contains resource if {
 	some resource in input
 	isvalid(resource)
 	api := resource.Attributes.has_api_key
-    api == true
+    api == false
 }
 
-fail contains block if {
+pass contains block if {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed contains result if {
