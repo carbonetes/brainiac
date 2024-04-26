@@ -28,22 +28,18 @@ resource contains resource if {
 	resource := concat(".", block.Labels)
 }
 
-offload(attribute) if {
-	attribute.ssl_offload == true
-}
-
-pass contains resource if {
+fail contains resource if {
 	some resource in input
 	isvalid(resource)
 	some block in resource.Blocks
     attribute := block.Attributes
-    attribute.create != ""
+    attribute.create == ""
 }
 
-fail contains block if {
+pass contains block if {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed contains result if {

@@ -16,7 +16,7 @@ test_timeout_configuration_is_set_pass if {
             "ha_enabled": false,
             "hostname": "example.com",
             "ip_address": "10.0.0.1",
-            "security_certificate_id": "45489",
+            "security_certificate_id": "12345",
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"
@@ -27,16 +27,25 @@ test_timeout_configuration_is_set_pass if {
                 "Labels": [],
                 "Attributes": {
                     "create": "45m"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
                 }
             }
-        ]
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
+        }
     }]
 	count(result) == 1
 }
 
 test_timeout_configuration_is_set_fail if {
 	result := failed with input as [{
-              "Type": "resource",
+        "Type": "resource",
         "Labels": [
             "ibm_lb",
             "test_lb_local"
@@ -48,7 +57,7 @@ test_timeout_configuration_is_set_fail if {
             "ha_enabled": false,
             "hostname": "example.com",
             "ip_address": "10.0.0.1",
-            "security_certificate_id": "45489",
+            "security_certificate_id": "12345",
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"
@@ -59,9 +68,18 @@ test_timeout_configuration_is_set_fail if {
                 "Labels": [],
                 "Attributes": {
                     "create": ""
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
                 }
             }
-        ]
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
+        }
     }]
 	count(result) == 1
 }
