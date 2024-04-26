@@ -16,10 +16,28 @@ test_ssl_activated_when_offload_enabled_pass if {
             "ha_enabled": false,
             "hostname": "example.com",
             "ip_address": "10.0.0.1",
-            "security_certificate_id": "45489",
+            "security_certificate_id": "12345",
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"
+        },
+        "Blocks": [
+            {
+                "Type": "timeouts",
+                "Labels": [],
+                "Attributes": {
+                    "create": "45m"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
         }
     }]
 	count(result) == 1
@@ -39,10 +57,28 @@ test_ssl_activated_when_offload_enabled_fail if {
             "ha_enabled": false,
             "hostname": "example.com",
             "ip_address": "10.0.0.1",
-            "security_certificate_id": "45489",
-            "ssl_enabled": true,
-            "ssl_offload": false,
+            "security_certificate_id": "12345",
+            "ssl_enabled": false,
+            "ssl_offload": true,
             "subnet_id": "subnet-123456789"
+        },
+        "Blocks": [
+            {
+                "Type": "timeouts",
+                "Labels": [],
+                "Attributes": {
+                    "create": "45m"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
         }
     }]
 	count(result) == 1
