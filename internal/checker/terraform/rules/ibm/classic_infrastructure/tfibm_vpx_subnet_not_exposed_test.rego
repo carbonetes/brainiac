@@ -4,7 +4,7 @@ import rego.v1
 
 test_vpx_subnets_not_exposed_pass if {
 	result := passed with input as [{
-         "Type": "resource",
+        "Type": "resource",
         "Labels": [
             "ibm_lb_vpx",
             "test_vpx"
@@ -15,7 +15,7 @@ test_vpx_subnets_not_exposed_pass if {
             "management_ip_address": "",
             "name": "",
             "plan": "Standard",
-            "private_subnet": "10.107.180.0/26",
+            "private_subnet": "10.0.180.0/26",
             "private_vlan_id": "1.540786e+06",
             "public_subnet": "23.246.226.248/29",
             "public_vlan_id": "1.251234e+06",

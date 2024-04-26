@@ -32,18 +32,23 @@ is_valid(url) if {
 	startswith(url, "0.0.0.0/")
 }
 
-pass contains resource if {
+fail contains resource if {
 	some resource in input
 	isvalid(resource)
 	attribute := resource.Attributes
-    not is_valid(attribute.public_subnet)
-    not is_valid(attribute.private_subnet)
+	is_valid(attribute.public_subnet)
+}
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	attribute := resource.Attributes
+	is_valid(attribute.private_subnet)
 }
 
-fail contains block if {
+pass contains block if {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed contains result if {
