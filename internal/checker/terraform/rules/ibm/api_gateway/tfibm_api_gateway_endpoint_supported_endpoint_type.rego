@@ -1,5 +1,5 @@
 # METADATA
-# title: "Verify endpoint type is supported"
+# title: "Verify the endpoint type is supported"
 # description: "This policy checks if the IBM App Gateway Endpoint resource has a supported type. The supported types are share, unshare, manage, and unmanage. If the endpoint type is not supported it can lead to operational issues."
 # scope: package
 # related_resources:
