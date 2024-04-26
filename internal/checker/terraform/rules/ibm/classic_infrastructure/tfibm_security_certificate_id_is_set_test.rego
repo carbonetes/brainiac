@@ -20,6 +20,24 @@ test_security_certificate_id_is_set_pass if {
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"
+        },
+        "Blocks": [
+            {
+                "Type": "timeouts",
+                "Labels": [],
+                "Attributes": {
+                    "create": "45m"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
         }
     }]
 	count(result) == 1
@@ -42,6 +60,24 @@ test_security_certificate_id_is_set_fail if {
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"
+        },
+        "Blocks": [
+            {
+                "Type": "timeouts",
+                "Labels": [],
+                "Attributes": {
+                    "create": "45m"
+                },
+                "Blocks": [],
+                "line_range": {
+                    "endLine": 15,
+                    "startLine": 13
+                }
+            }
+        ],
+        "line_range": {
+            "endLine": 16,
+            "startLine": 1
         }
     }]
 	count(result) == 1

@@ -28,22 +28,22 @@ resource contains resource if {
 	resource := concat(".", block.Labels)
 }
 
-pass contains resource if {
+fail contains resource if {
 	some resource in input
 	isvalid(resource)
 	attribute := resource.Attributes
-	"security_certificate_id" in object.keys(attribute)
+	not "security_certificate_id" in object.keys(attribute)
     certificate := attribute.security_certificate_id
 	regex.match(`[0-9]`, certificate)
-    not regex.match(`[A-Z]+`, certificate)
-	not regex.match(`[a-z]+`, certificate)
-	not regex.match(`[_\-|@.,?/!~#$%^&*(){}\[\]=]+`, certificate)
+    regex.match(`[A-Z]+`, certificate)
+	regex.match(`[a-z]+`, certificate)
+	regex.match(`[_\-|@.,?/!~#$%^&*(){}\[\]=]+`, certificate)
 }
 
-fail contains block if {
+pass contains block if {
 	some block in input
 	isvalid(block)
-	not pass[block]
+	not fail[block]
 }
 
 passed contains result if {
