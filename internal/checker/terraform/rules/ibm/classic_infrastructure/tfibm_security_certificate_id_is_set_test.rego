@@ -57,6 +57,7 @@ test_security_certificate_id_is_set_fail if {
             "ha_enabled": false,
             "hostname": "example.com",
             "ip_address": "10.0.0.1",
+            "security_certificate_id": "",
             "ssl_enabled": true,
             "ssl_offload": true,
             "subnet_id": "subnet-123456789"

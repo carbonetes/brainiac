@@ -32,12 +32,15 @@ fail contains resource if {
 	some resource in input
 	isvalid(resource)
 	attribute := resource.Attributes
-	not "security_certificate_id" in object.keys(attribute)
     certificate := attribute.security_certificate_id
-	regex.match(`[0-9]`, certificate)
-    regex.match(`[A-Z]+`, certificate)
-	regex.match(`[a-z]+`, certificate)
-	regex.match(`[_\-|@.,?/!~#$%^&*(){}\[\]=]+`, certificate)
+	not regex.match(`[0-9]`, certificate)
+}
+
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	attribute := resource.Attributes
+    attribute.security_certificate_id == ""
 }
 
 pass contains block if {
