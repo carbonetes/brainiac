@@ -1,4 +1,4 @@
-package lib.terraform.CB_TFIBM_60
+package lib.terraform.CB_TFIBM_060
 
 import rego.v1 
 

@@ -5,9 +5,9 @@
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_action_url
 # custom:
-#   id: CB_TFIBM_60
+#   id: CB_TFIBM_060
 #   severity: MEDIUM
-package lib.terraform.CB_TFIBM_60
+package lib.terraform.CB_TFIBM_060
 
 import rego.v1
 
