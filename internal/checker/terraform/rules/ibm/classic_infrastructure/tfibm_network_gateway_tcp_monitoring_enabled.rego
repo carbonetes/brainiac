@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/network_gateway
 # custom:
 #   id: CB_TFIBM_077
-#   severity: MEDIUM 
+#   severity: LOW
 package lib.terraform.CB_TFIBM_077
 
 import rego.v1
