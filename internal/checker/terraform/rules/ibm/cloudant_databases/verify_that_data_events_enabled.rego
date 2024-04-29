@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cloudant
 # custom:
 #   id: CB_TFIBM_054
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFIBM_054
 import rego.v1
 
