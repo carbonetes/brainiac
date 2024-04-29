@@ -84,7 +84,7 @@ test_environment_variables_prefix_pass if {
 	count(result) == 1
 }
 
-test_environment_variables_prefix_pass if {
+test_environment_variables_prefix_fail if {
 	result := failed with input as [
     {
         "Type": "resource",
