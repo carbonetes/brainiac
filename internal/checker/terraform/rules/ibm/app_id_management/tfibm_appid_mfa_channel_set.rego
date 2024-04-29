@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_mfa_channel
 # custom:
 #   id: CB_TFIBM_079
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFIBM_079
 
 import rego.v1
