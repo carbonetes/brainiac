@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_password_regex
 # custom:
 #   id: CB_TFIBM_081
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFIBM_081
 
 import rego.v1
