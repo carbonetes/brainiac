@@ -3,7 +3,7 @@
 # description: "This policy verifies that the 'sms_config' block and its attributes 'key', 'secret', and 'from' exist in the IBM AppID MFA channel resource. It ensures that the SMS configuration for Multi-Factor Authentication (MFA) is properly set, enhancing the security of the application."
 # scope: package
 # related_resources:
-# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_idp_mfa_channel
+# - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_mfa_channel
 # custom:
 #   id: CB_TFIBM_080
 #   severity: MEDIUM
