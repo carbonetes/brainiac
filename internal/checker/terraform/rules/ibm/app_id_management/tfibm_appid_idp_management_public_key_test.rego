@@ -13,7 +13,7 @@ test_tfibm_appid_idp_management_public_key_exist_passed if {
         "Attributes": {
             "is_active": true,
             "tenant_id": "var.tenant_id",
-            "public_key": "/path/to/public/key",
+            "public_key": "/path/to/public/key"
         },
         "Blocks": [],
         "line_range": {
@@ -35,7 +35,7 @@ test_tfibm_appid_idp_management_public_key_not_exist_failed if {
         ],
         "Attributes": {
             "is_active": true,
-            "tenant_id": "var.tenant_id",
+            "tenant_id": "var.tenant_id"
         },
         "Blocks": [],
         "line_range": {
