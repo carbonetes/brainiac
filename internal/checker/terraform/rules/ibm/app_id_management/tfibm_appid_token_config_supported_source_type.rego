@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_token_config
 # custom:
 #   id: CB_TFIBM_067
-#   severity: MEDIUM
+#   severity: LOW
 package lib.terraform.CB_TFIBM_067
 
 import rego.v1
