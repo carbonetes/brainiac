@@ -40,11 +40,6 @@ pass contains resource if {
     "secret_name" in object.keys(block)
     name := block.secret_name
     regex.match(pattern, name)
-}
-
-pass contains resource if {
-	some resource in input
-	isvalid(resource)
     count(resource.Attributes.secret_name) <= 253
     resource.Attributes.secret_name != ""
 }
