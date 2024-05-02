@@ -45,7 +45,7 @@ pass contains resource if {
 pass contains resource if {
 	some resource in input
 	isvalid(resource)
-    count(resource.Attributes.secret_name) > 253
+    count(resource.Attributes.secret_name) <= 253
     resource.Attributes.secret_name != ""
 }
 
