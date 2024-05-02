@@ -31,7 +31,7 @@ test_tfibm_app_config_snapshot_git_config_name_properly_configured_passed if {
 	count(result) == 1
 }
 
-test_tfibm_app_config_snapshot_git_config_name_properly_configured_passed if {
+test_tfibm_app_config_snapshot_git_config_name_properly_configured_failed if {
 	result := failed with input as [
     {
         "Type": "resource",
