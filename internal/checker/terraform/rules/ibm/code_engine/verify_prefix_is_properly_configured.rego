@@ -6,7 +6,7 @@
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/code_engine_binding
 # custom:
 #   id: CB_TFIBM_104
-#   severity: HIGH
+#   severity: LOW
 package lib.terraform.CB_TFIBM_104
 import rego.v1
 
