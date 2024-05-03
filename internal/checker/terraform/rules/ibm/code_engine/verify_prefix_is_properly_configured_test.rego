@@ -1,7 +1,7 @@
 package lib.terraform.CB_TFIBM_104
 import rego.v1
 
-test_proper_format_configuration_pass if {
+test_prefix_is_properly_configured_pass if {
 	result := passed with input as [
     {
         "Type": "resource",
@@ -38,7 +38,7 @@ test_proper_format_configuration_pass if {
 	count(result) == 1
 }
 
-test_proper_format_configuration_fail if {
+test_prefix_is_properly_configured_fail if {
 	result := failed with input as [
     {
         "Type": "resource",
