@@ -1,6 +1,6 @@
 # METADATA
 # title: "Verify source type for pipeline is git"
-# description: "This policy ensures that the 'type' field in an IBM Terraform resource is set to "git", indicating a Git repository source"
+# description: "This policy ensures that the 'type' field in an IBM Terraform resource is set to git, indicating a Git repository source"
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_tekton_pipeline_definition
