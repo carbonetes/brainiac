@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_114
+import rego.v1
 
-test_api_gateway_caching_enabled {
+test_api_gateway_caching_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -22,7 +23,7 @@ test_api_gateway_caching_enabled {
 	count(result) == 1
 }
 
-test_api_gateway_caching_not_enabled {
+test_api_gateway_caching_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

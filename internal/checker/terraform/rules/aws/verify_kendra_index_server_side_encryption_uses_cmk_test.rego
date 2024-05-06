@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_255
 
-test_kendra_index_server_side_encryption_cmk {
+import rego.v1
+
+test_kendra_index_server_side_encryption_cmk if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -30,7 +32,7 @@ test_kendra_index_server_side_encryption_cmk {
 	count(result) == 1
 }
 
-test_kendra_index_server_side_encryption_not_uses_cmk {
+test_kendra_index_server_side_encryption_not_uses_cmk if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

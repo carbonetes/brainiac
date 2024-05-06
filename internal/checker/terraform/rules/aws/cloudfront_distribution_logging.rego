@@ -9,46 +9,54 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_092
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+	some label in block.Labels
+	label == "aws_cloudfront_distribution"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-	resource := input[_]
-    isvalid(resource)
-    resource.Blocks[_].Type == "logging_config"
-    has_attribute(resource.Blocks[_].Attributes, "bucket")
 }
 
-fail[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "logging_config"
+	has_attribute(block.Attributes, "bucket")
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_cloudfront_distribution' for 'logging_config' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_cloudfront_distribution' for 'logging_config' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_cloudfront_distribution' for 'logging_config' should be set.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_cloudfront_distribution' for 'logging_config' should be set.",
+		"snippet": block,
+	}
+}

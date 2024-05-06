@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_188
+import rego.v1
 
-test_aws_mq_broker_mq_broker_audit_logging_enabled_passed {
+test_aws_mq_broker_mq_broker_audit_logging_enabled_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -51,7 +52,7 @@ test_aws_mq_broker_mq_broker_audit_logging_enabled_passed {
     count(result) == 1
 }
 
-test_aws_mq_broker_mq_broker_audit_logging_enabled_failed {
+test_aws_mq_broker_mq_broker_audit_logging_enabled_failed if {
 result := failed with input as [
                                 {
                                 "Type": "resource",

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_100
+import rego.v1
 
-test_aws_iam_policy_document_credentials_exposed_not_allowed_passed {
+test_aws_iam_policy_document_credentials_exposed_not_allowed_passed if {
     result := passed with input as [
                                     {
                                     "Type": "data",
@@ -41,7 +42,7 @@ test_aws_iam_policy_document_credentials_exposed_not_allowed_passed {
     count(result) == 1
 }
 
-test_aws_iam_policy_document_credentials_exposed_not_allowed_failed {
+test_aws_iam_policy_document_credentials_exposed_not_allowed_failed if {
 result := failed with input as [
                                     {
                                     "Type": "data",

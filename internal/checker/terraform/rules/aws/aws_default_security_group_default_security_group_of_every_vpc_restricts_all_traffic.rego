@@ -9,121 +9,136 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_342
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_default_security_group"
+	some label in block.Labels
+	label == "aws_default_security_group"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelAwsVpc[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_vpc"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_default_security_group"
-    label := getTheLabelAwsVpc[_]
-    contains(resource.Attributes.vpc_id, label)
+getthelabelawsvpc contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_vpc" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "ingress"
-    resource.Blocks[_].Attributes.to_port
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_default_security_group" in resource.Labels
+	some label in getthelabelawsvpc
+	contains(resource.Attributes.vpc_id, label)
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "ingress"
-    resource.Blocks[_].Attributes.from_port
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "ingress"
+	block.Attributes.to_port
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "ingress"
-    resource.Blocks[_].Attributes.self
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "ingress"
+	block.Attributes.from_port
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "ingress"
-    resource.Blocks[_].Attributes.protocol
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "ingress"
+	block.Attributes.self
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "egress"
-    resource.Blocks[_].Attributes.from_port
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "ingress"
+	block.Attributes.protocol
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "egress"
-    resource.Blocks[_].Attributes.to_port
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "egress"
+	block.Attributes.from_port
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "egress"
-    resource.Blocks[_].Attributes.cidr_blocks
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "egress"
+	block.Attributes.to_port
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
-    resource.Blocks[_].Type == "egress"
-    resource.Blocks[_].Attributes.protocol
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "egress"
+	block.Attributes.cidr_blocks
 }
 
-fail[resource]{
-    resource := input[_]
-    isvalid(resource)
-    not isValidResourceAttached
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+	some block in resource.Blocks
+	block.Type == "egress"
+	block.Attributes.protocol
 }
 
-pass[block] {
-    block := input[_]
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	not is_valid_resource_attached
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-    isValidResourceAttached
-   	not fail[block]
+	is_valid_resource_attached
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Every VPC's default security group prohibits all traffic.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Every VPC's default security group prohibits all traffic.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Every VPC's default security group must prohibit all traffic.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Every VPC's default security group must prohibit all traffic.",
+		"snippet": block,
+	}
+}

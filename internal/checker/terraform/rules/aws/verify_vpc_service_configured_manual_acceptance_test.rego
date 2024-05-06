@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_119
+import rego.v1
 
-test_vpc_service_configure_manual_acceptance {
+test_vpc_service_configure_manual_acceptance if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_vpc_service_configure_manual_acceptance {
 	count(result) == 1
 }
 
-test_vpc_service_not_configure_manual_acceptance {
+test_vpc_service_not_configure_manual_acceptance if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

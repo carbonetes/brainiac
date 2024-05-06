@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_024
+import rego.v1
 
-test_s3_bucket_encrypted {
+test_s3_bucket_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -44,7 +45,7 @@ test_s3_bucket_encrypted {
 	count(result) == 1
 }
 
-test_s3_bucket_not_encrypted {
+test_s3_bucket_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

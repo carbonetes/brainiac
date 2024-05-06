@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_049
+import rego.v1
 
-test_ecr_image_tag_is_immutable {
+test_ecr_image_tag_is_immutable if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_ecr_image_tag_is_immutable {
 	count(result) == 1
 }
 
-test_ecr_image_tag_is_not_immutable {
+test_ecr_image_tag_is_not_immutable if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

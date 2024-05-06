@@ -8,42 +8,44 @@
 #   id: CB_TFAWS_213
 #   severity: LOW
 package lib.terraform.CB_TFAWS_213
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_dms_replication_instance"
+    some label in block.Labels 
+    label == "aws_dms_replication_instance"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[blocks]{
-    blocks := input[_]
-	isvalid(blocks)
-    blocks.Attributes.auto_minor_version_upgrade == true
+pass contains resource if {
+    some resource in input
+	isvalid(resource)
+    resource.Attributes.auto_minor_version_upgrade == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "DMS instance gets all minor upgrade automatically",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_dms_replication_instance' auto_minor_version_upgrade must be set to true",
                 "snippet": block }
 } 

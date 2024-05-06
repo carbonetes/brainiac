@@ -8,44 +8,46 @@
 #   id: CB_TFAWS_235
 #   severity: LOW
 package lib.terraform.CB_TFAWS_235
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_batch_job_definition"
+    some label in block.Labels 
+    label == "aws_batch_job_definition"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
    	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
     isvalid(resource)
-    containerPropStr := resource.Attributes.container_properties
-    containerParsed := json.unmarshal(containerPropStr)
-    containerParsed.privileged == true
+    container_prop_str := resource.Attributes.container_properties
+    container_parsed := json.unmarshal(container_prop_str)
+    container_parsed.privileged == true
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Privileged container is not defined by a batch job.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Privileged container should not be defined by a batch job.",
                 "snippet": block }
 } 

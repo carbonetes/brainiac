@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_226
+import rego.v1
 
-test_verify_create_before_destroy_api_gateway_rest_api_passed {
+test_verify_create_before_destroy_api_gateway_rest_api_passed if {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -32,7 +33,7 @@ test_verify_create_before_destroy_api_gateway_rest_api_passed {
 	count(result) == 1
 }
 
-test_verify_create_before_destroy_api_gateway_rest_api_failed {
+test_verify_create_before_destroy_api_gateway_rest_api_failed if {
 	result := failed with input as [
 									{
 									"Type": "resource",

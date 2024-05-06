@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_276
 
-test_verify_rds_cluster_activity_stream_encrypted_with_cmk_passed {
+import rego.v1 
+
+test_verify_rds_cluster_activity_stream_encrypted_with_cmk_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -19,7 +21,7 @@ test_verify_rds_cluster_activity_stream_encrypted_with_cmk_passed {
 	count(result) == 1
 }
 
-test_verify_rds_cluster_activity_stream_encrypted_with_cmk_failed {
+test_verify_rds_cluster_activity_stream_encrypted_with_cmk_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

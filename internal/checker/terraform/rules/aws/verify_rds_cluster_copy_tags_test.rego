@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_296
 
-test_verify_rds_cluster_copy_tags_passed {
+import rego.v1 
+
+test_verify_rds_cluster_copy_tags_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -21,7 +23,7 @@ test_verify_rds_cluster_copy_tags_passed {
     count(result) == 1
 }
 
-test_verify_rds_cluster_copy_tags_failed {
+test_verify_rds_cluster_copy_tags_failed if {
     result := failed with input as [
         {
             "Type": "resource",

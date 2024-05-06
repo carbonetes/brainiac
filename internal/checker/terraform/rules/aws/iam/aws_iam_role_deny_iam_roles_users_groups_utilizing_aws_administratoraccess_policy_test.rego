@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_250
 
-test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy_passed {
+import rego.v1
+
+test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +22,7 @@ test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_
 	count(result) == 1
 }
 
-test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy_failed {
+test_aws_iam_role_deny_iam_roles_users_groups_utilizing_aws_administratoraccess_policy_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

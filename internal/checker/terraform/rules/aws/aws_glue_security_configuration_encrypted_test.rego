@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_107
+import rego.v1
 
-test_aws_glue_security_configuration_encrypted_passed {
+test_aws_glue_security_configuration_encrypted_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -72,7 +73,7 @@ test_aws_glue_security_configuration_encrypted_passed {
     count(result) == 1
 }
 
-test_aws_glue_security_configuration_encrypted_failed {
+test_aws_glue_security_configuration_encrypted_failed if {
 result := failed with input as [
                                 {
                                 "Type": "resource",

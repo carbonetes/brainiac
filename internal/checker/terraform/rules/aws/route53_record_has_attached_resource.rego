@@ -9,45 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_319
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_route53_record"
+	some label in block.Labels
+	label == "aws_route53_record"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.type == "A"
-    blocks := resource.Blocks[_]
-    blocks.Type == "alias"
-    validValues := ["module", "data.", "var."]
-    contains(blocks.Attributes.name, validValues[_])
+	resource.Attributes.type == "A"
+	some block in resource.Blocks
+	block.Type == "alias"
+	valid_values := ["module", "data.", "var."]
+	some valid in valid_values
+	contains(block.Attributes.name, valid)
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Route53 A Record has Attached Resource.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Route53 A Record has Attached Resource.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Route53 A Record should have Attached Resource.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Route53 A Record should have Attached Resource.",
+		"snippet": block,
+	}
+}

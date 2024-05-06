@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_268
 
-test_aws_sfn_state_machine_state_machine_execution_history_logging_enabled_passed {
+import rego.v1 
+
+test_aws_sfn_state_machine_state_machine_execution_history_logging_enabled_passed if {
 	result := passed with input as [{
   "Type": "resource",
   "Labels": [
@@ -33,7 +35,7 @@ test_aws_sfn_state_machine_state_machine_execution_history_logging_enabled_passe
 	count(result) == 1
 }
 
-test_aws_sfn_state_machine_state_machine_execution_history_logging_enabled_failed {
+test_aws_sfn_state_machine_state_machine_execution_history_logging_enabled_failed if {
 	result := failed with input as [{
   "Type": "resource",
   "Labels": [

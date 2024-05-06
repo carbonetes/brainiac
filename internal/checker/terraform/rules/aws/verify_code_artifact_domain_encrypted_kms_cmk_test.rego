@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_212
+import rego.v1
 
-test_code_artifact_domain_is_encrypted {
+test_code_artifact_domain_is_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +22,7 @@ test_code_artifact_domain_is_encrypted {
 	count(result) == 1
 }
 
-test_code_artifact_domain_not_encrypted {
+test_code_artifact_domain_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

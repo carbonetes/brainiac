@@ -8,49 +8,51 @@
 #   id: CB_TFAWS_154
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_154
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_transfer_server"
+    some label in block.Labels 
+    label == "aws_transfer_server"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    endpointTypes := ["VPC", "VPC_ENDPOINT"]
-    resource := input[_]
+pass contains resource if {
+    endpoint_types := ["VPC", "VPC_ENDPOINT"]
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "endpoint_type")
-    resource.Attributes.endpoint_type == endpointTypes[_]
+    resource.Attributes.endpoint_type in endpoint_types
 }
 
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_transfer_server' is not accessible to the public.",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_workspaces_workspace' must not be accessible to the public.",
                 "snippet": block }
 } 

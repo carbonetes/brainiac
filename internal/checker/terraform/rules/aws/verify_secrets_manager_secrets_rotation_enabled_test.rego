@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_355
 
-test_secrets_manager_secrets_rotation_enabled {
+import rego.v1 
+
+test_secrets_manager_secrets_rotation_enabled if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -47,7 +49,7 @@ test_secrets_manager_secrets_rotation_enabled {
 	count(result) == 1
 }
 
-test_sagemakernotebook_user_root_access_enabled {
+test_sagemakernotebook_user_root_access_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_337
 
-test_aws_nat_utilize_default_route {
+import rego.v1
+
+test_aws_nat_utilize_default_route if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -31,7 +33,7 @@ test_aws_nat_utilize_default_route {
 	count(result) == 1
 }
 
-test_aws_nat_not_utilize_default_route {
+test_aws_nat_not_utilize_default_route if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_029
+import rego.v1
 
-test_aws_ecr_repository_policy_public_not_allowed_passed {
+test_aws_ecr_repository_policy_public_not_allowed_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_aws_ecr_repository_policy_public_not_allowed_passed {
 	count(result) == 1
 }
 
-test_aws_ecr_repository_policy_public_not_allowed_faied {
+test_aws_ecr_repository_policy_public_not_allowed_faied if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

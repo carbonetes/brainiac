@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_030
+import rego.v1
 
-test_verify_kms_key_wildcard_principal_passed {
+test_verify_kms_key_wildcard_principal_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_verify_kms_key_wildcard_principal_passed {
 	count(result) == 1
 }
 
-test_verify_kms_key_wildcard_principal_failed {
+test_verify_kms_key_wildcard_principal_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

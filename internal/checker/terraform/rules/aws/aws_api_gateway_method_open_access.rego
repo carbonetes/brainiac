@@ -9,49 +9,54 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_057
 
-supportedResource := ["aws_api_gateway_method"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_api_gateway_method"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    api_key_required := resource.Attributes.api_key_required
-    authorization := resource.Attributes.authorization
-    http_method := resource.Attributes.http_method
-    authorization == "NONE" 
-    http_method != "OPTIONS"
-    api_key_required == false
 }
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	api_key_required := resource.Attributes.api_key_required
+	authorization := resource.Attributes.authorization
+	http_method := resource.Attributes.http_method
+	authorization == "NONE"
+	http_method != "OPTIONS"
+	api_key_required == false
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_api_gateway_method has no open access to back-end resources through API.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_api_gateway_method has no open access to back-end resources through API.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_api_gateway_method should have no open access to back-end resources through API.",
-                "snippet": block}
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_api_gateway_method should have no open access to back-end resources through API.",
+		"snippet": block,
+	}
 }
-
 

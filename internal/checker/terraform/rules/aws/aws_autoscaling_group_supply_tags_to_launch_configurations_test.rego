@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_146
+import rego.v1
 
-test_aws_autoscaling_group_supply_tags_to_launch_configurations_passed {
+test_aws_autoscaling_group_supply_tags_to_launch_configurations_passed if {
     result := passed with input as [
                                    {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_autoscaling_group_supply_tags_to_launch_configurations_passed {
     count(result) == 1
 }
 
-test_aws_autoscaling_group_supply_tags_to_launch_configurations_failed {
+test_aws_autoscaling_group_supply_tags_to_launch_configurations_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_217
+import rego.v1
 
-test_cluster_logging_cmk {
+test_cluster_logging_cmk if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -25,7 +26,10 @@ test_cluster_logging_cmk {
 				"Blocks": [{
 					"Type": "log_configuration",
 					"Labels": [],
-					"Attributes": {"s3_bucket_encryption_enabled": true},
+					"Attributes": {
+						"cloud_watch_encryption_enabled": true,
+						"s3_bucket_encryption_enabled": true
+						},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 9,
@@ -50,7 +54,7 @@ test_cluster_logging_cmk {
 	count(result) == 1
 }
 
-test_cluster_logging_not_cmk {
+test_cluster_logging_not_cmk if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -75,7 +79,10 @@ test_cluster_logging_not_cmk {
 				"Blocks": [{
 					"Type": "log_configuration",
 					"Labels": [],
-					"Attributes": {"s3_bucket_encryption_enabled": false},
+					"Attributes": {
+						"cloud_watch_encryption_enabled": false,
+						"s3_bucket_encryption_enabled": false
+						},
 					"Blocks": [],
 					"line_range": {
 						"endLine": 9,

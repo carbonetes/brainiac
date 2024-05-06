@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_322
 
-test_aws_rds_query_logging_enabled {
+import rego.v1 
+
+test_aws_rds_query_logging_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -47,7 +49,7 @@ test_aws_rds_query_logging_enabled {
 	count(result) == 1
 }
 
-test_aws_rds_query_logging_not_enabled {
+test_aws_rds_query_logging_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

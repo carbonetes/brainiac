@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_341
 
-test_config_recorder_enabled_passed {
+import rego.v1 
+
+test_config_recorder_enabled_passed if {
 	result := passed with input as [
     {
         "Attributes": {
@@ -51,7 +53,7 @@ test_config_recorder_enabled_passed {
 	count(result) == 1
 }
 
-test_config_recorder_enabled_failed {
+test_config_recorder_enabled_failed if {
 	result := failed with input as [
     {
         "Attributes": {

@@ -9,47 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_273
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_db_instance"
+	some label in block.Labels
+	label == "aws_db_instance"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    has_attribute(resource.Attributes, "deletion_protection")
-    resource.Attributes.deletion_protection == true
 }
 
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    not pass[block]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	has_attribute(resource.Attributes, "deletion_protection")
+	resource.Attributes.deletion_protection == true
 }
 
-
-passed[result] {
-	block := pass[_]
-	result := { "message": "Deletion protection for AWS database instances is activated.",
-                "snippet": block }
+fail contains block if {
+	some block in input
+	isvalid(block)
+	not pass[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Deletion protection for AWS database instances must be activated.",
-                "snippet": block }
-} 
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Deletion protection for AWS database instances is activated.",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Deletion protection for AWS database instances must be activated.",
+		"snippet": block,
+	}
+}

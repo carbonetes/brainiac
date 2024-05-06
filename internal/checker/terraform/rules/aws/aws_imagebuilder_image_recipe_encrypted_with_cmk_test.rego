@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_191
+import rego.v1
 
-test_aws_imagebuilder_image_recipe_encrypted_with_cmk_test_passed {
+test_aws_imagebuilder_image_recipe_encrypted_with_cmk_test_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -65,7 +66,7 @@ test_aws_imagebuilder_image_recipe_encrypted_with_cmk_test_passed {
     count(result) == 1
 }
 
-test_aws_imagebuilder_image_recipe_encrypted_with_cmk_test_failed {
+test_aws_imagebuilder_image_recipe_encrypted_with_cmk_test_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",

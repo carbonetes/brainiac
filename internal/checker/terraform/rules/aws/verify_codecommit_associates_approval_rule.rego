@@ -9,55 +9,63 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_344
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_codecommit_repository"
+	some label in block.Labels
+	label == "aws_codecommit_repository"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getCodeCommitRepoLabel[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_codecommit_repository"
-    label := concat(".", resource.Labels)
 }
 
-getIsCodeCommitApprovalAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_codecommit_approval_rule_template_association"
-    contains(resource.Attributes.repository_name, getCodeCommitRepoLabel[_])
+getcodecommitrepolabel contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_codecommit_repository" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-pass[resource]{
-    resource := input[_]
+getiscodecommitapprovalattached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_codecommit_approval_rule_template_association" in resource.Labels
+	some label in getcodecommitrepolabel
+	contains(resource.Attributes.repository_name, label)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    getIsCodeCommitApprovalAttached
+	getiscodecommitapprovalattached
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Codecommit associates an approval rule.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Codecommit associates an approval rule.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Codecommit should associates an approval rule.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Codecommit should associates an approval rule.",
+		"snippet": block,
+	}
+}

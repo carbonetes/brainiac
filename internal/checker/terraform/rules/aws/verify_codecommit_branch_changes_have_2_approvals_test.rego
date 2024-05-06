@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_239
+import rego.v1
 
-test_codecommit_branch_changes_have_2_approvals {
+test_codecommit_branch_changes_have_2_approvals if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +18,7 @@ test_codecommit_branch_changes_have_2_approvals {
 	count(result) == 1
 }
 
-test_codecommit_branch_changes_have_less_than_2_approvals {
+test_codecommit_branch_changes_have_less_than_2_approvals if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

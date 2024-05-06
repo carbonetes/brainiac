@@ -9,55 +9,63 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_334
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_wafv2_web_acl"
+	some label in block.Labels
+	label == "aws_wafv2_web_acl"
 }
 
-getWafV2Label[label]{
-    resource := input[_]
+getwafv2label contains label if {
+	some resource in input
 	resource.Type == "resource"
-    resource.Labels[_] == "aws_wafv2_web_acl"
-    label := concat(".", resource.Labels)
+	"aws_wafv2_web_acl" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-
-resource[resource] { 
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-isAttachementValid{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_wafv2_web_acl_logging_configuration"
-    contains(resource.Attributes.resource_arn, getWafV2Label[_])
 }
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+is_attachment_valid if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_wafv2_web_acl_logging_configuration" in resource.Labels
+	some label in getwafv2label
+	contains(resource.Attributes.resource_arn, label)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    isAttachementValid
+	is_attachment_valid
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "WAF2 has a Logging Configuration.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "WAF2 has a Logging Configuration.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "WAF2 should have a Logging Configuration.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "WAF2 should have a Logging Configuration.",
+		"snippet": block,
+	}
+}

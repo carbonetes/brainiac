@@ -8,42 +8,44 @@
 #   id: CB_TFAWS_202
 #   severity: LOW
 package lib.terraform.CB_TFAWS_202
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+    some label in block.Labels 
+    label == "aws_cloudfront_distribution"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Cloudfront distribution is enabled",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Cloudfront distribution should be enabled",
                 "snippet": block }
 } 

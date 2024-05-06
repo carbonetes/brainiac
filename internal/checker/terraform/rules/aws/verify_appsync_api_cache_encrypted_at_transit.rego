@@ -8,47 +8,49 @@
 #   id: CB_TFAWS_201
 #   severity: LOW
 package lib.terraform.CB_TFAWS_201
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_appsync_api_cache"
+    some label in block.Labels 
+    label == "aws_appsync_api_cache"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
     has_attribute(resource.Attributes, "transit_encryption_enabled")
     resource.Attributes.transit_encryption_enabled == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Appsync API Cache is encrypted at transit",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Appsync API Cache 'transit_encryption_enabled' should be set to true",
                 "snippet": block }
 } 

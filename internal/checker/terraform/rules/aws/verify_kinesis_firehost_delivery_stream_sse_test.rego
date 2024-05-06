@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_229
+import rego.v1
 
-test_verify_kinesis_firehost_delivery_stream_sse_passed {
+test_verify_kinesis_firehost_delivery_stream_sse_passed if {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -32,7 +33,7 @@ test_verify_kinesis_firehost_delivery_stream_sse_passed {
 	count(result) == 1
 }
 
-test_verify_kinesis_firehost_delivery_stream_sse_failed {
+test_verify_kinesis_firehost_delivery_stream_sse_failed if {
 	result := failed with input as [
 									{
 									"Type": "resource",

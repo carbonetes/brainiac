@@ -43,7 +43,6 @@ fail[resource] {
 fail[resource] {
 	some resource in input
 	isvalid(resource)
-    resource.Attributes.metadata
     not "block-project-ssh-keys" in resource.Attributes.metadata
 }
 

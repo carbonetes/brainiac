@@ -9,49 +9,57 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_293
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_distribution"
+	some label in block.Labels
+	label == "aws_cloudfront_distribution"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "origin_group"
-    resource.Blocks[_].Blocks[_].Type == "failover_criteria"
-    count(count_member_types) > 1
+	resource.Blocks[_].Type == "origin_group"
+	resource.Blocks[_].Blocks[_].Type == "failover_criteria"
+	count(count_member_types) > 1
 }
 
-count_member_types[member] {
-    resource := input[_]
-    resource.Blocks[_].Type == "origin_group"
-    member := resource.Blocks[_].Blocks[_]
-    member.Type == "member"
+count_member_types contains member if {
+	some resource in input
+	resource.Blocks[_].Type == "origin_group"
+	member := resource.Blocks[_].Blocks[_]
+	member.Type == "member"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "CloudFront distributions have origin failover configured.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "CloudFront distributions have origin failover configured.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "CloudFront distributions should have origin failover configured.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "CloudFront distributions should have origin failover configured.",
+		"snippet": block,
+	}
 }

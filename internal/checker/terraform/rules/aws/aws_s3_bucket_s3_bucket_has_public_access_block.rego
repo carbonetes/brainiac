@@ -9,49 +9,56 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_328
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_s3_bucket"
+	some label in block.Labels
+	label == "aws_s3_bucket"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_s3_bucket_public_access_block"
-    resource.Attributes.block_public_acls == true
-    resource.Attributes.block_public_policy == true
 }
 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_s3_bucket_public_access_block" in resource.Labels
+	resource.Attributes.block_public_acls == true
+	resource.Attributes.block_public_policy == true
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Public Access block is present in the S3 bucket.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Public Access block is present in the S3 bucket.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Public Access block must be present in the S3 bucket.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Public Access block must be present in the S3 bucket.",
+		"snippet": block,
+	}
+}

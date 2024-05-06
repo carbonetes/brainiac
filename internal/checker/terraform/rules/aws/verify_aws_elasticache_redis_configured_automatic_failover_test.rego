@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_367
 
-test_aws_elasticache_redis_configured_automatic_failover_passed {
+import rego.v1 
+
+test_aws_elasticache_redis_configured_automatic_failover_passed if {
 	result := passed with input as [
     {
         "Type": "resource",
@@ -31,7 +33,7 @@ test_aws_elasticache_redis_configured_automatic_failover_passed {
 	count(result) == 1
 }
 
-test_aws_elasticache_redis_configured_automatic_failover_failed {
+test_aws_elasticache_redis_configured_automatic_failover_failed if {
 	result := failed with input as [
     {
         "Type": "resource",

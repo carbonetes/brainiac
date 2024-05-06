@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_162
+import rego.v1
 
-test_aws_qldb_ledger_deletion_protection_enabled_passed {
+test_aws_qldb_ledger_deletion_protection_enabled_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -22,7 +23,7 @@ test_aws_qldb_ledger_deletion_protection_enabled_passed {
     count(result) == 1
 }
 
-test_aws_qldb_ledger_deletion_protection_enabled_failed {
+test_aws_qldb_ledger_deletion_protection_enabled_failed if {
 result := failed with input as [
                                {
                                 "Type": "resource",

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_287
 
-test_cloudfront_default_root_object_is_set {
+import rego.v1 
+
+test_cloudfront_default_root_object_is_set if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -23,7 +25,7 @@ test_cloudfront_default_root_object_is_set {
 	count(result) == 1
 }
 
-test_cloudfront_default_root_object_is_not_set {
+test_cloudfront_default_root_object_is_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -9,46 +9,54 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_112
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_eks_node_group"
+	some label in block.Labels
+	label == "aws_eks_node_group"
 }
 
-has_attribute(key, value){
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    remoteAccess := resource.Blocks[_]
-    remoteAccess.Type == "remote_access"
-    has_attribute(remoteAccess.Attributes, "source_security_group_ids")
+	some remoteaccess in resource.Blocks
+	remoteaccess.Type == "remote_access"
+	has_attribute(remoteaccess.Attributes, "source_security_group_ids")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "AWS EKS node group does not allow unrestricted SSH access from 0.0.0.0/0.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "AWS EKS node group does not allow unrestricted SSH access from 0.0.0.0/0.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "AWS EKS node group should not allow unrestricted SSH access from 0.0.0.0/0.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "AWS EKS node group should not allow unrestricted SSH access from 0.0.0.0/0.",
+		"snippet": block,
+	}
 }

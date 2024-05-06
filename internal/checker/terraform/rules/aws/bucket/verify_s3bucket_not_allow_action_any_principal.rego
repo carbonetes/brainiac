@@ -9,53 +9,62 @@
 #   severity: CRITICAL
 package lib.terraform.CB_TFAWS_077
 
-supportedResources := ["aws_s3_bucket", "aws_s3_bucket_policy"]
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supportedresource := ["aws_s3_bucket", "aws_s3_bucket_policy"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-allowAllPrincipal(statement){
-   statement.Principal[_] == "*"
 }
 
-allowAllPrincipal(statement){
-    statement.Principal == "*"
+allowAllPrincipal(statement) if {
+	some value in statement.Principal
+	value == "*"
 }
 
-fail[block] {
-    block := input[_]
-    isvalid(block)
-    policyStr := block.Attributes.policy
-    policyParsed := json.unmarshal(policyStr)
-    statement := policyParsed.Statement[0]
-    statement.Effect != "Deny"
-    allowAllPrincipal(statement)
+allowAllPrincipal(statement) if {
+	statement.Principal == "*"
 }
 
-pass[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	policystr := block.Attributes.policy
+	policyparsed := json.unmarshal(policystr)
+	statement := policyparsed.Statement[0]
+	statement.Effect != "Deny"
+	allowAllPrincipal(statement)
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "S3 bucket does not allow an action with any Principal",
-                "snippet": block}
+pass contains block if {
+	some block in input
+	isvalid(block)
+	not fail[block]
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "S3 bucket should not allow an action with any Principal",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "S3 bucket does not allow an action with any Principal",
+		"snippet": block,
+	}
+}
+
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "S3 bucket should not allow an action with any Principal",
+		"snippet": block,
+	}
 }

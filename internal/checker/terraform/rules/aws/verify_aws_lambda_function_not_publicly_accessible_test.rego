@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_277
 
-test_aws_lamda_function_not_publicly_accesible {
+import rego.v1 
+
+test_aws_lamda_function_not_publicly_accesible if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -22,7 +24,7 @@ test_aws_lamda_function_not_publicly_accesible {
 	count(result) == 1
 }
 
-test_aws_lamda_function_publicly_accesible {
+test_aws_lamda_function_publicly_accesible if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

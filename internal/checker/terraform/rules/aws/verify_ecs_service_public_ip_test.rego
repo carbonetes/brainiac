@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_316
 
-test_ecs_service_public_ip_passed {
+import rego.v1 
+
+test_ecs_service_public_ip_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -106,7 +108,7 @@ test_ecs_service_public_ip_passed {
 	count(result) == 1
 }
 
-test_ecs_service_public_ip_failed {
+test_ecs_service_public_ip_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

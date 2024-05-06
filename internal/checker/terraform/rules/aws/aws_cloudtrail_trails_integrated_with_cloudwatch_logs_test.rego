@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_339
 
-test_aws_cloudtrail_trails_integrated_with_cloudwatch_logs_passed {
+import rego.v1 
+
+test_aws_cloudtrail_trails_integrated_with_cloudwatch_logs_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -39,7 +41,7 @@ test_aws_cloudtrail_trails_integrated_with_cloudwatch_logs_passed {
 	count(result) == 1
 }
 
-test_aws_cloudtrail_trails_integrated_with_cloudwatch_logs_failed {
+test_aws_cloudtrail_trails_integrated_with_cloudwatch_logs_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

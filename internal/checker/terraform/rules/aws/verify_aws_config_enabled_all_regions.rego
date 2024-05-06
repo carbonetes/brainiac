@@ -9,43 +9,51 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_116
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_config_configuration_aggregator"
+	some label in block.Labels
+	label == "aws_config_configuration_aggregator"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    sources := ["account_aggregation_source", "organization_aggregation_source"]
-    block.Type == sources[_]
-    block.Attributes.all_regions == true
+	some block in resource.Blocks
+	sources := ["account_aggregation_source", "organization_aggregation_source"]
+	block.Type in sources
+	block.Attributes.all_regions == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_config_configuration_aggregator' Config is enabled in all regions",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_config_configuration_aggregator' Config is enabled in all regions",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_config_configuration_aggregator' Config should be enabled in all regions",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_config_configuration_aggregator' Config should be enabled in all regions",
+		"snippet": block,
+	}
 }

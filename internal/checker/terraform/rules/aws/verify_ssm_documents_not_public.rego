@@ -9,49 +9,56 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_282
 
-supportedResources := ["aws_ssm_document", "aws_ssm_document_permission"]
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := ["aws_ssm_document", "aws_ssm_document_permission"]
+	label in supported_resources
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-fail[resource]{
-    resource := input[_]
-	isvalid(resource)
-    resource.Blocks[_].Type == "permissions"
-    resource.Blocks[_].Attributes.account_ids == "All"
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.account_ids == "All"
+	resource.Blocks[_].Type == "permissions"
+	resource.Blocks[_].Attributes.account_ids == "All"
 }
 
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	resource.Attributes.account_ids == "All"
+}
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "SSM documents are not Public.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "SSM documents are not Public.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "SSM documents account_ids permissions should not be set to 'All'.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "SSM documents account_ids permissions should not be set to 'All'.",
+		"snippet": block,
+	}
 }

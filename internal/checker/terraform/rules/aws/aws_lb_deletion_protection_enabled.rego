@@ -8,50 +8,50 @@
 #   id: CB_TFAWS_129
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_129
+import rego.v1
 
-import future.keywords.in 
-
-supportedResource := ["aws_alb", "aws_lb"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+    some label in block.Labels
+    supported_resource := ["aws_alb", "aws_lb"]
+    label in supported_resource
 }
 
-has_attribute(key, value){
-    _ = key[value]
+has_attribute(key, value) if {
+    value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
+pass contains resource if{
     resource := input[_]
 	isvalid(resource)
     has_attribute(resource.Attributes, "enable_deletion_protection")
     resource.Attributes.enable_deletion_protection == true
 }
 
-fail[block] {
+fail contains block if {
     block := input[_]
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "'aws_alb', 'aws_lb' deletion protection is active.",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_alb', 'aws_lb' deletion protection should be active.",
                 "snippet": block }
 }

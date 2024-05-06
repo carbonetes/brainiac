@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_338
 
-test_aws_backup_selection_ebs_added_in_backup_plans_of_aws_backup_passed {
+import rego.v1 
+
+test_aws_backup_selection_ebs_added_in_backup_plans_of_aws_backup_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -41,7 +43,7 @@ test_aws_backup_selection_ebs_added_in_backup_plans_of_aws_backup_passed {
 	count(result) == 1
 }
 
-test_aws_backup_selection_ebs_added_in_backup_plans_of_aws_backup_failed {
+test_aws_backup_selection_ebs_added_in_backup_plans_of_aws_backup_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

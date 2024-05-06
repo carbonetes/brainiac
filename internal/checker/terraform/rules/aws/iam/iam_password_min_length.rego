@@ -9,41 +9,49 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_009
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_iam_account_password_policy"
+	some label in block.Labels
+	label == "aws_iam_account_password_policy"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    maxPasswordLength := to_number(resource.Attributes.minimum_password_length)
-    maxPasswordLength >= 14
+	maxpasswordlength := to_number(resource.Attributes.minimum_password_length)
+	maxpasswordlength >= 14
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_iam_account_password_policy' 'minimum_password_length' is set properly.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_iam_account_password_policy' 'minimum_password_length' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_iam_account_password_policy' 'minimum_password_length' should be set to 14 or greater",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_iam_account_password_policy' 'minimum_password_length' should be set to 14 or greater",
+		"snippet": block,
+	}
 }

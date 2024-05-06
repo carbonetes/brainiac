@@ -8,43 +8,46 @@
 #   id: CB_TFAWS_211
 #   severity: LOW
 package lib.terraform.CB_TFAWS_211
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudsearch_domain"
+    some label in block.Labels 
+    label == "aws_cloudsearch_domain"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "endpoint_options"
-    resource.Blocks[_].Attributes.enforce_https == true
+    some block in resource.Blocks
+    block.Type == "endpoint_options"
+    block.Attributes.enforce_https == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Cloudsearch is using https",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "'aws_cloudsearch_domain' endpoint_options should set 'enforce_https' true",
                 "snippet": block }
 } 

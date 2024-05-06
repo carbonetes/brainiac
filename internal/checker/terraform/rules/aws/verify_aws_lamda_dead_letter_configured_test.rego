@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_106
+import rego.v1
 
-test_aws_lamda_dead_letter_configured {
+test_aws_lamda_dead_letter_configured if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -27,7 +28,7 @@ test_aws_lamda_dead_letter_configured {
 	count(result) == 1
 }
 
-test_aws_lamda_dead_letter_configured_not_set {
+test_aws_lamda_dead_letter_configured_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

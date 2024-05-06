@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_358
 
-test_aws_neptune_cluse_deletion_protected {
+import rego.v1 
+
+test_aws_neptune_cluse_deletion_protected if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_aws_neptune_cluse_deletion_protected {
 	count(result) == 1
 }
 
-test_aws_neptune_cluse_deletion_protected_disabled {
+test_aws_neptune_cluse_deletion_protected_disabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

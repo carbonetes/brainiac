@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_053
+import rego.v1
 
-test_s3_bucket_ignore_public_acls_enabled {
+test_s3_bucket_ignore_public_acls_enabled if {
     result := passed with input as[
                                 {
                                 "Type": "resource",
@@ -40,7 +41,7 @@ test_s3_bucket_ignore_public_acls_enabled {
     count(result) == 1
 }
 
-test_s3_bucket_ignore_public_acls_false {
+test_s3_bucket_ignore_public_acls_false if {
     result := failed with input as [
                                 {
                                 "Type": "resource",

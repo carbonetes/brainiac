@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_320
 
-test_aws_network_acl_nacl_attached_to_subnets_passed {
+import rego.v1
+
+test_aws_network_acl_nacl_attached_to_subnets_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -64,7 +66,7 @@ test_aws_network_acl_nacl_attached_to_subnets_passed {
 	count(result) == 1
 }
 
-test_aws_network_acl_nacl_attached_to_subnets_failed {
+test_aws_network_acl_nacl_attached_to_subnets_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

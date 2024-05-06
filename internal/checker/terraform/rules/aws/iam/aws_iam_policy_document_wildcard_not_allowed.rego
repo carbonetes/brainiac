@@ -9,44 +9,52 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_042
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "data"
-    block.Labels[_] == "aws_iam_policy_document"
+	some label in block.Labels
+	label == "aws_iam_policy_document"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
+}
+
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[blockStatements] {
-    block := input[_]
+fail contains blockstatements if {
+	some block in input
 	isvalid(block)
-    blockStatements := block.Blocks[_]
-    blockStatements.Type == "statement"
-    blockStatements.Attributes.effect  == "Allow"
-    action := blockStatements.Attributes.actions[_]
-    action == "*"
+	some blockstatements in block.Blocks
+	blockstatements.Type == "statement"
+	blockstatements.Attributes.effect == "Allow"
+	some action in blockstatements.Attributes.actions
+	action == "*"
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-    not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	blockStatements := pass[_]
-	result := { "message": "The attribute statement for actions does not contain wildcard",
-                "snippet": blockStatements}
+passed contains result if {
+	some blockstatements in pass
+	result := {
+		"message": "The attribute statement for actions does not contain wildcard",
+		"snippet": blockstatements,
+	}
 }
 
-failed[result] {
-    blockStatements := fail[_]
-	result := { "message": "The attribute for actions should not contain wildcard",
-                "snippet": blockStatements }
+failed contains result if {
+	some blockstatements in fail
+	result := {
+		"message": "The attribute for actions should not contain wildcard",
+		"snippet": blockstatements,
+	}
 }

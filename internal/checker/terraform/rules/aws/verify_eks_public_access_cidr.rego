@@ -9,53 +9,63 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_035
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_eks_cluster"
+	some label in block.Labels
+	label == "aws_eks_cluster"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    has_attribute(resource.Blocks[_].Attributes, "endpoint_public_access")
-    resource.Blocks[_].Attributes.endpoint_public_access == false
 }
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Blocks[_].Attributes, "public_access_cidrs")
-    resource.Blocks[_].Attributes.public_access_cidrs[_] != "0.0.0.0/0"
+	some blocks in resource.Blocks
+	has_attribute(blocks.Attributes, "endpoint_public_access")
+	blocks.Attributes.endpoint_public_access == false
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some blocks in resource.Blocks
+	has_attribute(blocks.Attributes, "public_access_cidrs")
+	some cidrs in blocks.Attributes.public_access_cidrs
+	cidrs != "0.0.0.0/0"
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_eks_cluster' 'endpoint_public_access' and 'public_access_cidrs' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_eks_cluster' 'endpoint_public_access' and 'public_access_cidrs' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_eks_cluster' 'endpoint_public_access' must be set to 'false' or 'public_access_cidrs' must not be set to '0.0.0.0/0'.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_eks_cluster' 'endpoint_public_access' must be set to 'false' or 'public_access_cidrs' must not be set to '0.0.0.0/0'.",
+		"snippet": block,
+	}
+}

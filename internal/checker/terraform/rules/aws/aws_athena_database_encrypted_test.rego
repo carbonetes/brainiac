@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_059
+import rego.v1
 
-test_aws_athena_database_encrypted_passed {
+test_aws_athena_database_encrypted_passed if {
     result := passed with input as [
                                    {
                                     "Type": "resource",
@@ -31,7 +32,7 @@ test_aws_athena_database_encrypted_passed {
     count(result) == 1
 }
 
-test_aws_athena_database_encrypted_failed {
+test_aws_athena_database_encrypted_failed if {
 result := failed with input as [
                                     {
                                     "Type": "resource",

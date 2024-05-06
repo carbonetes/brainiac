@@ -9,55 +9,59 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_314
 
-import future.keywords.if
+import rego.v1
 
-supported_engines := ["aurora","aurora-mysql","mysql"]
-
-isvalid(block) := true if {
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_rds_cluster"
-	block.Attributes.engine == supported_engines[_]
-} else := true if {
+	some label in block.Labels
+	label == "aws_rds_cluster"
+	supported_engines := ["aurora", "aurora-mysql", "mysql"]
+	block.Attributes.engine in supported_engines
+} else if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_rds_cluster"
+	some label in block.Labels
+	label == "aws_rds_cluster"
 	not has_attribute(block.Attributes, "engine")
 }
 
-
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-	resource.Attributes.enabled_cloudwatch_logs_exports[_] == "audit"
+	"audit" in resource.Attributes.enabled_cloudwatch_logs_exports
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "RDS Cluster audit logging is enabled for MySQL engine.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "RDS Cluster audit logging is enabled for MySQL engine.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "RDS Cluster audit logging should be enabled for MySQL engine.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "RDS Cluster audit logging should be enabled for MySQL engine.",
+		"snippet": block,
+	}
+}

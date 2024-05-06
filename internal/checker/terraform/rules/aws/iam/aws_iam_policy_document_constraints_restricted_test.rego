@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_102
+import rego.v1
 
-test_aws_iam_policy_document_constraints_restricted_passed {
+test_aws_iam_policy_document_constraints_restricted_passed if {
     result := passed with input as [
                                     {
                                     "Type": "data",
@@ -39,7 +40,7 @@ test_aws_iam_policy_document_constraints_restricted_passed {
     count(result) == 1
 }
 
-test_aws_iam_policy_document_constraints_restricted_failed {
+test_aws_iam_policy_document_constraints_restricted_failed if {
 result := failed with input as [
                                     {
                                     "Type": "data",

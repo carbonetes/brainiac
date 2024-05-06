@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_362
 
-test_s3_has_lifecycle_configuration {
+import rego.v1 
+
+test_s3_has_lifecycle_configuration if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -44,7 +46,7 @@ test_s3_has_lifecycle_configuration {
 	count(result) == 1
 }
 
-test_s3_has_no_lifecycle_configuration {
+test_s3_has_no_lifecycle_configuration if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

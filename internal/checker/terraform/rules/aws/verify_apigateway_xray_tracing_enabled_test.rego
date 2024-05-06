@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_081
+import rego.v1
 
-test_apigateway_xray_tracing_enabled {
+test_apigateway_xray_tracing_enabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_apigateway_xray_tracing_enabled {
 	count(result) == 1
 }
 
-test_apigateway_xray_tracing_not_enabled {
+test_apigateway_xray_tracing_not_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_205
+import rego.v1
 
-test_aws_api_gateway_domain_name_api_gateway_domain_utilizing_modern_security_policy_passed {
+test_aws_api_gateway_domain_name_api_gateway_domain_utilizing_modern_security_policy_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_api_gateway_domain_name_api_gateway_domain_utilizing_modern_security_po
     count(result) == 1
 }
 
-test_aws_api_gateway_domain_name_api_gateway_domain_utilizing_modern_security_policy_failed {
+test_aws_api_gateway_domain_name_api_gateway_domain_utilizing_modern_security_policy_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

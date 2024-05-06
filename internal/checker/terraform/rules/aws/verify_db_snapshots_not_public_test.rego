@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_280
 
-test_db_snapshot_not_public {
+import rego.v1 
+
+test_db_snapshot_not_public if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -21,7 +23,7 @@ test_db_snapshot_not_public {
 	count(result) == 1
 }
 
-test_db_snapshot_public {
+test_db_snapshot_public if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

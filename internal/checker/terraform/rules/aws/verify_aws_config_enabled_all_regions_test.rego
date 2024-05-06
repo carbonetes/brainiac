@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_116
+import rego.v1
 
-test_aws_config_config_enabled_all_regions {
+test_aws_config_config_enabled_all_regions if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -26,7 +27,7 @@ test_aws_config_config_enabled_all_regions {
 	count(result) == 1
 }
 
-test_aws_config_config_not_enabled_all_regions {
+test_aws_config_config_not_enabled_all_regions if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_300
 
-test_alb_desync_mode_passed {
+import rego.v1 
+
+test_alb_desync_mode_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -87,7 +89,7 @@ test_alb_desync_mode_passed {
 	count(result) == 1
 }
 
-test_alb_desync_mode_failed{
+test_alb_desync_mode_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

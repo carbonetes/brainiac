@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_286
 
-test_aws_datasync_location_object_storage_no_secrets_exposed_passed {
+import rego.v1
+
+test_aws_datasync_location_object_storage_no_secrets_exposed_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -17,7 +19,7 @@ test_aws_datasync_location_object_storage_no_secrets_exposed_passed {
 	count(result) == 1
 }
 
-test_aws_datasync_location_object_storage_no_secrets_exposed_failed {
+test_aws_datasync_location_object_storage_no_secrets_exposed_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

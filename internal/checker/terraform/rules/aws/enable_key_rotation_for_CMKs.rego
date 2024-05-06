@@ -9,43 +9,48 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_006
 
-import future.keywords.in 
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_kms_key"
+	some label in block.Labels
+	label == "aws_kms_key"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Attributes.enable_key_rotation == true
+	resource.Attributes.enable_key_rotation == true
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_kms_key' 'enable_key_rotation' is set properly.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_kms_key' 'enable_key_rotation' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_kms_key' 'enable_key_rotation' should be set to true",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_kms_key' 'enable_key_rotation' should be set to true",
+		"snippet": block,
+	}
 }

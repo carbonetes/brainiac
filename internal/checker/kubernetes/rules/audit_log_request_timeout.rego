@@ -15,50 +15,52 @@ import future.keywords.if
 resource = kubernetes.resource
 
 default flag := "--request-timeout"
+
 default pass := true
 
 validResource := ["CronJob", "Pod"]
-isValid{
-	kubernetes.is_controller
 
+isValid if {
+	kubernetes.is_controller
 }
-isValid{
+
+isValid if {
 	kubernetes.kind == validResource[_]
 }
 
 hasContainersCommand := container if {
-    container := kubernetes.containers[_]
+	container := kubernetes.containers[_]
 	kubernetes.is_apiserver(container)
 	commands := container.command[_]
 	startswith(commands, flag)
-    val := split(commands, "=")[1] 
-    re_match("^(\\d{1,2}[h])(\\d{1,2}[m])?(\\d{1,2}[s])?$|^(\\d{1,2}[m])?(\\d{1,2}[s])?$|^(\\d{1,2}[s])$", val)
+	val := split(commands, "=")[1]
+	regex.match("^(\\d{1,2}[h])(\\d{1,2}[m])?(\\d{1,2}[s])?$|^(\\d{1,2}[m])?(\\d{1,2}[s])?$|^(\\d{1,2}[s])$", val)
 } else := container if {
-    container := {}
+	container := {}
 }
 
 pass := false if {
-    count(hasContainersCommand) < 1
-    container := kubernetes.containers[_]
+	count(hasContainersCommand) < 1
+	container := kubernetes.containers[_]
 	kubernetes.is_apiserver(container)
 	commands := container.command[_]
 	startswith(commands, flag)
 }
 
 passed[result] {
-    isValid
+	isValid
 	pass
-	result := { "message": sprintf("The commands for %s - %s with the flag of '%s' is properly set.", [kubernetes.kind, kubernetes.name, flag]),
-                "snippet": hasContainersCommand}
+	result := {
+		"message": sprintf("The commands for %s - %s with the flag of '%s' is properly set.", [kubernetes.kind, kubernetes.name, flag]),
+		"snippet": hasContainersCommand,
+	}
 }
 
 failed[result] {
-    isValid
-    not pass
-	result := { "message": sprintf("The commands for %s - %s with the flag of '%s' is not set appropriately.", [kubernetes.kind, kubernetes.name, flag]),
-                "snippet": hasContainersCommand }
+	isValid
+	not pass
+	result := {
+		"message": sprintf("The commands for %s - %s with the flag of '%s' is not set appropriately.", [kubernetes.kind, kubernetes.name, flag]),
+		"snippet": hasContainersCommand,
+	}
 }
-
-
-
-

@@ -9,48 +9,54 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_247
 
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_cloudfront_response_headers_policy"
+	some label in block.Labels
+	label == "aws_cloudfront_response_headers_policy"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "security_headers_config"
-    resource.Blocks[_].Blocks[_].Type == "strict_transport_security"
-    maxAge := resource.Blocks[_].Blocks[_].Attributes.access_control_max_age_sec
-    to_number(maxAge) >= 31536000
-    resource.Blocks[_].Blocks[_].Attributes.include_subdomains == true
-    resource.Blocks[_].Blocks[_].Attributes.preload == true
-    resource.Blocks[_].Blocks[_].Attributes.override == true
+	resource.Blocks[_].Type == "security_headers_config"
+	resource.Blocks[_].Blocks[_].Type == "strict_transport_security"
+	max_age := resource.Blocks[_].Blocks[_].Attributes.access_control_max_age_sec
+	to_number(max_age) >= 31536000
+	resource.Blocks[_].Blocks[_].Attributes.include_subdomains == true
+	resource.Blocks[_].Blocks[_].Attributes.preload == true
+	resource.Blocks[_].Blocks[_].Attributes.override == true
 }
 
-
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "CloudFront response header policy enforces Strict Transport Security",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "CloudFront response header policy enforces Strict Transport Security",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "CloudFront response header policy must enforce Strict Transport Security",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "CloudFront response header policy must enforce Strict Transport Security",
+		"snippet": block,
+	}
 }

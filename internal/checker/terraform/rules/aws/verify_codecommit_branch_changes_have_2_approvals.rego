@@ -8,46 +8,48 @@
 #   id: CB_TFAWS_239
 #   severity: LOW
 package lib.terraform.CB_TFAWS_239
+import rego.v1
 
-isvalid(block) {
+isvalid(block) if{
 	block.Type == "resource"
-	block.Labels[_] == "aws_codecommit_approval_rule_template"
+    some label in block.Labels 
+    label == "aws_codecommit_approval_rule_template"
 }
 
-resource[resource] {
-	block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
-}
+} 
 
-resource[resource] {
-	block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-}
+} 
 
-pass[resource] {
-	resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-	contentPropStr := resource.Attributes.content
-	contentParsed := json.unmarshal(contentPropStr)
-	to_number(contentParsed.Statements[_].NumberOfApprovalsNeeded) >= 2
+	content_prop_str := resource.Attributes.content
+	content_parsed := json.unmarshal(content_prop_str)
+	to_number(content_parsed.Statements[_].NumberOfApprovalsNeeded) >= 2
 }
 
-fail[block] {
-	block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
 	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := {
 		"message": "AWS codecommit branch changes have at least 2 approvals.",
 		"snippet": block,
 	}
 }
 
-failed[result] {
-	block := fail[_]
+failed contains result if {
+    some block in fail
 	result := {
 		"message": "AWS codecommit branch must have at least 2 approvals.",
 		"snippet": block,

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_325
 
-test_public_facing_alb_waf_protected {
+import rego.v1
+
+test_public_facing_alb_waf_protected if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +22,7 @@ test_public_facing_alb_waf_protected {
 	count(result) == 1
 }
 
-test_public_facing_alb_not_waf_protected {
+test_public_facing_alb_not_waf_protected if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

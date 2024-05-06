@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_120
+import rego.v1
 
-test_cloudformation_sending_notifications_to_sns {
+test_cloudformation_sending_notifications_to_sns if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +25,7 @@ test_cloudformation_sending_notifications_to_sns {
 	count(result) == 1
 }
 
-test_cloudformation_sending_notifications_to_sns_not_set {
+test_cloudformation_sending_notifications_to_sns_not_set if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_306
 
-test_verify_elasticsearch_domain_cluster_config_passed {
+import rego.v1
+
+test_verify_elasticsearch_domain_cluster_config_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -34,7 +36,7 @@ test_verify_elasticsearch_domain_cluster_config_passed {
     count(result) == 1
 }
 
-test_verify_elasticsearch_domain_cluster_config_failed {
+test_verify_elasticsearch_domain_cluster_config_failed if {
     result := failed with input as [
         {
             "Type": "resource",

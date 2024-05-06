@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_034
+import rego.v1
 
-test_eks_control_plane_logging_passed {
+test_eks_control_plane_logging_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -23,7 +24,7 @@ test_eks_control_plane_logging_passed {
 	count(result) == 1
 }
 
-test_eks_control_plane_logging_failed {
+test_eks_control_plane_logging_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

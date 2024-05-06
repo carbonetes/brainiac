@@ -9,46 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_302
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_codebuild_project"
+	some label in block.Labels
+	label == "aws_codebuild_project"
 }
 
-has_attribute(key, value) {
-  _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "environment"
-    resource.Blocks[_].Attributes.privileged_mode == true
+	resource.Blocks[_].Type == "environment"
+	resource.Blocks[_].Attributes.privileged_mode == true
 }
 
-pass[resource] {
-    resource := input[_]
-    isvalid(resource)
-    not fail[resource]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	not fail[resource]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "CodeBuild project environments do not have privileged mode enabled.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "CodeBuild project environments do not have privileged mode enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "CodeBuild project environments must not have privileged mode enabled.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "CodeBuild project environments must not have privileged mode enabled.",
+		"snippet": block,
+	}
+}

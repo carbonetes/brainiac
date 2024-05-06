@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_345
 
-test_aws_cloudfront_s3_origin_config_with_oai_passed {
+import rego.v1 
+
+test_aws_cloudfront_s3_origin_config_with_oai_passed if {
 	result := passed with input as [
     {
         "Attributes": {
@@ -298,7 +300,7 @@ test_aws_cloudfront_s3_origin_config_with_oai_passed {
 	count(result) == 1
 }
 
-test_aws_cloudfront_s3_origin_config_with_oai_failed {
+test_aws_cloudfront_s3_origin_config_with_oai_failed if {
 	result := failed with input as [
     {
         "Attributes": {

@@ -8,25 +8,25 @@
 #   id: CB_TFAWS_156
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_156
+import rego.v1
 
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_dynamodb_global_table"
+	"aws_dynamodb_global_table" in block.Labels
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+	some resource in input
 	isvalid(resource)   
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "Global tables have Dynamodb point in time recovery (backup) enabled.",
                 "snippet": block }
 }

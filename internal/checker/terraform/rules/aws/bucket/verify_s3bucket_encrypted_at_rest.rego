@@ -9,62 +9,66 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_024
 
-import future.keywords.in 
+import rego.v1
 
-
-supportedResource := ["aws_s3_bucket", "aws_s3_bucket_server_side_encryption_configuration"]
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	supportedresource := ["aws_s3_bucket", "aws_s3_bucket_server_side_encryption_configuration"]
+	label in supportedresource
 }
 
-aesImplemented(block){
-	ruleBlock := block.Blocks[_]
-    ruleBlock.Type = "rule"
-    encryptionBlock := ruleBlock.Blocks[_]
-    encryptionBlock.Type = "apply_server_side_encryption_by_default"
-    encryptionBlock.Attributes.sse_algorithm == "AES256"
-}
-
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "server_side_encryption_configuration"
-    aesImplemented(block)
 }
 
-pass[resource]{
-    resource := input[_]
-	isvalid(resource)
-    aesImplemented(resource)
+aesimplemented(block) if {
+	some ruleblock in block.Blocks
+	ruleblock.Type == "rule"
+	some encryptionblock in ruleblock.Blocks
+	encryptionblock.Type == "apply_server_side_encryption_by_default"
+	encryptionblock.Attributes.sse_algorithm == "AES256"
 }
 
-fail[block] {
-    block := input[_]
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	some block in resource.Blocks
+	block.Type == "server_side_encryption_configuration"
+	aesimplemented(block)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	aesimplemented(resource)
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	passCount := pass
-    count(passCount) == 0
+	passcount := pass
+	count(passcount) == 0
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'aws_s3_bucket' 'logging' is set properly.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'aws_s3_bucket' 'logging' is set properly.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'aws_s3_bucket' 'logging' should be set",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'aws_s3_bucket' 'logging' should be set",
+		"snippet": block,
+	}
+}

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_074
+import rego.v1
 
-test_cloudfront_waf_is_set{
+test_cloudfront_waf_is_set if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -23,7 +24,7 @@ test_cloudfront_waf_is_set{
     count(result) == 1
 }
 
-test_cloudfront_waf_not_set {
+test_cloudfront_waf_not_set if {
     result := failed with input as [
                                 {
                                 "Type": "resource",

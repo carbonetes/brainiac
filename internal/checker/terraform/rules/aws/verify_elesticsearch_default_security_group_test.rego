@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_279
 
-test_verify_elesticsearch_default_security_group_passed {
+import rego.v1 
+
+test_verify_elesticsearch_default_security_group_passed if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -34,7 +36,7 @@ test_verify_elesticsearch_default_security_group_passed {
 	count(result) == 1
 }
 
-test_verify_elesticsearch_default_security_group_failed {
+test_verify_elesticsearch_default_security_group_failed if {
 	result := failed with input as [
 		{
 			"Type": "resource",

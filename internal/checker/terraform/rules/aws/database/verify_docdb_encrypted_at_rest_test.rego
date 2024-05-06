@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_083
+import rego.v1
 
-test_docdb_encrypted_at_rest {
+test_docdb_encrypted_at_rest if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_docdb_encrypted_at_rest {
 	count(result) == 1
 }
 
-test_docdb_not_encrypted_at_rest {
+test_docdb_not_encrypted_at_rest if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

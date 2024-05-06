@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_071
+import rego.v1
 
-test_aws_neptune_cluster_instance_public_restricted_passed {
+test_aws_neptune_cluster_instance_public_restricted_passed if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -21,7 +22,7 @@ test_aws_neptune_cluster_instance_public_restricted_passed {
     count(result) == 1
 }
 
-test_aws_neptune_cluster_instance_public_restricted_failed {
+test_aws_neptune_cluster_instance_public_restricted_failed if {
 result := failed with input as [
                                 {
                                 "Type": "resource",

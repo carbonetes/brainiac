@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_037
+import rego.v1
 
-test_s3_bucket_acl_private {
+test_s3_bucket_acl_private if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -20,7 +21,7 @@ test_s3_bucket_acl_private {
 	count(result) == 1
 }
 
-test_s3_bucket_acl_public {
+test_s3_bucket_acl_public if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

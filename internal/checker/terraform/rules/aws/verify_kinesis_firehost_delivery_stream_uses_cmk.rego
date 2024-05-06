@@ -8,45 +8,48 @@
 #   id: CB_TFAWS_232
 #   severity: LOW
 package lib.terraform.CB_TFAWS_232
+import rego.v1
 
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == "aws_kinesis_firehose_delivery_stream"
+    some label in block.Labels 
+    label == "aws_kinesis_firehose_delivery_stream"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+pass contains resource if {
+    some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "server_side_encryption"
-    resource.Blocks[_].Attributes.enabled == true
-    resource.Blocks[_].Attributes.key_arn != ""
-    resource.Blocks[_].Attributes.key_type == "CUSTOMER_MANAGED_CMK"
+    some block in resource.Blocks
+    block.Type == "server_side_encryption"
+    block.Attributes.enabled == true
+    block.Attributes.key_arn != ""
+    block.Attributes.key_type == "CUSTOMER_MANAGED_CMK"
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "Kinesis Firehose Delivery Streams are encrypted with CMK",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "Kinesis Firehose Delivery Streams should be encrypted with CMK",
                 "snippet": block }
 } 

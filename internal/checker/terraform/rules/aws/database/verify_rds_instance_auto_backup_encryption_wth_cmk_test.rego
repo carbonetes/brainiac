@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_274
 
-test_verify_rds_instance_auto_backup_encryption_wth_cmk_test_passed {
+import rego.v1 
+
+test_verify_rds_instance_auto_backup_encryption_wth_cmk_test_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -19,7 +21,7 @@ test_verify_rds_instance_auto_backup_encryption_wth_cmk_test_passed {
 	count(result) == 1
 }
 
-test_verify_rds_instance_auto_backup_encryption_wth_cmk_test_failed {
+test_verify_rds_instance_auto_backup_encryption_wth_cmk_test_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

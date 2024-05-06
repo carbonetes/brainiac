@@ -7,44 +7,45 @@
 #   id: CB_TFAWS_131
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_131
+import rego.v1
 
-supportedResources := ["aws_db_instance", "aws_rds_cluster"]
-
-isvalid(block){
+isvalid(block) if{
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+    some label in block.Labels 
+    supported_resource := ["aws_db_instance", "aws_rds_cluster"]
+    label in supported_resource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+    some block in pass
 	resource := concat(".", block.Labels)
 } 
-resource [resource]{
-    block := fail[_]
+resource contains resource if{
+	some block in fail
 	resource := concat(".", block.Labels)
 } 
 
-pass[resource] {
-    resource := input[_]
+pass contains resource if{
+    some resource in input
     isvalid(resource)
-    backupPeriod := to_number(resource.Attributes.backup_retention_period)
-    backupPeriod > 0
+    backup_period := to_number(resource.Attributes.backup_retention_period)
+    backup_period > 0
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+    some block in input
 	isvalid(block)
    	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+    some block in pass
 	result := { "message": "RDS instances has backup policy",
                 "snippet": block}
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+    some block in fail
 	result := { "message": "RDS instances should have set backup policy",
                 "snippet": block}
 }

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_235
+import rego.v1
 
-test_aws_batch_job_definition_batch_job_no_defined_privileged_container_passed {
+test_aws_batch_job_definition_batch_job_no_defined_privileged_container_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -23,7 +24,7 @@ test_aws_batch_job_definition_batch_job_no_defined_privileged_container_passed {
     count(result) == 1
 }
 
-test_aws_batch_job_definition_batch_job_no_defined_privileged_container_failed {
+test_aws_batch_job_definition_batch_job_no_defined_privileged_container_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

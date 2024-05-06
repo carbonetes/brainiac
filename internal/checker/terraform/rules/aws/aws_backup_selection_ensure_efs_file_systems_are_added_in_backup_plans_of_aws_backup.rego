@@ -1,6 +1,6 @@
 # METADATA
 # title: "Be certain to include Elastic File System (Amazon EFS) file systems in the backup plans of AWS Backup"
-# description: "By establishing a backup strategy, you can guarantee that your data is consistently backed up and can be restored if data is lost or corrupted."
+# description: "By establishing a backup strategy, you can guarantee that your data is consistently backed up and can be restored if data is lost or corrupted."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_selection.html
@@ -9,58 +9,64 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_351
 
-import future.keywords.if
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_backup_selection"
+	some label in block.Labels
+	label == "aws_backup_selection"
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
-
-getTheLabelForAwsEfsFileSystem[label]{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_efs_file_system"
-    label := concat(".", resource.Labels)
 }
 
-isValidResourceAttached{
-    resource := input[_]
-    resource.Type == "resource"
-    resource.Labels[_] == "aws_backup_selection"
-    resources := resource.Attributes.resources[_]
-    contains(resources, getTheLabelForAwsEfsFileSystem[_])
-}
- 
-pass[resource]{
-    resource := input[_]
-    isvalid(resource)
-    isValidResourceAttached
+getthelabelforawsefsfilesystem contains label if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_efs_file_system" in resource.Labels
+	label := concat(".", resource.Labels)
 }
 
-fail[block] {
-    block := input[_]
+is_valid_resource_attached if {
+	some resource in input
+	resource.Type == "resource"
+	"aws_backup_selection" in resource.Labels
+	some resources in resource.Attributes.resources
+	some label in getthelabelforawsefsfilesystem
+	contains(resources, label)
+}
+
+pass contains resource if {
+	some resource in input
+	isvalid(resource)
+	is_valid_resource_attached
+}
+
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Elastic File System (Amazon EFS) file systems in the backup plans of AWS Backup is included.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Elastic File System (Amazon EFS) file systems in the backup plans of AWS Backup is included.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Elastic File System (Amazon EFS) file systems in the backup plans of AWS Backup must be included.",
-                "snippet": block }
-} 
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Elastic File System (Amazon EFS) file systems in the backup plans of AWS Backup must be included.",
+		"snippet": block,
+	}
+}

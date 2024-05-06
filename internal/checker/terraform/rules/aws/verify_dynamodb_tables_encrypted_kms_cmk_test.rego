@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_111
+import rego.v1
 
-test_dynamodb_tables_encrypted {
+test_dynamodb_tables_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -29,7 +30,7 @@ test_dynamodb_tables_encrypted {
 	count(result) == 1
 }
 
-test_dynamodb_tables_not_encrypted {
+test_dynamodb_tables_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

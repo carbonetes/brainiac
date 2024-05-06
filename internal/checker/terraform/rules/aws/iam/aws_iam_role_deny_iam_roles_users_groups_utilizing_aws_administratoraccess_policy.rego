@@ -9,50 +9,55 @@
 #   severity: HIGH
 package lib.terraform.CB_TFAWS_250
 
-supportedResources := ["aws_iam_role", "aws_iam_group_policy_attachment", "aws_iam_policy_attachment", "aws_iam_role_policy_attachment", "aws_iam_user_policy_attachment", "aws_ssoadmin_managed_policy_attachment"]
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supported_resources := ["aws_iam_role", "aws_iam_group_policy_attachment", "aws_iam_policy_attachment", "aws_iam_role_policy_attachment", "aws_iam_user_policy_attachment", "aws_ssoadmin_managed_policy_attachment"]
+	label in supported_resources
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
 }
 
-resource[resource] {
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
 }
 
-fail[resource] {
-    resource := input[_]
-    isvalid(resource)
-    managed_policy_arns := resource.Attributes.managed_policy_arns
-    policy_arn := resource.Attributes.policy_arn
-    ends_with_admin_access(managed_policy_arns)
+fail contains resource if {
+	some resource in input
+	isvalid(resource)
+	managed_policy_arns := resource.Attributes.managed_policy_arns
+	ends_with_admin_access(managed_policy_arns)
 }
 
-ends_with_admin_access(arns) {
-    arn := arns[_]
-    regex.match(`.+/AdministratorAccess$`, arn)
+ends_with_admin_access(arns) if {
+	some arn in arns
+	regex.match(`.+/AdministratorAccess$`, arn)
 }
 
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Utilizing AWS AdministratorAccess policy is denied for IAM roles, users, and groups.",
-                "snippet": block }
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Utilizing AWS AdministratorAccess policy is denied for IAM roles, users, and groups.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Utilizing AWS AdministratorAccess policy must be denied for IAM roles, users, and groups.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Utilizing AWS AdministratorAccess policy must be denied for IAM roles, users, and groups.",
+		"snippet": block,
+	}
 }

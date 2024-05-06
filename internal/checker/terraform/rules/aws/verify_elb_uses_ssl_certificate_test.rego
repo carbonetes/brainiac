@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_125
+import rego.v1
 
-test_elb_uses_ssl_certificate {
+test_elb_uses_ssl_certificate if{
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -33,7 +34,7 @@ test_elb_uses_ssl_certificate {
 	count(result) == 1
 }
 
-test_elb_not_using_ssl_certificate {
+test_elb_not_using_ssl_certificate if{
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

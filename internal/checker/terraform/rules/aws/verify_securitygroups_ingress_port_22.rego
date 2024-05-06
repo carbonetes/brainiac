@@ -9,66 +9,69 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_044
 
+import rego.v1
 
-supportedResource := [
+isvalid(block) if {
+	block.Type == "resource"
+	some label in block.Labels
+	supportedresource := [
         "aws_security_group", 
         "aws_security_group_rule", 
         "aws_vpc_security_group_ingress_rule"]
-
-isvalid(block){
-	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	label in supportedresource
 }
 
-resource[resource] {
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
+}
 
-resource[resource] { 
-    block := fail[_]
+resource contains resource if {
+	some block in fail
 	resource := concat(".", block.Labels)
-} 
+}
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
-    childBlock := resource.Blocks[_]
-    childBlock.Type == "ingress"
-    childBlock.Attributes.to_port == "22"
-    childBlock.Attributes.cidr_blocks[_] == "0.0.0.0/0"
+    some childblock in resource.Blocks
+    childblock.Type == "ingress"
+    childblock.Attributes.to_port == "22"
+    some cidr in childblock.Attributes.cidr_blocks
+	cidr == "0.0.0.0/0"
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.type == "ingress"
     resource.Attributes.to_port == "22"
-    resource.Attributes.cidr_blocks[_] == "0.0.0.0/0"
+  	some cidr in resource.Attributes.cidr_blocks
+	cidr == "0.0.0.0/0"
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+    some resource in input
 	isvalid(resource)
     resource.Attributes.to_port == "22"
-    resource.Attributes.cidr_blocks[_] == "0.0.0.0/0"
+    some cidr in resource.Attributes.cidr_blocks
+	cidr == "0.0.0.0/0"
 }
 
-
-pass[block] {
-    block := input[_]
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-passed[result] {
-	block := pass[_]
+passed contains result if {
+	some block in pass
 	result := { "message": "No security groups rule allow ingress from 0.0.0.0:0 to port 22",
                 "snippet": block }
 }
 
-failed[result] {
-    block := fail[_]
+failed contains result if {
+	some block in fail
 	result := { "message": "security groups rule should not allow ingress from 0.0.0.0:0 to port 22.",
                 "snippet": block }
 } 

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_219
+import rego.v1
 
-test_verify_network_acl_unrestricted_ingress_3389_passed {
+test_verify_network_acl_unrestricted_ingress_3389_passed if {
 	result := passed with input as [
 									{
 									"Type": "resource",
@@ -27,7 +28,7 @@ test_verify_network_acl_unrestricted_ingress_3389_passed {
 	count(result) == 1
 }
 
-test_verify_network_acl_unrestricted_ingress_21_failed {
+test_verify_network_acl_unrestricted_ingress_21_failed if {
 	result := failed with input as [
 									{
 									"Type": "resource",

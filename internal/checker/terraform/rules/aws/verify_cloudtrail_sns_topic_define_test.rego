@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_231
+import rego.v1
 
-test_cloudtrail_sns_topic_defined {
+test_cloudtrail_sns_topic_defined if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +25,7 @@ test_cloudtrail_sns_topic_defined {
 	count(result) == 1
 }
 
-test_cloudtrail_sns_topic_not_defined {
+test_cloudtrail_sns_topic_not_defined if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

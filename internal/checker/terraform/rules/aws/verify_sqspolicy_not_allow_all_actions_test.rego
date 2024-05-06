@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_079
+import rego.v1
 
-test_sqspolicy_not_allow_all_actions {
+test_sqspolicy_not_allow_all_actions if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -22,7 +23,7 @@ test_sqspolicy_not_allow_all_actions {
     count(result) == 1
      }
 
-test_sqspolicy_allow_all_actions {
+test_sqspolicy_allow_all_actions if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

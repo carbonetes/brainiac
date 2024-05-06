@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_145
+import rego.v1
 
-test_verifiy_redshift_cluster_kms_key_passed {
+test_verifiy_redshift_cluster_kms_key_passed if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -21,7 +22,7 @@ test_verifiy_redshift_cluster_kms_key_passed {
     count(result) == 1
 }
 
-test_verifiy_redshift_cluster_kms_key_failed {
+test_verifiy_redshift_cluster_kms_key_failed if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

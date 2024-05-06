@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_252
 
-test_security_group_allow_ingress_port_22 {
+import rego.v1 
+
+test_security_group_allow_ingress_port_22 if {
 	result := passed with input as [
 		{
 			"Type": "provider",
@@ -58,7 +60,7 @@ test_security_group_allow_ingress_port_22 {
 	count(result) == 1
 }
 
-test_security_group_no_allow_ingress_port_22 {
+test_security_group_no_allow_ingress_port_22 if {
 	result := failed with input as [
 		{
 			"Type": "provider",

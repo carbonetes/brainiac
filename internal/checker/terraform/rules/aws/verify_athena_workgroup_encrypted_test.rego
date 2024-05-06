@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_137
+import rego.v1
 
-test_athena_workgroup_encrypted {
+test_athena_workgroup_encrypted if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -48,7 +49,7 @@ test_athena_workgroup_encrypted {
 	count(result) == 1
 }
 
-test_athena_workgroup_not_encrypted {
+test_athena_workgroup_not_encrypted if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

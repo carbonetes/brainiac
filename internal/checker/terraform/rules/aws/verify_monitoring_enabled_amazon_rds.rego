@@ -9,46 +9,53 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_109
 
-supportedResources := ["aws_db_instance", "aws_rds_cluster_instance"]
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResources[_]
+	some label in block.Labels
+	supportedresource := ["aws_db_instance", "aws_rds_cluster_instance"]
+	label in supportedresource
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
-
-
-has_attribute(key, value) {
-  _ = key[value]
 }
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+has_attribute(key, value) if {
+	value in object.keys(key)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "monitoring_interval")
+	has_attribute(resource.Attributes, "monitoring_interval")
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "'Amazon RDS instances' monitoring_interval is configured",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "'Amazon RDS instances' monitoring_interval is configured",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "'Amazon RDS instances' monitoring_interval should be configured.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "'Amazon RDS instances' monitoring_interval should be configured.",
+		"snippet": block,
+	}
 }

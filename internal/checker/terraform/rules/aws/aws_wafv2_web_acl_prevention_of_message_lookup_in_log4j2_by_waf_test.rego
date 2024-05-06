@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_183
+import rego.v1
 
-test_aws_wafv2_web_acl_prevention_of_message_lookup_in_log4j2_by_waf_passed{
+test_aws_wafv2_web_acl_prevention_of_message_lookup_in_log4j2_by_waf_passed if {
     result := passed with input as [
                         {
                         "Type": "resource",
@@ -92,7 +93,7 @@ test_aws_wafv2_web_acl_prevention_of_message_lookup_in_log4j2_by_waf_passed{
     count(result) == 1
 }
 
-test_aws_wafv2_web_acl_prevention_of_message_lookup_in_log4j2_by_waf_failed {
+test_aws_wafv2_web_acl_prevention_of_message_lookup_in_log4j2_by_waf_failed if {
     result := failed with input as [
                         {
                         "Type": "resource",

@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_009
+import rego.v1
 
-test_minimum_password_length_pass{
+test_minimum_password_length_pass if {
     result := passed with input as [
                             {
                             "Type": "resource",
@@ -27,7 +28,7 @@ test_minimum_password_length_pass{
     count(result) == 1
 }
 
-test_minimum_password_length_fail {
+test_minimum_password_length_fail if {
     result := failed with input as[
                             {
                             "Type": "resource",

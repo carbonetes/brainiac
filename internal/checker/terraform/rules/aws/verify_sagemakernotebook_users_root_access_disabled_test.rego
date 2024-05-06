@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_290
 
-test_sagemakernotebook_user_root_access_disabled {
+import rego.v1 
+
+test_sagemakernotebook_user_root_access_disabled if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +26,7 @@ test_sagemakernotebook_user_root_access_disabled {
 	count(result) == 1
 }
 
-test_sagemakernotebook_user_root_access_enabled {
+test_sagemakernotebook_user_root_access_enabled if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

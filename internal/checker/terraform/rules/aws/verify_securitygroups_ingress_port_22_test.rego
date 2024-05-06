@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_044
+import rego.v1
 
-test_security_group_from_port_22_set_properly {
+test_security_group_from_port_22_set_properly if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -31,7 +32,7 @@ test_security_group_from_port_22_set_properly {
 	count(result) == 1
 }
 
-test_security_group_from_port_22_not_set_properly {
+test_security_group_from_port_22_not_set_properly if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

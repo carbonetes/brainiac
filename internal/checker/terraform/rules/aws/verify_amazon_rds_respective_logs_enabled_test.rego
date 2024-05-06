@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_126
+import rego.v1
 
-test_amazon_rds_respective_logs_enabled {
+test_amazon_rds_respective_logs_enabled if{
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -24,7 +25,7 @@ test_amazon_rds_respective_logs_enabled {
 	count(result) == 1
 }
 
-test_amazon_rds_respective_logs_not_set {
+test_amazon_rds_respective_logs_not_set if{
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

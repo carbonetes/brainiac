@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_078
+import rego.v1
 
-test_redshift_cluster_logging_enabled {
+test_redshift_cluster_logging_enabled if {
     result := passed with input as [
                                 {
                                 "Type": "resource",
@@ -35,7 +36,7 @@ test_redshift_cluster_logging_enabled {
     count(result) == 1
 }
 
-test_redshift_cluster_logging_not_enabled {
+test_redshift_cluster_logging_not_enabled if {
     result := failed with input as [
                                 {
                                 "Type": "resource",

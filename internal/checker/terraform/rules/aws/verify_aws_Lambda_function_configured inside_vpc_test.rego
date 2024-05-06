@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_108
+import rego.v1
 
-test_aws_lamda_function_configured_inside_vpc {
+test_aws_lamda_function_configured_inside_vpc if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -32,7 +33,7 @@ test_aws_lamda_function_configured_inside_vpc {
 	count(result) == 1
 }
 
-test_aws_lamda_function_configured_inside_vpc_failed {
+test_aws_lamda_function_configured_inside_vpc_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

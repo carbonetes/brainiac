@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_313
 
-test_ec2_transit_gateway_auto_accept_passed {
+import rego.v1
+
+test_ec2_transit_gateway_auto_accept_passed if {
 	result := passed with input as [
     {
         "Type": "provider",
@@ -50,7 +52,7 @@ test_ec2_transit_gateway_auto_accept_passed {
 	count(result) == 1
 }
 
-test_ec2_transit_gateway_auto_accept_failed {
+test_ec2_transit_gateway_auto_accept_failed if {
 	result := failed with input as [
     {
         "Type": "provider",

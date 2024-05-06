@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_264
 
-test_dms_s3_defines_in_transit_encryption {
+import rego.v1 
+
+test_dms_s3_defines_in_transit_encryption if {
 	result := passed with input as [
  {
   "Type": "resource",
@@ -21,7 +23,7 @@ test_dms_s3_defines_in_transit_encryption {
 	count(result) == 1
 }
 
-test_dms_s3_not_defines_in_transit_encryption {
+test_dms_s3_not_defines_in_transit_encryption if {
 	result := failed with input as [
  {
   "Type": "resource",

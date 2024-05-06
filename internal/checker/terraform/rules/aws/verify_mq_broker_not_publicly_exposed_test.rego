@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_075
+import rego.v1
 
-test_mq_broker_not_public {
+test_mq_broker_not_public if {
     result := passed with input as [
                                     {
                                     "Type": "resource",
@@ -26,7 +27,7 @@ test_mq_broker_not_public {
     count(result) == 1
 }
 
-test_mq_broker_public {
+test_mq_broker_public if {
     result := failed with input as [
                                     {
                                     "Type": "resource",

@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_301
 
-test_verify_code_build_has_logs_passed {
+import rego.v1 
+
+test_verify_code_build_has_logs_passed if {
     result := passed with input as [
         {
             "Type": "resource",
@@ -51,7 +53,7 @@ test_verify_code_build_has_logs_passed {
     count(result) == 1
 }
 
-test_verify_code_build_has_logs_failed {
+test_verify_code_build_has_logs_failed if {
     result := failed with input as [
         {
             "Type": "resource",

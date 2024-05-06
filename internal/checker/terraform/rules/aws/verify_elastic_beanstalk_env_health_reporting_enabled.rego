@@ -9,58 +9,64 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_295
 
-import future.keywords.if
+import rego.v1
 
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_elastic_beanstalk_environment"
+	some label in block.Labels
+	label == "aws_elastic_beanstalk_environment"
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	some resource in input
 	isvalid(resource)
-    resource.Blocks[_].Type == "setting"
-    value := resource.Blocks[_].Attributes
-    validValue(value)
+	resource.Blocks[_].Type == "setting"
+	some value in resource.Blocks
+	validValue(value.Attributes)
 }
 
 validValue(attrib) := result if {
 	attrib.namespace == "aws:elasticbeanstalk:healthreporting:system"
-    attrib.name == "HealthStreamingEnabled"
-    attrib.value == true
-    result := true
+	attrib.name == "HealthStreamingEnabled"
+	attrib.value == true
+	result := true
 } else := result if {
 	attrib.namespace == "aws:elasticbeanstalk:healthreporting:system"
-    attrib.name == "HealthStreamingEnabled"
-    attrib.value == "true"
-    result := true
+	attrib.name == "HealthStreamingEnabled"
+	attrib.value == "true"
+	result := true
 } else := result if {
-    result := false
+	result := false
 }
 
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "Elastic Beanstalk environments have enhanced health reporting enabled.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "Elastic Beanstalk environments have enhanced health reporting enabled.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "Elastic Beanstalk setting must have health reporting enabled.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "Elastic Beanstalk setting must have health reporting enabled.",
+		"snippet": block,
+	}
 }

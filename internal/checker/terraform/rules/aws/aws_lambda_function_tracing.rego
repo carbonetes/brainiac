@@ -9,53 +9,56 @@
 #   severity: LOW
 package lib.terraform.CB_TFAWS_026
 
-import future.keywords.in 
+import rego.v1
 
-supportedResource := ["aws_lambda_function"]
-
-isvalid(block){
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == supportedResource[_]
+	some label in block.Labels
+	label == "aws_lambda_function"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[resource]{
-    expectedValues := ["Active", "PassThrough"]
-    resource := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains resource if {
+	expectedvalues := ["Active", "PassThrough"]
+	some resource in input
 	isvalid(resource)
-    block := resource.Blocks[_]
-    block.Type == "tracing_config"
-    has_attribute(block.Attributes, "mode")
-    block.Attributes.mode == expectedValues[_]
+	some block in resource.Blocks
+	block.Type == "tracing_config"
+	has_attribute(block.Attributes, "mode")
+	block.Attributes.mode in expectedvalues
 }
 
-
-fail[block] {
-    block := input[_]
+fail contains block if {
+	some block in input
 	isvalid(block)
-   	not pass[block]
+	not pass[block]
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "aws_lambda_function tracing is active.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "aws_lambda_function tracing is active.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "aws_lambda_function tracing should be active.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "aws_lambda_function tracing should be active.",
+		"snippet": block,
+	}
 }

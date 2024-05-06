@@ -1,6 +1,7 @@
 package lib.terraform.CB_TFAWS_032
+import rego.v1
 
-test_cloudtrail_logs_encryption_at_rest_passed {
+test_cloudtrail_logs_encryption_at_rest_passed if {
 	result := passed with input as [{
 		"Type": "resource",
 		"Labels": [
@@ -46,7 +47,7 @@ test_cloudtrail_logs_encryption_at_rest_passed {
 	count(result) == 1
 }
 
-test_cloudtrail_logs_encryption_at_rest_failed {
+test_cloudtrail_logs_encryption_at_rest_failed if {
 	result := failed with input as [{
 		"Type": "resource",
 		"Labels": [

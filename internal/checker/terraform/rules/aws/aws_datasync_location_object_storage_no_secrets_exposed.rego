@@ -9,45 +9,53 @@
 #   severity: MEDIUM
 package lib.terraform.CB_TFAWS_286
 
-isvalid(block){
+import rego.v1
+
+isvalid(block) if {
 	block.Type == "resource"
-    block.Labels[_] == "aws_datasync_location_object_storage"
+	some label in block.Labels
+	label == "aws_datasync_location_object_storage"
 }
 
-has_attribute(key, value) {
-    _ = key[value]
+has_attribute(key, value) if {
+	value in object.keys(key)
 }
 
-resource [resource]{
-    block := pass[_]
+resource contains resource if {
+	some block in pass
 	resource := concat(".", block.Labels)
-} 
-resource [resource]{
-    block := fail[_]
-	resource := concat(".", block.Labels)
-} 
+}
 
-pass[block] {
-    block := input[_]
+resource contains resource if {
+	some block in fail
+	resource := concat(".", block.Labels)
+}
+
+pass contains block if {
+	some block in input
 	isvalid(block)
-   	not fail[block]
+	not fail[block]
 }
 
-fail[resource]{
-    resource := input[_]
+fail contains resource if {
+	some resource in input
 	isvalid(resource)
-    has_attribute(resource.Attributes, "secret_key")
-    resource.Attributes.secret_key != ""
+	has_attribute(resource.Attributes, "secret_key")
+	resource.Attributes.secret_key != ""
 }
 
-passed[result] {
-	block := pass[_]
-	result := { "message": "DataSync Location Object Storage does not reveal secrets.",
-                "snippet": block}
+passed contains result if {
+	some block in pass
+	result := {
+		"message": "DataSync Location Object Storage does not reveal secrets.",
+		"snippet": block,
+	}
 }
 
-failed[result] {
-    block := fail[_]
-	result := { "message": "DataSync Location Object Storage must not reveal secrets.",
-                "snippet": block }
+failed contains result if {
+	some block in fail
+	result := {
+		"message": "DataSync Location Object Storage must not reveal secrets.",
+		"snippet": block,
+	}
 }

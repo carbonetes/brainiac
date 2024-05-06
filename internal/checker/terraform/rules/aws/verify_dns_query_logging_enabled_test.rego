@@ -1,6 +1,8 @@
 package lib.terraform.CB_TFAWS_349
 
-test_dns_query_logging_enabled {
+import rego.v1
+
+test_dns_query_logging_enabled if {
 	result := passed with input as [
 		{
 			"Type": "resource",
@@ -35,7 +37,7 @@ test_dns_query_logging_enabled {
 	count(result) == 1
 }
 
-test_dns_query_not_logging_enabled {
+test_dns_query_not_logging_enabled if {
 	result := failed with input as [
 		{
 			"Type": "resource",
