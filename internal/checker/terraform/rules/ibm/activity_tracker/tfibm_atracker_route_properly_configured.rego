@@ -1,6 +1,6 @@
 # METADATA
-# title: "Verify the route to prevent misrouting and data leakage"
-# description: "This policy verifies that the 'name' attribute of the 'ibm_atracker_route' resource adheres to the specified constraints to prevent misrouting and data leakage. This is crucial for maintaining data security and system visibility."
+# title: "Verify the route is properly configured"
+# description: "This policy verifies that the 'name' attribute of the 'ibm_atracker_route' resource adheres to the specified constraints. Improper configuration can lead to misrouting and operational issues. This is crucial for maintaining data security, system visibility, and smooth operation."
 # scope: package
 # related_resources:
 # - https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_route
