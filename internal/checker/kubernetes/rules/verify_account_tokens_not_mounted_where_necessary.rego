@@ -11,6 +11,8 @@ package lib.kubernetes.CB_K8S_042
 
 import data.lib.kubernetes
 
+resource = kubernetes.resource
+
 validResource := ["CronJob", "Pod"]
 isValid{
 	kubernetes.is_controller
